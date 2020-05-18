@@ -1,0 +1,32 @@
+isSaved();		//该对象是否存储过
+
+--------------添加数据：
+People people=new People();
+people.setSex("男");
+. . . . . .
+people.save();		//执行成功返回true
+
+
+
+     *   save()是添加一条数据，批量添加是 LitePal.saveAll(persons);
+     *   saveAsync():异步保存
+     *   saveThrows():如果希望存储失败的话就抛出异常，而不是返回一个false，那就可以使用saveThrows()方法来代替。使用saveThrows()方法来存储数据，一旦存储失败就会抛出一个DataSupportException异常，我们可以通过对这个异常进行捕获来处理存储失败的情况。
+     *   saveOrUpdate():不存在就存储，已存在就更新的需求
+
+
+-------------更新数据：
+People people=new People();
+people.setSex("女");
+people.updateAll();			//更新所有
+people.updateAll("name=?","刘凌杰");	//指定更新
+
+//int默认0，boolean默认false，String 默认为null
+//如果要更新属性为java代码默认值，则不会对其更新（系统默认这不是更新不进行改动），所以如果age属性改为0就要用：
+people.setToDefault("age");
+people.updateAll(. . .);
+
+-------------删除数据:
+//删除所有
+LitePalSupport.deleteAll();
+//指定删除
+LitePalSupport.deleteAll(People.class ,"name=?","刘凌杰");	

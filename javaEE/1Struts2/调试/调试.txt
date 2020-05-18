@@ -1,0 +1,7 @@
+导入包struts2-config-browser-plugin-2.2.3.1
+
+//可以看到当前struts配置了哪些Action可以使用
+http://127.0.0.1:8080/struts/config-browser/actionNames
+
+//JSP加入<s:debug/>可以查看对象集合
+

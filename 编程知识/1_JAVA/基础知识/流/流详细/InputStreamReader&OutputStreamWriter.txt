@@ -1,0 +1,35 @@
+InputStreamReader: 将字节流转换为字符流，是字节流通向字符流的桥梁。如果不指定字符集编码,
+该解码过程将使用平台默认的字符编码，如GBK。
+
+构造方法：
+InputStreamReader(字节输入流 [ ,charsetName编码方式 ] )
+例：try(
+	InputStream in=new FileInputStream("d:\\demo.txt");	//打开文件输入字节流到in
+	InputStreamReader isr=new InputStreamReader(in);	//转换流建立在字节流上,编码方式默认
+	BufferedReader bufr=new BufferedReader(isr);		//将转流流放入缓冲区，读出则为字节编码后的字符
+	){
+		String line=null;
+		while(  (line=bufr.readLin() )  !=null){
+		System.out.println(line);
+	}catch(IOException e){
+		e.printStackTrake();
+	}
+
+
+
+OutputStreamWriter: 将字节流转换为字符流。是字节流通向字符流的桥梁。如果不指定字符集编码，该解码过程将使用平台默认的字符编码，如GBK。
+构造方法：
+OutputStreamWriter(字节输出流 [ ,charsetName编码方式 ])
+例：
+try(
+	OutputStream out=new FileOutputStream("D:\\demo.txt");		//建立文件输出流
+	OutputStreamWriter osw=new OutpustStreamWrite(out);		//将转换流建立在输出流上
+	BufferedWriter bw=new BufferedWriter(osw);			//将缓冲区输出流建立在转换流上
+){
+	int ch=97;
+	bw.write(ch);	//在文件中为a
+}catch(IOException e){
+	e.printStackTrace();
+}
+
+

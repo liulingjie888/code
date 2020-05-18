@@ -1,0 +1,31 @@
+
+删除元素节点
+
+第一：先获取该元素的父节点 
+第二：通过父节点，调用removeChild 删除该节点
+
+父节点.removeChild(子节点)
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+删除属性节点
+
+第一：先获取该元素节点 
+第二：元素节点，调用removeAttribute删除指定属性节点
+
+元素.removeAttribute("属性名");
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+删除文本节点
+
+1. 通过childNodes[0] 获取文本节点
+注:children[0] 只能获取第一个子元素节点，不能获取文本节点
+2. 通过removeChild删除该文本节点，例：
+	父节点.removeChild(文本节点)
+
+		var textNode = 元素.childNodes[0];
+		元素.removeChild(textNode);
+
+但是这种方式比较麻烦，一般都是直接通过innerHTML设置为空即可。
+注: 通过innerHTML=""的方式，同样会导致文本子节点被删除。

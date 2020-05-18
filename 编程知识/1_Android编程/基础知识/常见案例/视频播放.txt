@@ -1,0 +1,35 @@
+权限：WRITE_EXTERNAL_STORAGE
+
+使用控件：
+VideoView:
+
+第一步（设置播放视频）：
+File file=new File( Environment.getExternalStorageDirectory() , "movie.mp4");
+videoView.setVideoPath (file.getPath() );
+
+第二步（播放）：
+if( ! videoView.isPlaying() ){
+	videoView.start();
+}
+
+第三步（暂停）：
+if(videoView.isPlaying() ){
+	videoView.pause();
+}
+
+第四步（重新播放）：
+if(videoVView.isPlaying() ){
+	videoView.resume();
+}
+
+------------------------------------
+其他方法：
+seekTo()		//跳到指定位置
+getDuration()	//获取视频的播放时长
+
+----------------------------------
+
+在onDestroy中销毁：
+super.onDestroy();
+if(videoVView !=null )
+	videoView.suspend();

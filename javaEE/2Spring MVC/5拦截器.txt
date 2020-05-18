@@ -1,0 +1,56 @@
+
+===========================实现拦截器类
+流程：
+在进入拦截器时，调用preHandle方法，
+如果返回false ，从当前的拦截器往回执行所有拦截器的afterCompletion(),再退出拦截器链;
+如果返回true,则执行下一个拦截器,直到所有的拦截器都执行完毕 ;
+然后执行最后的Controller，再从最后一个拦截器往回执行所有的postHandle()，在跳转到视图;
+整个请求结束之后从最后一个拦截器往回执行所有的afterCompletion() 。
+
+public class IndexInterceptor extends HandlerInterceptorAdapter { 
+ 
+    //进入拦截器立马调用 
+    public boolean preHandle(HttpServletRequest request,HttpServletResponse response, Object handler){
+        System.out.println("preHandle(), 在访问Controller之前被调用"); 
+        return true;
+         
+    } 
+    //访问视图之前被调用（从最后一个开始调用）,可以设置ModelAndView
+    public void postHandle(HttpServletRequest request,HttpServletResponse response, Object handler, ModelAndView modelAndView) { 
+        System.out.println("postHandle(), 在访问Controller之后,这里可以注入一个时间到modelAndView中，用于后续视图显示");
+        modelAndView.addObject("date","由拦截器生成的时间:" + new Date());
+    } 
+    //整个请求结束之后，（从最后一个开始调用）
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) { 
+        System.out.println("afterCompletion(), 在访问视图之后被调用"); 
+    } 
+}
+
+=====================配置springmvc-servlet.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/page/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+ 
+    <bean id="simpleUrlHandlerMapping"
+        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/index">indexController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="indexController" class="controller.IndexController"></bean>
+
+    <mvc:interceptors>   
+        <mvc:interceptor>   
+            <mvc:mapping path="/index"/> 	//拦截路径
+            <!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 --> 
+            <bean class="interceptor.IndexInterceptor"/>     
+        </mvc:interceptor> 
+    </mvc:interceptors>
+</beans>

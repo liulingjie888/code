@@ -1,0 +1,23 @@
+pageContext隐式对象 = javax.servlet.jsp.PageContext;
+
+它代表当前JSP页面的运行环境，并提供一系列用于获取其他隐式对象的方法：
+getOut();
+getPage();
+getRquest();
+getResponse();
+getSession();
+getException();
+getServletConfig();
+getServletContext();
+
+它也可以储存数据：
+setAttribute("名称" , Object 值 , int scope);
+Object getAttribute("名称" , int scope);
+removeAttribute("名称" [ ,int scope ] );
+Object findAttribute("名称");			//全范围查找，查找顺序：page,request,session,application
+
+scope表示pageContext的作用范围
+pageContext.PAGE_SCOPE  :页面范围
+pageContext.REQUEST_SCOPE  :请求范围
+pageContext.SESSION_SCOPE  :会话范围
+pageContext.APPLICATION_SCOPE  :Web应用程序范围(ServletContext对象)

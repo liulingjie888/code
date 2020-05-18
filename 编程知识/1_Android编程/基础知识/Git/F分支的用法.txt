@@ -1,0 +1,16 @@
+//创建分支
+git  branch  version1.0
+
+//删除分支
+git  branch -D version1.0
+
+//查看自己所在分支
+git  branch
+
+//切换分支
+git checkout  version1.0
+
+//合并分支提交的代码
+git  checkout master	//切换到分支master
+git  merge version1.0	//合并version1.0的代码
+

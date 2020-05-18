@@ -1,0 +1,33 @@
+service mysql start		//开启
+service mysql stop		//停止
+service mysql restart		//重启
+
+------------链接命令（可选，默认本地连接）
+mysql -u 用户名 -p密码 -h 服务器IP地址 -P 服务器端MySQL端口号 -D 数据库名
+------------执行SQL文件
+source /liulingjie/mysql.sql;
+
+------------修改密码
+use mysql;
+set password for root@localhost = password('123456');  #本地登录密码
+set password for root@'%' = password('123456');        #远程登录密码
+flush privileges; 
+或
+use mysql; 
+update user set password=password('123') where user='root' and  host='localhost'; 
+flush privileges; 
+或
+SET PASSWORD = '123456';
+或
+ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
+
+-------------设置一下密码长度和密码安全等级
+use mysql;
+set global validate_password_length=1;
+set global validate_password_policy=0;
+
+---------------授权远程登入
+首先/etc/mysql/mysql.conf.d/mysqld.cnf注释掉bind-address = 127.0.0.1，然后执行下面命令：
+grant all on *.* to root@'%' identified by '123456' with grant option;
+flush privileges;
+解释：grant all on 任何数据库 to '远程登入名'@'指定ip' identified by '密码'

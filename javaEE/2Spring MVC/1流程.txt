@@ -1,0 +1,71 @@
+
+=======================配置web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        
+        [<init-param>					//可以指定配置文件
+      		<param-name>contextConfigLocation</param-name>
+      		<param-value>classpath:springmvc-servlet.xml</param-value>
+    	</init-param>]
+    	
+        <load-on-startup>1</load-on-startup>		//表示servlet被加载的先后顺序。值为负数或者没有设置，则容器会当Servlet被请求时再加载。
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <filter> 
+        <filter-name>CharacterEncodingFilter</filter-name> //过滤器中统一编码
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class> 
+        <init-param> 
+            <param-name>encoding</param-name> 
+            <param-value>utf-8</param-value> 
+        </init-param> 
+    </filter> 
+    <filter-mapping> 
+        <filter-name>CharacterEncodingFilter</filter-name> 
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping> 
+</web-app>
+
+=======================在WEB-INF目录下创建 springmvc-servlet.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="simpleUrlHandlerMapping"
+        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/index">indexController</prop>	//表示访问路径/index会交给id=indexController的bean处理
+            </props>
+        </property>
+    </bean>
+    <bean id="indexController" class="controller.IndexController"></bean>		//给控制器取别名
+</beans>
+
+=====================控制类 IndexController实现接口Controller ，提供方法handleR equest处理请求
+public class IndexController implements Controller {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView("index.jsp");		//表示视图是index.jsp（默认在webapp下）
+        mav.addObject("message", "Hello Spring MVC");
+        return mav;
+    }
+}
+
+原理：
+1. 用户访问 /index
+2. 根据web.xml中的配置 所有的访问都会经过DispatcherServlet
+3. 根据配置文件springmvc-servlet.xml ，访问路径/index
+会进入IndexController类
+4. 在IndexController中指定跳转到页面index.jsp，并传递message数据
+5. 在index.jsp中显示message信息
+

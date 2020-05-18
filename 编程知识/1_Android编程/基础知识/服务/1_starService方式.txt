@@ -1,0 +1,50 @@
+每个服务只会存在一个实例，启动服务后再次启动只会执行onStartCommond方法，而且是UI主线程执行所以不能有耗时操作，销毁要调用stopService或自身方法调用stopSelf()且没有绑定
+
+android.app.Service;
+android.os.IBinder;
+android.support.annotation.Nullable;
+
+startService方式启动 ( 服务状态与开启者的状态没有关系 ）
+	//启动
+	Intent intent=new Intent(this,MyService.class);
+	startService(intent);
+	//关闭
+	Intent intent=new Intent(this,MyService.class);
+	stopService(intent);
+
+方法：
+	//绑定服务用的
+	public IBinder onBind(Intent intent){
+		reurn null;
+	}
+	//创建时调用
+	public void onCreate(){
+	}
+	//服务启动时执行（这里用于执行操作）
+	public int onStartCommand(Intent intent,int flags ,int startId){		
+	}
+	//服务销毁时调用
+	public void onDestroy(){
+	}
+
+-----------------------------
+如果要自行关闭服务，在方法中调用stopSelf()即可
+
+
+----------------------开启前台服务
+在onCreate 方法中：
+Intent  intent=new Intent(this,MainActivity.class);
+PendingIntent pi=PendingIntent.getActivity(this,0,intent,0);
+Notification  notification=new NotificationCompat.Builder(this)
+	.setContentTitle("")
+	.setContentText("")
+	.setWhen(System.currentTimeMillis() )
+	.setSmallIcon(R.mip.ic_launcher)
+	.setLargeIcon(BitmapFactory.decodeResource( getResources() ,R.mipmap.ic_launcher) )
+	.setContentIntent(pi)
+	.build();
+//开启
+startForeground(1,notification);
+
+//关闭
+stopForeground(true);

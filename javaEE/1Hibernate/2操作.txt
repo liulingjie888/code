@@ -1,0 +1,66 @@
+SessionFactory sf = new Configuration().configure().buildSessionFactory();
+Session s = sf.openSession();
+
+
+
+==========================插入
+Product p = new Product();
+p.setName("iphone"+i);
+p.setPrice(i);
+s.save(p);
+
+==========================删除
+Product p =(Product) s.get(Product.class, 5);
+s.delete(p);
+
+==========================修改
+Product p =(Product) s.get(Product.class, 6);
+p.setName("iphone-modified");
+s.update(p);
+
+
+==========================查询
+load方式是延迟加载，只有属性被访问的时候才会调用sql语句
+get方式是非延迟加载，无论后面的代码是否会访问到属性，马上执行sql语句
+对于id不存在的对象的处理，get方式会返回null;load方式会抛出异常.
+
+=========get方式：
+Product p =(Product) s.get(Product.class, 6);	//6为id的值
+=========load方式：
+Product p2 = (Product) s.load(Product.class, 2);
+
+=========HQL（Hibernate Query Language）是hibernate专门用于查询数据的语句：
+String name = "iphone";
+Query q =s.createQuery("from Product p where p.name like ?");
+q.setString(0, "%"+name+"%");		//下标从0开始
+List<Product> ps= q.list();
+注意：
+使用hql的时候，用的是类名Product,而不是表名product_;不需要在前面加 select *
+
+=========Criteria 完全是 面向对象的方式在进行数据查询，将不再看到有sql语句的痕迹
+String name = "iphone";
+Criteria c= s.createCriteria(Product.class);
+
+c.add(Restrictions.like("name", "%"+name+"%"));	//like条件设置
+c.setFirstResult(2);				//第3条记录开始
+c.setMaxResults(5);				//显示5行
+
+List<Product> ps = c.list();
+
+=========通过标准SQL语句进行查询
+String sql = "select * from product_ p where p.name like '%"+name+"%'";
+Query q= s.createSQLQuery(sql);
+List<Object[]> list= q.list();			//Object表示查询的字段值
+
+//N+1方式：然后再通过it.next()查询每一个对象，如果这个对象在缓存中，就直接从缓存中取，否则就从数据库中获取
+Iterator<Product> it= q.iterate();
+while(it.hasNext()){
+    Product p =it.next();
+    System.out.println(p.getName());
+}
+//查询总数
+String name = "iphone";
+Query q =s.createQuery("select count(*) from Product p where p.name like ?");
+q.setString(0, "%"+name+"%");
+long total= (Long) q.uniqueResult();
+

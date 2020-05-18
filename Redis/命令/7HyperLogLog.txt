@@ -1,0 +1,4 @@
+==========================Redis HyperLogLog 命令
+pfadd key element [element ...]			#添加指定元素到 HyperLogLog 中。
+pfcount key [key ...]				#返回给定 HyperLogLog 的基数估算值（去重复后的总个数）
+pfmerge destkey sourcekey [sourcekey ...]	#将多个 HyperLogLog 合并到第一个 HyperLogLog 

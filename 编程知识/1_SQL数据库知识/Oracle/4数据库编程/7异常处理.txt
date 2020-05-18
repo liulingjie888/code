@@ -1,0 +1,23 @@
+异常：
+内部异常
+用户自定义异常
+
+----------------语句
+'''sql
+declare
+	异常名  exception			//用户自定义异常
+begin
+	过程及SQL语句;
+	raise  异常名;			//抛出异常
+exception
+	when 内部异常或自定义异常名称 then	//处理异常
+		执行;
+	. . . . . .
+	when others then			//其他异常处理
+		执行;
+end;
+/
+'''
+-----抛出异常的函数
+//true为添加到错误对，false 为覆盖错误对（默认）
+[raise_application_error(错误码(-20000,-20999),错误信息(最多28byte)[, true | false]);]

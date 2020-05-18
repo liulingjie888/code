@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+void DisplayMenu()
+{
+	printf("*******学生成绩管理系统*********\n");
+	printf("      1.输入学生成绩。\n");
+	printf("      2.求学生平均成绩。\n");
+	printf("      3.求最高分。\n");
+	printf("      4.学生成绩查询。\n");
+	printf("      5.将学生成绩由高到低进行排序。\n");
+	printf("      6.退出。\n");
+	printf("*********************************\n");
+}
+void InputScore()
+{
+}
+void AverageScore()
+{
+}
+void MaxScore()
+{
+}
+void QueryScore()
+{
+}
+void SortScore()
+{
+}
+
+int main()
+{
+	int num;
+	do
+	{
+		DisplayMenu();
+		printf("请输入想执行的操作：\n");
+		scanf("%d",&num);
+		switch(num)
+		{
+		case 1:InputScore();break;
+		case 2:AverageScore();break;
+		case 3:MaxScore();break;
+		case 4:QueryScore();break;
+		case 5:SortScore();break;
+		case 6:exit(0);
+		default:printf("输入了错误的数字！");
+		}
+
+
+	}while(1);
+
+}

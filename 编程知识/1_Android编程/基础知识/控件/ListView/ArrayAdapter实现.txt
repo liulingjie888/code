@@ -1,0 +1,57 @@
+
+-----------------写一个继承ArrayAdapter类：
+
+public class MyAdapter extends ArrayAdapter<T> {
+    //子项目布局文件ID
+    private int resourceId;     
+
+    //构造函数
+    //context为activity类，textViewResourceId为子项目布局文件，objects为一组对象用来给ListView设置数据
+    public MyAdapter(Context context , int TextViewResourceId , List<T> objects){
+        super(context,TextViewResourceId,objects);
+        resourceId=TextViewResourceId;
+    }
+
+
+    //position代表第几个选项，convertView可以用来缓存选项布局文件，这样就不用每次来加载选项布局文件
+    @Override
+    public View getView(int position,View convertView,ViewGroup parent) {
+        // 从objects数组列表中获取当前项数据
+        T item=getItem(position);     
+
+        //加载activity获取子项目的布局文件,第一次加载选项布局会缓存到convertView ,
+        //也可以用view.setTag(自定义对象)和getTag()来获取0-保存控件,提高效率
+        View view;
+        if(convertView==null)
+	view=LayoutInflater.from(getContext()).inflate(resourceId,parent,false);  
+        else
+	view=convertView;
+
+        //获取子项目布局文件的各个控件
+        TextView textView=(TextView)view.findViewById(R.id.item);  
+        。。。。。。     
+
+        //根据Item对象的属性值设置好各个控件的值
+        textView.setText( item.getName() );     
+        。。。。。。        
+        return view;        //返回子布局文件
+    }
+}
+
+---------------------------Activity实现--------------------
+ListView  listView=(List)findViewById(R.id.list);
+List<T>  list=ArrayList<>();			//数据对象
+
+MyAdapter adapter=new MyAdapter(Activity.this,R.layout.item_layout, list);
+listView.setAdapter(adapter);
+
+//监听器
+listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+	public void onItemClick( AdapterView<?> parent, View view, int position,long id){
+		list.get(position);		//根据所点下标获取对象数据
+	}
+}
+
+-----------------------其他方法
+//更新列表
+adapter.notifyDataSetChanged();

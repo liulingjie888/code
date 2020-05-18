@@ -1,0 +1,43 @@
+序列分先进先出FIFO,先进后出FILO 
+
+单向链表List
+与ArrayList一样，LinkedList也实现了List接口，诸如add,remove,contains等等方法。
+
+------------------------------------特有方法-----------------------------------
+
+-------------增加：
+addFirst(E e);		//在链表头部插入一个元素
+push(E e);	
+offerFirst(E e);		
+addLast(E e);		//在链表尾部添加一个元素
+offer(E e);	
+offerLast(E e);
+
+
+--------------
+删除：
+
+
+remove();			//移除头元素  
+
+remove( int index | E e);	//移除指定元素
+
+---------------获取：
+get(int index);		//获取指定元素
+getFirst()；		//获取头元素
+peek();
+peekFirst();
+element()；
+getLast()；		//获取末尾元素
+peekLast();
+
+---------------获取和删除：
+pollFirst()：		//获取并删除头元素
+removeFirst();
+poll();
+pop();
+pollLast();			//获取并删除末尾元素
+removeLast();
+-----------------
+
+Iterator<E>  descendingIterator();	//返回反向顺序的迭代器

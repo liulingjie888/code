@@ -1,0 +1,12 @@
+权限：
+<uses-permission  android:name="android.permission.READ_CONTATS" />
+
+----------
+
+cursor=getContentResolver().query( ContactsContract.CommonDataKinds.Phone.CONTENT_URI, nulll ,null ,null ,null)
+if(cursor !=null){
+	//联系人姓名
+	cursor.getString(cursor.getColumnIndex (Contacts.CommonDataKinds.Phone.DISPLAY_NAME ));
+	//联系人电话
+	cursor.getString(cursor.getColumnIndex (Contacts.CommonDataKinds.Phone.NUMBER));
+}

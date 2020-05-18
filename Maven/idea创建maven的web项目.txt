@@ -1,0 +1,13 @@
+
+1.创建一个maven项目，类型选择maven-archetype-webapp
+
+2.在src下创建test目录，再在test目录下创建java和resources目录；
+在src/main下创建java和resources目录
+
+3.进入Project Structure,点击左侧Modules
+点击/src/main/java，再点击上面的Sources将其设为Source Folders
+点击/src/main/resources，再点击上面的Resources将其设为Resources Folders
+点击/src/test/java，再点击上面的Tests将其设为Test Source Folders
+点击/src/test/resources，再点击上面的Test Resources将其设为Test Resources Folders
+
+4.点击左侧Artifacts，点加号选择web application: exploded，在选择From Modules,再选择自己的项目，ok。

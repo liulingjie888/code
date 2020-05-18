@@ -1,0 +1,6 @@
+ByteArrayInputStream in = new ByteArrayInputStream(str.getBytes());  
+
+-----------------------
+ByteArrayInputStream out = new ByteArrayOutputStream();
+//将内存流写出到os流中
+out.writeTo(OutputStream os);

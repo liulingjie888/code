@@ -1,0 +1,11 @@
+创建一个匿名类实现ActionListener接口，当按钮被点击时，actionPerformed方法就会被调用
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+组件.addActionListener(new ActionListener() {
+            // 当按钮被点击时，就会触发 ActionEvent事件
+            // actionPerformed 方法就会被执行
+            public void actionPerformed(ActionEvent e) {
+                l.setVisible(false);
+            }
+        });

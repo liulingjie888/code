@@ -1,0 +1,42 @@
+type属性
+"text"		文本款
+"password"	密码框
+"radio"		单选框
+"checkbox"	复选框  	//有多个选项是，每个选项的name设置成"名称[]",则处理的文件中$_POST["名称"]获取到的是选中的值组成的数组
+"file"		文件域
+"submit"		提交按钮
+"image"		图像提交按钮
+"reset"		重置按钮
+"button"		普通按钮
+"hidden"		隐藏域
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+HTML5新增
+
+"url"		网址输入框
+"email"		Email输入框
+
+"number"		数字输入框
+	<input type="number" min="0" max="100" step="1" value="1998"/>
+"range"		范围滑动框
+	<input type="range" min="0" max="100" value="10"/>
+
+"search"		搜索输入框
+
+"date"		日期选择框
+"time"
+"month"
+"week"
+"datetime"
+"datetime-local"
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+autofocus="ture"		自动获取焦点
+pattern="正则表达式"	验证内容是否符合正则表达式
+placeholder="默认内容"	设置文本输入框默认值
+required="true"或"required"	是否坚持文本框输入的内容为空
+novalidate="true"		是否验证文本框中的内容	
+autocomplete-"on"		使form或input具有自动完成功能
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

@@ -1,0 +1,97 @@
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
+1.主题设为没有actionBar
+
+2.布局文件：
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+</FrameLayout>
+
+</FrameLayout>
+
+3.在res/men/创建Menu resource file文件：
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/backup"
+        android:icon="@drawable/tv"
+        android:title="Backup"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/choice"
+        android:title="Backup"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/globe"
+        android:title="Backup"
+        app:showAsAction="ifRoom"/>
+
+</menu>
+
+其中 app:showAsAction属性：
+always  表示永远显示在Toolbar中，控件不够不显示
+ifRoom  表示空间足够的情况下在Toolbar显示，否则在右上角。。。下显示
+newver  表示显示在右上角。。。下
+
+4.Activity下：
+重写:
+    //设置菜单栏
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar,menu);		
+        return true;		//true显示
+    }
+
+    //点击事件
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.backup:
+                Toast.makeText(this, "back", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.delete:
+                Toast.makeText(this, "delete", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.settings:
+                Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
+
+------------------------------------------------------其他
+1.如果要显示默认返回按钮（它的ID是android.R.id.home）：
+onCreate方法中：
+       //设置返回导航显示
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);			//设置导航
+        ActionBar actionBar =getSupportActionBar(); 	//获取菜单栏
+        actionBar.setDisplayHomeAsUpEnabled(true);	//设置显示返回键
+        actionBar.setTitle("");				//设置无标题
+        actionBar.setHomeAsUpIndicator(R.drawable.boy); 	//设置图片
+
+
+2.Toolbar直接添加就行：
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+app:navigationIcon="@mipmap/arrow"
+android:navigationIcon="@mipmap/arrow"

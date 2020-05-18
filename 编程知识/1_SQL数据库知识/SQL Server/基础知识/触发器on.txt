@@ -1,0 +1,43 @@
+DML 触发器
+
+create trigger 触发器名
+on 表名 | 视图名
+for | after | instead of
+insert ,update ,delete
+as
+        语句块
+
+ps: for ,after 几乎一样，在执行insert等语句后触发
+     instead of 在执行insert等语句值前执行，通常代替他们执行；
+
+插入表时，插入后插入的内容生成一个inserted表
+更新表时，先删指定内容，再插入指定内容，删除的指定内容会生成一个deleted表，插入的指定内容会生成一个inserted表
+例：
+create trigger
+on c
+after  delete,insert
+as
+   begin
+         if(update(cno))
+             update sc set cno=(select cno from inserted)
+             where cno=(select con from deleted)
+         else
+             delete from sc
+             where cno in(select cno from deleted)
+   end 
+
+
+DDL触发器
+create  trigger   触发器名
+on  all server | database
+for | after
+事件类型（create_table | alter_table | drop_table | create_user | create_view ）
+as
+        语句块
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+rollback   返回到上一次操作
+exec sp_hleptext  触发器名    
+alter ~       修改触发器
+drop  trigger  触发器名
+

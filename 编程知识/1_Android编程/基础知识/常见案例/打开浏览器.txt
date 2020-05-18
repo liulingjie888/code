@@ -1,0 +1,6 @@
+浏览器打开
+. . . .
+//android.intent.action.VIEW是一个Android系统内置的动作
+intent.setAction("android.intent.action.VIEW");
+intent.setData(Uri.parse("http://www.baidu.com"));
+startActivity(intent);

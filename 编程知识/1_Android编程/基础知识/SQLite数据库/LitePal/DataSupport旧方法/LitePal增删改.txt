@@ -1,0 +1,23 @@
+--------------添加数据：
+People people=new People();
+people.setSex("男");
+. . . . . .
+people.save();		//执行成功返回true
+
+
+-------------更新数据：
+People people=new People();
+people.setSex("女");
+people.updateAll();			//更新所有
+people.updateAll("name=?","刘凌杰");	//指定更新
+
+//int默认0，boolean默认false，String 默认为null
+//如果要更新属性为java代码默认值，则不会对其更新（系统默认这不是更新不进行改动），所以如果age属性改为0就要用：
+people.setToDefault("age");
+people.updateAll(. . .);
+
+-------------删除数据:
+//删除所有
+DataSupport.deleteAll();
+//指定删除
+DataSupport.deleteAll(People.class ,"name=?","刘凌杰");	

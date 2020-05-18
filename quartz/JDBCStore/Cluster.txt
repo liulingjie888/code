@@ -1,0 +1,20 @@
+
+这所谓的Quartz集群，是指在 基于数据库存储 Quartz调度信息 的基础上， 有多个一模一样的 Quartz 应用在运行。
+当某一个Quartz 应用重启或者发生问题的时候， 其他的Quartz 应用会 借助 数据库这个桥梁探知到它不行了，从而接手把该进行的Job调度工作进行下去。
+以这种方式保证任务调度的高可用性，即在发生异常重启等情况下，调度信息依然连贯性地进行下去，就好像 Quartz 应用从来没有中断过似的。
+
+=============操作
+quartz.properties 在原来的基础上，增加4行：
+
+#开启集群
+org.quartz.jobStore.isClustered = true
+ 
+#要进行集群，多个应用调度名称 instanceName 应该是一样的
+org.quartz.scheduler.instanceName = quartzScheduler
+ 
+#要进行集群，多个应用调度id instanceId 必须不一样，这里使用AUTO，就会自动分配不同的ID。 目测是本机机器名称加上时间戳
+org.quartz.scheduler.instanceId = AUTO
+
+#每个一秒钟去数据库检查一下，以在其他应用挂掉之后及时补上
+org.quartz.jobStore.clusterCheckinInterval = 1000
+ 

@@ -1,0 +1,72 @@
+import javax.servlet.ServletContext;
+获取web应用的ServletContext;
+getServletContext();
+
+SerletContext在每个Web应用的都是惟一的，它在Servlet容器启动时创建，
+（1）Web应用配置初始化
+（2）实现了不同Servlet的数据共享
+（3）读取Web应用下的资源文件
+
+方法：
+（1）Web应用配置初始化
+//获取web.xml中<context-param>所有<param-name>（用于web启动初始化参数）
+Enumeration  getInitParameterNames()；
+
+//获取web.xml中<context-param>中<param-name>内容为name的<param-value>的内容
+String getInitParameter(String  name)；
+
+（2）实现了不同Servlet的数据共享
+//获取所有域属性名（域属性是给所有Servlet共享数据的）
+Enumeration  getAttributeNames()；
+//获取指定域属性名的值
+Object getAttribute(String name)；
+//删除指定域属性名
+void removeAttribute(String name)；
+//重新设置域属性名的值
+void setAttribute(String name,Object obj)；
+
+（3）读取Web应用下的资源文件
+//返回一个Set集合，其中包含path目标文件下的所有文件路径
+//例path="/WEB-INF/classes/itcast.properties"为相对路径，“/”表示web应用目录
+Set getResourcePaths(String path);
+
+//返回目标文件在服务器文件系统的绝对路径
+String getRealPath(String path);
+
+//返回映射到目标文件的URL对象
+URL getResource(String path);
+
+//返回映射到目标文件的InputStream输入流对象
+InputStream getResourceAsStream(String path)
+-------------------------------------------------------------
+
+例（HttpServlet子类中）：
+（1）
+//获取ServletContext对象
+ServletContext  context=this.getServletContext();
+Enumeration<String>  paramNames=context.getInitParameterNames();
+//获取所有参数信息
+while(paramNames.hasMoreElements()){
+	String name=paramNames.nextElement();
+	String value=context.getInitParameter(name);
+}
+（2）
+//设置域属性和获取属性
+context.setAttribute("data","哈哈");
+String data=(String)context.getAttribute("data");
+（3）
+//获取文件的输入流
+InputStream  in=context.getResourceAsStream("/WEB-INF/classes/itcast.properties");
+-------------------------------------------------------------
+
+web.xml部分相关代码：
+<web-app>
+	<context-param>
+		<param-name>参数名</param-name>
+		<param-value>值</param-value>
+	</context-param>
+	<servlet>
+		. . . . . .
+	</servlet>
+	. . . . . .
+</web-app>

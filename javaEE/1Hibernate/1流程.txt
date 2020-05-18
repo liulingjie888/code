@@ -1,0 +1,72 @@
+====================1.创建javaBean
+  
+public class Product {
+    int id;
+    String name;
+    float price;
+    .....
+}
+
+====================2.和javaBean同包下创建配置文件Product.hbm.xml
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping package="com.how2java.pojo">
+    <class name="Product" table="product_">  	//table值为对应数据库的表名
+        <id name="id" column="id">		//表示id为表的id
+	     <!--version标签必须紧挨着id后面  -->
+            [<version name="version" column="ver" type="int"></version>]	//乐观锁（做同样的业务就会抛出异常，提示该行已经被其他事务删除或者修改过了，本次修改无法生效）
+            <generator class="native"/>		//表示id的自增长方式采用数据库的本地方式      
+                [<param name="sequence">bigsword.category_sequence</param>]	//oracle数据库制定增长方式
+            </generator>
+        </id>
+        <property name="name" />
+        <property name="price" />
+    </class>
+</hibernate-mapping>
+
+====================3.src目录下参见hibernate.cfg.xml
+
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+       "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">admin</property>
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>	//这表示使用MYSQL方言。
+        <property name="current_session_context_class">thread</property>	//Hibernate事务管理方式每个线程一个事务
+        <property name="show_sql">true</property>				//在控制台显示执行的sql语句
+        <property name="hbm2ddl.auto">update</property>				//自动更新数据库的表结构
+        <mapping resource="com/how2java/pojo/Product.hbm.xml" />		//Hibernate会去识别Product这个实体类
+    </session-factory>
+</hibernate-configuration>
+
+====================4.使用流程
+1. 获取SessionFactory
+2. 通过SessionFactory 获取一个Session
+3. 在Session基础上开启一个事务
+4. 通过调用Session的save方法把对象保存到数据库
+5. 提交事务
+6. 关闭Session
+7. 关闭SessionFactory
+
+SessionFactory sf = new Configuration().configure().buildSessionFactory();
+Session s = sf.openSession();		//每次都会得到一个新的Session对象
+[ Session s = sf.getCurrentSession ]	//同一个线程里，每次获取的都是相同的Session
+s.beginTransaction();
+
+Product p = new Product();
+p.setName("iphone7");
+p.setPrice(7000);
+s.save(p);
+ 
+s.getTransaction().commit();
+s.close();
+sf.close();

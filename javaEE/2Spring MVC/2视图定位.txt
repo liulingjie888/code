@@ -1,0 +1,45 @@
+=======================修改springmvc-servlet.xml，增加
+ 
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+ 
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/page/" />	//其作用是把视图约定在 /WEB-INF/page/*.jsp 这个位置
+        <property name="suffix" value=".jsp" />			//视图后缀
+    </bean>
+ 
+    <bean id="simpleUrlHandlerMapping"
+        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/index">indexController</prop>	//将该路径交给该控制器处理
+            </props>
+        </property>
+    </bean>
+    <bean id="indexController" class="controller.IndexController"></bean>
+</beans>
+
+========================实现控制类 IndexController
+public class IndexController implements Controller {
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView("index");		//默认添加视图后缀.jsp
+        mav.addObject("message", "Hello Spring MVC");
+	mav.addObject("product",product);
+        return mav;
+    }
+}
+
+========================传参
+@Controller
+public class ProductController {
+ 
+    @RequestMapping("/addProduct")
+    //参数表示会跟据请求参数名将数据封装到product中
+    public ModelAndView add(Product product,HttpSession session) throws Exception{ 
+        ModelAndView mav = new ModelAndView("redirect:/index");		//表示客户端的跳转
+        return mav;
+    }
+}
+

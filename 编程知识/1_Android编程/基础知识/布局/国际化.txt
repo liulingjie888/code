@@ -1,0 +1,21 @@
+创建strings.xml文件
+	New->New Resource File->Locate-> >> ->zh:Chines->CN:China		//中国
+	New->New Resource File->Locate-> >> ->en:English->US:United States	//美国
+
+
+在res/values/目录下创建strings.xml文件，在文件中<resources>标签中加入
+				<string name="名字">文本值</string>
+				//字符数组，在下拉列表框中用到
+				<string-array name="string数组名字">
+					<item>文本</item>
+					<item>文本</item>
+					. . . 
+				</string-array>
+
+在布局文件text属性调用:	 android:text="@string/名字"
+			android:entries="@array/string数组名字"
+
+Activity文件中获取:		getString(R.string.名字)
+			//字符数组
+			Resources res =getResources();
+　　			String[] city=res.getStringArray(R.array.string数组名字);

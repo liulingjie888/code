@@ -1,0 +1,65 @@
+Maven依赖：
+   <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.3.1</version>
+      <scope>test</scope>
+    </dependency>
+
+=============================TestCase1.java（放在测试文件test中）
+import org.junit.*;
+import junit.framework.Assert;
+import study.SumUtil;
+public class TestCase1 {
+
+    @BeforeClass	//在测试之前执行一次
+    public static void beforeClass(){
+        System.out.println("1beforeClass");
+    }
+
+    @AfterClass	//在测试之后执行一次
+    public static void afterClass(){
+        System.out.println("1afterClass");
+    }
+
+    @Before	//在每个@Test执行前执行一次
+    public void before() {
+        System.out.println("1测试前的准备工作，比如链接数据库等等");
+    }
+    @After	//在每个@Test执行后执行一次
+    public void after() {
+        System.out.println("1测试结束后的工作，比如关闭链接等等");
+    }
+
+    @Test
+    public void testSum1() {
+        int result = SumUtil.sum1(1, 2);
+        Assert.assertEquals(result, 3);	//值相等的话通过，不相等报错
+    }
+
+    @Test
+    public void testSum2() {
+        int result = SumUtil.sum2(1, 2,3);
+        Assert.assertEquals(result, 5);	//值相等的话通过，不相等报错
+    }
+}
+
+============测试运行结果：
+1beforeClass
+1测试前的准备工作，比如链接数据库等等
+1测试结束后的工作，比如关闭链接等等
+1测试前的准备工作，比如链接数据库等等
+1测试结束后的工作，比如关闭链接等等
+1afterClass
+
+===================================同时测试多个类
+TestSuite.java:
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)	
+@Suite.SuiteClasses({TestCase1.class,TestCase2.class})	//先测试TestCase1再测试TestCase2
+public class TestSuite {
+
+}

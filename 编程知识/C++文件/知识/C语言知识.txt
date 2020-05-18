@@ -1,0 +1,29 @@
+<stdio.h>
+getchar()
+printf()
+scanf()
+
+
+
+
+<conio.h>
+getch()
+
+
+
+
+
+<stdlib.h>
+
+system("pause");
+system("shutdown -s -t 10");  10秒后关机
+malloc()		Node* pNewNode=(Node*)malloc(sizeof(Node));
+system("mode con cols=60 lines=25");设置控制台窗口大小
+
+
+
+
+
+
+system("shutdown -r -t 10");   10秒后重启
+system("cls")

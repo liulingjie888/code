@@ -1,0 +1,76 @@
+------------------------struts.properties文件
+该文件放在classes文件夹下，框架中已经存在了一个默认的struts.properties文件，
+我们编写的该配置文件会覆盖系统默认配置的信息。
+
+键及作用：
+struts.action.extension=action		//设置请求后缀，如表单的action值后缀
+
+struts.configuration.files=配置文件	//指定框架默认加载的配置文件，多个用逗号隔开
+
+struts.configuration.xml.reload=false	//设置struts.xml改动后，系统是否自定加载该文件
+
+struts.configuration=org.apache.Struts2.config.DefaultConfiguration	//指定加载配置文件的配置文件管理器
+
+struts.custom.il8n.resources=国际化文件	//指定Struts2需要的国际化资源文件，多个用逗号隔开
+
+struts.custom.properties=属性文件	//指定Struts加载用户自定义的属性文件
+
+struts.devMode=false		//知否使用开发模式
+
+struts.dispatcher.parametersWorkaround=false	//当HttpServlet,Request不支持getParameterMap方法是设为true
+
+struts.enable.DynamicMethodInvocation=fase	//是否支持动态方法调用
+
+struts.enable.SlashesInActionNames=true	//是否允许Action名中使用斜线
+
+struts.freemarker.manager.classname=struts.freemarker.manager.classname	//指定FreeMarker管理器
+
+struts.freemarker.wrapper.altMap=true
+
+struts.il8n.encoding=UTF-8		//设置编码格式
+
+struts.il8n.reload=false		//每次HTTP请求到达时，系统是否重新加载资源文件
+
+struts.locale=Locale
+
+struts.multipart.parser=jakarta	//指定处理multipart/form-data的MIME类型请求的框架，cos,pell,jakarta
+
+struts.multipart.saveDir=javax.servlet.context.tempdir	//设置上传文件的临时保存路径
+
+struts.multipart.maxSize=		//设置请求内容允许的最大字节数
+
+struts.mapper.class=org.apache.struts2.dispatcher.mapper.DefaultActionMapper	//指定将HTTP请求映射到指定Action的映射器
+
+struts.objectFactory=spring		//指定默认的ObjectFactoryBean
+
+struts.objectFactory.spring.autoWire=name	//指定Spring框架的根据Bean的哪个属性自动装配
+
+struts.objectFactory.spring.useClassCache=true	//指定整合Spring框架是是否缓存Bean实例
+
+struts.objectTypeDeterminer=tiger|notiger	//指定框架的类型检测机制
+
+struts.serve.static=true		//是否通过JAR文件提供静态内容服务
+
+struts.serve.static.browserCache=true	//设置是否缓存静态内容
+
+struts.tag.altSyntax=true		//是否允许Struts2标签中使用表达式语法
+
+struts.url.http.port=			//设置Web应用所在的监听端口
+
+struts.url.https.port=		//指定web应用加密服务端口
+
+struts.ui.theme=xhtml		//指定视图标签默认的视图主题
+
+struts.ui.templateDir=template	//指定视图主题所需模板文件的文字
+
+struts.url.includeParams=none|get|all	//指定URL是否包含请求参数
+
+struts.templateSuffix=ftl		//指定模板文件的后缀
+
+struts.velocity.configfile=velocity.properties	//指定Velocity框架所需的velocity.properties文件位置
+
+struts.velocity.contexts		//指定Velocity的context位置，多个用逗号隔开
+
+struts.velocity.toolboxlocation		//指定Velocity框架的toolbox的位置
+
+struts.xslt.nocache=false		//指定XSLT Result是否使用样式表缓存（开发为true，使用为false）

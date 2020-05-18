@@ -1,0 +1,189 @@
+
+
+搭建集群环境将配置一个Master节点和两个Slave节点
+
+=================================制作hadoop环境的镜像：
+1.拉取镜像
+docker pull ubuntu:16.04
+
+2.运行容器，安装工具
+docker run -it ubuntu:16.04
+
+apt-get update
+apt-get install wget
+apt-get install net-tools
+apt-get install iputils-ping
+apt-get install vim
+apt-get install ssh
+
+3.安装jdk
+
+4.实现ssh免密登入
+cd
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_dsa
+cd .ssh
+cat id_dsa.pub >> authorized_keys
+
+5.解压hadoop安装包到/root下，包名改为hadoop,进入到hadoop创建以下文件：
+tmp：作为Hadoop的临时目录
+namenode：作为NameNode的存放目录
+datanode：作为DataNode的存放目录
+
+6.修改~/.bashrc文件。在文件末尾加入下面配置信息：
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export HADOOP_HOME=/root/hadoop
+export HADOOP_CONFIG_HOME=$HADOOP_HOME/etc/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin
+export PATH=$PATH:$HADOOP_HOME/sbin
+service ssh start
+
+7.进入到安装包/etc/hadoop目录下，编辑以下文件：
+===================
+vim core-site.xml：
+<configuration>
+    <property>
+            <name>hadoop.tmp.dir</name>
+            <value>/root/hadoop/tmp</value>
+    </property>
+
+    <property>
+            <name>fs.default.name</name>
+            <value>hdfs://master:9000</value>
+            <final>true</final>
+    </property>
+</configuration>
+
+===================
+vim hdfs-site.xml：
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>2</value>
+        <final>true</final>
+    </property>
+
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/root/hadoop/namenode</value>
+        <final>true</final>
+    </property>
+
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/root/hadoop/datanode</value>
+        <final>true</final>
+    </property>
+    
+    <property>
+         <name>dfs.permissions</name>
+         <value>false</value>
+  </property>
+</configuration>
+
+===================
+cp mapred-site.xml.template mapred-site.xml
+vim mapred-site.xml：
+<configuration>
+    <property>
+        <name>mapred.job.tracker</name>
+        <value>master:9001</value>
+    </property>
+</configuration>
+
+===================
+vim hadoop-env.sh：
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
+===================
+执行：
+hadoop namenode -format
+
+8.编辑/root/set.sh（ chmod +x set.sh ）:
+if [ $(hostname) == "master" ]
+then
+	if [ `grep "slave1" $HADOOP_CONFIG_HOME/slaves` ]
+	then
+		echo "slave1 has exist"
+	else
+		echo "slave1" >> $HADOOP_CONFIG_HOME/slaves
+	fi
+
+	if [ `grep "slave2" $HADOOP_CONFIG_HOME/slaves` ]
+	then
+		echo "slave2 has exist"
+	else	
+		echo "slave2" >> $HADOOP_CONFIG_HOME/slaves
+	fi
+fi
+
+cp /etc/hosts /etc/hosts.tmp
+sed -i '$d' /etc/hosts.tmp
+cat /etc/hosts.tmp > /etc/hosts
+rm /etc/hosts.tmp
+
+echo -e "172.17.0.2\\tmaster\\n172.17.0.3\\tslave1\\n172.17.0.4\\tslave2" >> /etc/hosts
+#这里的ip地址用你自己的，用ifconfig查看
+
+9.exit推出，将该容器制作成镜像：
+docker commit -m “add set file” f5ce7cff868d ubuntu:node
+
+10.启动各个节点；
+现将各节点相互ssh免密登入尝试一次，包括自身；
+在master节点上执行$HADOOP_CONFIG_HOME/sbin/start-all.sh命令，启动Hadoop：
+
+docker run -ti --ip 172.17.0.2 -h master ubuntu:node
+启动slave1容器
+docker run -ti --ip 172.17.0.3 -h slave1 ubuntu:node
+启动slave2容器
+docker run -ti --ip 172.17.0.4 -h slave2 ubuntu:node
+
+注：第一次进入每个容器执行一遍/root/set.sh
+
+=================================hadoop环境镜像基础上制作hbase镜像
+1.解压安装包到/root下，并改名为hbase;
+在hbase下创建/data/tmp文件夹。
+2.进入hbase/conf目录，编辑以下文件：
+vim hbase-env.sh:
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+#编辑HBASE_MANAGES_ZK。 hbase在分布式模式运行时，需要依赖zookeeper集群。此参数定义是否使用hbase内置的zookeeper，true为是，fase为否，注释掉该参数时默认为true。
+export HBASE_MANAGES_ZK=true	
+========================
+vim hbase-site.xml:
+<configuration>
+    <property>
+        <name>hbase.rootdir</name> 
+        <value>hdfs://master:9000/hbase</value>
+    </property>
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>master,slave1,slave2</value>
+    </property>
+    <property >
+                <name>hbase.tmp.dir</name>
+                <value>/root/hbase/data/tmp</value>
+        </property>
+</configuration>	
+========================
+vim regionservers:
+slave1
+slave2
+
+3.退出exit
+
+4.启动各个节点；
+现将各节点相互ssh免密登入尝试一次，包括自身；
+在master节点上执行$HADOOP_CONFIG_HOME/sbin/start-all.sh命令，启动Hadoop：
+
+docker run -ti --ip 172.17.0.2 -h master ubuntu:node
+启动slave1容器
+docker run -ti --ip 172.17.0.3 -h slave1 ubuntu:node
+启动slave2容器
+docker run -ti --ip 172.17.0.4 -h slave2 ubuntu:node
+
+注：第一次进入每个容器执行一遍/root/set.sh
+
+5.启动hadoop后再输入/root/hbase/bin/start-hbase.sh启动

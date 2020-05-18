@@ -1,0 +1,67 @@
+异常两大类
+java.lang.Exception
+java.lang.Error
+
+算数异常  ArithmeticException
+空指针异常  NullPointerException
+文件未找到异常  FileNotFoundException
+数组下标越界异常  ArrayIndexOutOfBoundsExcepion
+内存不足异常  OutOfMemoryException
+中断异常  InterruptedException  
+
+try{}捕捉异常
+catch{}处理异常
+finally 一定执行语句
+
+查看异常信息  异常对象.printStackTrace()
+
+访问权限 返回类型 方法名称(参数 )  throws  可能抛出的异常
+	{   }
+
+Exception定义的异常必须处理，而RunTimeException可以选择性处理
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+自定义异常
+public class Hero {
+    public String name;
+    protected float hp;
+ 
+    public void attackHero(Hero h) throws EnemyHeroIsDeadException{
+        if(h.hp == 0){
+            throw new EnemyHeroIsDeadException(h.name + " 已经挂了,不需要施放技能" );
+        }
+    }
+ 
+    public String toString(){
+        return name;
+    }
+     
+    class EnemyHeroIsDeadException extends Exception{
+         
+        public EnemyHeroIsDeadException(){
+             
+        }
+        public EnemyHeroIsDeadException(String msg){
+            super(msg);
+        }
+    }
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+多异常捕捉
+一：
+catch (FileNotFoundException | ParseException e) {
+		if (e instanceof FileNotFoundException)
+			System.out.println("d:/LOL.exe不存在");
+		if (e instanceof ParseException)
+			System.out.println("日期格式解析错误");
+		e.printStackTrace();
+}
+
+二：
+catch (FileNotFoundException e) {
+            System.out.println("d:/LOL.exe不存在");
+            e.printStackTrace();
+} catch (ParseException e) {
+            System.out.println("日期格式解析错误");
+            e.printStackTrace();
+}

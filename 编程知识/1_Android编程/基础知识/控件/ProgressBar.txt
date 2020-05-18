@@ -1,0 +1,11 @@
+ProgressBar
+android.widget.ProgressBar;
+
+属性：
+
+Activity:
+setMax(1000)	//设置最大值
+setMax(100)	
+getProgress()	//获取值
+setProgress(500)	//设置值
+

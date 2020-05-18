@@ -1,0 +1,52 @@
+javax.servlet.Filter;
+
+原理：请求  <=>  Filter1  <=>  Filter2  <=>  . . .  <=>  目标资源
+该接口的作用是在请求目标资源前先进入Filter过滤器，最后有其决定是否允许请求，响应也是如此。可用于编码设置和是否登入检验。
+Filter链中的拦截顺序与他们在web.xml配置中<filter-mapping>的映射顺序一致，
+-----------------------------------方法----------------------------------------
+
+//创建时调用，一般用于初始化过滤器
+init(FilterConfig filterConfig);
+
+//拦截时调用该方法
+doFilter(ServletRequest  request,ServletResponse  response,FilterChain chain){
+	. . . . . .
+	chain.doFilter(request,response);	//允许通过该拦截
+}
+
+//销毁过滤器时调用
+destroy();
+-----------------------------------配置-------------------------------------
+web.xml配置:
+<filter>
+	<filter-name>Filter接口类名</filter-name>
+	<filter-class>完整包类名</filter-class>
+	<init-param>
+		<param-name>参数名称</param-name>
+		<param-value>参数值</param-value>	 
+	</init-param>
+</filter>
+<filter-mapping>
+	<filter-name>Filter接口类名</filter-name>
+	<url-pattern>/进行拦截的虚拟路径（或Servlet名称）</url-pattern>
+	[ <dispatcher>REQUEST</dispatcher>	]	//默认REQUEST表示普通请求会拦截，通过Dispatcher的include和forward请求不会拦截
+						//INCLUDE 表示通过Dispatcher的include请求会拦截，其他不会拦截
+						//FORWARD 表示通过Dispatcher的forward请求会拦截，其他不会拦截
+						//ERROR 表示通过声明异常处理机制回调用目标资源时会拦截，其他不会
+</filter-mapping>
+
+---------------------------------------FilterConfig接口---------------------------------------
+
+方法：
+// 返回web.xml中<filter-name>元素的值
+getFilterName();
+
+//返回指定参数名的值，也就是指定<param-value>的值
+getInitParameter("参数名");
+
+//返回Enumeration集合对象，包含所有<filter-name>的值
+Enumeration  getInitParameterNames();
+
+//返回FilterConfig对象中所包装的ServletContext对象的引用
+ServletContext  getServletContext();
+

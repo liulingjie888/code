@@ -1,0 +1,106 @@
+添加依赖：
+app/build.gradle文件中的dependencies中加入：
+compile 'com.andoird.support:recyclerview-v7:24.2.1'
+
+标签：
+<android.support.v7.widget.RecyclerView>
+----------------------------------适配器RecyclerView.Adapter------------------
+
+public class myAdapter extends  RecyclerView.Adapter<myAdapter.ViewHodler(该类定义的Holder)> {
+	private  List<T>  dataList;
+
+	//该类用于管理选项上的控件
+	static class  ViewHolder  extends RecyclerView.ViewHolder {
+		[ View  itemView; ]		//表示单个选项视图
+		ImageView  image;
+		TextView  text;
+		. . . . . .选项上的所有控件
+	
+		public ViewHolder(View view){
+			super(view);
+			[ itemView=view; ]
+			image=view.findViewById(R.id.image);
+			text=view.findViewById(R.id.text);
+			. . . . . .获取选项上的控件
+		}
+	}
+	
+	//数据源设置
+	public myAdapter(List<T> list){
+		dataList=list;
+	}
+
+	//加载显示的选项控件（返回类型为自定义的 Holder）
+	public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
+		View view =LayoutInflater.from(parent.getContext() ) . 
+		inflate( R.layout.childItem(选项布局文件名) ,parent , false);	//获取选项布局文件名
+		ViewHodler holder=new ViewHolder(view);		//根据布局文件创建ViewHolder对象
+		return holder;
+	}
+
+	//设置显示选项中的控件（参数为自定义的 Holder）
+	public void onBindViewHolder(ViewHolder  holder, int position) {
+		T  item=dataList.get(position);
+
+		viewHolder holder1=(ViewHolder)holder;
+		holder1.image.setImageResource( item.getImageId() );
+		holder1.text.set.setText( item.getName() );
+		. . . . . . 设置布局控件
+	}
+	
+	 //获取选项数量
+	public int getItemCount() {
+		return dataList.size();
+	}
+}
+
+
+-------------------Activity设置列表控件------------------------
+//获取列表控件
+RecyclerView  recyclerView =(RecyclerView)findViewById(R.id.recyclerID);
+
+
+LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+recyclerView.setLayoutManager(linearLayoutManager);
+//设置数据源
+MyAdapter  adapter=new MyAdapter(数据源ArrayList);
+recyclerView.setAdapter(adapter);
+
+------结束
+
+如果要横向布局则在纵向布局第一句后加入：
+layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+如果要瀑布纵向局则将纵向布局第一句改为：
+StaggeredGridLayoutManager  layoutManager=new StaggeredGridLayoutManager(列数 ,StaggeredGridLayoutManager.VERTICAL);
+
+
+----------------------设置点击事件-----------------
+在onCreateViewHolder方法中：
+
+final ViewHolder  holder=new ViewHolder(view);
+holder.itemView.setOnClickListener( new View.OnClickListener(){
+	public onClick(View v){
+		int positio=holder.getAdapterPosition();		//获取当前选项的下标
+		T  item=dataList.get(position);			//根据下标获取对象
+	}		
+});
+holder.image.setOnClickListener(new View.OnClickListener(){. . .});
+
+-----------------------其他方法----------------
+adapter.notifyItemInserted( dataList.size() -1 );	//刷新最后一项
+adapter.notifyItemInserted(下标); 			//指定位置插入项目
+recyclerView.scrollToPosition(data.List.size()-1 );	//定位到最后一个选项
+recyclerView.computeVerticalScrollExtent()		//表示屏幕显示的高度
+recyclerView.computeVerticalScrollOffset() 		//表示屏幕上面以外视图的高度
+recyclerView.computeVerticalScrollRange()		//recyclerview的总高度
+RecyclerView.canScrollVertically(1)			//是否能向上滚动，false表示已经滚动到底部
+RecyclerView.canScrollVertically(-1)			//是否能向下滚动，false表示已经滚动到顶部
+
+LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();  
+//屏幕中最后一个可见子项的position
+layoutManager.findLastVisibleItemPosition();  
+//当前屏幕所看到的子项个数
+layoutManager.getChildCount();  
+//当前RecyclerView的所有子项个数
+layoutManager.getItemCount();  

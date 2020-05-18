@@ -1,0 +1,18 @@
+//连接数据库
+$conn=mysql_connect("服务器地址","管理员","密码");
+//设置编码格式
+mysql_query("set names 'utf8'");
+//访问数据库
+mysql_select_db("数据库名",$conn);
+//执行SQL语句
+mysql_query("Sql语句");
+//查询并获取结果集
+$result=mysql_query(Sql语句,$conn);
+//遍历结果集
+while($row=mysql_fetch_assoc($result)){
+	$row["字段名"];
+}
+//关闭结果集
+mysql_free_result($result);	
+//关闭数据库连接		
+mysql_close($conn);			

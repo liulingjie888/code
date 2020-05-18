@@ -1,0 +1,9 @@
+
+radioGroup.setOnCheckedChangeListener(
+		new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group,int checkedId) {
+				checkedId;	//选中的单选项ID
+			}
+		}
+）

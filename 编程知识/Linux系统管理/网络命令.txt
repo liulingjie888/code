@@ -1,0 +1,8 @@
+ifconfig
+-a	显示所有套接字信息
+-p	显示套接字对应进程的PID和名字
+
+netstat
+-nr	显示路由表
+-an
+-apn	查看端口及监听进程ID

@@ -1,0 +1,25 @@
+﻿生成启动时间为 2018/9/12 22:28:29。
+     1>项目“C:\Users\MAIBENBEN\documents\visual studio 2012\Projects\学生管理系统\学生管理系统\学生管理系统.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\软件\VS2012\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt StudentMangerSystem.cpp
+         StudentMangerSystem.cpp
+     1>c:\users\maibenben\documents\visual studio 2012\projects\学生管理系统\学生管理系统\studentmangersystem.cpp(48): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 d:\软件\vs2012\vc\include\conio.h(131) : 参见“getch”的声明
+     1>c:\users\maibenben\documents\visual studio 2012\projects\学生管理系统\学生管理系统\studentmangersystem.cpp(77): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 d:\软件\vs2012\vc\include\conio.h(131) : 参见“getch”的声明
+     1>c:\users\maibenben\documents\visual studio 2012\projects\学生管理系统\学生管理系统\studentmangersystem.cpp(104): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\软件\vs2012\vc\include\stdio.h(290) : 参见“scanf”的声明
+     1>c:\users\maibenben\documents\visual studio 2012\projects\学生管理系统\学生管理系统\studentmangersystem.cpp(105): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\软件\vs2012\vc\include\stdio.h(290) : 参见“scanf”的声明
+     1>c:\users\maibenben\documents\visual studio 2012\projects\学生管理系统\学生管理系统\studentmangersystem.cpp(106): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\软件\vs2012\vc\include\stdio.h(290) : 参见“scanf”的声明
+     1>c:\users\maibenben\documents\visual studio 2012\projects\学生管理系统\学生管理系统\studentmangersystem.cpp(107): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\软件\vs2012\vc\include\stdio.h(290) : 参见“scanf”的声明
+       Link:
+         D:\软件\VS2012\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MAIBENBEN\documents\visual studio 2012\Projects\学生管理系统\Debug\学生管理系统.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MAIBENBEN\documents\visual studio 2012\Projects\学生管理系统\Debug\学生管理系统.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MAIBENBEN\documents\visual studio 2012\Projects\学生管理系统\Debug\学生管理系统.lib" /MACHINE:X86 Debug\StudentMangerSystem.obj
+         学生管理系统.vcxproj -> C:\Users\MAIBENBEN\documents\visual studio 2012\Projects\学生管理系统\Debug\学生管理系统.exe
+     1>已完成生成项目“C:\Users\MAIBENBEN\documents\visual studio 2012\Projects\学生管理系统\学生管理系统\学生管理系统.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.82

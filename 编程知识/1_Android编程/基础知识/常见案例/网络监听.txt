@@ -1,0 +1,26 @@
+权限：
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+监听器：
+class  NetworkChangeReceiver extends BroadcastReceiver{
+
+         @Override
+         public void onReceive(Context context, Intent intent) {
+             ConnectivityManager connection=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+             NetworkInfo networkInfo=connection.getActiveNetworkInfo();
+	//判断网络是否有用
+             if(networkInfo != null && networkInfo.isAvailable())
+                 Toast.makeText(MainActivity.this,"网络有用",Toast.LENGTH_SHORT).show();
+             else
+                 Toast.makeText(MainActivity.this, "网络断开", Toast.LENGTH_SHORT).show();
+         }
+     }
+
+
+动态注册网络监听器：
+IntentFilter intentFilter=new IntentFilter();
+intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+NetworkChangeReceiver  networkChangeReceiver=new NetworkChangeReceiver();
+registerReceiver(networkChangeReceiver,intentFilter);
+
+

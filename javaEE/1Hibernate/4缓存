@@ -1,0 +1,31 @@
+
+hibernate本身不提供二级缓存，都是使用第三方的二级缓存插件
+这里使用的是 EhCache提供的二级缓存
+
+=====================在src目录下，创建一个ehcache.xml用于EHCache的缓存配置
+<ehcache>
+    <diskStore path="java.io.tmpdir"/>
+    <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"
+        />
+</ehcache>
+
+=====================hibernate.cfg.xml中开启二级缓存的配置
+<hibernate-configuration>
+    <session-factory>
+		......
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+	</session-factory>
+</hibernate-configuration>
+
+====================对于要进行二级缓存的实体类，进行配置，增加
+<class name="Category" table="category_">
+        <cache usage="read-only" />
+	......
+                   
+</class>

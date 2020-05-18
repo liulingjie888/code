@@ -1,0 +1,32 @@
+Label用于显示文字
+
+import javax.swing.JLabel;
+import java.awt.Color;
+……
+
+JFrame f = new JFrame("LoL");
+        ……
+        JLabel l = new JLabel("LOL文字");
+        //文字颜色
+        l.setForeground(Color.red);
+        l.setBounds(50, 50, 280, 30);		设置位置leftTop，宽高
+        ……
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+java GUI 显示图片是通过在label上设置图标实现的
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+        ……
+        JLabel l = new JLabel();
+ 
+        //根据图片创建ImageIcon对象
+        ImageIcon i = new ImageIcon("e:/project/j2se/shana.png");
+        //设置ImageIcon
+        l.setIcon(i);
+        //label的大小设置为ImageIcon,否则显示不完整
+        l.setBounds(50, 50, i.getIconWidth(), i.getIconHeight());
+        ……

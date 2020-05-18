@@ -1,0 +1,32 @@
+检查是否安装Apache
+rpm -q httpd
+
+安装
+yum install httpd
+
+启动
+/bin/systemctl start httpd.service #启动
+/bin/systemctl stop httpd.service #停止
+/bin/systemctl restart httpd.service #重启
+第二、设置开机启动/关闭
+systemctl enable httpd.service #开机启动
+systemctl disable httpd.service #开机不启动
+第三、检查httpd状态
+systemctl status httpd.service
+
+主配置文件位置
+/etc/httpd/conf/httpd.conf
+
+网页存放文件
+DocumentRoot "/var/www/html"
+-----------------------------------------------------------
+
+安装PHP
+yum -y install php php-mbstring php-pear
+配置文件
+vi /etc/php.ini
+
+------------------------------------------------------------
+Tomcat
+安装目录
+/usr/local/Tomcat

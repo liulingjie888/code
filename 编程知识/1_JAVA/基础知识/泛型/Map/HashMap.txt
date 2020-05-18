@@ -1,0 +1,43 @@
+java.util.HashMap;
+
+对于HashMap而言，key是唯一的，不可以重复的。 
+key和value可以为null。
+非线程安全类。
+其中entry代表单个map元素关系映射。
+
+-----------------------------------方法---------------------0
+
+添加:
+put(K key, V value);
+putAll(Map<?extends K,?extens V> m);	//添加所有
+
+设置:
+replace(K key, V value);		//更新键的映射关系
+replace(K key, V oldValue ,V newValue);	//存在该映射关系是才替换
+
+删除：
+remove(Object key);		//删除指定键的映射
+remove(Object key, Object value)；	//如何存在该映射关系则将其删除
+clear();				//清空
+clone();				//克隆
+
+判断：
+isEmpty();				//判断是否为空
+containsKey(Object key);		//是否包含某键
+containsValue(Object Value);		//是否包含某值
+
+查询：
+size();
+get(Object key);			//获取某键的值
+getOrDefault(Object key,V default);	///获取某键的值，不存在返回default
+
+创造：
+entrySet();			//返回一个包含map映射的Set
+keySet();				//返回键的Set
+values();				//返回的是值组成的集合Connection
+
+遍历：
+for(Map.Entry<String,String> entry:p.entrySet()){
+                     entry.getKey();
+	    entry.getValue();
+}

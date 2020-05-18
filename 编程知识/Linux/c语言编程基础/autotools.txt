@@ -1,0 +1,28 @@
+第一步：
+autoscan 	//检查目录源程序，生成configure.scan文件，将其改成configure.in并编辑
+修改：
+ACINIT(目标文件,1.0)
+AM_INIT_AUTOMAKE(目标文件,1.0)
+AC_CONFIG_SRCDIR([源文件])
+AC_CONFIG_HEADER(config.h)
+AC_CONFIG_FILES(生成的Makefile文件名称)
+
+第二步:
+aclocal	//预处理宏定义，生成aclocal.m4文件
+
+第三步：
+autoconf	//将configure.ac中的宏展开生成configure脚本
+
+第四步：
+autoheader
+
+第五步：
+automake		//生成makefile.in文件并编辑
+修改：
+bin_PROGRAMS=目标文件
+目标文件_SOURCES=依赖文件
+
+----------------------------------生成的Makefile可以使用的命令
+make [all]		//执行
+make install	//安装到系统目录
+make clean	//清除可执行文件

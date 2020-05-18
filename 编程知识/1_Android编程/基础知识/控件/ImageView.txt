@@ -1,0 +1,22 @@
+ImageView
+
+属性
+background="@drawable/bg"		//引用drawable文件夹中的图片，图片自适应控件大小
+src="@android:drawable/sym_def_app_icon"	//区别：该属性设置为前景，控件会随图片大小改变
+
+//最大最小高宽（adjustViewBounds="true",这样设置才会生效。）
+android:maxHeight="150dp"
+android:maxWidth="150dp"
+android:minHeight="33dp"
+android:minWidth="48dp"
+
+androidl;scaleType="centerCrop"
+①fitCenter：这个值指的是，当我这张图片比ImageView大的时候，就会按照比例对图片进行缩放，并将图片居中显示。如果这张图片比ImageView小，那么就会根据比例对图片进行扩大，然后将其居中显示，注意：如果图片分辨率不是两个相等的值，例如480*320，那么因为缩放比例不同，fitCenter设置后，其会根据小的分辨率进行缩小，例如会根据320来进行缩放或者扩大
+②fitStart、fitEnd属性：这个属性跟fitCenter类似，当图片大小与ImageView不相等时，其会按照比例对图片进行缩小或者放大，其参考的方向是根据分辨率大的那一方，例如480*320，则会参考480那方作为上下，如果是fitStart，则会将图片上边跟ImageView对其，fitEnd则会将图片下边与ImageView对其
+③center：如果设置成center的话，那么图片就会截取中间的那部分显示在ImageView里面，不会对图片进行缩小或者放大  	 
+④centerInside：设置这个属性值后，如果图片的大小比ImageView大，那么就根据比例对图片进行缩小并将其居中显示，如果图片比ImageView小，那么则不会对图片进行扩大处理，而是直接对其进行居中显示：
+⑤centerCrop：如果图片比ImageView大，那么则会对其进行缩小，但是并不会像fitCenter或者centerInside那样是根据比例缩放，centerCrop设置后，其缩放的时候会将整个ImageView的边都占据满，不会留出空隙，然后再将图片居中显示，如果图片小的话，就会对其进行扩大，并占满ImageView的边框，再居中显示：
+
+Activity:
+setImageResource(R.drawable.图名);	//设置图片来源
+setImageBitmap(Bitmap map);	//设置图片流代表的map

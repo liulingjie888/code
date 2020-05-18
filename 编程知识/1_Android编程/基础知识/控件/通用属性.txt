@@ -1,0 +1,12 @@
+
+属性：
+layout_gravity:		//当线性布局为水平布局是，水平方向无效
+			//当线性布局为垂直布局是，垂直方向无效
+visibility="invisible"		//不可见
+
+代码：
+
+getVisibility();		//获取控件的透明状态
+setVisibility(View.VISIBLE);	//默认设为可见
+			//View.GONE，设为透明且不占位置
+			//View.INVISIBLE，设为透明

@@ -1,0 +1,3 @@
+超全局变量
+$_POST["name"]
+$_GET["name"]

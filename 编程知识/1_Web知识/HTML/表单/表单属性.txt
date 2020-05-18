@@ -1,0 +1,29 @@
+结构：
+<form>
+	<input/>
+	<input/>
+</form>
+、、、、、、、、、、、、、、、、、、、、、、、、、
+name属性
+
+action属性
+用来设置接收表单内容的程序文件的URL，如：
+		<form action="admin/check.php">
+如果没有设置action，默认提交给自身所在文件
+
+method属性
+"post"
+"get"
+
+enctype属性
+默认值为“application/x-www-form-urlencode”
+用来指定表单数据在发送到服务器之前应该如何编码。
+如果表单中含有文件上传于，则需设置该属性为enctype="multiprat/form-data",并设置提交方式为POST
+
+target属性
+"_blank"	在新窗口打开
+"_self"	在当前窗口打开（默认值）
+"_parent"	在当前窗口的父窗口打开
+"_top"	在整个浏览器窗口打开链接
+
+onsubmit="return false|true"	是否提交

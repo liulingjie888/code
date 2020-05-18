@@ -1,0 +1,129 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<iostream>
+
+using namespace std;
+
+typedef int DataType;
+//定义链表
+typedef struct Qnode
+{
+	DataType data;
+	struct Qnode *next;
+}Qnode;
+ //定义链队
+typedef struct LinkQueue
+{
+	Qnode *front;
+	Qnode *rear;
+	int count;
+}LinkQueue;
+
+//判断队是否为空
+bool queueEmpty(LinkQueue *q)
+{
+	return q->front==NULL;
+}
+
+//清除队元素
+void clearQueue(LinkQueue *q)
+{
+	Qnode *p=q->front;
+	while(p->next)
+	{
+		Qnode *r=p->next;
+		free(p);
+		p=r;
+	}
+	q->front=q->rear=NULL;
+	q->count=0;
+}
+
+//初始化队
+void initQueue(LinkQueue *q)
+{
+	if(!queueEmpty(q))
+		clearQueue(q);
+	q->front=q->rear=NULL;
+	q->count=0;
+}
+
+//队尾添加元素
+bool enQueue(LinkQueue *q,DataType e)
+{
+	Qnode *p=(Qnode*)malloc(sizeof(Qnode));
+	if(!p)
+		return false;
+	p->data=e;
+	p->next=NULL;
+	if(queueEmpty(q))
+		q->front=p;
+	else
+		q->rear->next=p;
+	q->rear=p;
+	q->count++;
+	return true;
+
+}
+
+//队首出列
+bool enQueue(LinkQueue *q,DataType *e)
+{
+	if(queueEmpty(q))
+		return false;
+	Qnode *p=q->front;
+	*e=p->data;
+	q->front=p->next;
+	free(p);
+	q->count--;
+	return true;
+}
+
+//获取队元素个数
+int getLength(LinkQueue *q)
+{
+	return q->count;
+}
+
+//显示队信息
+void print(LinkQueue *q)
+{
+	if(queueEmpty(q))
+	{
+		printf("空队\n");
+		return ;
+	}
+	Qnode *p=q->front;
+	while(p)
+	{
+		cout<<p->data<<endl;
+		p=p->next;
+	}
+}
+
+void main()
+{
+	LinkQueue q;
+	q.front=NULL;
+	DataType a;
+
+	initQueue(&q);
+	print(&q);
+	cout<<"长度"<<getLength(&q)<<endl;
+
+	enQueue(&q,1);
+	enQueue(&q,3);
+	enQueue(&q,5);
+	print(&q);
+	cout<<"长度"<<getLength(&q)<<endl;
+
+	enQueue(&q,&a);
+	cout<<a<<endl;
+	print(&q);
+	cout<<"长度"<<getLength(&q)<<endl;
+
+	clearQueue(&q);
+	print(&q);
+	cout<<"长度"<<getLength(&q)<<endl;
+	system("pause");
+}

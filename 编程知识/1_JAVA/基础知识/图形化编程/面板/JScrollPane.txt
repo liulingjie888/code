@@ -1,0 +1,20 @@
+使用带滚动条的面板JScrollPane有两种方式
+1. 在创建JScrollPane，把组件作为参数传进去
+JScrollPane sp = new JScrollPane(ta);
+ 
+2. 希望带滚动条的面板显示其他组件的时候，调用setViewportView
+sp.setViewportView(ta);
+
+3设置是不用外观位置时不是设置其内的控件，而是设置JScrollpane的外观
+
+import javax.swing.JScrollPane;
+
+        JFrame f = new JFrame("LoL");
+        ……
+        //准备一个文本域，在里面放很多数据
+        JTextArea ta = new JTextArea();
+        
+        JScrollPane sp = new JScrollPane(ta);
+        f.setContentPane(sp);
+        ……
+

@@ -1,0 +1,19 @@
+1、交互式解释器：
+你可以通过命令行窗口进入python并开在交互式解释器中开始编写Python代码。
+
+$ python3
+
+选项	描述
+-d	在解析时显示调试信息
+-O	生成优化代码 ( .pyo 文件 )
+-S	启动时不引入查找Python路径的位置
+-V	输出Python版本号
+-X	从 1.6版本之后基于内建的异常（仅仅用于字符串）已过时。
+-c cmd	执行 Python 脚本，并将运行结果作为 cmd 字符串。
+file	在给定的python文件执行python脚本。
+
+2、命令行脚本
+在你的应用程序中通过引入解释器可以在命令行中执行Python脚本，如下所示：
+$ python3 script.py 
+
+3、PythonCharm

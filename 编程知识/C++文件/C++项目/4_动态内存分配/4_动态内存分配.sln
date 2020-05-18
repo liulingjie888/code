@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4_动态内存分配", "4_动态内存分配\4_动态内存分配.vcxproj", "{A63978ED-9FC9-4548-B958-558D1A6F0E0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A63978ED-9FC9-4548-B958-558D1A6F0E0B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A63978ED-9FC9-4548-B958-558D1A6F0E0B}.Debug|Win32.Build.0 = Debug|Win32
+		{A63978ED-9FC9-4548-B958-558D1A6F0E0B}.Release|Win32.ActiveCfg = Release|Win32
+		{A63978ED-9FC9-4548-B958-558D1A6F0E0B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

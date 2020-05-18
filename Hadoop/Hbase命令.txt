@@ -1,0 +1,26 @@
+
+*启动~/bin/hbase shell
+
+list				#列出表
+list_namespace_tables '空间名'	#列出空间名下的表
+
+drop_namespace '空间名'		#删除namespace
+list_namespace			#列出当前数据库中的所有namespace
+describe_namespace '空间名'	#查看空间名的结构
+
+
+create '[空间名:]表名', '列族名1', '列族名2'	#创建user表，包含info、data两个列族
+disable '表名'			#禁用表
+drop '表名'			#删除表（要先禁用表）
+
+
+scan '空间名:表名' [{LIMIT=>5}] #查看表[查看前5行数据]
+
+put '空间名:表名','行id','列族名:列名','值'	#插入数据（只能一个个cell插入）
+get '空间名:表名', '行id'[列族名:列名]		#查看指定行[只显示指定列名]
+delete '空间名:表名','行id','列族名:列名'	#删除表中的指定行id的列
+delete '空间名:表名','行id'			#删除表中的指定行
+truncate '空间名:表名'				#删除表中的所有数据
+
+snapshot '表名', '快照名'		#新建快照
+clone_snapshot '快照名', '空间名:表名'	#从快照复制生成一个新表

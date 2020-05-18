@@ -1,0 +1,8 @@
+Process p = Runtime.getRuntime().exec("ping " + "192.168.2.106");
+BufferedReader buffer= new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+String line;
+while ((line=buffer.readLine())!=null){
+          if (line.length() != 0)
+                 text.append(line + "\r\n");
+ }

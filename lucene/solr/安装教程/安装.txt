@@ -1,0 +1,45 @@
+
+=======================执行命令：
+sudo ./install_solr_service.sh solr-6.3.0.tgz
+输出：
+● solr.service - LSB: Controls Apache Solr as a Service
+   Loaded: loaded (/etc/init.d/solr; generated)
+   Active: active (exited) since Thu 2020-04-23 00:57:13 CST; 5s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 8438 ExecStart=/etc/init.d/solr start (code=exited, status=0/SUCCESS)
+
+4月 23 00:57:09 liulingjie-ubuntu systemd[1]: Starting LSB: Controls Apache Solr as a Service...
+4月 23 00:57:09 liulingjie-ubuntu su[8441]: (to solr) root on none
+4月 23 00:57:09 liulingjie-ubuntu su[8441]: pam_unix(su-l:session): session opened for user solr by (uid=0)
+4月 23 00:57:13 liulingjie-ubuntu solr[8438]: [110B blob data]
+4月 23 00:57:13 liulingjie-ubuntu solr[8438]: Started Solr server on port 8983 (pid=8605). Happy searching!
+4月 23 00:57:13 liulingjie-ubuntu solr[8438]: [14B blob data]
+4月 23 00:57:13 liulingjie-ubuntu systemd[1]: Started LSB: Controls Apache Solr as a Service.
+
+=======================命令：
+service solr status
+~ stop
+~ start
+~restart
+
+访问页面
+http://localhost:8983/solr/#/
+
+数据目录：/var/solr/data
+安装目录：/opt/solr/server
+
+=======================创建core
+提示：确定创建Core之前，instanceDir目录和dataDir必须存在。并含有xml配置文件。
+
+（1）创建目录，复制特定一套配置模板。比如我们创建一个helloworld核心。
+这里使用的是_default默认配置文件。
+
+cd /var/solr/data
+mkdir helloworld
+cd /var/solr/data/helloworld/
+cp -r /opt/solr/server/solr/configsets/basic_configs/conf .
+
+（2）改变目录的所属和组。
+chown -R  solr:solr helloworld/
+
+（3）在solr界面创建core时name和instanceDi都填写helloworld，即可添加成功

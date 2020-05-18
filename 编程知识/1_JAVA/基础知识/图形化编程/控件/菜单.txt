@@ -1,0 +1,42 @@
+菜单栏和菜单
+
+import javax.swing.JMenu;		//菜单
+import javax.swing.JMenuBar;		//菜单栏
+
+        JFrame f = new JFrame("LoL");
+        f.setSize(400, 300);
+        f.setLocation(200, 200);
+        
+        JMenuBar mb = new JMenuBar();		// 菜单栏
+ 
+        JMenu mHero = new JMenu("英雄");	// 菜单
+        JMenu mItem = new JMenu("道具");
+ 
+        mb.add(mHero);	// 把菜单加入到菜单栏
+        mb.add(mItem);
+
+        f.setJMenuBar(mb);	 // 把菜单栏加入到frame，这里用的是set而非add
+        ……
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+菜单项
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+        ……
+        JMenuBar mb = new JMenuBar();		//菜单栏
+ 
+        JMenu mHero = new JMenu("英雄");	//菜单
+        
+        mHero.add(new JMenuItem("近战-Warriar"));	//将菜单项添加到菜单
+        mHero.add(new JMenuItem("远程-Range"));
+        
+        mHero.addSeparator();			// 分隔符，菜单栏上有一条线
+        mHero.add(new JMenuItem("所有-All"));
+
+        mb.add(mHero);			//将菜单添加到菜单栏
+ 
+        f.setJMenuBar(mb);
+        ……

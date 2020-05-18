@@ -1,0 +1,56 @@
+STL由三个主要部分：容器（保存其他对象的对象 ），迭代器（类似指针），算法
+
+序列式容器：vector, list, deque;
+关联式容器：set,map,multiset,multimap;
+
+vector容器
+头文件<vector>
+理解为抽象数据线性表
+构造函数：
+	list/deque/vector<类型>   对象名（容器大小）；
+	list/deque/vector<类型>   对象名（容器大小，初始值）;
+	list/deque/vector<类型>   对象名 (已知对象)；
+	list/deque/vector<类型>   对象名；		//空对象
+	vector<类型>   对象名  { 初始值1，初始值2，· · · }；	//c++11新标准
+	vector<类型>   对象名 = { 初始值1，初始值2，· · · }；
+	vector<类型>   对象名 =已知对象；
+成员函数：
+	deque/vector.size()	//获取容器大小
+	deque/vector.capacity()	//获取容器容量
+	list/deque/vector.assign(n,elem)	//将n个elem赋值给容器
+	list/deque/vector.assign(begin,end)	//将[begin,end)的元素赋值给容器
+assign()将会将原来的空间释放，然后将原来空间中指定的值赋值个新的空间
+	deque/vector.at(下标）	//返回对象下标的元素，和   对象名[下标]     类似
+	list/deque/vector.push_back(值）	//给末尾赋值
+	list/deque/vector.pop_back()		//抛出末尾值
+	list/deque/vector.front()		//获取头元素
+	list/deque/vector.back()		//获取尾元素
+	list/deque/vector.begin()		//获取头迭代器
+	list/deque/vector.end()		//获取尾迭代器
+	list/deque/vector.insert(迭代器，值）	//在迭代器位置插入值
+	list/deque/vector.insert(迭代器，n,  值）	//在迭代器位置插入n个值
+	list/deque/vector.intert(迭代器，迭代器1，迭代器2）	//在迭代器位置插入 [ 迭代器1，迭代器2 ) 的值
+	list/deque/vector.erase(迭代器）		//删除迭代器位置的值
+	list/deque/vector.erase(迭代器1，迭代器2）	//删除[迭代器1，迭代器2) 的值
+	PS:  insert()和erase()函数中迭代器只能用begin()或end()返回的迭代器表示
+
+deque容器
+头文件<deque>
+构造函数：
+	list/deque<类型> 对象名(begin,end);
+成员函数：
+	list/deque.push_front(值);
+	list/deque.pop_front();
+
+list容器
+头文件<list>
+成员函数：
+	list.remove(elem)		//删除所有与elem匹配的元素
+	list1.merge(list &list2)	//将list2合并到list1
+				   list中的元素会按从小到大排序
+				   list2会变成一个空的函数
+	list.sort()			//元素从小到大排序
+	splice(iterator  it,list)	//将容器list所有元素拿走插入到迭代器it位置前
+	splice(iterator it, list, iterator first)	//将容器list中的first元素拿走插入到迭代器it位置前
+	splice(iterator it, list, iterastor first,iterastor last)	//将容器中区间[first,last)的元素拿走
+						   插入到迭代器it位置前

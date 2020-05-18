@@ -1,0 +1,26 @@
+AlertDialog
+android.app.AlertDialog;
+android.content.DialogInterface;	//监听器
+
+AlertDialog dialog=new AlertDialog.Builder(this);	//this为Activity对象
+
+属性
+setTitle("标题")	
+setMessage("提示信息")
+setIcon(R.mipmap.ic_launcher)	//设置图标
+setPositiveButton("确定",null)		//添加"确定"按钮，第二参数为监听对象，无设为null
+setNegativeButton("取消",null)		//添加"取消"按钮
+create()		//创建（必须）
+show()		//显示
+
+单选对话框
+//该属性将对话框设为单选对话框，参数一为选项；参数二为默认选项，没有则写-1；参数三为监听对象
+setSingleChoiceItems(String数组,0，new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog,int which){
+						which;//选中的下标
+					}
+				})
+
+多选对话框
+//将对话框设为多选对话框；参数二长度应与选项数量一致
+setMultiChoiceItems(String数组 , null或boolean数组 , 监听对象)

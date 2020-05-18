@@ -1,0 +1,15 @@
+序列（SEQUENCE)是序列号生成器，可以为表中的行自动生成一组等间隔的数值（number型）。
+一般用于生成表的主键值。
+
+语句：
+create sequence 序列名
+[increment by n]		//每次增长多少
+[start with n]		//从哪开始
+[maxvalue n | nomaxvalue ]	//设置最大值或无上限
+[minvalue n | nominvalue ]	//设置最小值或无下限
+[cycle | nocycle]		//是否循环
+[cache n | nochache]	//是否缓冲
+
+使用：
+序列名.nextval		//下一个序列号，第一次要使用
+序列号.currval		//当前序列号

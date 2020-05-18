@@ -1,0 +1,46 @@
+	<Tomcat安装目录>/webapps
+		|
+            web应用目录
+		|
+          |--------------------------------------|
+  HTML文件		            WEB-INF目录
+  JSP文件				    |
+			|-------------|---------------|
+		           web.xml	classes目录        lib目录
+		           taglib.tld
+
+web.xml：配置文件
+classes：存放class文件，一般存放src下的文件（包括非源文件）
+lib：存放jar文件
+---------------------------------------------------------------------
+web.xml文件:
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+ version="3.0">
+	//声明类
+ 	<servlet>
+ 		<servlet-name>HelloWorldServlet</servlet-name>	//声明类
+		<servlet-class>jsp.servlet.HelloWorldServlet</servlet-class>	//声明其完整类
+		//设置参数（自定义）
+		<init-param>
+			<param-name>参数名</param-name>
+			<param-value>值</param-value>
+		</init-param>
+	</servlet>
+	//声明虚拟路径
+	<servlet-mapping>
+		<servlet-name>HelloWorldServlet</servlet-name>	//声明类
+		<url-pattern>/HelloWorldServlet</url-pattern>		//声明其虚拟路径，，一个类可以声明多个虚拟路径；
+								//其中“/”表示web应用目录，访问时输入http://localhost:8080/myWebProject/HelloWorldServlet访问
+								//也可以用通配符表示，"*.abc"表示以"abc"结尾的URL;"abc/*"表示以"abc"开头的URL
+								//只有“/”表示URL匹配不到或找不到默认访问该类
+	</servlet-mapping>
+
+	//声明默认首页
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>	//表示默认首页
+	</welcome-file-list>
+</web-app>
+

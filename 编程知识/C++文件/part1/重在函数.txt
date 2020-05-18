@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+int add(int x,int y)
+{
+	return x+y;
+}
+float add(float x,float y)
+{
+	return x+y;
+}
+double add(double x,double y)
+{
+	return x+y;
+}
+float add(int x,float y)
+{
+	return x+y;
+}
+double add(int x,double y)
+{
+	return x+y;
+}
+void photo()
+{
+	cout<<"输入两个int型数据请按‘1’；\n";
+	cout<<"输入两个float型数据请按‘2’；\n";
+	cout<<"输入两个double型数据请按‘3’\n";
+	cout<<"输入一个int型数据和一个float数据请按‘4’；\n";
+   	cout<<"输入一个int型数据和一个double数据请按‘5’；\n"<<endl;
+}
+void xuan()
+{
+	int a;
+	cin>>a;
+	switch(a)
+	{
+	case 1:int m;int n;cin>>m>>n;cout<<"相加结果为"<<add(m,n)<<endl;break;
+	case 2:float p;float q;cin>>p>>q;cout<<"相加结果为"<<add(p,q)<<endl;break;
+	case 3:double w;double e;cin>>w>>e;cout<<"相加结果为"<<add(w,e)<<endl;break;
+	case 4:int r;float t;cin>>r>>t;cout<<"相加结果为"<<add(r,t)<<endl;break;
+	case 5:int y;double x;cin>>y>>x;cout<<"相加结果为"<<add(y,x)<<endl;
+	default:
+		cout<<"你输入的数字无效！"<<endl;
+	}
+}
+int main()
+{
+    photo();
+	xuan();
+	return 0;
+}

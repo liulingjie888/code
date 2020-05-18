@@ -1,0 +1,33 @@
+android.content.UriMatcher;
+
+方法：
+//表示条件不满足返回-1
+pubic UriMatcher(-1);
+
+//添加一组匹配规则,code为Uri匹配成功返回的匹配码
+public void addURL(String authority,String path,int code);
+
+//匹配成功返回成功的匹配码
+public int match(Uri uri)；
+
+Uri方法------------------------------------------
+
+//一般该类的子类会创建一个UriMacher成员来判断是否可以调用这些方法
+//将uri和int连接形成返回新的Uri
+Uri.withAppendedId（Uri  uri, int  id);
+
+//与上方法相反，解析出连接的int并返回
+Uri.parseId（Uri  uri, int  id);
+
+//获取Uri的ID
+Uri对象.getathSegments().get(1);
+
+//获取Uri的authortity
+Uri对象.getathSegments().get(0);
+
+----------------------------------ContentProvider的Uri说明-------
+//匹配符*表示任意字符
+// #表示数字
+
+content://  +  自定义（一般为包名） +   /表名   [ +  /ID或匹配符 ] 
+

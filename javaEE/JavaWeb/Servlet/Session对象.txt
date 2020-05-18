@@ -1,0 +1,44 @@
+javax.servlet.http.HttpSession;
+通常情况下，Session是借助Cookie技术来传递ID属性的。
+
+
+配置文件设置Session超时管理，30秒后客户端没有访问相关Session被回收（Tomcat安装目录/conf/web.xml应用于全部，各应用下web.xml优先级别更高）
+<session-config>
+	<session-timeout>30</session-timeout>
+</session-fonfig>
+
+----------------------------------------常见使用----------------------------------
+//create为true是，如果客户端相关HttpSession不存在则创建新的，存在直接返回相关的HttpSession; create为false时不存在则返回null，存在直接返回；
+HttpSession  session=request.getSeesion(boolean create);	
+//相当于前面create为true时情况
+HttpSession  session=request.getSession();
+
+//标识客户端Session的ID
+Cookie cookie=new Cookie("JSESSIONID",session.getId() );
+设置cookie相关属性. . . . 
+response.addCookie(cookie);
+
+----------------------------------------方法----------------------------------
+
+getId();			//获取HttpSession的会话标识符
+long  getCreateTime();	//获取HttpSession创建时间秒（自1970.1.1 0:0:0至今）
+long  getLastAccessedTime();	//获取客户端最后发送与Session相关请求的时间秒
+setMaxInactiveInterval(int 秒);	//设置超时失效时间秒
+boolean  isNew();		//判断HttpSession是否是新建的
+invalidate();		//强制使Session对象失效
+ServletContext getServletContext();	//获取ServletContext对象
+
+setAttribite("名称",Object 对象);	//存储信息到HttpServlet中
+Object  getAttribute("名称");		//获取指定存储对象
+removeAttribute("名称");		//删除指定对象
+
+--------------------------客户端关闭了Cookie功能如何传递SessionID---------------------------
+encodeURL(url);		
+encodeRedirectURL(url);
+功能：将 jsessionid="会话标识符" 以get方式添加到URL后生成新的返回，重写URL前必须通过request.getSession()获取到Session对象、
+区别：encodeURL是返回完整的URL（自动添加协议等等），而encodeRedirectURL则是原封不动的添加会话标识符信息
+
+解决问题是将jsessionid="会话标识符"添加到URL后再次访问服务，如：
+HttpSession s=request.getSession();
+String newUrl=response.encodeRedirectURL("重写的url");
+response.sendRedirect(newUrl);	//告诉服务器重新访问

@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+	FILE *fp;
+	char a[20];
+	fp=fopen("d:\\c.txt","r");
+	fgets(a,20,fp);
+	fclose(fp);
+	fp=fopen("d:\\c.txt","a");
+	puts(a);
+	fputs(a,fp);
+	fclose(fp);
+	return 0;
+}

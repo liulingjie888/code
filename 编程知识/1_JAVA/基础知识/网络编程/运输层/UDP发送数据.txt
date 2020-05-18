@@ -1,0 +1,81 @@
+java.net.DatagramPacket;	//数据报的载体
+java.net.DatagramSocket;	//收发数据的socket对象
+
+------DatagramSocket构造方法：
+//该构造方法一般用于创建接收数据的DatagramSocket对象
+public DatagramSocket(int 端口号) throws SocketException
+
+//该构造方法一般用于创建发送数据的DatagramSocket对象
+public DatagramSocket() throws SocketException
+
+------DatagramPacket构造方法：
+//buf为数据字节，length为接收数据的最大长度（一般用于接收）
+public DatagramPacket(byte[] buf,int lenght);
+
+//InetAddress为目的地址，port为端口，length为发送数据的最大长度（一般用于发送）
+public DatagramPacket(byte[] buf,int length,InetAddress address,int port);
+---------------------------------------------------------------------------------------------
+
+----发送：
+DatagramSocket sendUDP=new DatagramSocket();
+//创建数据报（length一般为buf的长度）
+DatagramPacket  packet=new DatagramPacket(new[] byte{1,2,(byte)34,5},20, new InetAddress.getByName("www.liulingjie.club"),6666);
+//发送数据
+sendUDP.send(packet);
+sendUDP.close();
+
+----接收：
+DatagramSocket receiveUDP=new DatagramSocket(6666);
+//创建接收数据的数据报
+byte[] data=new byte[20];
+DatagramPacket packet=new DatagramPacket(data,20);
+//接收数据
+receiveUDP.receive(packet);
+//将数据编码,data也是存放接收数据的载体
+String receice= new String(receivePack.getData(),0,receivePack.getLength());
+receiveUDP.close();
+
+-----------------------DatagramSocket方法：
+
+
+
+-----------------------DatagramPacket方法：
+InetAddress getAddress() 
+返回的IP地址的机器，这个数据包被发送或从收到的数据报。  
+
+byte[] getData() 
+返回数据缓冲区。 
+ 
+int getLength() 
+返回要发送的数据的长度或收到的数据的长度。  
+
+int getOffset() 
+返回所要发送的数据的偏移量或所接收的数据的偏移量。  
+
+InetAddress getAddress()
+获取地址
+
+int getPort() 
+返回远端端口号，这个数据包被发送或从收到的数据报。  
+
+SocketAddress getSocketAddress() 
+获取SocketAddress（通常是IP地址+端口号）的远程主机，数据包被发送到或来自。  
+
+void setAddress(InetAddress iaddr) 
+设置本机的IP地址，这个数据包被发送。  
+
+void setData(byte[] buf) 
+为这个数据包设置数据缓冲区。
+  
+void setData(byte[] buf, int offset, int length) 
+为这个数据包设置数据缓冲区。
+  
+void setLength(int length) 
+为这个数据包设置长度。  
+
+void setPort(int iport) 
+设置远端端口号，这个数据包被发送。 
+ 
+void setSocketAddress(SocketAddress address) 
+集SocketAddress（通常是IP地址+端口号）的远程主机的数据报发送。  
+

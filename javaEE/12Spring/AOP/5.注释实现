@@ -1,0 +1,41 @@
+
+==========================applicationContext.xml
+<aop:aspectj-autoproxy/>
+<bean id="annoAdvice" class="aop.AnnoAdviceHello"/>
+<bean id="hello" class="proxy.Hello"/>
+
+================================
+
+@Aspect									//表示这是一个切面通知类
+public class AnnoAdviceHello {
+	@Before("execution(* proxy.IHello.*(..))")			//前置通知
+	public void advice(){
+		System.out.println("业务方法执行前调用");
+	}
+
+	@After("execution(* proxy.IHello.*(..))")			//后置通知
+	public void advice(){
+		System.out.println("业务方法执行前调用");
+	}
+
+	@Around("execution(* proxy.IHello.*(..))")			//环绕通知
+	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+		System.out.println("nihao1");
+		Object result=joinPoint.proceed();
+		System.out.println("nihao2");
+		return result;
+	}
+
+	@AfterThrowing("execution(* proxy.IHello.*(..))")		//异常通知
+	public void afterThrowing(){
+		System.out.println("yichangbaocuo");
+	}
+}
+
+
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("hello");
+        hello.sayHello2();
+        hello.sayHello1();
+}

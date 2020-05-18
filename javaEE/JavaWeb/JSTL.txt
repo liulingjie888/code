@@ -1,0 +1,64 @@
+
+依赖：
+<dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.1.2</version>
+</dependency>
+
+==================================
+//引入标签库描述符文件
+<%@  taglib uri="http://java.sun.comjsp/jstl/core" prefix="c"%>
+
+<c:set>标签：
+<c:set var="变量名" scope="page|request|session|application" value="值"/>	//设置变量
+-------------------------------------------------------------------------------------------------------
+
+<c:out>标签：
+第一种方式：<c:out value="输出"  [ deafult="当value为null时的输出" ]  [ escapeXml="true" ] />	//escapeXml为true时将纯输出内容不执行，false是进行将输出HTML转换执行
+第二种方式：<c:out value="输出"  [ escapeXml="true" ] >当value为null时的输出</c:out>
+-------------------------------------------------------------------------------------------------------
+
+<c:if>标签：
+第一种方式：<c:if test="EL逻辑表达式" [ var="逻辑表达式中的变量名"] [ scope="page" ] />
+第二种方式：<c:if test="EL逻辑表达式" [ var="逻辑表达式变量名"] [ scope="page" ] />标签体</c:if>	//scope表示作用范围，默认page，其他request,session,application
+-------------------------------------------------------------------------------------------------------
+
+<c:choose>标签：
+
+	<c:choose>						//相对于switch语句
+		<c:when test="EL逻辑表达式" > 输出内容 </c:when>
+		<c:when test="EL逻辑表达式" > 输出内容 </c:when>
+		. . . . . .
+		[	<c:otherwise>输出内容</c:otherwise> ]
+	</c:choose>
+-------------------------------------------------------------------------------------------------------
+
+<c:forEach>标签（用于迭代集合标签对象中的元素）：
+第一种方式：<c:forEach [ var="迭代变量" ] items="迭代的集合名" [varStatus="当前迭代状态信息对象保存到的page域中的名称"] [begin="起始下标"] [end="结束下标"] [step="迭代步长"]> 输出 </c:forEach>
+第二种方式：<c:forEach [ var="迭代变量" ]  [ varStatus="当前迭代状态信息对象保存到的page域中的名称" ]  begin="起始下标"  end="结束下标"  [step="迭代步长"]> 输出 </c:forEach>
+
+如varStatus="status"时，${status.count}表示序号，${status.index}表示下标，${status.first}表示是否是第一个，${status.last}表示是否是最后一个
+-------------------------------------------------------------------------------------------------------
+
+<c:param>,<c:url>和<c:redirect>标签：
+<c:url [var="构造好的url保存对象"]  value="要进行构造的URL"  [context=""指定导入同一服务器下其他web应用的名称"]  [scope="page|request|session|application"] >
+	<c:param name="名称" value="值" />
+	. . . . . .
+</c:url>
+//功能是将参数添加到URL后生成新的URL，并且这样生成的URL的参数值会编码，则在客户端显示为乱码安全
+
+<c:redirect url="目标URL保存对象" [context="指定导入同一服务器下其他web应用的名称"]/>
+//重定向到目标URL
+-------------------------------------------------------------------------------------------------------
+
+
+
+
+
+

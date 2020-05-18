@@ -1,0 +1,23 @@
+1、创建应用，获取AppKey。
+2、下载包导入，BaiduLBS_Android.jar放入到libs下面，其他目录放入到src/main/jniLibs目录下
+3、权限声明：xmlns:tools="http://schemas.android.com/tools"这个为 manifest 的属性
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions"/>
+
+4、application中加入：
+<meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="你的AppKey"/>
+
+ <service android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>

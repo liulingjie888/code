@@ -1,0 +1,65 @@
+Topic交换机根据消息的routekey将其放入能够匹配的队列
+
+sender：
+public class TopicSender {
+    private static final String EXCHANGE = "test_exchange_topic";
+
+    public static void main(String[] args) {
+        Connection con = null;
+        Channel channel = null;
+        try {
+            // 获取连接
+            con = ConnectionUtils.getConnection();
+            // 从连接中创建通道
+            channel = con.createChannel();
+            // 声明交换机,采用topic类型
+            channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.TOPIC, false, false, null);
+            // 消息
+            String msg = "你好 exchange topic!";
+            // 发送消息
+            channel.basicPublish(EXCHANGE, "quick.orange.rabbit1", null, msg.getBytes());
+            System.out.println("send success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭连接
+            ConnectionUtils.close(channel, con);
+        }
+    }
+}
+
+recver：
+public class TopicRecver {
+    private static final String EXCHANGE = "test_exchange_topic";
+    private static final String QUEUE = "test_queue_topic_1";
+
+    public static void main(String[] args) throws IOException, TimeoutException {
+        // 获取连接
+        Connection con = ConnectionUtils.getConnection();
+        // 从连接中创建通道
+        final Channel channel = con.createChannel();
+        // 声明队列
+        channel.queueDeclare(QUEUE, true, false, false, null);
+        // 绑定交换机,指定路由键为error
+        channel.queueBind(QUEUE, EXCHANGE, "*.orange.*");
+        // 保证一次只分发一条消息
+        channel.basicQos(1);
+        // 创建消费者
+        Consumer consumer = new DefaultConsumer(channel) {
+            // 获取消息
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
+                    throws IOException {
+                String msg = new String(body, "utf-8");
+                System.out.println("Recver1接收到消息——" + msg);
+                // 手动确认消息
+                channel.basicAck(envelope.getDeliveryTag(), false);
+            }
+
+        };
+        // 监听队列
+        channel.basicConsume(QUEUE, false, consumer);
+    }
+}

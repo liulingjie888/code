@@ -1,0 +1,40 @@
+相对布局RelativeLayout
+
+padding="2dp"		//内边距
+paddingTop
+~Bottom
+~Left
+~Right
+
+控件属性
+layout_centerInParent="true"	//布局中心
+~Vertical
+~Horizontal
+
+layout_above="id"		//控件旁边
+~below
+~toLeftOf
+~toRightOf
+~toStartOf
+~toEndOf
+
+layout_alignParentTop="true"	//与布局边对齐
+~Bottom
+~Left
+~Right
+~Start
+~End
+
+layout_alignTop="id"	//与控件边对齐
+~Bottom
+~Left
+~Right
+~Start
+~End
+~BaseLine
+
+layout_marginTop="20dp"	//当前控件上边界与某控件距离,某控件为align对齐的控件
+~Bottom
+~Left
+~Right
+	

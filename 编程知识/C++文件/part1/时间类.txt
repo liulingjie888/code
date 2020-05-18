@@ -1,0 +1,64 @@
+#include<iostream>
+using namespace std;
+
+class Date
+{
+public:
+	Date()
+	{
+		year=0;
+		month=0;
+		day=0;
+	}
+	Date(int y,int m,int d):year(y),month(m),day(d)
+	{
+	}
+	void printf1()
+	{
+		cout<<"日期："<<year<<"-"<<month<<"-"<<day<<endl;
+	}
+private:
+	int year,month,day;
+};
+class Time
+{
+public:
+	Time()
+	{
+		hour=0;
+		minute=0;
+		second=0;
+	}
+	Time(int h,int m,int s):hour(h),minute(m),second(s)
+	{
+	}
+	void printf2()
+	{
+		cout<<"时间："<<hour<<"-"<<minute<<"-"<<second<<endl;
+	}
+private:
+	int hour,minute,second;
+};
+class DateTime:public Date,public Time
+{
+public:
+	DateTime()
+	{
+	}
+	DateTime(int a,int b,int c,int d,int e,int f):Date(a,b,c),Time(d,e,f)
+	{
+	}
+	printfoin()
+	{
+		printf1();
+		printf2();
+	}
+private:
+
+};
+int main()
+{
+	DateTime s1(2018,4,24,20,25,30);
+	s1.printfoin();
+	return 0;
+}

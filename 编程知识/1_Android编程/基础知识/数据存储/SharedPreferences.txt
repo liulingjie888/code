@@ -1,0 +1,20 @@
+android.content.SharedPredferences;
+android.content.Context;
+
+文件存在datadata/<packagename>/shared_prefs文件夹中
+SharePreferences中的value值只能为Float、Int、Long、Boolean、String、StringSet类型数据
+
+1.存储数据
+SharedPreferences sp=this.getSharedPreferences("文件名",Context.MODE_PRIVATE);
+SharedPrederences.Editor  editor=sp.edit();	//获取编辑器
+editor.putString("键名","值");
+editor.putInt("键名","值");
+editor.commit();		//提交数据
+//删除指定数据
+editor.remove("键名");
+//删除所有
+editor.clear();
+
+2.获取数据（this为活动类）
+SharedPreferences sp=this.getSharedPreferences("文件名",this.MODE_PRIVATE);
+String data=sp.getString("name",null);

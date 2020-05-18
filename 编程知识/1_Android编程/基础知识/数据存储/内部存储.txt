@@ -1,0 +1,15 @@
+内部存储默认位于data/data/<packagename>/files/目录下
+
+//写出
+FileOutputStream fos=openFileOutput(String name,int model);
+String对象.getBytes()
+
+model:
+MODE_PRIVATE: 该文件只能被当前程序读写
+MODE_PAPEND:该文件的内容可以追加
+MODE_WORLD_READABLE:该文件的内容可以被其他程序读（4.2版本中废弃）
+MODE_WORLD_WRITEABLE:该文件的内容可以被其他程序写（4.2版本中废弃）
+
+//读入
+FileInputStream fis=openFileInput(String name);
+fis.available()	//获取长度

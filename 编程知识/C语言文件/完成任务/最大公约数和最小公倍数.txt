@@ -1,0 +1,31 @@
+#include<stdio.h>
+int gys(int m,int n)
+{
+	int t;
+	while(m%n!=0)
+	{
+		t=m;
+        m=n;
+		n=t%m;
+	}
+	return n;
+}
+int gbs(int t,int m,int n)
+{
+	return (m*n/t);
+}
+int main()
+{
+	int m,n,t;
+	printf("请输入要求最大公约数与最小公倍数的两个数：");
+	scanf("%d%d",&m,&n);
+	if(n>m)
+	{
+		t=n;
+		n=m;
+		m=t;
+	}
+	printf("%d和%d的最大公约数为%d。",m,n,gys(m,n));
+	printf("%d和%d的最大公倍数为%d。",m,n,gbs(gys(m,n),n,m));
+	return 0;
+}

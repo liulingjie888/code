@@ -1,0 +1,19 @@
+create procedure 存储过程名
+[@形参名1  数据类型[=默认值]，· · · ·]
+[@变参名1  数据类型  output , · · · ·]
+[with recompile | encryption ]
+as
+        语句
+
+with recompile：指明存储过程不驻留内存，每次执行之后重新编译
+encryption：加密，其他用户查询不到存储过程语句
+
+调用存储过程
+exec 存储过程名  对应形参数 |  default(输入对应形参的默认值) · · ·  , 对应变参数  output
+[语句调用变参数]
+
+修改：alter ~
+删除： drop procedure 过程存储名
+
+查看存储过程语句
+exec sp_helptext 存储过程名

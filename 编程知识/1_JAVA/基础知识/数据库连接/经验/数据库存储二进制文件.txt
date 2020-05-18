@@ -1,0 +1,30 @@
+首先数据库驱动版本不能太老
+
+插入二进制文件流：
+
+            Connection conn = datasource.getConnection();            
+            InputStream is=FileInputStream(new File("D:\\photo.png");
+            String  sql="insert into photo values (0,?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setBlob(1,is,is.available());	//将二进制流填入
+            statement.executeUpdate();
+
+            is.close();
+            statement.close();
+
+去除二进制文件流：
+
+             Connection conn = datasource.getConnection();
+             String sql="select photo_stream from photo where photo_id=0";
+             PreparedStatement statement=conn.prepareStatement(sql);
+             ResultSet rs=statement.executeQuery();
+
+             if(rs.next()) {
+                    Blob blob=rs.getBlob(1);			//获取流字段
+             	    InputStream in=blob.getBinaryStream();	//获取流
+             }
+
+             rs.close();
+             statement.close();
+             return  in;					//将流返回

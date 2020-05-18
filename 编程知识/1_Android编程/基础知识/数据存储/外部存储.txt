@@ -1,0 +1,11 @@
+//文件位于mnt/sdcard目录下
+String state=Environment.geExternalStorageState();	//获取SD卡状态
+if (state.equals(Environment.MEDIA_MOUNTED))	{	//判断外部设备是否可用
+	File SDPath=Environment.getExternalStorageDirectory();	//获取SD卡目录
+	File file=new File(SDPath,"data.txt");
+	. . . . . .	//对文件的操作
+}
+
+注意：需要在清单文件的<manifest节点中添加SD卡读写权限：
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>

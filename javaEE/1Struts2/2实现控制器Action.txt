@@ -1,0 +1,51 @@
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+  
+Action接口
+public interface Action {
+	public static final String SUCCESS="success";
+	public static final String NONE="none";
+	public static final String ERROR="error";
+	public static final String INPUT="input";
+	public static final String LOGIN="login";
+	public String execute() throws Exception;	//默认执行方法
+}
+
+----------------ActionSupport继承了的接口：Action:
+Validateable: 提供了validate()方法用于效验表单数据
+ValidationAware: 提供了addFiledError(String fieldname, String errorMessage)方法来验证出错时保存错误信息
+TextProvider: 提过了一系列getText()方法来获得对应的国际化信息资源
+LocaleProvider: 提供了用于国际化是获得语言、地区信息的getLocale()方法
+Serializable:
+
+//实现ActionSuuport子类
+//该类一般用于处理请求，可以将请求中的字段属性封装在该类在该类中
+
+字段传值方法：
+public class LoginAction extends ActionSupport {
+	private String name;		//属性名
+	private String password;	//属性名
+	public String execute() throws Exception{
+		//返回处理类型
+	}
+	//方法名必须是输入框的name名，因为是调用输入框名对应的方法名来设置属性
+	. . . name和password的set,get方法
+}
+
+===========================
+模型传值方法：
+public class LoginAction extends ActionSupport{
+	private Login login;
+	public String execute() throws Exception{
+	}
+	public Login getLogin(){
+		return login;
+	}
+	public void setLogin(Login login){
+		this.login=login;
+	}
+}
+
+Login为javaBean模型，
+将表单中的action属性改为  struts配置文件的指定处理action类的name值.action
+输入框name设置为  javaBean类名.属性名

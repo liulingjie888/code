@@ -1,0 +1,8 @@
+
+//设置你的邮箱
+git config --global  user.name "你的名字"
+git config --global user.email	"你的邮箱"
+
+//查看
+git config --global  user.name
+git config --global user.email

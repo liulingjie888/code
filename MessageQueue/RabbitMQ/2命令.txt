@@ -1,0 +1,8 @@
+
+
+
+systemctl start rabbitmq-server		#启动服务
+systemctl enable rabbitmq-server	#引导时自动启动RabbitMQ
+
+rabbitmqctl  list_users 		#列出用户名
+rabbitmqctl  change_password  用户名  '密码'	#修改密码

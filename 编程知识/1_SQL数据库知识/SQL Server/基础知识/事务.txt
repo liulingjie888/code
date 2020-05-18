@@ -1,0 +1,19 @@
+   显式事务
+begin tran  事务名
+[with mark]		--记入到日志中
+
+	执行语句
+
+[rooback  tran 事务名]	--回滚事务
+[commit  tran 事务名]	--结束事务
+
+隐式事务（自动提交事务）
+set  implicit_transactions  on|off	--开启|关闭隐式事务模式
+
+事务的保存点
+save tran 保存点名		-- 设置
+rollback  tran  保存点名	--使用保存点
+
+自动提交事务
+
+事务的嵌套

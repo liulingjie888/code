@@ -1,0 +1,5 @@
+DialogInterface.OnClickListener() {
+	public void  onClick(DialogInterface dialog,int which) {
+		which;	//选中的下标
+	}
+}

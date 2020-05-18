@@ -1,0 +1,52 @@
+第一步：app/build.gradle文件中的dependencies添加配置：
+
+implementation  'org.litepal.android:core:2.0.0'
+
+或
+
+下载相关包放入libs目录下
+
+------------------------------
+第二步：app/src/main目录下创建 assets目录，在创建一个litepal.xml,内容如下:
+
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+	<dbname value="数据库名" ></dbname>
+	<version> value="1"></version>		//value代表版本号
+	<list>					//list用于指定映射模型
+		<mapping class="JavaBean类的完整包类名"></mapping>
+	</list>
+</litepal>
+
+----------------------------
+第三步：在AndroidManifest.xml中的applicationi元素加入属性:
+
+android:name="org.litepal.LitePalApplication"
+
+------------------------------
+最后在代码中执行LitePal.getDatabase();
+就会根据配置文件自动创建数据库名，和根据JavaBean自动创建对应的表。 超级方便神奇！
+要更新表结构的话，直接版本号增加，再在JavaBean中更新属性，会自动校准数据库
+如果该JavaBean要操作，则需继承LitePalSupport类
+
+
+
+
+默认创表语句：
+CREATE TABLE people (id integer primary key autoincrement,age integer, name text, sex text);
+
+对象模型：
+public class People extends LitePalSupport {
+    private String name;
+    private String sex;
+    private int age;
+
+    public String getName(){return name;}
+    public void setName(String name){this.name=name;}
+
+    public String getSex(){return sex;}
+    public void setSex(String sex){this.sex=sex;}
+
+    public int getAge(){return age;}
+    public void setAge(int age){this.age=age;}
+}

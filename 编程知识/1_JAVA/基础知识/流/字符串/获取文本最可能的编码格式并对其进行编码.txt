@@ -1,0 +1,31 @@
+
+CharsetDetector这个类是为了解决未知格式的字符数据的编码格式的问题，也就是说你可以通过这个类得到一段编码格式未知的字符数据最可能的格式。
+
+----------------------------------------------------------------------
+
+String html = "嘞似雾都";
+
+CharsetDetector detector = new CharsetDetector();
+
+//传入方式为字节数组或输入流
+//detector.setText(new FileInputStream(new File("")));
+detector.setText(html.getBytes());
+
+//获取所有可能匹配的编码格式数组
+//CharsetMatch[] matches = detector.detectAll();
+//获取可能性最高的编码格式，一般这个就够用
+CharsetMatch match = detector.detect();
+
+//获取可能性，值从0~100, 可以理解为字符与编码格式的匹配程度从0%~100%，一般60%以上就可以确定了
+int confidence = match.getConfidence();
+
+//编码格式的名字，例：UTF-8
+String name = match.getName()
+
+//大致意思是根据字节数据或输入流对应的Unicode编码集，将数据写成字符串
+String text = match.getString()
+
+
+-------------------------------------------------------------------------
+最后说一下会用到的地方，我个人是写爬虫的，使用爬虫抓取网页时最后返回的内容都是输入流InputStream，通过这种方式我们可以方便的把输入流转换为字符串，而不需要再去仔细的考虑编码格式的问题，当然有时候还是要考虑，不过总能省一些事情。 
+另外，尽管现在大势所趋，大家都开始使用UTF-8的编码格式，但是难免会有很多历史遗留的问题以及开发时使用的语言的限制而导致的各种编码问题，包括网页和文件。这也是这个类的用武之地，虽然还是很小众。

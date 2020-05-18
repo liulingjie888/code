@@ -1,0 +1,29 @@
+gdebi-gtk   	软件安装程序
+
+BleachBit	清理工具
+
+FileZilla	文件传送工具
+sFTP Client
+JFTP
+
+Snowflake	集文件传输和ssh登入
+
+DataGrip	SQL数据库连接工具
+SQuirrel SQL
+
+DB Browser for SQLite	Sqlite数据库工具
+
+PhotoGIMP	PS工具
+
+gedit		文本工具
+
+net-tools  	netstat网络工具
+
+budgie		好用的主题界面
+
+seahorse	密码与密钥
+
+virtualbox	虚拟机
+
+
+

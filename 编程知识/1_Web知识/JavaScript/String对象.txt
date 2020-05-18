@@ -1,0 +1,13 @@
+String.fromCharCode(ascll码)		返回ASCII码转换的字符
+
+lengh
+indexOf(str [, startIndex])		从前向后检索字符串
+lastIndexOf(search [,startIndex])	从后向前检索字符串
+substr(startIndex [,length])		根据下标和长度获取子字符串
+substring(startIndex [,endIndex])	根据下标获取子字符串
+split(separator [ ,limitInteger])		获取以分隔符separator分割字符串的字符数组
+search(substr)			返回子字符串或符合正则表达式的下标
+replace(substr,replacement)		替换匹配的子字符串
+toLowerCase()			将字符串转换成小写返回
+toUpperCase()			将字符串转换成小写返回
+localeCompare()			用本地特定的顺序比较两个字符串

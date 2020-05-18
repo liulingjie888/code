@@ -1,0 +1,15 @@
+进度条JProgressBar
+
+import javax.swing.JProgressBar;
+
+        ……
+        JProgressBar pb = new JProgressBar();
+ 
+        pb.setMaximum(100);	 //进度条最大100
+        
+        pb.setValue(50);	//当前进度是50
+        
+        pb.setStringPainted(true);	//显示当前进度
+ 
+        ……
+    }

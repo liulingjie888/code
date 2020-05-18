@@ -1,0 +1,8 @@
+视图操作
+create view  视图名 （列名1，列名2，· · · ·）
+as
+     <select 查询语句>             
+[with check option]		--同步数据
+修改： alter ~
+删除： drop view 视图名
+//可以像表一样插入删除更新

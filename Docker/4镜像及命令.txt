@@ -1,0 +1,56 @@
+================命令
+docker pull 镜像名[:版本号（默认latest）]	//拉取镜像
+docker push 镜像名				//上传到镜像仓库,要先登陆到镜像仓库
+sudo docker images				//查看下载的镜像
+docker search  镜像名				//查找镜像
+docker rmi 镜像名				//删除镜像
+docker tag 镜像ID 镜像名:版本号			//为镜像添加一个新的标签
+docker history 镜像名				//查看镜像的创建历史
+
+docker commit -m="描述" -a="作者名" 容器ID 镜像名:版本号	//将容器制作成镜像
+
+docker save -o tar文件 镜像名			//将镜像保存到tar文件
+docker load < tar文件
+docker load --input tar文件 			//导入使用 docker save 命令导出的镜像。
+docker import  tar文件 runoob/ubuntu:v4		//从镜像归档文件创建镜像，命名为runoob/ubuntu:v4
+
+===============构建镜像
+1创建文件Dockerfile：
+
+FROM    centos:6.7				//指定使用哪个镜像源
+MAINTAINER      Fisher "fisher@sudops.com"
+
+RUN     /bin/echo 'root:123456' |chpasswd	//在镜像内执行命令，安装了什么
+RUN     useradd runoob
+RUN     /bin/echo 'runoob:123456' |chpasswd
+RUN     /bin/echo -e "LANG=\"en_US.UTF-8\"" >/etc/default/local
+EXPOSE  22
+EXPOSE  80
+CMD     /usr/sbin/sshd -D
+
+2执行：
+docker build -t 镜像名:版本号 Dockerfile所在目录
+
+=====命令参数
+--build-arg=[] :设置镜像创建时的变量；
+--cpu-shares :设置 cpu 使用权重；
+--cpu-period :限制 CPU CFS周期；
+--cpu-quota :限制 CPU CFS配额；
+--cpuset-cpus :指定使用的CPU id；
+--cpuset-mems :指定使用的内存 id；
+--disable-content-trust :忽略校验，默认开启；
+-f :指定要使用的Dockerfile路径；
+--force-rm :设置镜像过程中删除中间容器；
+--isolation :使用容器隔离技术；
+--label=[] :设置镜像使用的元数据；
+-m :设置内存最大值；
+--memory-swap :设置Swap的最大值为内存+swap，"-1"表示不限swap；
+--no-cache :创建镜像的过程不使用缓存；
+--pull :尝试去更新镜像的新版本；
+--quiet, -q :安静模式，成功后只输出镜像 ID；
+--rm :设置镜像成功后删除中间容器；
+--shm-size :设置/dev/shm的大小，默认值是64M；
+--ulimit :Ulimit配置。
+--tag, -t: 镜像的名字及标签，通常 name:tag 或者 name 格式；可以在一次构建中为一个镜像设置多个标签。
+--network: 默认 default。在构建期间设置RUN指令的网络模式
+

@@ -1,0 +1,27 @@
+import android.provider.ContactsContract;
+import android.support.v4.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+
+-----------------------------------
+//检查程序是否获得指定权限
+//程序获得了该权限则返回PackageManager.PERMISSION_GRANTED
+ContextCompat.checkSelfPermission( MainActivity.this, Manifest.permission.权限名 );
+
+------------------------------------
+//申请权限
+ActivityCompat.requestPermissions( MainActivity.this, new String[]{Manifest.permission.权限名 , . . . } ,请求码（1）);
+
+--------------------------------
+MainActivity中：
+
+public void onRequestPermissionsResult(int requestCode , String[] permissions , int[] grantResults){
+	switch(request){
+		case 请求码（1）:
+			if( grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+				获得权限后操作；
+			else
+				Toast没有权限；
+	}
+}

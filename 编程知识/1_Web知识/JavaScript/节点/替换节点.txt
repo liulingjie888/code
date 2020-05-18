@@ -1,0 +1,22 @@
+与删除节点一样，替换节点也需要先获取父节点，然后通过父节点替换子节点。 
+1. 获取父节点 
+2. 创建子节点 
+3. 获取被替换子节点 
+4. 通过replaceChild进行替换 
+
+父元素.replaceChild(节点1,节点2)	节点1替换节点2
+
+例：
+function replaceDiv(){
+  var d4=  document.createElement("div");
+  var text = document.createTextNode("第四个div");
+  
+  d4.appendChild(text);
+  
+  var d3 = document.getElementById("d3");
+  
+  var parentDiv = document.getElementById("parentDiv");
+  
+  parentDiv.replaceChild(d4,d3);
+}
+

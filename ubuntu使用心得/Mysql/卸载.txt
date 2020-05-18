@@ -1,0 +1,31 @@
+
+=========安装
+
+　　1. sudo apt-get install mysql-server
+
+　　2. apt-get isntall mysql-client
+
+　　3.  sudo apt-get install libmysqlclient-dev
+
+
+
+=========卸载
+删除mysql的数据文件
+sudo rm /var/lib/mysql/ -R
+
+删除mysql的配置文件
+sudo rm /etc/mysql/ -R
+
+自动卸载mysql（包括server和client）
+ sudo apt-get purge mysql-server
+sudo apt-get remove apparmor
+
+
+然后在终端中查看MySQL的依赖项：
+dpkg --list|grep mysql
+
+
+
+gconf-service gconf-service-backend gconf2-common libaio1 libcgi-fast-perl libcgi-pm-perl libevent-core-2.1-7 libfcgi-perl libgconf-2-4 libhtml-template-perl libmecab2 linux-headers-5.4.0-26
+libssl-dev linux-image-5.4.0-26-generic linux-modules-5.4.0-26-generic linux-modules-extra-5.4.0-26-generic
+mysql-client-8.0 mysql-client-core-8.0

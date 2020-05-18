@@ -1,0 +1,19 @@
+Set中的元素，不能重复且是无序的
+
+add(E e); 		//如果没有已存在，则将指定的元素添加到该集合中。 
+
+clear();		//从这个集合中移除所有的元素。  
+
+clone(); 		//返回该 HashSet实例浅拷贝：元素本身不是克隆。 
+ 
+contains(Object o); 	//判断包含
+
+isEmpty(); 	//是否为空  
+
+iterator(); 		//返回此集合中元素的迭代器。  
+
+remove(Object o); 	//如果当前存在，则从该集合中移除指定的元素。  
+
+int size(); 		//返回该集合中元素个数。
+
+spliterator(); 	//创建一个后期绑定和快速失败 Spliterator在这个集合中的元素。

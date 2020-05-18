@@ -1,0 +1,140 @@
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+using namespace std;
+
+
+struct student
+{
+	int age;
+	char name[20];
+	int id;
+};
+
+int main()
+{
+	//int max=0;
+	//char ch[200],tempStr[200];
+	//cin.get(ch);
+	//cout.put(ch);
+	//cin.getline(ch,20,'\n');
+	//cout.write(ch,strlen(ch)).put('\n');
+
+
+	/*while(cin.getline(ch,200))
+	{
+		if(strlen(ch)>max)
+		{
+			max=strlen(ch);
+			strcpy(tempStr,ch);
+		}
+	}
+
+	cout<<"-------------------------------------"<<endl;
+	cout<<"the max string is:"<<tempStr<<endl;
+	cout<<"the length of the string:"<<max<<endl;*/
+
+	/*int a=1234,b=12345;
+	cout.fill('*');
+	cout.width(20);
+	cout.setf(ios::left);
+	cout<<a<<endl;
+	cout.width(20);
+	cout<<b<<endl;
+
+	double d=123.45;
+//	cout.precision(8);
+	cout.setf(ios::scientific);
+	cout<<d<<endl;
+
+	cout<<cout.flags(ios::scientific)<<endl;*/
+	
+	/*cout.unsetf(ios::left);
+	cout.width(20);	
+	cout<<b<<endl;
+
+	cout.setf(ios::showpos);
+	cout<<b<<endl;
+	cout.unsetf(ios::showpos);
+	cout<<b<<endl;
+
+	cout.setf(ios::hex,ios::basefield);
+	cout<<b<<endl;
+	cout.setf(ios::oct,ios::basefield);
+	cout<<b<<endl;
+	int a=123,b=12345;
+	cout<<setw(10)<<a<<setw(10)<<b<<endl;
+	cout<<hex<<a<<" "<<oct<<b<<endl;
+	cout<<dec<<setiosflags(ios::showpos)<<a<<endl;
+
+	char ch[200];
+
+
+
+
+	ofstream ofs;
+	ofs.open("d:\\my.txt",ios::out);
+
+	char ch[200];
+	if(ofs)
+	{
+		while(cin.getline(ch,200))
+		{		
+			ofs<<ch<<endl;
+		}
+		ofs.close();
+	}
+	
+
+	ifstream ifs;
+	ifs.open("d:\\my.txt",ios::in);
+
+	char ch[200];
+	
+	if(ifs)
+	{
+		while(!ifs.eof())
+		{
+			ifs.getline(ch,200);
+			cout<<ch<<endl;		
+		}
+
+		ifs.close();	
+	}
+*/
+	int i;
+	student s[2];
+	for(i=0;i<2;i++)
+		cin>>s[i].age>>s[i].name>>s[i].id;
+
+	ofstream ofs;
+	ofs.open("student.dat",ios::binary|ios::out|ios::app);
+
+	if(ofs)
+	{
+		for(i=0;i<2;i++)		
+			ofs.write(reinterpret_cast<char *>(&s[i]),sizeof(s[i]));
+		ofs.close();
+	}
+
+	student s[100];
+	cout<<"-------------------------------------------"<<endl;
+
+	int i=0;
+	ifstream ifs;
+
+	ifs.open("student.dat",ios::binary);
+	if(ifs)
+	{
+		//for(int i=0;i<7;i++)
+		while(!ifs.eof())
+		{
+			ifs.read(reinterpret_cast<char *>(&s[i]),sizeof(s[i]));
+			cout<<s[i].age<<" "<<s[i].name<<" "<<s[i].id<<endl;
+			i++;
+		}
+		ifs.close();
+	}
+
+	return 0;
+}

@@ -1,0 +1,2 @@
+//获取APP签名等信息
+keytool -v -list -keystore  jks文件路径

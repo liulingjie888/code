@@ -1,0 +1,30 @@
+android.content.Intent;
+java.io.Serializable;
+
+activity01.java:
+
+//跳转到activity02
+Intent intent=new Intent(this,Activity01.class);
+startActivityForResult(intent,int requestCode请求码);
+
+//activity02销毁后会回调activity01的该方法
+protected void onActivityResult(int requestCode,int resultCode,Intent data){
+	super.onActivityResult(requestCode,resultCode,data);
+	//用请求码和回传码确定是有哪个activity传回
+	if(requestCode==1 && resultCode==1){
+		String string=data.getStringExtra("extra_data");
+		//Intent只能传递基本数据类型、Serializable和Parcelable类型数据	
+		//所以自定义类需继承Serializable接口
+		类型  变量=(类型)data.getSerializableExtra("名称");
+	}
+}
+		
+
+activity02.java:
+
+//数据回传给activity01
+Intent intent=new Intent();
+intent.putExtra("名称",值);
+setResult(int resultCode回传码,intent);
+//关闭当前的activity
+finish();

@@ -1,0 +1,124 @@
+A点击选择相册 -》
+B查看是否有权限,有权限则打开相册，没有则申请权限 -》
+C选择照片后回调onActivityResult方法，根据版本的高低选择是否解析URI -》
+D根据URI访问内容提供者来取图片的路径 -》
+E给控件设置图片。
+
+CHOOSE_PHOTO=2;
+
+---------------------------------B按钮点击事件：
+
+//申请外存读写权限
+if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=PackageManager.PERMISSION_GRANTED){
+             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+}else{
+             //打开相册
+             openAlbum();
+}
+
+----------------------------B用户选择权限结果：
+
+ //用户选择权限结果
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                //申请到权限则打开相册
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    openAlbum();
+                }else{
+                    Toast.makeText(this,"没有权限",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+-----------------------------B打开相册方法：
+     //打开相册
+    private  void openAlbum(){
+            Intent intent=new Intent("android.intent.action.GET_CONTENT");
+            intent.setType("image/*");
+            startActivityForResult(intent,CHOOSE_PHOTO);
+    }
+
+-------------------------C选择照片后回调的方法：
+
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch(requestCode){
+            。。。。。。。
+            case CHOOSE_PHOTO:
+                if(resultCode==RESULT_OK){
+                    //安卓版本大于4.4
+                    if(Build.VERSION.SDK_INT>=19){
+                        handleImageOnKitKat(data);
+                    }else{
+                        handleImageBeforeKitKat(data);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+
+----------------------C安卓4.4以上处理方法：
+@TargetApi(19)
+    private void handleImageOnKitKat(Intent data){
+        String imagePath=null;
+        Uri uri=data.getData();
+
+        //根据URI获取到路径，
+        if(DocumentsContract.isDocumentUri(this,uri)){
+            String docId=DocumentsContract.getDocumentId(uri);
+
+            if("com.android.providers.media.documents".equals(uri.getAuthority())){
+                String id=docId.split(":")[1];
+                String selection=MediaStore.Images.Media._ID+"="+id;
+                imagePath=getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
+            }else if("com.android.providers.downloads.documents".equals(uri.getAuthority())){
+                Uri contentUri= ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
+                imagePath=getImagePath(contentUri,null);
+            }
+        }else if("content".equalsIgnoreCase(uri.getScheme())){
+            imagePath=getImagePath(uri,null);
+        }else if("file".equalsIgnoreCase(uri.getScheme())){
+            imagePath=uri.getPath();
+        }
+
+        displayImage(imagePath);
+    }
+
+-----------------------------C低于安卓4.4的处理方法：
+
+ private void handleImageBeforeKitKat(Intent data){
+        Uri uri=data.getData();
+        String imagePath=getImagePath(uri,null);
+        displayImage(imagePath);
+    }
+
+----------------------------D根据URI获取图片的路径
+
+    private String getImagePath(Uri uri,String selection){
+        String path=null;
+        Cursor cursor=getContentResolver().query(uri,null,selection,null,null);
+        if(cursor!=null){
+            if(cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+         return path;
+    }
+
+---------------------------------E给控件设置图片
+    private void displayImage(String imagePath){
+        if(imagePath!=null){
+            Bitmap bitmap=BitmapFactory.decodeFile(imagePath);
+            picture.setImageBitmap(bitmap);
+        }else{
+            Toast.makeText(this,"没有选择图片",Toast.LENGTH_SHORT).show();
+        }
+    }

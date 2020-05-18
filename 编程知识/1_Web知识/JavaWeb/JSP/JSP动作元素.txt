@@ -1,0 +1,10 @@
+（1）<jsp:include>
+例：<jsp:include page="相对路径JSP文件" flush="false" />
+flush表示是否刷新客户端，默认为false，表示所有输出完成后再发送给客户端
+原理与RequestDispatcher.include()方法类似，将先jsp文件和include文件编译成俩个Servlet,然后按照镶嵌位置和代码顺序输出执行
+和include指令不同，它是编译成各自的Servle，而include是插入文件后编译成一个Servlet
+
+（2）<jsp:forward page="相对路径文件" />
+原理与RequestDispatcher.forword()方法类似,跳转到指定页面后由该页面负责响应，后面代码不执行
+
+（3）${pageContext.request.contextPath}表示web应用目录，可以直接写在jsp文件的HTML代码中

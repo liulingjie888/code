@@ -1,0 +1,4 @@
+拨打电话10086
+intent.setAction(Intent.ACTION_DIAL);		//Intent.ACTION_CALL代表直接拨打，需权限CALL_PHONE
+intent.setData(Uri.parse("tel:10086"));
+startActivity(intent);

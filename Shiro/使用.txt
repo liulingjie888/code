@@ -1,0 +1,59 @@
+
+1.subject.login(token)会将用户的账号和密码交给AuthorizingRealm类；
+2.再调用其doGetAuthenticationInfo方法进行检验，
+所以通常从数据库中取出用户和密码在该方法中与传入的token检验。
+如果检验失败则抛出new AuthenticationException()异常；
+成功则返回存放账号密码认证对象SimpleAuthenticationInfo("用户名","密码")；
+4.成功后会进入其 doGetAuthorizationInfo方法，我们在这将用户的角色和权限进行添加；
+
+=====================================shiro.ini放入classpath，内容:
+
+[users]			#定义用户
+zhang3 = 12345, admin		#用户名 zhang3  密码是 12345， 角色是 admin
+li4 = abcde,productManager	#用户名 li4  密码是 abcde， 角色是 产品经理
+
+[roles]			#定义角色
+admin = *										#管理员什么都能做
+productManager = addProduct,deleteProduct,editProduct,updateProduct,listProduct		#产品经理只能做产品管理
+orderManager = addOrder,deleteOrder,editOrder,updateOrder,listOrder			#订单经理只能做订单管理
+
+=================================代码操作
+
+//加载配置文件，并获取工厂
+Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro.ini");
+//获取安全管理者实例
+SecurityManager sm = factory.getInstance();
+//设置安全管理者
+SecurityUtils.setSecurityManager(sm);
+//通过安全管理者生成全局对象Subject
+Subject subject = SecurityUtils.getSubject();
+
+
+//检验用户密码
+UsernamePasswordToken token = new UsernamePasswordToken("用户名", "密码");
+try {
+    //将用户的数据token 最终传递到Realm中进行对比，验证成功不会报错
+    subject.login(token);
+    return true;
+} catch (AuthenticationException e) {
+    //验证错误
+    return false;
+}
+
+//判断是否验证成功
+subject.isAuthenticated();
+
+//判断用户是否具有该角色
+subject.hasRole("角色名");
+//判断用户是否具有指定权限
+subject.isPermitted("权限名")
+
+
+
+注意：
+subject一次只能验证一位用户，所有要验证其他用户要及时检查并登出：
+//如果已经登录过了，退出
+if(subject.isAuthenticated()) {
+    System.out.println("已经登入过");
+    subject.logout();
+}

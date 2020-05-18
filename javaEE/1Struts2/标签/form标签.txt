@@ -1,0 +1,6 @@
+
+
+<s:form action="addProduct">			//处理的action的name值
+  <s:textfield name="product.name" label="product name" />
+  <s:submit value="Submit" />
+</s:form>

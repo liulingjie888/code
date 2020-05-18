@@ -1,0 +1,43 @@
+URL
+java.net.URL;
+单向
+
+构造方法：
+URL(url字符串)
+URL("http://liulingjie.cn/","text/html");
+URL("http","liulingjie.cn","/text/html");
+URL("http","liulingjie.cn",80,"/text/html");
+方法：
+URL.parse(url字符串)	//将url字符串转换成URL对象
+getPort()
+getHost()
+getFile()
+getPath()
+
+//获取网页内容
+            URL url=new URL("https://baidu.com" );
+            BufferedReader buffer=new BufferedReader(new InputStreamReader(url.openStream()));
+            String inputLine;
+            while((inputLine=buffer.readLine())!=null){
+                System.out.println(inputLine);
+            }
+            buffer.close();
+
+---------------------------------------------------------------
+URLConnection
+java.net.URLConnection;
+双向
+
+方法
+URLConnection对象.getInputStream( );
+URLConnection对象.getOutputStream( );
+
+URLConnection connect=URL对象.openConnection( );
+//建立输入缓存流
+BufferedReader buf=new BufferedReader(new InputStreamReader( connect.getInputStream( )));
+BufferedWriter file=new BufferedWriter(new FileWriter("temp.dat") );
+int ch;
+//如果没有读完
+while((ch=buf.read( ))!=-1)	[
+	file.write(ch);
+}

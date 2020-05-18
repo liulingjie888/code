@@ -1,0 +1,56 @@
+
+===========================代码
+import com.how2java.pojo.Category;
+  
+public interface CategoryMapper {
+  
+    @Insert(" insert into category_ ( name ) values (#{name}) ") 
+    public int add(Category category); 
+        
+    @Delete(" delete from category_ where id= #{id} ") 
+    public void delete(int id); 
+        
+    @Select("select * from category_ where id= #{id} ") 
+    public Category get(int id); 
+      
+    @Update("update category_ set name=#{name} where id=#{id} ") 
+    public int update(Category category);  
+        
+    @Select(" select * from category_ ") 
+    public List<Category> list(); 
+}
+
+============================mybatis-config.xml
+<configuration>
+    .....
+    <mappers>
+        <mapper class="com.how2java.mapper.CategoryMapper"/> 	//表示注解的类
+    </mappers>
+</configuration>
+
+===========================操作代码
+
+CategoryMapper mapper = session.getMapper(CategoryMapper.class);
+
+//更新
+Category c= mapper.get(8);
+c.setName("修改了的Category名稱");
+mapper.update(c);
+
+
+//删除
+mapper.delete(2);
+
+//添加
+Category c = new Category();
+c.setName("新增加的Category");
+mapper.add(c);
+   
+//查询
+Category c= mapper.get(8);
+
+List<Category> cs = mapper.list();
+for (Category c : cs) {
+    System.out.println(c.getName());
+}
+

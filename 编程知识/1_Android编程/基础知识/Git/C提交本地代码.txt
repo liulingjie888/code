@@ -1,0 +1,6 @@
+//提交文件
+git add 文件名或目录
+git comit -m  "First commit"		//-m和其后为描述信息，一定要有
+
+//撤销提交的文件
+git  reset  HEAD app/src/main

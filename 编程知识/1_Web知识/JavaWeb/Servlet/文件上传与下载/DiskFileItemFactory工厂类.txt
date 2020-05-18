@@ -1,0 +1,24 @@
+------------------------------------DiskFileItemFactory类--------------------------------
+将请求消息体中的每一个文件封装成单独的FileItem对象.
+上传文件较小时保存在内存中，文件较大时保存在硬盘中，临界值为10240（10byte）
+
+构造方法:
+//采用默认临界值和系统临时文件夹构造文件项工厂对象
+DiskFileItemFactory();
+//采用参数指定临界值和系统临时文件夹构造文件项工厂对象
+DiskFileItemFacotry(int 临界值,File  临时文件夹);
+
+方法：
+//将信息实体创建成FileItem实例对象，该方法是FileUpload组件在解析请求是内部自动调用，无需我们管理
+FileItem  createItem("字段名" , "字段类型" , 是否是普通表单字段 , "临时文件夹名");
+
+//设置和获取临界值
+setSizeThresold(int 临界值);
+getSizeThresold();
+
+//设置和获取临界文件存储目录
+setRepository(File "文件名");
+getRepository();
+
+//获取系统默认的临时文件路径
+System.getProperty("java.io.tmpdir");

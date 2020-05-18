@@ -1,0 +1,1 @@
+TextUtils.isEmpty(字符串);	//判断字符串是否为空

@@ -1,0 +1,22 @@
+
+=================修改root登入密码
+ssh-server配置文件位于/etc/ssh/sshd_config
+
+把配置文件中的”PermitRootLogin without-password”加一个”#”号,把它注释掉，再增加一句”PermitRootLogin yes”） 
+
+重启
+sudo /etc/init.d/ssh stop 
+sudo /etc/init.d/ssh start
+
+passwd root
+
+================免密登入
+
+客户端操作：
+在~/.ssh下生成公钥id_rsa.pub和私钥id_rsa
+ssh-keygen -t rsa
+
+将公钥写入服务端的authorized_keys文件，该客户端就可免密登入
+
+服务端操作：
+ssh-copy-id -i 免密的客户端主机地址

@@ -1,0 +1,17 @@
+----------------------------------itcast.properies--------------------------------
+Compan=itcast
+Address=Beijing
+----------------------------------------------------------------------------------
+import java.util.Properties;
+
+ServletContext  context=this.getServletContext();
+Properties pros=new Properties();
+InputStream  in=context.getResourceAsStream("/WEB-INF/classes/itcast.properties");
+//装载流
+pros.load(in);
+//获取指定值，这里返回itcast
+pros.getProperty("Company");
+//设置键值
+pros.setProperty ("键名","值");
+//清除所有装载的键值对
+pros.clear();

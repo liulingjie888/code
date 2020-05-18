@@ -1,0 +1,50 @@
+
+--------------------------------调用状态栏----------
+Intent  intent=new Intent( this, MyActivity.class);		//设置点击状态栏打开的活动
+PendingIntent  pi=PendingIntentPendingIntent.getActivity(this, 0, intent ,0);
+
+
+NotificationManager manager=(NotificationManager)getSystemService((NOTIFICATION_SERVICE));
+
+Notification notification=new NotificationCompat.Builder(this)
+                        .setContentTitle("消息标题")
+                        .setContentText("消息内容")
+                        .setWhen(System.currentTimeMillis())	//当前时间
+	        .setAutoCancel( true) 			//设置点击取消状态栏
+	        .setSmallIcon(R.mipmap.ic_launcher)	//提示的小图片
+	        .setContentIntent( pi )			//点击启动意图
+	        [   .setProgress(100 , 50 , false);  ]		//显示总数为100，当前为50的进度条
+	        //下拉状态栏显示的图片
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))	
+
+	        //设置通知响铃
+	        [  .setSound( Uri.fromFile(  new File("/system/media/audio/ringtones/Luna.ogg" ) ) )	]
+	        //设置震动,单位为毫秒，下标单数为震动时长，双数为静止时长（需声明权限VIBRATE）
+	        [  .setVibrate(new long[]{ 0,1000,1000,1000} ) ]
+	        //设置LED灯提示，参数一为颜色，参数二为亮的时间，参数三为暗的时间（单位毫秒）
+	        [  .setLights (Color.GREEN ,1000,1000)  ]
+                        //设置默认（根据系统设置）
+	        [  .setDefaults( NotificationCompat.DEFAULT_ALL )  ]
+
+	        //设置长文本（超出文本不会省略）
+	        [  setStyle( new NotificationCompat.BigTextStyle().bigText(" 长文本 ")  ]
+	        //设置显示大图片
+	        [  .setStyle( new NotificationCompat.BigPictureStyle().bigPicture( BitmapFactory.decodeResource (getResource() , R.drawable.图片名 ) ) )  ]
+
+	        //设置重要程度，五个参数
+	        //PRIORITY_DEFAULT	（默认，和不设置一样）
+	        //PRIORITY_MIN	（最低重要程度）
+	        //PRIORITY_LOW	（较低）
+	        //PRIORITY_HIGH	（较高）
+	        //PRIORITY_MAX	（最该）
+	        [  .setPriority (NotificationCommpat.PRIORITY_MAX )  ]
+
+                        .build();
+
+manager.notify(3（自定义ID）,notification);
+
+-------------------------在启动活动时取消状态栏的消息-------
+Activity:
+
+NotificationManager manager=(NotificationManager)getSystemService((NOTIFICATION_SERVICE));
+manager.cancel( ID号 );			//根据ID取消状态栏指定的消息

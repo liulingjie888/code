@@ -1,0 +1,37 @@
+--------------------------------创建注释
+1. 创建注解类型，使用@interface：
+public @interface JDBCConfig 
+ 
+
+2. 元注解
+@Target({METHOD,TYPE}) 表示这个注解可以用用在类/接口上，还可以用在方法上
+@Retention(RetentionPolicy.RUNTIME) 表示这是一个运行时注解，即运行起来之后，才获取注解中的相关信息，而不像基本注解如@Override 那种不用运行，在编译时eclipse就可以进行相关工作的编译时注解。
+@Inherited 表示这个注解可以被子类继承
+@Documented 表示当执行javadoc的时候，本注解会生成相关文档
+
+3. 注解元素，这些注解元素就用于存放注解信息，在解析的时候获取出来，例：
+ String ip(); 
+ int port() default 3306; 
+
+------完整例子
+@Target({METHOD,TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Documented
+public @interface JDBCConfig {
+     String ip();
+     int port() default 3306;		//default设置默认值
+     String database();
+}
+
+------------------------------使用
+@JDBCConfig(ip = "127.0.0.1",database = "test")		//如只有@JDBCConfig则获取的注释对象为null
+public class DBUtil {
+        //获取上面的注释对象
+        JDBCConfig config = DBUtil.class.getAnnotation(JDBCConfig.class);
+        //赋值
+        String ip = config.ip();
+        int port = config.port();
+        String database = config.database();
+        . . . . . .其他操作;
+}

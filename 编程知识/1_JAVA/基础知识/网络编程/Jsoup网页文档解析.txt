@@ -1,0 +1,33 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+//将网页封装成文档
+Document  doc=Jsoup.parse(网页字符串,网页的URL);
+
+//返回标签为a的所有元素集
+Elements elements=doc.select("a");
+//获取第一个a元素src值的完整URL
+elements.get(0).attr("abs:src");
+
+//遍历获取的元素集
+（1）
+for( Element ele: elements){
+	ele . . .;
+}
+（2）
+Iterator  iterator=elements.iterator();
+while(iterator.hasNext()){
+	Element  ele=(Element)iterator.next();
+	. . . . . .
+}
+-------------------------------------------------------------------------
+Element类:<a href="www.baidu.com" >百度</a>
+
+Element e=elements.get(下标);
+
+//获取href属性的值
+attr("href");	
+//获取元素中的文本，例“百度”
+text();

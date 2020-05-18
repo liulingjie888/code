@@ -1,0 +1,78 @@
+lsof -i:9200			//查看占用端口的进程号
+
+service vsftpd start 与 /etc/init.d/vsftpd start有着同样的作用
+
+locate 文件名			//查找目录或文件
+updatedb			//更新locate数据库
+
+cut -d分隔符 -f1,3		//分割输出选择显示第1和3列(分界符为tab时要单引号'  ')
+cut -d分隔符 -f1-4		//分割输出选择显示1到4列
+
+tar -zxvf tar文件		//解压
+tar -zxvf tar文件 -C 目录	//解压到指定目录
+tar zxvf tar文件/bin/install_solr_service.sh --strip-components=2  //只解压tar包中的指定文件
+
+zip -r zip文件 目录名 [-x "忽略文件名"]		//把目录压缩为指定zip文件
+zip zip文件 文件名 		//把文件压缩为指定zip文件
+unzip zip文件			//直接解压到当前目录
+unzip zip文件 -d 目录		//把zip文件解压到指定目录里面
+
+evn				//查看所有环境变量
+
+cp -r 目录1 目录2		//将一个目录1中的内容复制到目录2中
+
+dpkg -i --instdir=目录 deb安装包//将软件安装在指定目录中
+dpkg -x deb文件 		//直接解压文件
+dpkg -L	软件名			//显示一个包安装到系统里面的文件目录信息
+dpkg –r deb文件			//卸载软件
+dpkg –l deb文件			//卸载软件（不保留配置文件）
+
+
+find 目录 -name 查找的文件名	//查找指定文件,如果正则表达式文件名加双引号
+
+df -h				//查看挂载情况
+
+mount /dev/* 目录		//挂载某个设备到某个目录下
+umount 设备或挂载点		//卸载设备
+
+shutdown -h 10			//10分钟后关机
+
+gedit --encoding=GBK 文件名	//用指定编码打开文件
+enca -L zh_CN -x utf-8 文本文件//将其他文本编码自动转换成utf-8编码(结合find实现批量操作)
+iconv -f GBK -t UTF-8 file1 -o file2
+convmv -f GBK -t UTF-8 --notest 文件名		//文件名转码
+convmv -f GBK -t UTF-8 -r --nosmart --notest <目标目录>	//递归目录文件名转码
+
+chown -R 用户/组名 文件名	//改变文件的主人
+
+ufw status			//查看防火墙状态
+ufw enable			//开启
+ufw disable			//关闭
+ufw default allow或deny		//外来访问允许或拒绝
+ufw allow或deny 端口号		//允许或拒绝访问制定端口号
+ufw allow/deny 服务名		//从/etc/services中找到服务名对应的端口进行设置
+ufw allow proto tcp from ip号/端口号 to 本机ip port 端口号 //允许制定主机的指定端口tcp报文访问本机指定端口
+
+ssh -l root liulingjie.cn	//远程连接服务器ssh（ssh 用户名@主机名）
+scp [-r] 本地文件[夹]路径 用户名@主机名:远程主机目录路径
+如:scp /home/lin3615/test.txt 用户名@IP:/usr/www
+scp [-r] 用户名@主机名:文件[夹]名路径 本地路径
+如：scp -r root@1.11.1.1:/usr/www /home/lin3615/
+
+
+ping -c 次数 ip地址		//ping服务器次数
+traceroute  ip地址		//查看到目的ip经过的ip
+netstat -ano			//查看端口
+
+mount -t ntfs /dev/sda1 目录		//将设备挂载到指定目录
+umount  /dev/sda1			//卸载设备
+
+uname -s			//显示是什么操作系统
+uname -m			//显示系统是什么架构
+
+groupadd 组名			//创建组
+getent group audio		//显示audio组相关信息
+sudo adduser 用户名 video	//添加用户到video组
+newgrp 组名			//更新组（添加用户后）
+
+sudo mount -t vboxsf VMShared /media/sf_VMShared/	//virtualBox虚拟机挂载共享文件命令

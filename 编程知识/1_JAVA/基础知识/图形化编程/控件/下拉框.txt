@@ -1,0 +1,14 @@
+JComboBox 下拉框
+使用getSelectedItem来获取被选中项
+使用setSelectedItem() 来指定要选中项
+.addItem("军官证");		添加
+
+import javax.swing.JComboBox;
+
+        ……
+        //下拉框出现的条目
+        String[] heros = new String[] { "卡特琳娜", "库奇" };
+        JComboBox cb = new JComboBox(heros);
+
+        cb.setBounds(50, 50, 80, 30);
+        ……

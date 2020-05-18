@@ -1,0 +1,27 @@
+样式
+
+在res\values目录下styles.xml文件中可以写入自定义样式
+
+在标签<resources>中写入：
+	<style name="样式名字"  parent="@style/样式名字">		
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:textColor">#999999</item>
+		<item name="属性名">属性值</item>
+		. . . . . .
+	</style>
+
+//parent属性代表继承哪个样式
+//样式的优先级高于主题
+
+使用方法：控件属性中加入	style="@style/样式名字 "
+
+-------------------------------------------------------------------------------
+主题
+
+<style name="主题名"  parent="Theme.AppCompat.Light.DarkActionBar">
+	<item>. . . . . </item>
+	<item>. . . . .</item>
+</style>
+
+使用方法: 在AndroidManifest.xml中的<activity>的属性加上  android:theme="@style/主题名";
+	也可以在onCreate()方法中写入 setTheme(R.style.主题名)  设置，一般写在setContentView()方法后面；

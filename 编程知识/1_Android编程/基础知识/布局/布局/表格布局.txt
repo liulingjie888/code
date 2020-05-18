@@ -1,0 +1,14 @@
+表格布局TableLayout
+需配合<TableRow></TableRow>行使用
+
+注：TableRow中layout_width和layout_height属性没有作用；控件在标签外自动生成一行
+
+属性
+stretchColumns="0"	//设置该列自动拉伸
+shrinkColumns="0"		//设置该列自动收缩
+collapseColumns="0"	//设置该列隐藏
+
+控件属性
+layout_column	//设置该单元显示位置
+layout_span	//设置该单元占几行
+

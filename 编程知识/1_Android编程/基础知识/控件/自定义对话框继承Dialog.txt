@@ -1,0 +1,17 @@
+Dialog
+import android.app.Dialog;
+import android.content.Context;
+
+public class MyDialog extends Dialog{
+	public MyDialog(Context context,String dialogName){
+		super(context);		//建立在activity对象上
+		this.dialogName=dialogName;
+	}
+	. . . . . . . 
+	protected void onCreate(Bundle savedInstanceState){
+		. . . . . .
+		requestWindowFeature(Window.FEATHRE_NO_TITLE);//去除标题
+		setContextView（R.layout.my_dialog);	//引入自定义对话框布局
+		. . . . . .
+		取消按钮事件中调用dismiss()函数关闭对话框
+}

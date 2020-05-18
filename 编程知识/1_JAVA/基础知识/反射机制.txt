@@ -1,0 +1,149 @@
+Class		用于描述类本身
+Field		用于描述类中的属性
+Method		用于描述类中的方法
+Package		用于描述类所属的包
+Constructor	用于描述类中的构造方法
+Annotation	用于描述类中的注释
+
+---------------------------------获取Class
+（1）Class  class=Class.forName("包类名  ");
+（2）Class  class=类名.class;
+（3）Class  class=对象引用.getClass(); 
+
+方法：
+//获取修饰符，返回修饰符的和
+//0--默认 1--public  2--private  4--protected  8--static  16--final  32--synchronized 
+//64--volatile  128--transient  256--native  512--interface  1024--abstract
+int  calss.getModifiers();
+
+//获取类的名字
+class.getName();		//类全名
+class.getSimpleName();	//类名
+
+//获取类所在的包
+Package  p=class.getPackage();
+p.getName();
+
+//获取父类
+Class superClass=class.getSuperclass();
+
+//获取所有父亲接口
+Class[]  class.getInterfaces();
+
+//创建对象（相当于调用无参构造）
+类名  对象引用=(类名)class.newInstance();
+
+-------------------------------获取类属性
+Field  field=class.getField("属性名");	//属性是公有的
+
+Field[]  fields=class.getFields();	//获取所有公有属性（包括继承的属性）
+
+int field.getModifiers();		//获取属性的修饰符
+
+Class field.getType();		//获取属性的类型
+
+field.getName();			//获取属性名
+
+field.set(对象引用,值);		//给属性赋值
+
+(String)field.get(对象引用);		//获取属性的引用
+
+私有属性操作：
+Field[]  fields=class.getDeclaredFileds();		//获取所有私有和公有的类，但不能获取父类的属性
+Field  field=class.getDeclaredField("属性名");	//可以获取私有属性，但不能直接进行操作（报错），需
+field.setAccessible(true);			//设置私有属性可以直接操作，之后再进行操作
+
+
+--------------------------获取方法
+Method   method=class.getMethod("方法名",Class...方法参数类);		//获取公有方法
+
+Method[]  method=class.getMethods();	//获取所有公有方法
+
+int  method.getModifiers();		//获取方法修饰符
+
+Class  method.getReturnType();	//获取方法返回类型
+
+String  method.getName();		//获取方法的名字
+
+Class[] method.getParameterTypes();	//获取方法参数列表类型
+
+Class[] method.getExceptionTypes();	//获取方法抛出的异常类型
+ 
+String  result=(String)method.invoke(对象引用 , 参数. . .);	//执行方法	
+
+私有方法操作：
+Method   method=class.getDeclaredMethod("方法名",Class...方法参数类);	 //获取私有方法
+Method[]   method=class.getDeclaredMethods();				//获取所有私有和公有方法
+method.setAccessible(true);						//如果要执行私有方法，设置该属性后执行
+
+
+-----------------------获取构造方法
+Constructor  con=class.getConstructor(Class...参数类);
+
+Constructor[]  cons=class.getConstructors();	//获取所有构造方法
+
+String str=(String) con.newInstance(参数...);	//执行构造方法
+
+其他方法同上。。。
+
+私有构造方法操作：
+Constuctor  con=class.getDeclaredConstructor(Class...参数类);	//获取私有构造方法
+Constructor  cons=class.getDeclaredConstructors();		//获取所有私有和公有构造方法
+con.setAccessible(true);					//如果要执行私有构造方法，设置该属性后执行
+
+
+---------------------获取注释对象
+//被注释对象只有非重复注释：
+     注释类  引用=(注释类)被注释对象.getAnnotation(注释类.class);
+如：
+Class<Hero> clazz = Hero.class;
+MyTable myTable= (MyTable) clazz.getAnnotation(MyTable.class);
+
+------------
+//获取被引用所有该注释
+    注释类[]  引用=(注释类)被注释对象.getAnnotationsByType(注释类.class);
+如：
+    @FileType( ".html" )
+    @FileType( ".css" )
+    @FileType( ".js" )
+    public void work(){. . . . .}
+
+    FileType[] fileTypes=this.getClass().getMethod("work").getAnnotationsByType(FileType.class);
+    
+=============================让一个对象的每个方法在执行前都执行指定方法
+public class DynamicProxy implements InvocationHandler {
+
+    private Object obj;
+    
+    public Object bind(Object obj){
+        this.obj=obj;
+        return Proxy.newProxyInstance(obj.getClass().getClassLoader(),obj.getClass().getInterfaces(),this);		
+    }
+
+    public Object invoke(Object proxy, Method method, Object[] objs){
+        Object result=null;
+        validateUser();				//重复操作的业务代码
+        try {
+            result =method.invoke(obj,objs);	//对象的执行方法
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    //重复操作的业务代码
+    public void validateUser(){
+        System.out.println("验证用户");
+    }
+
+    public static void main(String [] args){
+        DynamicProxy proxy=new DynamicProxy();
+        IHello hello=(IHello)proxy.bind(new Hello());
+        hello.sayHello1();
+        hello.sayHello2();
+        hello.sayHello3();
+    }
+}
+

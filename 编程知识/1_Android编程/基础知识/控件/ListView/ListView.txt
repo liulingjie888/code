@@ -1,0 +1,8 @@
+android.view.View;
+android.view.ViewGroup;
+android.widget.BaseAdapter;
+android.widget.ListView;
+
+属性：
+ divider="#d9d9d9"
+dividerHeight="1dp"

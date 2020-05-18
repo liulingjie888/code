@@ -1,0 +1,70 @@
+DriverManager类
+
+//该方法用于向DriverManager中注册给定的JDBC驱动程序
+static registerDriver(Driver driver);	
+
+//建立和数据库的连接，返回表示连接的Connection对象
+static Connection getConnection(String url,String user, String pwd);
+
+-----------------------------------------------------
+Connection接口
+//返回表示数据库的元数据的DatabaseMetaData对象
+getMetaData();
+
+//创建一个CallableStatement对象来调用数据库的存储过程
+CallableStatement  prepareCall(String sql);
+
+//创建一个Statement对象将SQL语句发送到数据库
+Statement  createStatement();
+
+//创建一个PreparedStatement对象并将参数化的SQL语句发送到数据库
+PreparedStatement  prepareStatement(String sql);
+
+-----------------------------------------------------
+Statement接口
+//返回一个boolean,如果为true，则表示执行后有查询结果，用getResultSet方法获取查询结果
+boolean  execute("SQL语句");	
+
+//返回受影响的记录行数
+int  executeUpdate("插入删除更新SQL语句");
+
+//返回一个查询结果ResulteSet对象
+ResulteSet  executeQuery("select语句");
+
+-----------------------------------------------------
+PreparedStatement接口
+setInt(序号 , int型);
+setFloat(序号 , float型);
+setString(序号 , String型);
+setDate(序号 , java.sql.Date型);
+setObject(序号 , Object类);
+
+//执行SQL语句
+execute();
+//执行对象的SQL语句，该语句不能是查询语句
+executeUpdate();
+//执行对象的SQL语句，该语句为查询语句
+ResultSet  executeQuery();
+
+//将指定输入流写入数据库的文本字段
+setCharacterStream(序号 , java.io.Reader型 , 长度);
+//将二进制的输入流数据写入到二进制字段中
+setBinaryStream(序号 , java.io.InputStream型 , 长度);
+setBinaryStream(序号,java.io.InputStream型,长度);
+
+-----------------------------------------------------
+ResultSet对象
+
+getString(索引);
+getString("字段名");
+int  getInt~
+java.sql.Date  getDate~
+
+next();		//移至下一行
+previous();	//移至上一行
+last();		//移至最后一行
+absolute(行数);	//移至指定行
+
+beforeFirst();	//移至第一行之前（开头）
+afterLast();	//移至最后一行之后（末尾）
+

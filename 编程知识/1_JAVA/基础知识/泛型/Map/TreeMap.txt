@@ -1,0 +1,27 @@
+java.util.TreeMap;
+
+--------------------------------特有方法------------------------------
+
+-----------------查询：
+firstEntry();			//返回第一个键值映射
+pollFirstEntry()；			//并删除
+lastEntry()	;			//返回最后一个键值映射
+pollLastEntry();			//并删除
+lowerEntry(K key);			//返回键小于key的第一个映射
+higherEntry(K key);			//返回键大于key的第一个映射
+floorEntry(K key);			//返回小于或等于key的第一个键值映射
+ceilingEntry(K key);			//返回大于或等于key的第一个键值映射
+
+firstKey();				//返回第一个键
+lastKey();				//返回最后一个键
+lowerKey(K key)			//返回键小于key的第一个键
+higherKey(K key)			//返回键大于key的第一个键
+floorKey(K key);			//返回小于或等于key的第一个键
+ceilingKey(K key);			//返回大于或等于key的第一个键
+
+--------------创造：
+headMap(K toKey [,true] );		//返回键以toKey分界前面的map，有true时包含toKey
+tailMap(K fromKey [,true] );		//返回键以toKey分界后面的map，有true时包含toKey
+descendingKeySet()；		//返回反向顺序键的Set
+descendingMap()；			//返回反向顺序的map
+subMap(K fromKey, K toKey);		//返回指定范围的map

@@ -1,0 +1,50 @@
+import javax.swing.JFrame;
+
+dispose()			//销毁
+//普通的窗体，带最大和最小化按钮
+        JFrame f = new JFrame("LoL");
+        f.setSize(宽, 高);
+        f.setLocation(left, top);
+        f.setLayout(null);	//绝对定位
+        f.add(控件);		//往窗体添加控件
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//设置为可最小化
+        f.setVisible(true);	//显示
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+JDialog也是窗体型容器，右上角没有最大和最小化按钮
+
+import javax.swing.JDialog;
+
+//普通的窗体，带最大和最小化按钮，而对话框却不带
+        JDialog d = new JDialog();
+        d.setTitle("LOL");		//设置标题
+        d.setSize(400, 300);		
+        d.setLocation(200, 200);		//设置位置
+        d.setLayout(null);		//设为绝对定位
+        d.add(控件);
+        d.setVisible(true);		
+    }
+
+模态JDialog
+当一个对话框被设置为模态的时候，其背后的父窗体，是不能被激活的，除非该对话框被关闭
+JDialog.setModal(true);	// 设置为模态
+
+import javax.swing.JDialog;
+
+public class TestGUI {
+    public static void main(String[] args) {
+        JFrame f = new JFrame("外部窗体");
+        f.setSize(800, 600);
+        f.setLocation(100, 100);
+ 
+        // 根据外部窗体实例化JDialog
+        JDialog d = new JDialog(f);
+
+        d.setModal(true);	// 设置为模态
+       ……
+        f.setVisible(true);
+        d.setVisible(true);
+ 
+    }
+}

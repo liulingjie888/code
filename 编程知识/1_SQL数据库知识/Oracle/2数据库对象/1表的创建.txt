@@ -1,0 +1,31 @@
+数据类型：
+1.字符类型：char(n),最大为2000字节。位数不够时其右边添加空格来补足
+	   varchar2(n),最大为4000字节。
+2.数值类型：number(p,s),p是总位数(最大38位)，s是小数位数(取值-84到127)
+	   nuumber(5,2)表示-999.99到999.99
+	   也可以省略number(6),number
+3.日期类型：date，默认格式DD-MM-YY,  如 1-10月-2020
+
+//创建表
+create table 表名
+(
+字段名  数据类型  [默认值]  [约束],
+//表级约束
+[constraint  约束名] primary key(字段名,. . .)
+foreign key(字段名,...) [constraint  约束名] references 表明(字段名...)
+[constraint 约束名] unique((字段名, . . .)
+[constraint 约束名] check(约束条件)
+)[AS 子查询结果]				//子查询返回的行插入到表中
+
+//列级约束：
+[not] null
+[unique]
+[primary key]
+[references  表名(字段名)]
+[check(约束条件)]				//例 check(字段名 between 18 and 70)
+
+//带有约束名写法
+[constraint  约束名]  约束类型
+
+
+

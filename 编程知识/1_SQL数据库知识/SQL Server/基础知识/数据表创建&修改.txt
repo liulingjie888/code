@@ -1,0 +1,44 @@
+创建数据表：
+	USE 数据库名
+	GO
+	CREATE TABLE 表名	
+	(
+	数据名	数据类型  	primary key,	//设为主键
+	数据名	数据类型  	foreign key references  表名（数据名）,	//设为外键	
+	数据名	数据类型  	not null,		//设为不能为空值
+	数据名	数据类型  	not null unique,	//设为唯一性(不能为空值)
+			check(约束内容)	//约束
+	[primary key(数据名1，数据名2，· · ·）]，	//设为主键
+	[foreign key(数据名) references 表名(数据名)]	//设为外键
+	` ` ` ` ` `
+	)
+
+修改数据表结构：
+	USE 数据库
+	GO
+	ALTER TABLE 表名
+	代码
+
+	代码：	add 数据名 数据类型		//增加数据名
+		alter column 数据名 数据类型	//修改数据类型
+		drop column 数据名		//删除数据名
+                                add  constraint  别名   操作(check,primary, · · · )	//起别名
+		
+////////////////////////////////////////////////////////////////////////////////////////////////
+插入语句
+insert  into 表名(列名1，· · · )
+values  (列名1，· · · )
+
+更新语句
+update  表名
+set 列名=新值
+[where 条件]
+
+删除语句
+delete from 表名
+[where 条件]
+*删除的内容后不能在插入
+
+清空表
+truncate table 表名
+

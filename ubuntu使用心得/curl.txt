@@ -1,0 +1,15 @@
+# 将文件下载到本地并命名为mygettext.html
+curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
+
+# 将文件保存到本地并命名为gettext.html
+curl -O http://www.gnu.org/software/gettext/manual/gettext.html
+
+#通过添加-C选项继续对该文件进行下载，已经下载过的文件不会被重新下载
+curl -C -O http://www.gnu.org/software/gettext/manual/gettext.html
+
+#让curl使用地址重定向，此时会查询google.com.hk站点
+curl -L http://www.google.com
+断点续传
+
+下载速度最大不会超过1000B/s
+curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html

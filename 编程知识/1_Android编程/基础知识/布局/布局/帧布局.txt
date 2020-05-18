@@ -1,0 +1,6 @@
+帧布局FrameLayout
+
+属性
+layout_gravity="right"		//设置位置
+foreground="@mipmap/ic_launcher"	//设置帧的前景图像
+foregroundGravity="left"		//设置前景图像显示位置

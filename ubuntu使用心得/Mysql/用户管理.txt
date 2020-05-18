@@ -1,0 +1,38 @@
+
+//创建用户
+CREATE USER '用户名'@'localhost' IDENTIFIED BY '密码';
+//查询用户
+select host,user,plugin,authentication_string from user where user='用户名';
+
+//赋予用户权限
+GRANT 权限名 ON 数据库名.表名 TO '用户名'@'localhost';
+//收回用户权限
+REVOKE 权限名 ON 数据库名.表名 FROM '用户名'@'localhost';
+//查询用户权限
+SHOW GRANTS FOR '用户名'@'localhost';
+//赋予所以权限
+GRANT ALL ON *.* TO '用户名'@'localhost';
+
+//刷新
+FLUSH PRIVILEGES;
+
+======================权限所名说明
+ALL: 所有可用的权限
+
+CREATE: 创建库、表和索引
+
+LOCK_TABLES: 锁定表
+
+ALTER: 修改表
+
+DELETE: 删除表
+
+INSERT: 插入表或列
+
+SELECT: 检索表或列的数据
+
+CREATE_VIEW: 创建视图
+
+SHOW_DATABASES: 列出数据库
+
+DROP: 删除库、表和视图

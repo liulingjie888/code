@@ -1,0 +1,20 @@
+android.database.sqlite.SQLiteDatabase;
+
+PersonSQLiteOpenHelper helper=new PersonSQLiteOpenHelper(getContet( ));
+//获取一个可读写的SQLiteDataBase对象
+SQLiteDatabase db=helper.getWritableDatabase( );
+
+//开始数据库的事务
+db.beginTransaction( );
+try{
+	//数据库操作
+	……
+	//标记事务执行成功
+	db.setTransactionSuccessful( );
+}catch(Exception e){
+	Log.i("事务处理失败！",e.toString( ));
+}finally{
+	//关闭事务（前会检查事务标记是否成功）
+	db.endTransaction( );
+	db.close( );
+}

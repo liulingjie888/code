@@ -1,0 +1,20 @@
+Canvas代表画布
+
+android.graphics.Canvas;
+
+方法：
+
+//使用画笔画出矩形
+drawRect (Rect r,Paint paint)
+
+//使用汇编画出椭圆
+drawOval (RectF oval,Paint paint)
+
+//使用画笔在cx，cy坐标上画出半径radius的圆
+drawCircle (float cx,float cy,float radius,Paint paint)
+
+//使用画笔划线
+drawLine (float startX,float startY,float stopX,float stopY,Paint paint)
+
+//使用画笔画半角矩形，rx表示x轴圆角半径，ry代表y轴圆角半径
+drawRoundRect (RectF rect,float rx,float ry,Paint paint)

@@ -1,0 +1,24 @@
+#include <stdio.h>
+int main( )
+{         int a[3][4]= {1,2,3,4,8,7,6,5,4,1,9,6};
+     	int *p,i,j,k;
+    	p=&a[0][0];
+     	printf("output 1:\n");
+     	while (p<=&a[2][3])
+  	{	printf("%3d", *p++);
+        	           if ((p-&a[0][0])%4==0)  printf("\n");
+     	}
+	p=&a[0][0];          	//注意指针变量p的指向 
+    	printf("output 2:\n");
+    	for (k=0;k<3*4;k++)
+    	{      printf("%3d",p[k]);
+        	        if ((k+1)%4==0) printf("\n");
+	}
+     	printf("output 3:\n");
+     	for (i=0;i<3;i++)
+     	{      for (j=0; j<4;j++)
+       			printf("%3d",*(p+i*4+j));
+     	        printf("\n");
+   	}
+          return 0;
+}

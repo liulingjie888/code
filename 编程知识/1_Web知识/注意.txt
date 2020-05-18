@@ -1,0 +1,16 @@
+*为防止元素载入前调用元素，可将调用该元素的代码写入windows.onload事件中
+
+*对象.事件名=函数名		//函数名没有括号
+
+*访问DOM的CSS样式：   DOM.style.属性名
+如果有“-”号，则去掉“-”再把后面的第一个字母大写；如font-size写成fontSize
+使用style对象只能读取到元素的行内样式，不能读取元素的所有样式；
+style对象设置相当于对元素增加一个行内CSS样式属性
+
+*<meta>标记，用于描述网页内容如编码方式或关键字等，关键字为了让搜索引擎能对网页内容进行识别和分类
+也可以用来刷新文档，例：
+		<meta http-equiv="refresh" content="30">		30后刷新
+		<meta http-equiv="refresh" content="5;? Url=index.htm">	5秒后自动转到index.htm
+		<meta charset="utf-8">	 文档使用的字符编码
+
+

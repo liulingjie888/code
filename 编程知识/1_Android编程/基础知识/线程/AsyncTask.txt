@@ -1,0 +1,38 @@
+import android.os.AsyncTask;
+
+-------------------类的实现
+
+//第一个参数为执行AsyncTask是需要传入的参数，可在后台任务方法doInBackgoud中的参数接收
+//第二个参数为后台任务执行时，如果界面要显示进度，则表示进度的单位
+//第三个参数表示后台任务执行完后返回的类型，一般为Boolean代表成功或失败
+
+public class DownloadTask extends AsyncTask<Void,Integer,Boolean> {
+
+    //后台任务开始执行之前调用
+    @Override
+    protected void onPreExecute() {
+        显示进度条
+    }
+    
+    //后台执行的方法，一般为耗时任务但不能进行UI更新，最后通过return来返回执行结果
+    @Override
+    protected Boolean doInBackground(Void... params) {	
+        执行下载任务并实时调用publishProgress方法，参数会传到values中
+        publishProgress方法进而会调用onProgressUpdate方法来对进度条更新
+    }
+
+    //一般后台执行调用这个方法中对UI进行更新
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        根据values设置进度条进度
+    }
+
+    //当后台任务doInbackgroun执行完时，返回的结果就是这个方法的参数，并且该方法会被调用
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        关闭进度条，并Toast下载结果
+    }
+}
+
+--------------------------------启动任务
+new DownloadTask().execute(参数);		//该参数对应doInbackground方法的参数

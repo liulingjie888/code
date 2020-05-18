@@ -1,0 +1,10 @@
+JButton 普通按钮
+
+import javax.swing.JButton;
+
+        ……
+        JButton b = new JButton("一键秒对方基地挂");
+        b.setBounds(50, 50, 280, 30);
+  
+        ……
+   

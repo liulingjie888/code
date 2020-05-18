@@ -1,0 +1,49 @@
+#include<stdio.h>
+int i,j,t;
+int main()
+{
+	int a[10];
+	void paixu(int a[]);
+	for(i=0;i<10;i++)
+		scanf("%d",&a[i]);
+	paixu(a);
+	for(i=0;i<10;i++)
+		printf("%5d",a[i]);
+	return 0;
+}
+void paixu(int a[])
+{
+	for(i=0;i<9;i++)
+		for(j=9;j>=i+1;j--)
+			if(a[j]>a[j-1])
+			{
+				t=a[j-1];
+				a[j-1]=a[j];
+				a[j]=t;
+			}
+}
+/*#include<stdio.h>
+int i,j,t;
+int main()
+{
+	int a[10];
+	void paixu(int a[]);
+	for(i=0;i<10;i++)
+		scanf("%d",&a[i]);
+	paixu(a);
+	for(i=0;i<10;i++)
+		printf("%5d",a[i]);
+	return 0;
+}
+void paixu(int a[])
+{
+	for(i=0;i<9;i++)
+		for(j=0;j<9-i;j++)
+			if(a[j]>a[j+1])
+			{
+				t=a[j+1];
+				a[j1]=a[j];
+				a[j]=t;
+			}
+}
+*/

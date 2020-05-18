@@ -1,0 +1,17 @@
+CheckBox 复选框
+使用isSelected来获取是否选中了
+.setSelected(true)
+
+import javax.swing.JCheckBox;
+
+        ……
+        JCheckBox bCheckBox = new JCheckBox("物理英雄");
+        //设置 为 默认被选中
+        bCheckBox.setSelected(true);
+        bCheckBox.setBounds(50, 50, 130, 30);
+
+        JCheckBox bCheckBox2 = new JCheckBox("魔法 英雄");
+        bCheckBox2.setBounds(50, 100, 130, 30);
+        //判断 是否 被 选中
+        System.out.println(bCheckBox2.isSelected());
+        ……

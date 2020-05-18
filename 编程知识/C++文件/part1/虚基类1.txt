@@ -1,0 +1,59 @@
+// ConsoleApplication1.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+
+class  Animal
+{
+public:
+	virtual void speak()
+	{
+		cout<<"animal speak"<<endl;
+	}
+private:
+
+};
+
+class B:virtual public Animal
+{
+public:
+	void speak()
+	{
+		cout<<"B B B"<<endl;
+	}
+private:
+
+};
+
+class C:virtual public Animal
+{
+public:
+	void speak()
+	{
+		cout<<"c c c "<<endl;
+	}
+private:
+
+};
+
+class D:public Animal
+{
+public:
+	void speak()
+	{
+		cout<<"d d d"<<endl;
+	}
+private:
+
+};
+int _tmain(int argc, _TCHAR* argv[])
+{
+	D d;
+	Animal *p=&d;
+	p->speak();
+	system("pause");
+	return 0;
+}
+

@@ -1,0 +1,31 @@
+闪屏动画
+
+RelativeLayout layoutSplash=(RelativeLayout) findViewById(R.id.activity_splash);
+        AlphaAnimation alphaAnimation=new AlphaAnimation(0.1f,1.0f);
+        alphaAnimation.setDuration(2000);//设置动画播放时长1000毫秒（1秒）
+        layoutSplash.startAnimation(alphaAnimation);
+
+        //设置动画监听
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            //动画结束
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //验证用户是否登入过，页面的跳转
+                SharedPreferences sp=SplashActivity.this.getSharedPreferences("customer_information",Context.MODE_PRIVATE);
+                String userPhone=sp.getString("phone",null);
+                if(TextUtils.isEmpty(userPhone)){
+                    Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
+                finish();
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });

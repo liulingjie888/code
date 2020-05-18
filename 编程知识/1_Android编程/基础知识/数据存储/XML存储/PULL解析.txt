@@ -1,0 +1,43 @@
+android.util.Xml;
+org.xmlpull.v1.XmlPullParser;
+java.io.InputStream;
+
+XmlPullParser.START_DOCUMENT	文档开始
+XmlPullParser.END_DOCUMENT	文档结束
+XmlPullParser.START_TAG		元素开始
+XmlPullParser.END_TAG		元素结束
+
+
+
+解析过程
+（1）在res/raw文件夹下创建自定义xml对象信息文件
+（2）解析文件analysis.java:
+	//获得pull解析器
+	XmlPullParser  parser=Xml.newPullParser();
+	//获取要解析的文件
+	InputStream is=this.getResource().openRawResource(R.raw.自定义xml文件);
+	[ 或 parser.setInput( new StringReader( xml文本字符 );  ]
+	//初始化解析器
+	parser.setInput(is,"utf-8");
+	//获取当前节点的类型
+	int type=parser.getEventType();
+	//当该节点不是文档结尾，对该节点进行解析
+	while(type!=XmlPullParser.END_DOCUMENT) {
+		switch(type) {
+			//节点开始标签时
+			case XmlPullParser.START_TAG:
+				//获取节点名字，通常用于判断是哪个节点
+				parser.getName();
+				//获取节点中的内容
+				parser.nextText();
+				. . . . . .
+				break;
+			//节点结束标签时
+			case XmlPullParser.END_TAG:
+				//自行处理，一般判断一个对象的结尾，用于判断是否收集完该对象数据
+				. . . . . .
+				break;
+		}
+		//跳入下一个节点
+		type=parser.next;
+	}

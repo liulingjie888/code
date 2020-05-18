@@ -1,0 +1,13 @@
+#https://hub.docker.com/，我的帐号liulingjie
+
+docker login -u 用户名 -p 密码	#登入
+docker login			#登入
+docker logout			#退出登入
+docker search ubuntu		#搜索
+docker pull ubuntu		#拉取
+
+#推送镜像
+docker tag ubuntu:18.04 username/ubu
+
+ntu:18.04
+docker push username/ubuntu:18.04

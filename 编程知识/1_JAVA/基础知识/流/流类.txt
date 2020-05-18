@@ -1,0 +1,129 @@
+建立在文件之上
+字节流
+FileInputStream
+FileOutputStream
+字符流
+FileReader
+FileWirter
+内存字节流
+java.io.ByteArrayInputStream将一个字节数组当作流输入的来源，
+java.io.ByteArrayOutputStream则可以将一个字节数组当作流输出目的地。
+
+--------------------------------------------------------------------
+字节流转字符流
+InputStreamReader
+InputStreamReader(InputStream in) 
+创建一个inputstreamreader使用默认字符集。  
+InputStreamReader(InputStream in, Charset cs) 
+创建一个inputstreamreader使用给定的字符集。  
+InputStreamReader(InputStream in, CharsetDecoder dec) 
+创建一个inputstreamreader使用给定的字符集解码。  
+InputStreamReader(InputStream in, String charsetName) 
+创建一个inputstreamreader使用指定的字符集。  
+
+outputStreamWriter
+InputStreamWriter(InputStream in) 
+创建一个outputstreamwriter使用默认的字符编码。  
+OutputStreamWriter(OutputStream out, Charset cs) 
+创建一个outputstreamwriter使用给定的字符集。  
+OutputStreamWriter(OutputStream out, CharsetEncoder enc) 
+创建一个outputstreamwriter使用给定的字符集编码。  
+OutputStreamWriter(OutputStream out, String charsetName) 
+创建一个outputstreamwriter使用指定的字符集。 
+
+--------------------------------------------------------------------------
+以下是建立在流上的流
+数据流
+DataInputStream
+DataInputStream(InputStream in) 
+创建一个输入流InputStream使用指定的标。 
+.readInt()	返回整型
+.readBollean()
+.readUTF()
+
+DataOutputStream
+DataOutputStream(OutputStream out) 
+创建一个新的数据输出流，将数据写入到指定的基本输出流中。 
+.writeInt(整型)	
+.writeBoolean()
+.writeUTF()
+---------------------------------------------------------------------------
+对象流
+ObjectInputStream
+.writeObject(对象)
+ObjectInputStream() 
+为子类，完全重新实现了ObjectInPutStream没有分配私有数据只是用于实现对象输入流的方式。  
+  ObjectInputStream(InputStream in) 
+创建一个对象输入流读取从指定的输入流。  
+
+ObjectOutputStream
+.readObject()	返回对象
+ObjectOutputStream() 
+提供完全重新实现的子类对象不需要分配的私有数据只是用于实现对象的方式。  
+  ObjectOutputStream(OutputStream out) 
+创建一个对象写入到指定的输出流。  
+------------------------------------------------------------------------------------
+
+缓存流
+建立在流上
+BufferedReader
+BufferedReader(Reader in) 
+创建一个使用默认大小输入缓冲区的缓冲字符输入流。  
+BufferedReader(Reader in, int sz) 
+创建一个使用指定大小的输入缓冲区的缓冲字符输入流。
+.readLine()	返回内容
+
+BufferedWriter
+BufferedWriter(Writer out) 
+创建一个使用默认大小输出缓冲区的缓冲字符输出流。  
+BufferedWriter(Writer out, int sz) 
+创建一个新的缓冲字符输出流，该流使用给定大小的输出缓冲区。 
+
+-----------------------------------------------------------------------------------
+
+PrintWriter	//和outputStreamWriter类似，也可以为字节流设置编码方式
+PrintWriter(File file) 
+创建一个新的PrintWriter，无线自动冲洗，用指定的文件。  
+PrintWriter(File file, String csn) 
+创建一个新的PrintWriter，无线自动冲洗，用指定的文件和字符集。  
+PrintWriter(OutputStream out) 
+创建一个新的PrintWriter，无线自动冲洗，从现有的OutputStream。  
+PrintWriter(OutputStream out, boolean autoFlush) 
+创建从现有的OutputStream新PrintWriter。  
+PrintWriter(String fileName) 
+创建一个新的PrintWriter，无线自动冲洗，用指定的文件名。  
+PrintWriter(String fileName, String csn) 
+创建一个新的PrintWriter，无线自动冲洗，用指定的文件名和字符集。  
+PrintWriter(Writer out) 
+创建一个新的PrintWriter，无线自动冲洗。  
+PrintWriter(Writer out, boolean autoFlush) 
+创建一个新的PrintWriter。  
+
+.println(字符串)
+Scanner		//
+Scanner(File source) 
+构建产生扫描指定的文件价值的一个新 Scanner。  
+Scanner(File source, String charsetName) 
+构建了一种新的 Scanner产生扫描从指定文件中的值。  
+Scanner(InputStream source) 
+构建产生扫描从指定的输入流值的新 Scanner。  
+Scanner(InputStream source, String charsetName) 
+构建产生扫描从指定的输入流值的新 Scanner。  
+Scanner(Path source) 
+构建产生扫描指定的文件价值的一个新 Scanner。  
+Scanner(Path source, String charsetName) 
+构建产生扫描指定的文件价值的一个新 Scanner。  
+Scanner(Readable source) 
+构建产生扫描从指定的源值的新 Scanner。  
+Scanner(ReadableByteChannel source) 
+构建产生扫描从指定通道值的新 Scanner。  
+Scanner(ReadableByteChannel source, String charsetName) 
+构建产生扫描从指定通道值的新 Scanner。  
+Scanner(String source) 
+构建产生扫描指定的字符串值的新 Scanner。  
+
+.next()
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+FileReader是不能手动设置编码方式的，为了使用其他的编码方式，只能使用InputStreamReader来代替，像这样：
+ 
+new InputStreamReader(new FileReder(f),Charset.forName("UTF-8")); 

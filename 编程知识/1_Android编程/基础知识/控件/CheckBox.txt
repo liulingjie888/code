@@ -1,0 +1,13 @@
+CheckBox
+import android.widget.CheckBox;
+
+属性：
+
+Activity:
+.isChecked()	//判断是否被选中一般放在单击事件
+
+事件：
+setOnClickListener(new View.OnClickListener()...);
+
+PS：
+如果选项太多超出界面，可以将其放在LinearLayout标签中，然后用ScrollView标签包围

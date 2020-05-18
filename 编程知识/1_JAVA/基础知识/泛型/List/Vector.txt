@@ -1,0 +1,49 @@
+添加：
+add(E e);
+addElement(E obj);
+add(int index, E element);		//插入到指定位置
+insertElementAt(E obj, int index);
+addAll(Collection<? extends E> c);
+
+设置：
+set(int index, E element);
+setElementAt(E obj, int index) ;
+
+查询：
+firstElement();			//返回第一个元素
+get(int index) ;			//返回指定元素
+elementAt(int index);	
+lastElement();			//返回最后一个元素
+indexOf(Object o [, int index]);		//会指定元素下标  [,从index查起]
+lastIndexOf(Object o [, int index]);	//返回查找到最后一个元素下标 [,从index查起]
+elements() ;			//返回枚举
+
+删除：
+remove(int index);			//删除指定下标
+removeElementAt(int index);
+remove(Object o);			//删除指定元素
+removeElement(Object obj) ;
+removeAll(Collection<?> c);		//删除集合中的元素
+clear();				//清空
+removeAllElements();		//删除元素并设置长度为0
+removeRange(int fromIndex, int toIndex);//删除指定范围元素
+
+容量：
+size();				//返回实际大小
+setSize(int newSize);			//设置容量
+capacity()	;			//返回容量
+ensureCapacity(int minCapacity) ;	//添加容量
+
+//创造
+iterator() ;				//返回迭代器
+listIterator( [ int index]);
+copyInto(Object[] anArray);		//复制到数组中
+toArray() ;
+toArray(T[] a);
+subList(int fromIndex, int toIndex);	//复制到List返回
+clone();				//克隆
+
+判断：
+isEmpty();
+contains(Object o);			//包含
+containsAll(Collection<?> c);	

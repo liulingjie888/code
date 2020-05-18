@@ -1,0 +1,119 @@
+服务端
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.io.InputStream;
+import java.io.DataInputStream;
+  
+public class Server {
+  
+    public static void main(String[] args)  {
+    	try {
+    		 
+            ServerSocket ss = new ServerSocket(8888);
+ 
+            System.out.println("监听在端口号:8888");
+            Socket s = ss.accept();
+            //打开输入流
+            InputStream is =null;
+            DataInputStream data=null;
+            is = s.getInputStream();
+        	data=new DataInputStream(is);
+            //读取客户端发送的数据
+            while(true){
+            	
+	            String msg = data.readUTF();
+	            //打印出来
+	            if(msg.equals("关闭"))break;
+	            System.out.println(msg);
+	            
+            }
+            is.close();
+            data.close();
+           
+ 
+            s.close();
+            ss.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    	
+    	
+//        try {
+//			//服务端打开端口8888
+//			ServerSocket ss = new ServerSocket(8888);
+//			  
+//			//在8888端口上监听，看是否有连接请求过来
+//			System.out.println("监听在端口号:8888");
+//			Socket s =  ss.accept();
+//			  
+//			System.out.println("有连接过来" + s);
+//			
+//			s.close();
+//			ss.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+          
+    }
+}
+-----------------------------------客户端----------------------------------
+
+package netWork;
+
+import java.io.IOException;
+
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.io.OutputStream;
+import java.io.DataOutputStream;
+import java.util.Scanner;
+  
+public class Client {
+  
+    public static void main(String[] args)  {
+    	try {
+    		Scanner in=new Scanner(System.in);
+    		String str=null;
+    		Socket s = new Socket("127.0.0.1", 8888);
+            // 打开输出流
+            OutputStream os = s.getOutputStream();
+            DataOutputStream data=new DataOutputStream(os);
+            // 发送数字110到服务端
+            while(true) {
+            	System.out.println("请输入消息：");
+            	str=in.next();
+	            data.writeUTF(str);
+	            if(str.equals("关闭")) {
+	            	break;
+	            }
+	            
+            }
+            
+            
+            s.close();
+            os.close();
+            data.close();
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+//        try {
+//			//连接到本机的8888端口
+//			Socket s = new Socket("127.0.0.1",8888);
+//			System.out.println(s);
+//			s.close();
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+    }
+}

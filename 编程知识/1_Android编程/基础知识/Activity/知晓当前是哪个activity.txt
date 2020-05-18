@@ -1,0 +1,5 @@
+写一个继承AppCompatActivity的类，不用再Manifest中配置。
+重写onCreate方法，内容如下：
+
+super.onCreate(. . .);
+Log.d("BaseActivity",getClass().getSimpleName() );

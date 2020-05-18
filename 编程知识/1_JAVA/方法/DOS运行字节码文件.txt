@@ -1,0 +1,1 @@
+java -cp ;server/jtds-1.2.2_SQL2012.jar; server/ServerUDP

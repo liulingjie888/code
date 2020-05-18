@@ -1,0 +1,5 @@
+绝对布局AbsoluteLayout
+
+控件属性
+layout_x="0dp"		//坐标
+layout_y="0dp"

@@ -1,0 +1,13 @@
+
+1.standard模式：	android：launchMode="standard"
+Activity实例先进后出
+
+2.singleTop模式:	android:  launchMode="singleTop"
+判断要启动的Activity实例是否位于栈顶，如果是直接复用，反之创建新的实例。
+
+3.singleTask模式：	android:  launchMode="singleTask"
+每次启动该Activity时，会检查栈中是否存在，存在则将其之上的Activity全部出栈使用该Activity，反之创建该Activity实例
+
+4.singleInstance模式：android:  launchMode="singleInstance"
+无论哪个系统任务栈启动该Activity，该实例在整个系统中只有一个；
+系统创建一个任务栈只放这种Activity实例，调用时将该任务栈移至所有栈前台

@@ -1,0 +1,14 @@
+//提交改动过的文件
+git  status
+
+//查看文件变动情况 ，+代表增加的部分，-代表删除的部分
+ git diff  app/src/main/. . .
+
+//撤销更改文件
+git checkout app/src/main/. . .
+
+//查看提交记录
+git log
+
+//查看详细信息
+git log  事件ID  -1  -p

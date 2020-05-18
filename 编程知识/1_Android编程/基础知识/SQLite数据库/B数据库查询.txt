@@ -1,0 +1,24 @@
+android.content.ContextValues;
+android.database.Cursor;
+android.database.sqlite.SQLiteDatabase;
+
+
+//获取可读写SQLiteDatabase对象
+SQLliteDatabase  db=helper.getWritableDatabase( );
+
+
+（1）
+//第二个参数表示查询的列名，第五个表示分组方式，第六个为接收having条件，第七个表示排序方式
+Cursor cursor=db.query("表名",null,"字段名=?",new String[]{"值",....},null,null,null);
+boolean result=cursor.moveToNext( );
+cursor.close( );
+db.close( );
+（2）
+Cursor cursor=db.rawQuery("select * from person where name=?",new String[]{} );
+
+方法:
+cursor.getCount();		//返回记录数
+cursor.moveToFirst();	//移至第一行记录
+cursor.moveToNext();	//移至下一行且判断是否为空
+cursor.getString(下标);	//获取数据
+cursor.getColumnIndex("字段名");	//获取该字段在结果中的下标

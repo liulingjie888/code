@@ -1,0 +1,48 @@
+android.media.MediaPlayer;
+android.media.AudioManager;
+
+方法：
+MediaPlayer.
+----------------------准备与播放---------------------------
+
+//AdioManager.STREAMM_MMUSIC 音乐
+//AudioManager.STREAM_RINGXL 响铃
+//AudioManager.STTREAM_ALARM 闹钟
+//AudioManager.STREAM_NOTIFICTION 提示音
+//指定音频文件的类型  
+setAudioStreamType(AudioManager.STREAM_MUSIC);
+//设置播放文件的位置
+setDataSource("data/data/歌曲路径");
+//准备播放
+prepare();
+//播放或继续
+start();
+//暂停
+pause();
+
+----------------------跳进度---------------------------
+//获取播放音频的当前进度
+int getCurrentPosition();
+//跳到该进度，然后准备prepare(),然后播放start()
+seekTo(int进度);
+---------------------释放资源----------------------------
+//停止播放
+stop();
+//释放掉与MediaPlayer的相关资源
+release();
+//将MediaPlayer对象重置到刚刚创建的状态
+reset();
+//获取载入音频文件的时长
+getDuratioin();
+
+--------------------事件监听器---------------------------
+
+MediaPlayer提供了一些绑定事件监听器的方法，用于监听MediaPlayer播放过程中所发生的特定事件，绑定事件监听器的方法如下。
+
+setOnCompletionListener(MediaPlayer.OnCompletionListener listener)：为 Media Player的播放完成事件绑定事件监听器。
+
+setOnErrorListener(MediaPlayer.OnErrorListener listener)：为MediaPlayer的播放错误事件绑定事件监听器。
+
+setOnPreparedListener(MediaPlayer.OnPreparedListener listener)：当 MediaPlayer调用prepare()方法时触发该监听器。
+
+setOnSeekCompleteListener(MediaPlayer.OnSeekCompleteListener listener)：当MediaPlayer调用seek()方法时触发该监听器。

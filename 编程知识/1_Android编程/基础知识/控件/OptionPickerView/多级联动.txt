@@ -1,0 +1,73 @@
+    //  省
+    private List<ShengBean> options1Items = new ArrayList<ShengBean>();
+    //  市
+    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    //  区
+    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
+
+--------1.解析数据并组装成自己想要的list
+//在main/assets下放入文件province.json
+
+    private void parseData(){
+        String jsonStr = new GetJsonDataUtil().getJson(this, "province.json");//获取assets目录下的json文件数据
+//     数据解析
+        Gson gson =new Gson();
+        java.lang.reflect.Type type =new TypeToken<List<ShengBean>>(){}.getType();
+        List<ShengBean>shengList=gson.fromJson(jsonStr, type);
+//     把解析后的数据组装成想要的list
+        options1Items = shengList;
+//     遍历省
+        for(int i = 0; i <shengList.size() ; i++) {
+//         存放城市
+            ArrayList<String> cityList = new ArrayList<>();
+//         存放区
+            ArrayList<ArrayList<String>> province_AreaList = new ArrayList<>();
+//         遍历市
+            for(int c = 0; c <shengList.get(i).city.size() ; c++) {
+//        拿到城市名称
+                String cityName = shengList.get(i).city.get(c).name;
+                cityList.add(cityName);
+
+                ArrayList<String> city_AreaList = new ArrayList<>();//该城市的所有地区列表
+                if (shengList.get(i).city.get(c).area == null || shengList.get(i).city.get(c).area.size() == 0) {
+                    city_AreaList.add("");
+                } else {
+                    city_AreaList.addAll(shengList.get(i).city.get(c).area);
+                }
+                province_AreaList.add(city_AreaList);
+            }
+            /**
+             * 添加城市数据
+             */
+            options2Items.add(cityList);
+            /**
+             * 添加地区数据
+             */
+            options3Items.add(province_AreaList);
+        }
+
+    }
+
+--------------2.展示省市区选择器
+    private void showProvincePickerView() {// 弹出选择器
+
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String tx = options1Items.get(options1).name +"  "+
+                        options2Items.get(options1).get(options2) +"  "+
+                        options3Items.get(options1).get(options2).get(options3);
+
+                text_location.setText(tx);
+            }
+        })
+        .setTitleText("城市选择")
+        .setDividerColor(Color.BLACK)
+        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+        .setContentTextSize(20)
+        .build();
+
+        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        pvOptions.show();
+    }

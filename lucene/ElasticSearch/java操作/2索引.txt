@@ -1,0 +1,32 @@
+
+=================索引操作
+
+RestHighLevelClient client = new RestHighLevelClient( RestClient.builder( new HttpHost("localhost", 9200, "http") ));
+==========查询索引是否存在
+try {
+    //声明访问索引请求
+    OpenIndexRequest openIndexRequest = new OpenIndexRequest("索引名");
+    //发送请求
+    client.indices().open(openIndexRequest, RequestOptions.DEFAULT).isAcknowledged();
+
+} catch (ElasticsearchStatusException ex) {
+    //请求的索引不在则报该错
+    String m = "Elasticsearch exception [type=index_not_found_exception, reason=no such index]";
+    if (m.equals(ex.getMessage())) {
+        result = false;
+    }
+}
+
+==========创建索引
+//声明创建请求
+CreateIndexRequest request = new CreateIndexRequest("索引名");
+//发送请求
+client.indices().create(request, RequestOptions.DEFAULT);
+
+==========删除索引
+//声明删除请求
+DeleteIndexRequest request = new DeleteIndexRequest("索引名");
+//发送请求
+client.indices().delete(request, RequestOptions.DEFAULT);
+
+

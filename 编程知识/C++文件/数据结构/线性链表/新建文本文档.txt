@@ -1,0 +1,108 @@
+#include<iostream>
+using namespace std;
+
+typedef int DataType;
+typedef struct Node
+{
+	DataType data;
+	struct Node *next;
+}Node;
+
+class Chain
+{
+private:
+	Node *head;
+public:
+	Chain()
+	{
+		head=NULL;
+	}
+	~Chain()
+	{
+	}
+	int getsize();
+	bool insert(int pos,DataType data);
+	Node* getptr(int pos);
+	void print();
+};
+
+int Chain::getsize()
+{
+	int n=0;
+	while(this->head)
+	{
+		this->head=this->head->next;
+		n++;
+	}
+	return n;
+}
+
+bool Chain::insert(int pos,DataType data)
+{
+	if(pos>=1&&pos<=getsize()+1)		//判断是否越界
+	{
+		Node *p=(Node*)malloc(sizeof(Node));
+		p->data=data;
+		p->next=NULL;
+		if(pos==1)					//插入在最前面时
+		{
+			p->next=this->head;
+			this->head=p;
+			return true;
+		}
+		if(!this->head)
+			if(pos==getsize()+1)		//插入在最后面
+			{
+				Node *q=this->head;
+				while(q->next)
+				{
+					q=q->next;
+				}
+				q->next=p;
+				return true;
+			}
+		Node *q=getptr(pos-1);//获取前一个元素的指针
+		Node *r=q->next;
+		q->next=p;//前一个元素的指针成员指向第pos元素
+		p->next=r;
+		return true;
+	}
+}
+
+Node* Chain::getptr(int pos)
+{
+	Node *p=head;
+	if(p==NULL||pos<=0||pos>getsize())
+	{
+		return NULL;
+	}
+	for(int i=1;i<pos;i++)
+	{
+		p=p->next;
+	}
+	return p;
+	
+}
+
+void Chain::print()
+{
+	if(!head)
+	{
+		printf("空链表！\n");
+		return ;
+	}
+	Node *p=head;
+	while(p)
+	{
+		cout<<p->data<<endl;
+		p=p->next;
+	}
+}
+
+int main()
+{
+	Chain h;
+	h.insert(1,34);
+	
+	return 0;
+}

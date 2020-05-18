@@ -1,0 +1,60 @@
+import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod; 
+import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.httpclient.NameValuePair;  
+import org.apache.commons.httpclient.URI; 
+
+ 1, 创建Http客户端对象
+ 2, 设置请求的url,连接的地址
+ 3, 设置请求的方式(Get/Post),请求内容的类型,接收内容的类型,字符编码
+ 4, 设置请求参数(请求内容)
+ 5, 按请求的方式执行请求,返回Http状态码
+ 6, 获得响应内容
+ 7, 释放连接
+
+// 1.生成 HttpClinet 对象并设置参数
+HttpClient httpClient = new HttpClient();
+//设置目标主机、端口号、协议类型(没有设置则后面方法的建立要有完整的URL，没有则可以使用相对路径)
+httpClient.getHostConfiguration().setHost("liulingjie.cn", 80 "http");
+ // 设置 HTTP 连接超时 5s
+httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
+
+// 使用GET方法
+// 如用POST方法用HttpMethod method = new PostMethod(url);
+GetMethod getMethod = new GetMethod(url);	
+// 设置 get 请求超时 5s
+getMethod.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, 5000);
+// 设置请求重试处理
+getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler());
+
+//使用 POST 方式提交数据 
+PostMethod method= new PostMethod( "/simcard.php" );
+NameValuePair simcard = new NameValuePair( "simcard" , "1330227" );
+post.setRequestBody( new NameValuePair[] { simcard});
+
+
+//发起HTTP请求并获取状态码,状态码为HttpStatus.SC_OK则请求成功
+int statusCode = httpClient.executeMethod(Method)
+//获取服务器返回的状态
+String status=method.getStatusLine();
+
+//获取输入流
+inBuffer = new BufferedInputStream(method.getResponseBodyAsStream());
+//直接获取字符流
+String  inString=method.getResponseBodyAsString();
+//直接获取字节流
+byte[]  inByte=method.getResponseBody();
+// 获取URL文件类型，例: text/html ; img/jpg
+String contentType = method.getResponseHeader("Content-Type").getValue(); 
+//获取指定请求头
+Header method.getResponseHeader("请求头属性名");
+Header[] method.getResponseHeaders("请求头属性名");
+//获取所有请求头
+Header[] method.getResponseHeaders();
+
+//一定要做的事，释放连接！！！
+method.releaseConnection();

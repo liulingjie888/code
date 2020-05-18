@@ -1,0 +1,207 @@
+========================说明
+Order为订单
+Product为产品
+OrderItem为它们的关系表（多对多）：
+
+	create table order_item_(
+	  id int(11) NOT NULL AUTO_INCREMENT, 
+	  oid int ,		//订单id
+	  pid int ,		//产品id
+	  number int ,
+	  PRIMARY KEY(id)
+	)AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+它们的关系在配置文件Order.xml体现
+
+=========================OrderItem类(关系类)
+public class OrderItem {
+    private int id;
+    private int number;
+    private Order order;
+    private Product product;
+    ......
+}
+
+========================Order类
+public class Order {
+    private int id;
+    private String code;
+    List<OrderItem> orderItems;
+    ......
+}
+
+=======================Product类
+public class Product {
+    private int id;
+    private String name;
+    private float price;
+    ......
+}
+
+======================Order.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.how2java.pojo">
+	<resultMap type="Order" id="orderBean">
+	    <id column="oid" property="id" />
+	    <result column="code" property="code" />
+	     
+	    <collection property="orderItems" ofType="OrderItem">
+		<id column="oiid" property="id" />
+		<result column="number" property="number" />
+		<association property="product" javaType="Product">	//表示OrderItem于与Product为多对一
+		    <id column="pid" property="id"/>
+		    <result column="pname" property="name"/>
+		    <result column="price" property="price"/>
+		</association>               
+	    </collection>
+	</resultMap>
+	 
+	<select id="listOrder" resultMap="orderBean">
+	    select o.*,p.*,oi.*, o.id 'oid', p.id 'pid', oi.id 'oiid', p.name 'pname'
+		from order_ o
+		left join order_item_ oi    on o.id =oi.oid
+		left join product_ p on p.id = oi.pid
+	</select>
+	     
+	<select id="getOrder" resultMap="orderBean">
+	    select o.*,p.*,oi.*, o.id 'oid', p.id 'pid', oi.id 'oiid', p.name 'pname'
+		from order_ o
+		left join order_item_ oi on o.id =oi.oid
+		left join product_ p on p.id = oi.pid
+	    where o.id = #{id}
+	</select>
+</mapper>
+
+======================Product.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.how2java.pojo">
+	<resultMap type="Product" id="productBean">
+	    <id column="pid" property="id" />
+	    <result column="pname" property="name" />
+	    <result column="price" property="price" />
+
+	    <!-- 多对一的关系 -->
+	    <!-- property: 指的是属性名称, javaType：指的是属性的类型 -->
+	    <association property="category" javaType="Category">
+		<id column="cid" property="id"/>
+		<result column="cname" property="name"/>
+	    </association>
+	</resultMap>
+
+	<select id="listProduct" resultMap="productBean">
+	    select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname'
+		from category_ c
+		left join product_ p on c.id = p.cid
+	</select>   
+	<select id="getProduct" resultMap="productBean">
+	    select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname'
+		from category_ c
+		left join product_ p on c.id = p.cid
+	    where p.id = #{id}
+	</select>   
+</mapper>
+
+====================OrderItem.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.how2java.pojo">
+	<insert id="addOrderItem" parameterType="OrderItem">
+	    insert into order_item_
+		values(null,#{order.id},#{product.id},#{number})
+	</insert>   
+	<insert id="deleteOrderItem" parameterType="OrderItem">
+	    delete from order_item_
+		where oid = #{order.id} and pid = #{product.id}
+	</insert>   
+</mapper>
+
+多对多不存在修改关系的做法，就是删除旧的，然后新增一条即达到修改的效果
+
+===========================代码操作
+建立关系：
+Order o1 = session.selectOne("getOrder", 1);
+Product p6 = session.selectOne("getProduct", 6);
+OrderItem oi = new OrderItem();
+oi.setProduct(p6);
+oi.setOrder(o1);
+oi.setNumber(200);
+session.insert("addOrderItem", oi);
+
+
+删除关系：
+Order o1 = session.selectOne("getOrder",1);
+Product p6 = session.selectOne("getProduct",6);
+OrderItem oi = new OrderItem();
+oi.setProduct(p6);
+oi.setOrder(o1);
+session.delete("deleteOrderItem", oi);
+
+查询：
+List<Order> os = session.selectList("listOrder");
+for (Order o : os) {
+    System.out.println(o.getCode());
+    List<OrderItem> ois = o.getOrderItems();
+    for (OrderItem oi : ois) {
+        ......
+    }
+}
+
+
+=============================使用注释
+
+=======新增一个ProductMapper接口，提供 get方法:
+public interface ProductMapper {
+     
+    @Select("select * from product_ where id = #{id}")
+    public Product get(int id);
+}
+
+=======新增OrderItemMapper，提供listByOrder方法:
+public interface OrderItemMapper {
+     
+    @Select("select * from order_item_ where oid = #{oid}")
+    @Results({ 
+        @Result(property="product",column="pid",one=@One(select="com.how2java.mapper.ProductMapper.get")) 
+    }) 
+    public List<OrderItem> listByOrder(int oid);
+}
+
+=======新增OrderMapper，提供list方法，这里会与OrderItem建立一对多关系:
+public interface OrderMapper {
+    @Select("select * from order_")
+     @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "orderItems", javaType = List.class, column = "id", 
+                    many = @Many(select = "com.how2java.mapper.OrderItemMapper.listByOrder"))
+            })      
+    public List<Order> list();
+     
+}
+
+=======配置mybatis-config.xml：
+<mapper class="com.how2java.mapper.OrderItemMapper"/>
+<mapper class="com.how2java.mapper.OrderMapper"/>
+<mapper class="com.how2java.mapper.ProductMapper"/>
+
+=======操作代码：
+OrderMapper mapper =session.getMapper(OrderMapper.class);
+List<Order> os = mapper.list();
+for (Order o : os) {
+    System.out.println(o.getCode());
+    List<OrderItem> ois= o.getOrderItems();
+    if(null!=ois){
+        for (OrderItem oi : ois) {
+            System.out.format("\t%s\t%f\t%d%n", oi.getProduct().getName(),oi.getProduct().getPrice(),oi.getNumber());
+        }              
+    }
+
+}

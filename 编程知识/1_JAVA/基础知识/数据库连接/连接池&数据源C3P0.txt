@@ -1,0 +1,53 @@
+com.mchang.v2.c3p0.ComboPooledDataSource;
+javax.sql.DataSource;
+
+依赖包
+c3p0
+mchange-commons
+
+第一种方法：
+DataSource  cpds=new ComboPooledDataSource();
+cpds.setDriverClass("驱动");
+cpds.setJdbcUrl("数据库路径");
+cpds.setUser("用户名");
+cpds.setPassword("密码");
+cpds.setInitialPoolSize(5);		//初始化的连接数目
+cpds.setMaxPoolSize(15);		//最大连接数目
+cpds.setMinPoolSize(5);		//最小连接数目
+
+Connection  conn=cpds.getConnection();
+
+
+-------------------------------------------------------------------------------------
+第二种方法：
+
+DataSource  ds=new ComboPooledDataSource("myConfig")；	//从自定义配置中创建，配置文件名必须为c3p0-config.xml或c3p0.properties
+							//当找不到指定配置是使用默认配置时，默认配置有问题
+Connection  conn=ds.getConnection();
+
+c3p0-config.xml文件：
+
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+    <default-cofig>				//默认配置
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbc</property>
+        <property name="user">root</property>
+        <property name="password">123456</property>
+        <property name="checkoutTimeout">30000</property>
+        <property name="initialPoolSize">10</property>
+        <property name="maxIdleTime">30</property>
+        <property name="maxPoolSize">100</property>
+        <property name="minPoolSize">10</property>
+        <property name="maxStatements">200</property>
+    </default-cofig>
+    
+    <named-config name="myConfig">		//自定义配置
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbc</property>
+        <property name="user">root</property>
+        <property name="password">123456</property>
+        <property name="initialPoolSize">10</property>
+        <property name="maxPoolSize">100</property>
+    </named-config>
+</c3p0-config>

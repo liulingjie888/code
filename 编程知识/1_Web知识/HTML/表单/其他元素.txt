@@ -1,0 +1,40 @@
+列表框或下拉列表框
+<select>
+<option value="1">内容1</option>
+<option value="2">内容2</option>
+<option value="3">内容3</option>
+<option value="4">内容4</option>
+</select>
+
+设置size属性时为列表框；反之为下拉列表框
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+多行文本域
+<textarea>
+</teatarea>
+
+属性
+name
+cols	文本域宽度（当行字符数）
+rows	文本域高度（行数）
+wrap	"off"	不让换行
+	"virtual"	自动换行，但换行符不会添加到数据中
+	"physical"	自动换行，换行符<br/>会添加到数据中
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+datallist元素
+它需域文本框的list属性绑定，只要将list属性值设为datalist元素的ID属性即可。
+绑定后可提示输入内容，与自动完成功能类似，例：
+
+<input type="text" id="zhiye" list="career" />
+<datalist id="career">
+	<option value="工人"></option>
+	<option value="医生"></option>
+	<option value="警察"></option>
+</datalist>
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+output元素

@@ -1,0 +1,68 @@
+；显示意图
+
+文件Activity01.java:
+Intent intent=new Intent(Activity01.this,Activity02.class);
+//传递数据
+//第一种直接传递
+intent.putExtra("变量名",变量值);
+//第二种通过Bundle对象传递
+Bundle bundle=new Bundle();
+bundle.putInt("名",值);
+bundle.putDouble("名",值);
+intent.putExtras(bundle);
+
+//从Activity01跳转到Activity02	
+startActivity(intent);	
+
+文件Activity02.java:
+Intent intent=getIntent();
+ //获取数据
+String data=intent.getStringExtra("变量名","");
+Int data=intent.getIntExtra("变量名",0);
+//获取Bundle数据
+Bundle bundle=intent.getExtras();
+int data=bundle.getInt("名");
+
+//Intent只能传递基本数据类型、Serializable和Parcelable类型数据	
+//所以自定义类需继承Serializable接口
+类名  变量=(类名)intent.getSerializableExtra("名称");
+
+---------------------------------------------------------------
+隐示意图
+一个activity只能声明一个action，但是可以声明多个category
+
+Activity01.java:
+Intent intent=new Intent();
+intent.setAction("Action名");	//category为默认添加
+[ intent.setCategory("category名"); ]	//添加category
+startActivity(intent);
+
+//在配置文件中设置好action属性，category和action一致时启动该组件
+AndroidManifest.xml:
+<activity name="Activity02">
+	<intent-filter>
+		<action android:name="Action名"/>
+		//intent没有设置指定category，默认DDFAULT
+		<category android:name="android.intent.category.DEFAULT"/>
+
+		//设置指定category
+		<category android:name="自定义category名"/>
+	</intent-filter>
+</activity>
+
+---------------------------------------------------------
+
+浏览器打开
+. . . .
+//android.intent.action.VIEW是一个Android系统内置的动作
+intent.setAction("android.intent.action.VIEW");
+intent.setData(Uri.parse("http://www.baidu.com"));
+startActivity(intent);
+
+拨打电话10086
+intent.setAction(Intent.ACTION_DIAL);
+intent.setData(Uri.parse("tel:10086"));
+startActivity(intent);
+
+
+

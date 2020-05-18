@@ -1,0 +1,94 @@
+
+=====================Product类
+public class Product {
+    private int id;
+    private String name;
+    private float price;
+    ......
+}
+
+====================Category类
+public class Category {
+    private int id;
+    private String name;
+    List<Product> products;
+    ......
+}
+
+======================1使用Category.xml
+通过resultMap把数据取出来放在对应的 对象属性里
+注：Category的id 字段 和Product的id字段同名，Mybatis不知道谁是谁的，所以需要通过取别名cid,pid来区分。
+	
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.how2java.pojo">
+<resultMap type="Category" id="categoryBean">
+    <id column="cid" property="id" />
+    <result column="cname" property="name" />
+
+    <!-- 一对多的关系 -->
+    <!-- property: 指的是集合属性的名称, ofType：指的是集合中元素的类型 -->
+    <collection property="products" ofType="Product">
+        <id column="pid" property="id" />
+        <result column="pname" property="name" />
+        <result column="price" property="price" />
+    </collection>
+</resultMap>
+
+<!-- 关联查询分类和产品表 -->
+<select id="listCategory" resultMap="categoryBean">
+    select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname' from category_ c left join product_ p on c.id = p.cid
+</select>   
+</mapper>
+
+============操作代码
+
+List<Category> cs = session.selectList("listCategory");
+for (Category c : cs) {
+    System.out.println(c);
+    List<Product> ps = c.getProducts();
+    for (Product p : ps) {
+        System.out.println("\t"+p);
+    }
+}
+
+========================2使用注释
+============新增接口ProductMapper，获取Product集合：
+public interface ProductMapper {
+  
+    @Select(" select * from product_ where cid = #{cid}")
+    public List<Product> listByCategory(int cid);
+     
+}
+============新增加CategoryMapper接口，查询所有Category：
+
+public interface CategoryMapper {
+    @Select(" select * from category_ ")
+    @Results({ 
+                @Result(property = "id", column = "id"),
+                @Result(property = "products", javaType = List.class, column = "id", many = @Many(select = "com.how2java.mapper.ProductMapper.listByCategory") )
+            })
+    public List<Category> list();
+ 
+}
+
+============配置mybatis-config.xml
+<mappers>
+	<mapper class="com.how2java.mapper.CategoryMapper"/> 
+	<mapper class="com.how2java.mapper.ProductMapper"/>
+</mappers>
+
+============操作代码
+
+CategoryMapper mapper = session.getMapper(CategoryMapper.class);
+List<Category> cs = mapper.list();
+for (Category c : cs) {
+    System.out.println(c.getName());
+    List<Product> ps = c.getProducts();
+    for (Product p : ps) {
+        System.out.println("\t"+p.getName());
+    }
+}
+

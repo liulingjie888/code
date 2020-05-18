@@ -1,0 +1,85 @@
+
+=====================创建映射数据库表的类
+public class Category {
+    private int id;
+    private String name;
+    public int getId() {  return id; }
+    public void setId(int id) {this.id = id; }
+    public String getName() {  return name; }
+    public void setName(String name) {    this.name = name;  }
+}
+
+=====================在src目录下配置文件mybatis-config.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+      <package name="Category的包名"/>	//在后续配置文件Category.xml中resultType可以直接使用Category,而不必写全包类名
+    </typeAliases>
+
+    <environments default="development">		//数据库连接配置
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/how2java?characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="admin"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>			//配置表与类的映射文件
+        <mapper resource="com/how2java/pojo/Category.xml"/>
+    </mappers>
+</configuration>
+
+
+=====================在Category同包下创建Category.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.how2java.pojo">			//设置命名空间
+<select id="listCategory" resultType="Category">	//resultType="Category" 表示返回的数据和Category关联起来
+    select * from   category_     			//SQL语句
+</select>
+</mapper>
+
+
+====================操作代码
+public class TestMybatis {
+ 
+    public static void main(String[] args) throws IOException {
+        
+	//根据配置文件mybatis-config.xml得到sqlSessionFactory 。
+        InputStream inputStream = Resources.getResourceAsStream(mybatis-config.xml);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+	
+	//得到session
+        SqlSession session=sqlSessionFactory.openSession();
+        
+	//根据Cctegory.xml的id获取并执行对应SQL语句
+        List<Category> cs=session.selectList("listCategory");
+        
+        if(sessioni!=null){
+        	session.close()p
+        }
+    }
+    
+    
+}
+
+理解：
+基本原理图顶折
+1. 应用程序找Mybatis要数据
+2. mybatis从数据库中找来数据
+	2.1 通过mybatis-config.xml 定位哪个数据库
+	2.2 通过Category.xml执行对应的select语句
+	2.3 基于Category.xml把返回的数据库记录封装在Category对象中
+	2.4 把多个Category对象装在一个Category集合中
+3. 返回一个Category集合
+

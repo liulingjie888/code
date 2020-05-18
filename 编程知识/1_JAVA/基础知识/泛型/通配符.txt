@@ -1,0 +1,3 @@
+ArrayList heroList<? extends Hero> 表示这是一个Hero泛型或者其子类泛型，可以取出，不能添加
+
+ArrayList heroList<? super Hero> 表示这是一个Hero泛型或者其父类泛型，可以添加，不能取出

@@ -1,0 +1,12 @@
+该监听器一般添加在用于显示网页的JEditorPane
+
+javax.swing.event.HyperlinkEvent;
+javax.swing.event.HyperlinkListener;
+
+public void hyperlink Update(HyperlinkEvent e){
+	//点击网页上的链接时
+	if(e.getEventType( )==HyperlinkEvent.EventType.ACTIVATED){
+		//获取点击链接URL
+		e.getURL( );
+		. . . . . . 
+	}

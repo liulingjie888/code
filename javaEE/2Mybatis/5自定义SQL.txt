@@ -1,0 +1,107 @@
+================================新增CategoryDynaSqlProvider，提供CRUD对应的SQL语句:
+public class CategoryDynaSqlProvider {
+    public String list() {			//查
+         return new SQL()
+                 .SELECT("*")
+                 .FROM("category_")
+                 .toString();
+         
+    }
+    public String get() {			//查
+        return new SQL()
+                .SELECT("*")
+                .FROM("category_")
+                .WHERE("id=#{id}")
+                .toString();
+    }
+     
+    public String add(){			//增
+        return new SQL()
+                .INSERT_INTO("category_")
+                .VALUES("name", "#{name}")
+                .toString();
+    }
+    public String update(){			//改
+        return new SQL()
+                .UPDATE("category_")
+                .SET("name=#{name}")
+                .WHERE("id=#{id}")
+                .toString();
+    }
+    public String delete(){			//删
+        return new SQL()
+                .DELETE_FROM("category_")
+                .WHERE("id=#{id}")
+                .toString();
+    }
+     
+}
+
+============================
+
+public interface CategoryMapper {
+  
+    @InsertProvider(type=CategoryDynaSqlProvider.class,method="add") 
+    public int add(Category category); 
+        
+    @DeleteProvider(type=CategoryDynaSqlProvider.class,method="delete")
+    public void delete(int id); 
+        
+    @SelectProvider(type=CategoryDynaSqlProvider.class,method="get") 
+    public Category get(int id); 
+      
+    @UpdateProvider(type=CategoryDynaSqlProvider.class,method="update") 
+    public int update(Category category);  
+        
+    @SelectProvider(type=CategoryDynaSqlProvider.class,method="list")     
+    public List<Category> list(); 
+}
+
+============================mybatis-config.xml
+<configuration>
+    .....
+    <mappers>
+        <mapper class="com.how2java.mapper.CategoryMapper"/> 	//表示注解的类
+    </mappers>
+</configuration>
+
+========================代码操作
+SqlSession session = sqlSessionFactory.openSession();
+CategoryMapper mapper = session.getMapper(CategoryMapper.class);
+  
+
+Category c= mapper.get(14);		//查
+
+mapper.delete(13);			//删
+  
+Category c= mapper.get(14);		//改
+c.setName("liu");
+mapper.update(c);
+
+Category c = new Category();		//增
+mapper.add(c);
+
+List<Category> cs = mapper.list();	//查
+
+========================SQL用法
+private String selectPersonSql() {
+  return new SQL() {{
+    SELECT("P.ID, P.USERNAME, P.PASSWORD, P.FULL_NAME");
+    SELECT("P.LAST_NAME, P.CREATED_ON, P.UPDATED_ON");
+    FROM("PERSON P");
+    FROM("ACCOUNT A");
+    INNER_JOIN("DEPARTMENT D on D.ID = P.DEPARTMENT_ID");
+    INNER_JOIN("COMPANY C on D.COMPANY_ID = C.ID");
+    WHERE("P.ID = A.ID");
+    WHERE("P.FIRST_NAME like ?");
+    OR();
+    WHERE("P.LAST_NAME like ?");
+    GROUP_BY("P.ID");
+    HAVING("P.LAST_NAME like ?");
+    OR();
+    HAVING("P.FIRST_NAME like ?");
+    ORDER_BY("P.ID");
+    ORDER_BY("P.FULL_NAME");
+  }}.toString();
+}
+

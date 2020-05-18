@@ -1,0 +1,91 @@
+
+一、权限：
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+二、res/xml/下创建file_paths.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path  name="my_images"  path="/" />
+</paths>
+
+
+三、Manifest.xml中内容提供者注册：
+<provider
+            android:authorities="com.example.takephoto.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+</provider>
+
+
+-------------------------------------------------------
+
+public class MainActivity extends AppCompatActivity {
+
+    //调用拍照的请求码
+    public static final int TAKE_PHOTO=1;
+    private ImageView picture;
+    private Uri imageUri;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button takePhoto=(Button)findViewById(R.id.take_photo);
+        picture=(ImageView)findViewById(R.id.picture);
+        takePhoto.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                //创建存储临时拍照相片的文件
+                File outputImage=new File(getExternalCacheDir(),"output_image.jpg");
+                try{
+                    if(outputImage.exists())
+                        outputImage.delete();
+                    outputImage.createNewFile();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                //安卓版本大于7.0
+                if(Build.VERSION.SDK_INT>=24){
+                    imageUri=FileProvider.getUriForFile(MainActivity.this,"com.example.takephoto.fileprovider",outputImage);
+                }else{
+                    //小于7.0直接根据文件路径创建Uri
+                    imageUri=Uri.fromFile(outputImage);
+                }
+
+                //传达临时图片存储文件路径并启动相机
+                Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+                startActivityForResult(intent,TAKE_PHOTO);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch(requestCode){
+            case TAKE_PHOTO:
+                //启动照相返回后，设置图片
+                if(resultCode==RESULT_OK){
+                    try{
+                        Bitmap bitmap=BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        Matrix matrix=new Matrix();
+	        //调整图片的角度
+                        matrix.setRotate(90);
+                        bitmap=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,false);
+                        picture.setImageBitmap(bitmap);
+                    }catch (FileNotFoundException e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}

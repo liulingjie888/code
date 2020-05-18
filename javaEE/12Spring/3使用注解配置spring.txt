@@ -1,0 +1,59 @@
+
+其他beans标签下加入<context:annotation-config/>表示告诉Spring要用注解的方式进行配置
+
+
+1.为applicationContext.xml配置文件引入context约束，prifex为context
+! ！!还需导入aop包
+
+2.写入:
+<beans>
+<!-- 指定扫描cn.itcast.bean包下的所有注解 -->
+	<context:component-scan base-package="cn.itcast.bean"></context:component-scan>
+</beans>
+
+3.javaBean写法如下：
+
+package cn.itcast.bean;
+import org.springframework.stereotype.Component;
+
+@Component("user")		//相当于<bean name="user" class="cn.itcast.bean.User"></bean>
+@Service("user")		//service层（这4个作用一样，只需一个就行，用于区分对象是在哪一层）
+@Controller("user")		//web层
+@Repository("user")		//dao层
+
+@Scope(scopeName="prototype")	//指定范围
+public class User {
+	@Value(value="Tom")	//注入值（通过反射Field赋值，破坏了封装性）
+	private String name;
+
+	@Value("18")		//注入Integer值
+	private Integer age;
+
+	@Autowired		//自动注入配置文件存在的对象（当存在多个对象时无法选择赋值）
+	@Qualifier("配置文件中指定对象的name值")	//指定对象赋值
+	@Resource(Car中的属性="值")			//指定属性符合的对象给它赋值（最好）
+	private Car  car;
+
+	public String getName() {
+		return name;
+	}
+	@Value("Tom")		//注入值（通过方法赋值）
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	@PostConstruct		//创建该对象时被调用
+	public void init(){
+	}
+
+	@PreDestroy		//销毁前调用
+	public void destroy(){
+		System.out.print("我死了");
+	}
+}

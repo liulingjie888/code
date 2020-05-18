@@ -1,0 +1,40 @@
+
+======第一种是把100条数据查出来，然后取最后10条。 优点是快，缺点是对内存消耗大。
+private static ScoreDoc[] pageSearch1(Query query, IndexSearcher searcher, int pageNow, int pageSize)
+throws IOException {
+	TopDocs topDocs = searcher.search(query, pageNow*pageSize);
+	 System.out.println("查询到的总条数\t"+topDocs.totalHits);
+	 ScoreDoc [] alllScores = topDocs.scoreDocs;
+	 List<ScoreDoc> hitScores = new ArrayList<>();
+	
+	 
+	 int start = (pageNow -1)*pageSize ;
+	 int end = pageSize*pageNow;
+	 for(int i=start;i<end;i++)
+		 hitScores.add(alllScores[i]);
+	
+	
+	 ScoreDoc[] hits = hitScores.toArray(new ScoreDoc[]{});
+	return hits;
+}
+
+=====第二种是把第90条查询出来，然后基于这一条，通过searchAfter方法查询10条数据。 优点是内存消耗小，缺点是比第一种更慢
+
+private static ScoreDoc[] pageSearch2(Query query, IndexSearcher searcher, int pageNow, int pageSize)
+			throws IOException {
+        int start = (pageNow - 1) * pageSize;
+        if(0==start){
+        	TopDocs topDocs = searcher.search(query, pageNow*pageSize);
+        	return topDocs.scoreDocs;
+        }
+        // 查询数据， 结束页面自前的数据都会查询到，但是只取本页的数据
+        TopDocs topDocs = searcher.search(query, start);
+
+        //获取到上一页最后一条
+        ScoreDoc preScore= topDocs.scoreDocs[start-1];
+
+        //查询最后一条后的数据的一页数据
+        topDocs = searcher.searchAfter(preScore, query, pageSize);
+        return topDocs.scoreDocs;
+        
+}

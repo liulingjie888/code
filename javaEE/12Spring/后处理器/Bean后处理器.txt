@@ -1,0 +1,27 @@
+
+1.BeanPostProcessor
+Bean后处理器必须实现BeanPostProcessor接口，并覆盖该接口中的方法：
+//参数1为即将进行的后处理的Bean实例，参数2为实例的id或name
+public class MyBeanPost implements BeanPostProcessor {
+    @Override
+    public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
+        System.out.println("Bean初始化前调用，对该bean强化后返回该对象");
+        return o;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object o, String s) throws BeansException {
+        System.out.println("Bean初始化前调用，对该bean操作后返回该对象");
+        return o;
+    }
+}
+
+2.applicationContext.xml:
+<beans>
+	<bean class="Bean后处理器类"/>
+</beans>
+
+=======================BeanNameAutoProxyCreator
+=======================DefaultAdvisorAutoProxyCreator
+
+

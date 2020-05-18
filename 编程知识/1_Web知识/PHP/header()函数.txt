@@ -1,0 +1,11 @@
+header()可以重定向网页，例如：
+	header("location:http://www.liuingjie.club");
+	header("location:9-9.html");
+	header("location:http:?flag=1&name=liulingjie);
+	header("location:http:$var");
+
+注意：header()语句之前不能有echo语句和html代码，服务器也不能向客户端发送任何数据
+执行完该语句后会继续执行，如要停止使用exit()和die()退出
+
+1）文件延时转向
+	

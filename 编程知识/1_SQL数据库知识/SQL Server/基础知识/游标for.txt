@@ -1,0 +1,30 @@
+声名游标
+declare  游标名   [insensitive] [scroll] cursor       //没有scroll只可以调用坐标位置如next
+for 
+	select语句
+[for read only | update [of  列名1，· · · ]]    
+
+read only只读不能进行操作
+update [of 列名1 · · ·]   指定可以进行更新操作的列名   [ 都可以更新 ]
+
+///////////////////////////////////////////////////////////////////////////////
+
+打开游标
+open  [ local(局部游标) | global(全局游标) ]  <游标名>
+
+读取游标
+fetch  [ 读取位置(next | prior | first | last | absolute n | relative n）from ]    [global] 游标名  [into 变量]
+
+关闭游标
+close  [global] 游标名
+
+释放游标
+deallocate [global] 游标名
+
+显示读取内容
+select   @@cursor_rows
+显示游标状态
+select cursor_status('locate | global | ' , '游标名')
+
+游标充当条件（可以修改游标指向的元组）
+where current of  [golbal]  游标名

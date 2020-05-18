@@ -1,0 +1,28 @@
+=======================创建core
+提示：确定创建Core之前，instanceDir目录和dataDir必须存在。并含有xml配置文件。
+
+（1）创建目录，复制特定一套配置模板。比如我们创建一个helloworld核心。
+这里使用的是_default默认配置文件。
+
+cd /var/solr/data
+mkdir helloworld
+cd /var/solr/data/helloworld/
+cp -r /opt/solr/server/solr/configsets/basic_configs/conf .
+
+（2）改变目录的所属和组。
+chown -R  solr:solr helloworld/
+
+（3）在solr界面创建core时name和instanceDi都填写helloworld，即可添加成功
+
+
+======================支持中文分词
+#将分词的依赖包IKAnalyzer6.5.0.jar复制到/opt/solr/server/solr-webapp/webapp/WEB-INF/lib下
+#修改指定core的conf目录下的managed-schema文件，在<schema...> 标签下增加如下代码：
+
+<fieldType name="text_ik" class="solr.TextField">  
+	<analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>  
+</fieldType>  
+<field name="text_ik"  type="text_ik" indexed="true"  stored="true"  multiValued="false" />
+
+#再重启服务器service solr restart
+#选择core的analysis，输入要分词的字符串后在Analyse Fieldname / FieldType选择text_ik进行分词即可成功

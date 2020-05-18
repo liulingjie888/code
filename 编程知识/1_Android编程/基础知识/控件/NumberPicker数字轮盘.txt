@@ -1,0 +1,18 @@
+NumberPicker
+import android.widget.NumberPicker;
+
+属性:
+
+
+Activity:
+setMinValue(int value);	//设置最小值，必须>=0
+setMaxValue(int value);	//设置最大值
+setValue(int value);		//设置目前值
+getValue();		//获取当前值
+
+事件:
+setOnValueChangedListener(new NumberPricker.OnValueChangeListener(){
+	public void onValueChange(NumberPicker view, int oldValue,int newValue){
+		//newValue为新设置的值
+	}
+ });

@@ -1,0 +1,53 @@
+MulticastSocket用于发送、接收数据报的方法与DatagramSocket完全一样。
+但MulticastSocket比DatagramSocket多了一个setTimeToLive(int ttl)方法，
+
+
+方法：
+setTimeToLive(int ttl);
+该ttl参数用于设置数据报最多可以跨过多少个网络，用于发送端
+当ttl=0，指定数据报应停留在本地主机；
+当ttl=1，指定数据报发送到本地局域网；
+当ttl=32，意味着只能发送到本站点的网络上；
+当ttl=64，意味着数据报应保留在本地区；
+当ttl=128，意味着数据报应保留在本大洲；
+当ttl=255，意味着数据报可发送到所有地方；
+在默认情况下，该ttl的值为1。
+
+
+//加入ip广播
+joinGroup(ip);
+ //脱离该广播
+leaveGroup(ip);
+
+---------------------------接收广播
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+//接收指定广播数据报（调用joinGroup加入广播地址）
+		byte[] data = new byte[256];
+		InetAddress ip = InetAddress.getByName(广播地址224.0.0.1);
+		MulticastSocket ms = new MulticastSocket(端口号);
+		//加入ip广播
+		ms.joinGroup(ip);
+		DatagramPacket packet = new DatagramPacket(data, data.length);
+		//receive()是阻塞方法，会等待客户端发送过来的信息
+		ms.receive(packet);
+		String message = new String(packet.getData(), 0, packet.getLength());
+		System.out.println(message);
+		//脱离该广播
+		ms.leaveGroup(ip);
+		ms.close();
+
+-----------------------------发送广播
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+ 
+			byte[] data = new byte[256];
+			InetAddress ip = InetAddress.getByName(广播地址);
+			DatagramPacket packet = new DatagramPacket(this.data.getBytes(), this.data.length(), ip, 端口号);
+			MulticastSocket ms = new MulticastSocket();
+			ms.send(packet);
+			ms.close();
+
+

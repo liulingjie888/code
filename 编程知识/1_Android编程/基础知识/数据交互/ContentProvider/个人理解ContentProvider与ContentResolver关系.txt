@@ -1,0 +1,11 @@
+ 层级关系  ContentResolver -> ContentProvider -> SQLiteOpenHelper -> SQLiteDatabase
+
+通过调用ContentResolver的方法间接调用ContentProvider中对应的方法；
+
+一般一个应用中一个数据库对应一个ContentProvider，在该ContentProvider中定义一个 uri路径的匹配器UriMatcher,
+添加该数据库路径规则用来区别操作的数据；
+
+一般ContentProvider的子类会创建一个UriMacher成员来判断路径是否正确来判断是否可以调用这些方法;
+
+//转换成Uri对象
+Uri.parse(Uri字符串);

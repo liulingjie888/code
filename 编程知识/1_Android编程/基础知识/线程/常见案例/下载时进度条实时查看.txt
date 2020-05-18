@@ -1,0 +1,109 @@
+第一步：继承AsyncTask并重写方法
+
+    class DownTask extends AsyncTask<String, Integer,  String> {
+
+        /**
+         * 执行后台耗时操作前被调用,通常完成一些初始化操作,运行在主线程
+         */
+        @Override
+        protected void onPreExecute() {
+            tv_downProgress = (TextView) findViewById(R.id.tv_downProgress);
+            pb_down = (ProgressBar) findViewById(R.id.pb_down);
+            pb_down.setMax(100);
+        }
+
+        /**
+         * 必须重写,异步执行后台将要完成的任务,运行在子线程
+         */
+        @Override
+        protected String doInBackground(String... params) {
+            String downloadUrl = params[0];
+            String saveDir = params[1];
+
+            try {
+                int currentProgress = 0;        // 记录当前已下载文件的字节数
+                URL url = new URL(downloadUrl);
+                HttpURLConnection conn = (HttpURLConnection) url
+                        .openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(8000);
+                conn.setReadTimeout(8000);
+                if (conn.getResponseCode() == 200) {
+                    int length = conn.getContentLength();
+                    InputStream is = conn.getInputStream();
+
+                    byte[] b = new byte[1024];
+                    int len;
+
+//                    File file2 = new File(saveDir);
+//                    if (!file2.exists()) {
+//                        file2.mkdirs();
+//                    }
+                    File file = new File(saveDir, getFileName(downloadUrl));
+                    Log.d("pointwall1",file.toString());
+                    FileOutputStream outfile = new FileOutputStream(file);
+
+                    while ((len = is.read(b,0,1024)) != -1) {
+                        outfile.write(b, 0, len);
+
+                        currentProgress += len;
+                        //记录下载字节占中字节多少
+                        int downRate =  currentProgress * 100 / length;
+                        //更新ProcessBar
+                        publishProgress(downRate);
+                    }
+                    outfile.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return saveDir + getFileName(downloadUrl);
+        }
+
+        /**
+         * 在doInBackgroung()方法中调用publishProgress()方法 更新任务的执行进度后,就会触发该方法,运行在主线程
+         */
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            int downRate = values[0];
+            pb_down.setProgress(downRate);
+            tv_downProgress.setText("下载了：" + downRate + "%");
+        }
+
+        /**
+         * 当doInBackground()完成后,系统会自动调用,运行在主线程
+         */
+        @Override
+        protected void onPostExecute(String result) {
+            tv_downProgress.setText("下载完成");
+        }
+        private String getFileName(String downloadDir) {
+            int index = downloadDir.lastIndexOf("/");
+            return downloadDir.substring(index + 1);
+        }
+
+    }
+
+}
+
+--------------------------------------
+ 
+第一步：
+protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button btn_down = (Button) findViewById(R.id.btn_down);
+
+        btn_down.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String downloadUrl = "https://codeload.github.com/LitePalFramework/LitePal/zip/master";
+                File saveDir =MainActivity.this.getFilesDir();
+                DownTask downTask = new DownTask();
+                //传入下载地址和保存的文件目录
+                downTask.execute(downloadUrl, saveDir.getPath());
+            }
+        });
+    }
+

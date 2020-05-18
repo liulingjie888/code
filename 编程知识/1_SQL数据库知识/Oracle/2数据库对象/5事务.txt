@@ -1,0 +1,38 @@
+四大特性（ACID）：
+原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）
+
+----------------数据异常
+脏读：事务1修改数据后未提交，事务2读取该数据，事务1异常回滚操作，此时2读到的数据和数据库不一致。
+不可重复读：事务1读取了数据，接着事务2修改了该数据，事务1再次读取时发现数据不一致。
+幻读：事务1查询一个表，接着事务2更新了该表，事务1再次查表时发现返回了不同的记录数。
+
+隔离性	异常	并发效果
+多	少	低
+少	多	高
+
+-----------------隔离级别
+	隔离级别		脏读	不可重复读	幻读
+read uncommitted(读未提交)	是	是		是	
+read committed(读已提交)	否	是		是	//oracle支持
+repeatable read(可重复读)	否	否		是
+serializable(串行读)		否	否		否	//oracle支持
+
+read only(oracle特有)：事务中不能有修改语句，是serializable的一个子集	
+read write(oracle特有)：默认设置，事务可以访问、修改语句，但不经常使用
+
+---------------设置隔离级别语句
+set transaction isolation level read committed;
+set transaction isolation level serializable;
+set transaction read only;
+set transaction read write;
+
+---------其他事务语句
+Savepoint  a;		//设置保存点
+Release Savepoint a;	//删除保存点
+Rollback To a;		//回滚到保存点
+Rollback;			//回滚全部事务
+
+-------数据库事务实现绩置
+执行DML语句 -> DBMD将会影响的每一条记录变化前和变化后的副本写入日志 
+-> commit执行修改
+-> rollback在日志寻找变化前的样子进行恢复

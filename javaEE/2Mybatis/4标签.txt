@@ -1,0 +1,113 @@
+
+==================if标签
+<mapper namespace="com.how2java.pojo">
+	<select id="listProduct" resultType="Product">
+	    select * from product_
+	    <if test="name!=null">		//判断
+		where name like concat('%',#{name},'%')
+	    </if>        
+	</select>
+</mapper>
+
+=================where标签
+<mapper namespace="com.how2java.pojo">
+    <select id="listProduct" resultType="Product">
+	select * from product_
+	<where>					//多重选择条件
+	    <if test="name!=null">
+	        and name like concat('%',#{name},'%')
+	    </if>        
+	    <if test="price!=null and price!=0">
+	        and price > #{price}
+	    </if>
+	</where>     
+    </select>
+</mapper>
+
+
+同效果：
+<select id="listProduct" resultType="Product">
+        select * from product_
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="name!=null">
+                and name like concat('%',#{name},'%')
+            </if>        
+            <if test="price!=null and price!=0">
+                and price > #{price}
+            </if>
+        </trim>      
+</select>
+==================set标签
+<mapper namespace="com.how2java.pojo">
+    <update id="updateProduct" parameterType="Product" >
+        update product_
+        <set>					//多重选择更新
+            <if test="name != null">
+		name=#{name},
+	    </if>
+            <if test="price != null">
+	   	price=#{price}			//最后一个没有逗号
+	    </if>
+        </set>
+         where id=#{id}   
+    </update>
+</mapper>
+
+同效果：
+<update id="updateProduct" parameterType="Product" >
+        update product_
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name=#{name},</if>
+            <if test="price != null">price=#{price}</if>
+              
+        </trim>
+         where id=#{id}   
+</update>
+
+=================choose标签
+<mapper namespace="com.how2java.pojo">
+        <select id="listProduct" resultType="Product">
+              SELECT * FROM product_
+              <where>
+                <choose>			//多选一
+                  <when test="name != null">
+                    and name like concat('%',#{name},'%')
+                  </when>          
+                  <when test="price !=null and price != 0">
+                    and price > #{price}
+                  </when>                
+                  <otherwise>			//都不符合后
+                    and id >1
+                  </otherwise>
+                </choose>
+              </where>
+        </select>
+</mapper>
+
+==================foreach标签
+<mapper namespace="com.how2java.pojo">
+    <select id="listProduct" resultType="Product">
+          SELECT * FROM product_
+            WHERE ID in
+                <foreach item="item" index="index" collection="list"			//collection表示集合类型
+                    open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+    </select>
+</mapper>
+
+操作代码：
+List<Integer> ids = new ArrayList();
+ids.add(1);
+ids.add(3);
+ids.add(5);
+List<Product> ps = session.selectList("listProduct",ids);
+
+==================bind标签
+<mapper namespace="com.how2java.pojo">
+        <select id="listProduct" resultType="Product">
+            <bind name="likename" value="'%' + name + '%'" />		//定义字符串
+            select * from   product_  where name like #{likename}
+        </select>
+         
+</mapper>

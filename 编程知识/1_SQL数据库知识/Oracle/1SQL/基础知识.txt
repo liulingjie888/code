@@ -1,0 +1,4 @@
+DQL 数据查询语句 (select)
+DML 数据修改语句 (insert,update,delete)
+DDL 数据定义语言 (create,alter,drop)
+DCL 数据控制一样 (grant,revoke,commit,rollback)

@@ -1,0 +1,7 @@
+import java.util.Enumeration;
+
+遍历:
+while(Enumeration对象.hasMoreElements()) {
+	String headerName = (String）Enumeration对象.nextElement();
+	. . . . . .
+}

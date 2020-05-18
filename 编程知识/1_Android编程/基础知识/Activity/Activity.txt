@@ -1,0 +1,22 @@
+配置文件：
+<activity android:name=".MainActivity"
+	//设置启动模式
+	android  launchMode="standard | singleTop | singleTask | singleInstance">
+            <intent-filter>
+	//代表首先启动程序
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+	//表示能够处理http的activity
+	<data android:sheme="http"/>
+	<data android:host=""/>
+	<data android:port=""/>
+	<data android:path=""/>
+	<data android:mimeType=""/>
+            </intent-filter>
+</activity>
+
+代码：
+//表示销毁该activity  
+finish();
+//获取当前Activity对象
+(Activity)getContext();

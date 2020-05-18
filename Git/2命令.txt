@@ -1,0 +1,99 @@
+
+
+git init [目录]			初始化一个 Git 仓库,该命令执行完后会在当前目录生成一个 .git 目录。[指定目录初始化]
+git add *.c			提交文件到缓存区
+git reset HEAD 文件		仓库中的文件替换工作区和缓存区文件
+git commit -m '注释'		将缓存区的内容提交到仓库
+-a:直接提交到仓库
+git ls-files			查看暂存区文件
+
+================git tag
+git tag -a <tagname> 		给该分支版本打上标签
+git tag -d <tagname>		删除标签
+git tag				查看标签
+git tag -a <tagname> -m "注释"	指定标签信息命令
+git tag -s <tagname> -m "注释"	PGP签名标签命令
+
+==============gti status
+查看项目文件状态
+git status -s
+状态说明：
+？？	没有提交到缓存
+A	以提交到缓存
+AM	提交到缓存后再次被修改了
+M	修改了
+
+==============git diff
+执行 git diff 来查看执行 git status 的结果的详细信息。
+git diff 命令显示已写入缓存与已修改但尚未写入缓存的改动的区别。git diff 有两个主要的应用场景。
+    尚未缓存的改动：git diff
+    查看已缓存的改动： git diff --cached
+    查看已缓存的与未缓存的所有改动：git diff HEAD
+    显示摘要而非整个 diff：git diff --stat
+
+==============git rm
+git rm <file>			删除缓存区的文件，提交后工作区也删除
+git rm -f <file>		工作区和git和缓存区都删除
+git rm --cached <file>		文件从暂存区域移除，但仍然保留在当前工作目录中，提交后版本库也删除
+git rm –r <file>		递归删除
+
+============git mv
+git mv <file>			命令用于移动或重命名一个已被跟踪的文件、目录、软连接。
+
+============git log
+ --oneline [-n] 选项来查看历史记录的简洁的版本。n为最近n次
+ --graph 选项，查看历史中什么时候出现了分支、合并。
+ --reverse 参数来逆向显示所有日志。
+ --no-merges 选项以隐藏合并提交
+
+git log --author=Linus --oneline -5	查找指定用户的提交日志
+
+如果你要指定日期，可以执行几个选项：--since 和 --before，但是你也可以用 --until 和 --after
+例如，看 Git 项目中三周前且在四月十八日之后的所有提交：
+git log --oneline --before={3.weeks.ago} --after={2010-04-18} --no-merges
+
+======================================分支
+当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。
+git branch			查看分支
+git branch (branchname)		创建分支
+git branch -d (branchname)	删除分支
+git checkout -b (branchname)	创建并进入分支
+git checkout (branchname)	切换分支
+git merge (branchname)		合并分支到主分支,之后要commit
+
+同文件内容不同合并后，如：
+<?php
+<<<<<<< HEAD		//主分支内容
+echo 1;
+=======
+echo 'runoob';
+>>>>>>> change_site	//其他分支内容
+?>
+则要手动修改后add和commit
+
+==========================什么是暂存
+
+这个既是一个概念也是一个命令，其含义就是字面上的，作用就是可以将你当前正在进行的工作暂时存起来，然后在此基础上干别的事情，等你别的事情干完后，再转回来继续，注意，暂存只是针对你最后一次改动而言，即针对当前所在的版本的所有改动都算具体执行命令为:
+git stash		#将当前改动暂存起来
+git stash pop		#恢复最后一次暂存的改动
+git stash list		#查看有多少暂存
+
+========================什么是撤销
+撤销命令使用是非常频繁的，因为某些原因，我们不再需要我们的改动或者新的改动有点问题，我们需要回退到某个版本，这时就需要用到撤销命令，或者说这个应该翻译成重置更加恰当。具体命令如下:
+git reset --hard	#撤销当前的修改
+请注意:以上命令会完全重置你的修改，如果你想保留某些文件，请使用checkout +文件路径 命令来逐一撤销修改
+
+git reset Commit的id	#重置到某一提交版本
+请注意，这时你的修改仍然存在，只是你的最近一次提交的版本号变成了你要重置的版本，如果说你想完全丢弃修改，只需要加上 --hard参数就可以
+
+//仅仅只是撤销已提交的版本库，不会修改暂存区和工作区
+git reset --soft 版本库ID
+//仅仅只是撤销已提交的版本库和暂存区，不会修改工作区
+git reset --mixed 版本库ID
+//彻底将工作区、暂存区和版本库记录恢复到指定的版本库
+git reset --hard 版本库ID
+
+
+ 
+
+

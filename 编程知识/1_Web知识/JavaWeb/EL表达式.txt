@@ -1,0 +1,45 @@
+（1）EL的保留字段：
+	and  eq  gt  true  insanceof  or ne  le  false  empty  not  lt  ge  null  div  mod
+（2）EL表示标识符由任意大小写，数字，下划线组成，表达式中的变量不用事先定义就可以直接使用，如${product}。
+（3）常量：
+布尔常量，整型常量，浮点数常量，字符串常量(用单引号或双引号引起，如果是单引号则字符串中的单引号要转义而双引号不用，反之亦然)，null常量
+（4）运算符：
+点运算符：${customer.name}
+方括号运算符：${user["name"]}，等价于${user.name}
+算数运算符：+ , - , * ,   /(div)  ,  %(mod)
+比较运算符：==(eq) , !=(ne) , <(lt) , >(gt) , <=(le) , >=(ge)，如${10==2}为false，字母运算符后面为数字时至少要有一个空格
+逻辑运算符：&&(and) , ||(or) , !(not) 
+empty运算符：${empty var},判断var是否为空，空返回true
+条件运算符：${A?B:C}
+"()"表示优先级
+
+（5）EL隐式对象：
+
+pageContext：jsp页面的pageContext对象
+${pageContext.response.characterEncoding}	
+${pageContext.servletConfig.serverInfo}
+${pageContext.request.contextPath}表示web应用目录，可以直接写在jsp文件的HTML代码中
+
+pageScope：page域用于保留属性的Map对象
+${pageScope.userName},其中userName表示pageContext用setAttribute设置的属性名称，该表达式表示属性值，后面一样
+requestScope：request域中~
+sessionScope：session域中~
+applicationScope：web应用中~
+
+
+param：表示一个保存了所有请求参数的Map对象
+${paramValues.nums}
+paramValues：表示一个保存了所有请求参数的Map对象，它返回的是一个String数组
+${paramValues.nums[0]}，表示参数名为nums中第一个参数的值
+
+header：表示一个保存了所有HTTP请求头字段的Map对象
+headerValues：表示一个保存了所有HTTP请求头字段的Map对象，返回的是String数组
+
+cookie：用来获取使用者的cookie值，cookie的类型是Map
+获取cookie对象的信息：${cookie.userName}
+获取cookie对象的名称：${cookie.userName.name}
+获取cookie对象的值：${cookie.userName.value}
+
+initParam：表示保存了所有web应用初始化参数的Map对象
+
+注意：这里除了pageContext隐式对象和JSP中的隐式对象是共有的，其他隐式对象都是没有关系的

@@ -1,0 +1,40 @@
+1.首先碎片要有自己的布局文件，如left_fragment.xml（和activity布局一样）
+
+-------------------------------------
+2.写一个继承Fragment的碎片类，里面主要进行了布局的加载：
+import android.support.v4.app.Fragment;
+
+public class leftFragment  extends Fragment {
+
+	public View onCreate( LayoutInflater  inflater, ViewGroup  container, Bundle savedInstanceState){
+		View  view=inflater.inflate( R.layout.left_fragment, container ,false);
+		reutrn view
+	}
+}
+----------------------------------------
+3.在activity布局嵌入碎片，如：
+<LinearLayout . . .>
+	<fragment
+		android:id="@+id/left_fragment"
+		android:name="该碎片类的全包名"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"/>
+</LinearLayout>
+
+------------------------------------------
+4.碎片的声明周期:
+onAttach()		//绑定到activity触发
+onCreate()		//创建触发
+onCreateView()		//创建视图触发
+onActivityCreated()		//完成关联的时候触发
+
+onStart()			//开始
+onResume()		//运行
+碎片激活
+onPause()			//暂停
+onStop()			//停止
+
+onDestroyView()		//视图回收
+onDestory()		//碎片销毁
+onDetch()			//和activity接触绑定

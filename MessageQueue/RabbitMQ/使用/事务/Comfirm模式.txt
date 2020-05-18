@@ -1,0 +1,195 @@
+Confirm模式
+
+Confirm发送方确认模式使用和事务类似，也是通过设置Channel进行发送方确认的。
+实现原理
+将Channel设置为Confirm模式后，此Channel发送的每条消息都会有标识这条消息的ID（从1开始），当r消息投放到匹配的队列后，broker会返回一个确认信息（包含消息的唯一ID）给生产者通知生产者已经成功发送到队列。如果消息和队列是可持久化的，在队列将消息写人到磁盘后再返回给生产者确认信息。broker回传给生产者的确认消息中deliver-tag域包含了确认消息的序列号，此外broker也可以设置basic.ack的multiple域，表示这个序列号之前的所有消息都已经得到了处理。
+
+三种编程方式
+
+串行confirm模式：peoducer每发送一条消息后，调用waitForConfirms()方法，等待broker端confirm。
+批量confirm模式：producer每发送一批消息后，调用waitForConfirms()方法，等待broker端confirm。
+异步confirm模式：提供一个回调方法，broker confirm了一条或者多条消息后producer端会回调这个方法。
+Confirm模式最大的优点就是它是异步的。
+
+===========================串行confirm模式
+生产者SingleSender
+public class SingleSender {
+	private static final String QUEUE = "test_confirm_queue";
+ 
+	public static void main(String[] args) {
+		Connection con = null;
+		Channel channel = null;
+		try {
+			// 获取连接
+			con = ConnectionUtils.getConnection();
+			// 从连接中创建通道
+			channel = con.createChannel();
+			// 声明一个队列
+			channel.queueDeclare(QUEUE, false, false, false, null);
+			// 消息内容
+			String msg = "confirm queue hello!";
+			// 将Channel设置为Confirm模式
+			channel.confirmSelect();
+			// 发送消息
+			channel.basicPublish("", QUEUE, null, msg.getBytes());
+			// 消息确认
+			if(channel.waitForConfirms()){
+				System.out.println("send success");
+			}else{
+				System.out.println("send fail");
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			// 关闭连接
+			ConnectionUtils.close(channel, con);
+		}
+ 
+	}
+}
+消费者Recver
+
+public class Recver{
+	private static final String QUEUE = "test_confirm_queue";
+ 
+	public static void main(String[] args) throws IOException, TimeoutException {
+		// 获取连接
+		Connection con = ConnectionUtils.getConnection();
+		// 从连接中创建通道
+		Channel channel = con.createChannel();
+		// 声明队列
+		channel.queueDeclare(QUEUE, false, false, false, null);
+		// 创建消费者
+		Consumer consumer = new DefaultConsumer(channel) {
+			// 获取消息
+			@Override
+			public void handleDelivery(String consumerTag, Envelope envelope, BasicProperties properties, byte[] body)
+					throws IOException {
+				String msg = new String(body, "utf-8");
+				System.out.println("接收到消息——" + msg);
+			}
+ 
+		};
+		// 监听队列
+		channel.basicConsume(QUEUE, true, consumer);
+	}
+}
+普通模式需要一条一条确认，性能慢，可以选择批量模式。
+
+========================批量confirm模式
+
+生产者BatchSender
+
+public class BatchSender {
+	private static final String QUEUE = "test_confirm_queue";
+ 
+	public static void main(String[] args) {
+		Connection con = null;
+		Channel channel = null;
+		try {
+			// 获取连接
+			con = ConnectionUtils.getConnection();
+			// 从连接中创建通道
+			channel = con.createChannel();
+			// 声明一个队列
+			channel.queueDeclare(QUEUE, false, false, false, null);
+			// 将Channel设置为Confirm模式
+			channel.confirmSelect();
+			for (int i = 0; i < 20; i++) {
+				// 消息内容
+				String msg = "confirm queue hello!";
+				// 发送消息
+				channel.basicPublish("", QUEUE, null, msg.getBytes());
+			}
+			// 消息确认
+			if (channel.waitForConfirms()) {
+				System.out.println("send success");
+			} else {
+				System.out.println("send fail");
+			}
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			// 关闭连接
+			ConnectionUtils.close(channel, con);
+		}
+ 
+	}
+}
+通过循环批量发送20条消息，但只在控制台输出了一行“发send success”，该方法会等到最后一条消息得到ack或者得到nack才会结束，也就是说在waitForConfirms处会造成当前程序的阻塞，这点我们看出broker端默认情况下是进行批量回复的，并不是针对每条消息都发送一条ack消息。
+缺陷
+一批数据中有一条消息发送失败会都回滚。
+
+=====================================异步模式
+普通模式和批量模式都是串行的、同步执行的，如果消息发送出去没有返回确认消息会一直等待，而异步模式执行效率高，不需要等待消息执行完，只需要监听消息即可。
+
+生产者AsyncSender
+
+public class AsyncSender {
+	private static final String QUEUE = "test_confirm_queue";
+ 
+	public static void main(String[] args) {
+		Connection con = null;
+		Channel channel = null;
+		try {
+			// 获取连接
+			con = ConnectionUtils.getConnection();
+			// 从连接中创建通道
+			channel = con.createChannel();
+			// 声明一个队列
+			channel.queueDeclare(QUEUE, false, false, false, null);
+			// 将Channel设置为Confirm模式
+			channel.confirmSelect();
+			// 异步监听确认和未确认的消息
+			channel.addConfirmListener(new ConfirmListener() {
+				/**
+				 * 处理返回确认成功
+				 * 
+				 * @param deliveryTag
+				 *            如果是多条，这个就是最后一条消息的tag
+				 * @param multiple
+				 *            是否多条 true是false否
+				 * @throws IOException
+				 */
+ 
+				public void handleAck(long deliveryTag, boolean multiple) throws IOException {
+					System.out.println("ack:deliveryTag:" + deliveryTag + "，multiple:" + multiple);
+				}
+ 
+				/**
+				 * 处理返回确认失败
+				 */
+				public void handleNack(long deliveryTag, boolean multiple) throws IOException {
+					System.out.println("nack:deliveryTag:" + deliveryTag + "，multiple:" + multiple);
+				}
+			});
+			for (int i = 0; i < 50; i++) {
+				// 消息内容
+				String msg = "confirm queue hello!" + i;
+				// long tag = channel.getNextPublishSeqNo();
+				// 发送消息
+				channel.basicPublish("", QUEUE, null, msg.getBytes());
+				// System.out.println("消息tag" + tag);
+			}
+ 
+			System.out.println("执行结束");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 关闭连接
+			ConnectionUtils.close(channel, con);
+		}
+ 
+	}
+ 
+}

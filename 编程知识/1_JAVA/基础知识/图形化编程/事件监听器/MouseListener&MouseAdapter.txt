@@ -1,0 +1,57 @@
+MouseListener 鼠标监听器
+mouseReleased 鼠标释放
+mousePressed 鼠标按下
+mouseExited 鼠标退出
+mouseEntered 鼠标进入
+mouseClicked 鼠标点击
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+l.addMouseListener(new MouseListener() {
+  
+            // 释放鼠标
+            public void mouseReleased(MouseEvent e) {
+       	……
+  
+            }
+  
+            // 按下鼠标
+            public void mousePressed(MouseEvent e) {
+               	……
+            }
+  
+            // 鼠标退出
+            public void mouseExited(MouseEvent e) {
+               ……
+            }
+  
+            // 鼠标进入
+            public void mouseEntered(MouseEvent e) {
+               ……
+            }
+  
+            // 按下释放组合动作为点击鼠标
+            public void mouseClicked(MouseEvent e) {
+                ……
+            }
+        });
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+MouseAdapter 鼠标监听适配器
+一般说来在写监听器的时候，会实现MouseListener。
+但是MouseListener里面有很多方法实际上都没有用到，比如mouseReleased ，mousePressed，mouseExited等等。
+这个时候就可以使用 鼠标监听适配器，MouseAdapter 只需要重写必要的方法即可。
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+// MouseAdapter 适配器，只需要重写用到的方法，没有用到的就不用写了
+        组件.addMouseListener(new MouseAdapter() {
+  
+            // 只有mouseEntered用到了
+            public void mouseEntered(MouseEvent e) {
+  	……
+            }
+        });

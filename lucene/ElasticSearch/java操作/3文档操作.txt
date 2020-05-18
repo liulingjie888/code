@@ -1,0 +1,63 @@
+
+RestHighLevelClient client = new RestHighLevelClient( RestClient.builder( new HttpHost("localhost", 9200, "http") ));
+
+========================添加文档
+//主键为文档的字段，值为字段对应的值
+Map<String, Object> jsonMap = new HashMap<String,Object>();		
+jsonMap.put("name", product.getName());
+......
+//参数1为要添加文档的索引名，参数2为类型,参数3为加入文档的id，参数4为文档的其他字段信息
+IndexRequest indexRequest = new IndexRequest("索引名", "product", String.valueOf(product.getId())) .source(jsonMap);
+client.index(indexRequest, RequestOptions.DEFAULT);
+
+========================修改文档
+//参数1为要添加文档的索引名，参数2为类型,参数3为加入文档的id，参数4为要修改的字段信息（可以为Map类型）
+UpdateRequest  updateRequest = new UpdateRequest ("索引名", "product", String.valueOf(product.getId())) .doc("name",product.getName());
+client.update(updateRequest,RequestOptions.DEFAULT);
+System.out.println("已经在ElasticSearch服务器修改产品为："+product);
+
+=======================删除文档
+DeleteRequest  deleteRequest = new DeleteRequest ("索引名","product", String.valueOf(id));
+client.delete(deleteRequest,RequestOptions.DEFAULT);
+
+=======================查询文档
+GetRequest request = new GetRequest("索引名", "product", String.valueOf(id));
+
+GetResponse response = client.get(request,RequestOptions.DEFAULT);
+
+if(!response.isExists()){
+    System.out.println("检查到服务器上 "+"id="+id+ "的文档不存在");
+}
+else{
+    String source = response.getSourceAsString();			//source为：{"name":"product 2"} （id字段不会打印出来）
+    System.out.print("获取到服务器上 "+"id="+id+ "的文档内容是：");
+    System.out.println(source);
+}
+
+=====================关键字查询文档、
+//查询请求体对象
+SearchRequest searchRequest = new SearchRequest("索引名");
+
+//查询条件配置对象
+SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+//关键字匹配
+MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("要查询的字段","查询的关键字" );
+//模糊匹配
+matchQueryBuilder.fuzziness(Fuzziness.AUTO);
+sourceBuilder.query(matchQueryBuilder);
+//第start+1条记录开始，start从0开始
+sourceBuilder.from(start);
+//查询出count条
+sourceBuilder.size(count);
+//匹配度从高到低
+sourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC));
+
+//设置查询请求的查询条件配置
+searchRequest.source(sourceBuilder);
+SearchResponse searchResponse = client.search(searchRequest,RequestOptions.DEFAULT);
+SearchHits hits = searchResponse.getHits();
+
+//遍历
+for (SearchHit hit : searchHits) {
+            System.out.println(hit.getSourceAsString());	//格式如：{"name":"蜡烛","price":"39"}
+}

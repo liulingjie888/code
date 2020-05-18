@@ -1,0 +1,15 @@
+1请求
+2将JSP文件转换成Servlet源文件
+3编译成class文件
+4创建实例同时调用该Servlet的jspInit()方法，移除实例时调用jspDestroy()方法
+5执行jspService()处理客户端的请求
+6以HTML格式响应
+
+-------------------------------------------------------------------
+JSP文件转换成Servlet文件时继承org.apache.jasper.runtime.HttpJspBase类和
+org.apache.jasper.runtime.JspSourceDependent接口
+
+其中HttpJspBase的destory,init和service方法都被声明为final,不能被重写，
+当时他们调用了各自的jsp~()和_jsp~()方法，一般重写jsp~()或_jsp~()方法
+--------------------------------------------------------------------
+

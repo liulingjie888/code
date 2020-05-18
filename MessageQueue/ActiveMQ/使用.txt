@@ -1,0 +1,113 @@
+
+依赖：
+    <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-all</artifactId>
+        <version>5.15.9</version>
+    </dependency> 
+    <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-all</artifactId>
+        <version>4.3.1</version>
+    </dependency>
+
+=============================工具类
+用于判断 activemq 服务器是否启动，免得有些学员在服务器没有启动的情况先，搞半天都搞不出来
+ 
+import javax.swing.JOptionPane;
+import cn.hutool.core.util.NetUtil;
+ 
+public class ActiveMQUtil {
+    public static void checkServer() {
+        if(NetUtil.isUsableLocalPort(8161)) {
+            JOptionPane.showMessageDialog(null, "ActiveMQ 服务器未启动 ");
+            System.exit(1);
+        }
+    }
+}
+
+==========================使用方法
+========队列模式：
+其实就是分食模式。 比如生产方发了 10条消息到 activeMQ 服务器， 而此时有多个 消费方，那么这些消费方就会瓜分这些10条消息，一条消息只会被一个消费方得到。http://127.0.0.1:8161/admin/queues.jsp查看详情
+=======主题模式：
+就是订阅模式。 比如生产方发了10条消息，而此时有多个消费方，那么多个消费方都能得到这 10条消息，就如同订阅公众号那样。http://127.0.0.1:8161/admin/topics.jsp查看详情
+================生产者发送消息
+public class TestProducer {
+   
+    public static void main(String[] args) throws JMSException {
+        //0. 先判断端口是否启动了  Active MQ 服务器
+        ActiveMQUtil.checkServer();
+        //1.创建ConnectionFactory,绑定服务地址端口默认61616
+        ConnectionFactory factory=new ActiveMQConnectionFactory("tcp://127.0.0.1:61616");
+        //2.创建Connection
+        Connection connection= factory.createConnection();
+        //3.启动连接
+        connection.start();
+        //4.创建会话
+        Session session=connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+        //5.创建一个目标 (队列类型)
+        Destination destination=session.createQueue("queue_style");
+	//改成主题模式只要将上面一行改成下面一行
+	//Destination destination=session.createTopic("topic_style");
+
+        //6.创建一个生产者
+        MessageProducer producer=session.createProducer(destination);
+
+        for (int i = 0; i < 100; i++) {
+            //7.创建消息
+            TextMessage textMessage=session.createTextMessage("队列消息-"+i);
+            //8.发送消息
+            producer.send(textMessage);
+        }
+        //7. 关闭连接
+        connection.close();
+    }
+}
+
+================订阅接受消息
+public class TestConsumer {
+
+    //消费者有可能是多个，为了区分不同的消费者，为其创建随机名称
+    private static final String consumerName="consumer-" + RandomUtil.randomString(5);
+
+    public static void main(String[] args) throws JMSException {
+        //0. 先判断端口是否启动了 Active MQ 服务器
+        ActiveMQUtil.checkServer();
+        System.out.printf("%s 消费者启动了。 %n", consumerName);
+
+        //1.创建ConnectiongFactory,绑定地址
+        ConnectionFactory factory=new ActiveMQConnectionFactory("tcp://127.0.0.1:61616");
+        //2.创建Connection
+        Connection connection= factory.createConnection();
+        //3.启动连接
+        connection.start();
+        //4.创建会话
+        Session session=connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+        //5.创建一个目标 （队列类型）
+        Destination destination=session.createQueue("queue_style");
+	//改成主题模式只要将上面一行改成下面一行
+`	//Destination destination=session.createTopic("topic_style");
+
+        //6.创建一个消费者
+        MessageConsumer consumer=session.createConsumer(destination);
+        //7.设置监听器
+        consumer.setMessageListener(new MessageListener() {
+
+            public void onMessage(Message arg0) {
+                
+                TextMessage textMessage=(TextMessage)arg0;
+                try {
+                    System.out.println(consumerName +" 接收消息："+textMessage.getText());
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        //8. 因为不知道什么时候有，所以没法主动关闭，就不关闭了，一直处于监听状态
+        //connection.close();
+    }
+}

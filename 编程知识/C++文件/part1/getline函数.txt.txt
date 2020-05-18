@@ -1,0 +1,29 @@
+// ConsoleApplication6.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int line,max=0;
+	char str1[100],str2[100];
+	cout<<"please input some strings:"<<endl;
+	while(cin.getline(str1,100))
+	{
+		line =strlen(str1);
+		if(line>max)
+		{
+			max=line;
+			strcpy_s(str2,str1);
+		}
+	}
+	cout<<endl;
+	cout<<"the longest string is:"<<str2<<endl;
+	cout<<"the length is:"<<max<<endl;
+	getchar();
+	system("system");
+	return 0;
+}
+

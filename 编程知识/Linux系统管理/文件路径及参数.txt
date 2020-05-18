@@ -1,0 +1,52 @@
+jdk位置
+/usr/local/java
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+
+apache主配置文件位置	
+/etc/httpd/conf/httpd.conf
+
+网页存放文件	
+/var/www/html
+
+系统邮箱路径	
+/var/spool/mail/root
+
+当前shell路径
+/bin/bash
+
+当用户登录时,该文件仅仅执行一次!默认情况下
+这里是推荐放置个人设置的地方
+/root/.profile
+
+退出注册时运行
+/root/.bash_logout
+
+文件开机时挂载文件系统
+/etc/fstab
+
+升级资源包存放目录
+/var/cache/yum
+
+who命令通过该文件获取信息
+/var/run/utmp
+-------------------------------------------------------------------------------------------
+
+/etc/profile
+当用户登录(login)时,文件会被执行,并从etc/ profile. d目录的配置文件中查找shell设置
+用于设置系统级的环境变量和启动程序,在这个文件下配置会对所有用户生效。
+
+~/.bash_profile
+和 profile文件类似, bash_profiler会在用户登录login时生效,也可以用于设置环境变量
+bash_profile只对单一用户有效,该文件是一个用户级的设置,可以理解为某一个用户的 profile目录下;
+这个文件同样也可以用于配置环境变量和启动程序,但只针对单个用户有效;
+但与 profile不同, bash_profile只会对当前用户生效；
+
+
+bashrc
+每次打开新shell时都会被读取,用来设置别名;
+bashrc文件用于配置函数或别名；
+bashrc文件只会对指定的she楼类型起作用, bashrc只会被 bash shell用;
+系统级的位于/etc/ bashrc会对所有用户生效;
+用户级的位于~/.bashrc,当前用户生效。
+
+

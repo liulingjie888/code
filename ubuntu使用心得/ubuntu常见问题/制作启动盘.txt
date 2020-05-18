@@ -1,0 +1,15 @@
+步骤：
+(1). > df #命令查看U盘挂在到那个目录下(Ubuntu 在插入U盘后自动挂在，通常挂载到/etc/sdb1)
+
+
+(2). > sudo umount /dev/sdb1 #卸载U盘
+
+
+(3). > sudo mkfs.vfat -F 32 /dev/sdb1 #将U盘格式化为FAT32 格式，也可以使用命令sudo mkfs.ntfs /dev/sdb1 格式化NTFS 格式，比较费时间。这个主要看主机会识别那种格式的文件，具体在网上可以找一下区别
+
+
+(4). > sudo dd if=ubuntu.iso of=/dev/sdb #烧制U盘启动盘，需要等待一段时间。if: 镜像文件 of: U盘挂载目录 还可以设置读写块的大小 bs=2M (一般设置为2M比较合适)
+
+ 
+
+(5). > sudo fdisk -l /dev/sdb1 #查看是否烧制成功，一般都不会有问题

@@ -1,0 +1,77 @@
+TextView
+import android.widget.TextView;
+
+属性
+text
+textColor			//文本颜色
+textSize=15sp""		// 设置文字大小，推荐单位sp
+textStyle="bold"		//设置文字样式，如italic(斜体)，bold(粗体)，bolditalic(斜粗体)
+maxLength="10"		//设置文本的长度，超出不显示
+minHeight="100dp"	//最小高度
+gravity="center"		//文本居中，可以用设多个值，如bottom|right(右下方)
+layout_gravity="center";	//位置居中
+visibility="visible"		//设为可见
+textAllCaps="false"		//大小写显示
+//设置行间距
+android:lineSpacingExtra="8dp"
+android:lineSpacingMultiplier="1.2"
+
+
+layout_height		//设置控件高度
+layout_width		//设置控件高度
+height			//设置高度，支持单位:px/dp(推荐) /sp/in/mm
+width
+区别：带layout的属性通常与相对父控件而言的，width相对于控件本身且不能单独使用
+
+password			//设置文本以密码形式"*"显示(已抛弃）
+phoneNumber		//设置以电话号码方式输入
+
+在Android中想实现TextView的单行显示，很简单的一个方法是TextView中的singleLine设置为True即可，
+当文本内容超过单行的时候，就会在该行行尾部添加三个省略号代替。
+ellipsize = "end"　　  省略号在结尾
+	 "start" 　　省略号在开头
+	 "middle"     省略号在中间
+	 "marquee"  跑马灯
+最好加一个约束android:singleline = "true"
+
+java:
+setVisibility(View.VISIBLE);	//设为可见
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+EditText（继承TextView）
+import android.widget.EditText;
+
+属性
+hint		//提示文本
+lines		//设置行高
+maxLines		//设置最大行数
+minLines		//设置最小行数
+scrolllHorizontally	//文本超出宽度时是否出现横拉条
+capitalize		//首字母是否大小
+editable		//是否可编辑
+inputType="textPassword"	//设置为密码形式
+background="@null"	//去掉控件默认的下划线
+numeric="integer"		//限制输入数字
+
+java:
+setSelection(int num);	//将光标移至num字符后面
+
+-----------------输入监听器
+TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.e("TextWatcher","输入之前");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.e("TextWatcher","正在输入");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.e("TextWatcher","输入之后，一般就用这个！！！");
+            }
+        };
+edit_password2.addTextChangedListener(textWatcher);

@@ -1,0 +1,31 @@
+//添加记录
+insert into 表名			//指定所有字段
+values(值,...)
+
+insert into 表名(字段名1,字段名2,...)		//指定部分字段
+values(值1,值2,...)
+
+insert into 表名
+子查询语句			//插入子查询(子查询的字段必须和要插入的字段一致)
+
+--------------------
+//修改记录
+update 表名
+set 字段名=值, . . .
+where 条件
+
+例子：
+sc表：sno cno grade
+student表: sno sage ssex sdept
+
+//将sdept为cs的学生成绩置为0，sql语句如下
+update sc
+set grade=0
+where sno IN (select sno from student where sdept='cs')
+或
+where 'cs'=(select sdept from student where sutdent.sno=sc.sno)	//不懂
+
+-----------------
+//删除记录
+delete from 表名 where 条件
+

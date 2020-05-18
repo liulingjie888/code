@@ -1,0 +1,81 @@
+
+
+
+====================================创建普通项目
+Maven 使用原型 archetype 插件创建项目。要创建一个简单的 Java 应用，我们将使用 maven-archetype-quickstart 插件。
+在下面的例子中，我们将在 C:\MVN 文件夹下创建一个基于 maven 的 java 应用项目。
+
+命令格式如下：
+mvn archetype:generate -DgroupId=com.companyname.bank -DartifactId=consumerBanking -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+参数说明：
+    -DgourpId: 组织名，公司网址的反写 + 项目名称
+    -DartifactId: 项目名-模块名(根目录名)
+    -DarchetypeArtifactId: 指定 ArchetypeId，maven-archetype-quickstart，创建一个简单的 Java 应用
+    -DinteractiveMode: 是否使用交互模式
+
+注意：
+src/main/resources 	包含了图片/属性 文件（在上面的例子中，我们需要手动创建这个结构）
+
+==================构建
+打开命令控制台，跳转到 C:\MVN\consumerBanking 目录下，并执行以下 mvn 命令开始构建项目：
+mvn clean package
+
+执行完后，我们已经构建了自己的项目并创建了最终的 jar 文件，下面是要学习的关键概念：
+    -我们给了 maven 两个目标，首先清理目标目录（clean），然后打包项目构建的输出为 jar（package）文件。
+    -打包好的 jar 文件可以在 consumerBanking\target 中获得，名称为 consumerBanking-1.0-SNAPSHOT.jar。
+    -测试报告存放在 consumerBanking\target\surefire-reports 文件夹中。
+    -Maven 编译源码文件，以及测试源码文件。
+    -接着 Maven 运行测试用例。
+    -最后 Maven 创建项目包。
+
+其他命令：mvn clean compile		//到编译
+
+=================================创建web项目
+命令格式如下：
+mvn archetype:generate -DgroupId=com.companyname.automobile -DartifactId=trucks -DarchetypeArtifactId=maven-archetype-webapp  -DinteractiveMode=false
+
+Maven 目录结构是标准的，各个目录作用如下表所示:
+trucks 				包含 src 文件夹和 pom.xml 文件。
+src/main/webapp 		包含 index.jsp 文件和 WEB-INF 文件夹.
+src/main/webapp/WEB-INF 	包含 web.xml 文件
+src/main/resources 		包含图片、properties资源文件。
+
+==============构建
+打开命令控制台，进入\trucks 目录，然后执行下面的以下 mvn 命令：
+mvn clean package
+
+==============部署 Web 应用
+打开trucks/target文件夹，找到 trucks.war 文件，并复制到你的 web 服务器的 web 应用目录，然后重启 web 服务器。
+
+
+==============测试 Web 应用
+访问以下 URL 运行 web 应用：
+http://:/trucks/index.jsp
+
+=================================Maven 项目模板
+
+Maven 使用 archetype(原型) 来创建自定义的项目结构，形成 Maven 项目模板。
+在前面章节我们学到 Maven 使用下面的命令来快速创建 java 项目：
+mvn archetype:generate
+
+什么是 archetype？
+archetype 也就是原型，是一个 Maven 插件，准确说是一个项目模板，它的任务是根据模板创建一个项目结构。我们将使用 quickstart 原型插件创建一个简单的 java 应用程序。
+使用项目模板
+
+让我们打开命令控制台，执行以下 mvn 命令:
+mvn archetype:generate 
+
+出现：Generating project in Interactive mode
+输入：项目模板（按enter默认maven-archetype-quickstart）
+出现：
+Define value for property 'groupId': 
+Define value for property 'artifactId': 
+Define value for property 'version' 1.0-SNAPSHOT: : 
+Define value for property 'package' com.liulingjie.feilala: :
+然后创建成功！
+
+
+
+
+

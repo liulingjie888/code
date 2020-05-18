@@ -1,0 +1,13 @@
+//输入流
+BufferedInputStream in = new BufferedInputStream(  InputStream对象  );
+//建立输出到内存的内存流
+ByteArrayOutputStream bos=new ByteArrayOutputStream();
+//字节载体
+byte[] data=new byte[1024];
+//将字节逐个读入到内存
+int len;
+while((len=in.read(data,0,data.length))!=-1){
+	bos.write(data,0,len);
+}
+//获取字节
+byte[]  getdata=bos.toByteArray();

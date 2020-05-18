@@ -1,0 +1,28 @@
+Matrix类对图片添加特别的效果，如旋转、缩放、倾斜等（为顺时针旋转）
+
+andoird.graphics.Matrix;
+
+方法：
+
+Matrix()
+
+//将Matrix对象绕（0,0）旋转degrees度
+setRotate(float degrees)
+
+//将Matrix对象绕（px,py）旋转degrees度		
+setRotate (float degrees,float px,float py)
+
+//将Matrix对象进行缩放，sx代表x轴上的缩放比例，sy代表y轴上的缩放比例
+setScale (float sx,float sy)
+
+ //让Matrix对象一（px,py）为轴心，在x轴上缩放sx，在y轴上缩放sy
+setScale (float sx,float sy,float px,float py)
+
+//让Maxtrix对象倾斜，在x轴上倾斜kx，在y轴上倾斜ky
+setSkew (float kx,float ky)
+
+//让Maxtrix对象一（px,py）为轴心倾斜，在x轴上倾斜kx，在y轴上倾斜ky
+setSkew (float kx,float ky,float px,float py)
+
+//平移Matrix对象，（dx,dy）为平移后的坐标
+setTranslate (float dx,float dy)

@@ -1,0 +1,27 @@
+#include<stdio.h>
+int main()
+{
+	int i;
+	char a[10];
+	void yuan(char a[10]);
+	for(i=0;i<10;i++)
+		scanf("%c",&a[i]);
+	yuan(a);
+	return 0;
+}
+void yuan(char a[10])
+{
+	int j=0,i;
+	char b[10];
+	for(i=0;i<10;i++)
+	{
+		if(a[i]=='a'||a[i]=='e'||a[i]=='i'||a[i]=='o'||a[i]=='u')
+		{
+		    b[j]=a[i];
+			j++;
+		}
+	}
+	b[j+1]='\n';
+	for(i=0;i<10;i++)
+	    printf("%c",b[i]);
+}

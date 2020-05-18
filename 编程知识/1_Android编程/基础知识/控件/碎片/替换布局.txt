@@ -1,0 +1,23 @@
+
+<FrameLayout  
+	android:@+id/right_layout
+	. . . . . .>
+</FrameLayout>
+
+---------------------------------------在activity类中将该布局替换成碎片布局:
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+
+FragmentManager  fragmentManager =getSupportFragmentManager();	//获取碎片管理者
+FragmentTransaction   transaction= fragmentManager.beginTransaction();	//开启并获取事务
+transaction.replace(R.id.right_layout ,碎片类);				//替换布局为碎片布局
+[  transactoin.addToBackStack(null); ]			//将right_layout加入到任务栈中，
+						//返回就会退回到right_layout中而不是直接退出
+transaction.commit();				//提交事务
+
+-------------------------------------在activity类中将该布局删除
+. . . . . . 
+transaction.replace(R.id.right_layout);					//替换布局为碎片布局
+transaction.add(R.id.right_layout);					//添加碎片布局
+transaction.hide(R.id.right_layout);					//隐藏碎片布局
+. . . . . .

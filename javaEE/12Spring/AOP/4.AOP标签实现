@@ -1,0 +1,91 @@
+
+加入
+<beans ...
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+============================================1.前置通知、后置通知和异常通知
+
+==================通知类
+public class XmlAdviceHello {
+    public void advice() {
+        System.out.println("这里是执行业务的方法前执行的操作");
+    }
+    
+    public void throwing() {
+        System.out.println("业务异常，中断");
+    }
+}
+
+=================applicationContext.xml
+<bean id="hello" class="proxy.Hello"/>						//声明业务类
+<bean id="xmlAdvice" class="aop.XmlAdvicHello"/>				//声明通知类
+<aop:config>
+	<aop:pointcut id="aimMethod" expression="execution(* proxy.IHello.*(..))"/> 	//声明要拦截的方法
+	<aop:aspect id="advice" ref="beforeAnnoAdvice">					//根据id设置通知类
+	    <aop:before pointcut-ref="aimMethod" method="advice"/>			//aop:before表示通知方法在业务方法执行前调用(根据id设置拦截的方法，method指定通知类的执行方法)
+	    <aop:after pointcut-ref="aimMethod" method="advice" />			//aop:after表示通知方法在业务方法执行前调用
+	    <aop:after-throwing pointcut-ref="aimMethod" method="throwing"/>		//aop:after-throwing表示通知方法在业务方法执行异常退出后调用
+	</aop:aspect>
+</aop:config>
+
+==================操作
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("hello");
+        hello.sayHello2();
+        hello.sayHello1();
+        hello.sayHello4();
+}
+
+结果：
+这里是执行业务的方法前执行的操作
+say hello2
+这里是执行业务的方法前执行的操作
+say hello1
+say hello4 
+业务异常，中断
+java.lang.Exception: hello4 Exception
+============================================2.环绕通知
+
+==================通知类
+public class XmlAroundAdviceHello {
+    public Object around(ProceedingJoinPoint joinPoint)throws Throwable{
+        System.out.println("执行前");		//周边业务操作
+        Object result=joinPoint.proceed();		//业务方法执行位置
+        System.out.println("执行后");		//周边业务操作
+        return result;
+    }
+}
+
+
+=================applicationContext.xml
+
+<bean id="hello" class="proxy.Hello"/>						//声明业务类
+<bean id="xmlAroundAdvice" class="aop.XmlAroundAdviceHello"/>			//声明环绕通知类
+<aop:config>
+	<aop:pointcut id="aimMethod" expression="execution(* proxy.IHello.*(..))"/>	//声明要拦截的方法
+	<aop:aspect id="advice" ref="xmlAroundAdvice">					//根据id设置通知类
+	    <aop:around pointcut-ref="aimMethod" method="around"/>			//根据id设置拦截的方法，指定通知类的执行方法
+	</aop:aspect>
+</aop:config>
+
+==================操作
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("hello");
+        hello.sayHello2();
+        hello.sayHello1();
+}
+
+结果：
+执行前
+say hello2
+执行后
+执行前
+say hello1
+执行后
+
+
+============================================3.异常通知
+

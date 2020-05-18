@@ -1,0 +1,100 @@
+
+接口：
+public interface IHello{
+	public void sayHello1();
+	public void sayHello2();
+	public void sayHello3();
+}
+
+业务对象：
+public class Hello implements IHello{
+	public void sayHello1(){
+		System.out.println("say hello1");
+	}
+	public void sayHello2(){
+		System.out.println("say hello2");
+	}
+	public void sayHello3(){
+		System.out.println("say hello3");
+	}
+}
+
+================静态代理
+public class ProxyHello implements IHello {
+    private IHello hello;	//指向被代理的业务对象
+
+    public ProxyHello(IHello hello){
+        this.hello=hello;
+    }
+
+    public void validateUser(){
+        System.out.println("验证用户");		//每个业务方法前都要执行的方法
+    }
+
+    @Override
+    public void sayHello1() {
+        validateUser();
+        hello.sayHello1();
+    }
+
+    @Override
+    public void sayHello2() {
+        validateUser();
+        hello.sayHello2();
+    }
+
+    @Override
+    public void sayHello3() {
+        validateUser();
+        hello.sayHello3();
+    }
+    public static void main(String [] args){
+        IHello hello=new ProxyHello(new Hello());
+        hello.sayHello1();
+        hello.sayHello2();
+        hello.sayHello3();
+    }
+}
+
+================动态代理（反射机制）
+public class DynamicProxy implements InvocationHandler {
+    private Object obj;
+    public Object bind(Object obj){
+        this.obj=obj;
+        return Proxy.newProxyInstance(obj.getClass().getClassLoader(),obj.getClass().getInterfaces(),this);
+    }
+
+    public Object invoke(Object proxy, Method method, Object[] objs){
+        Object result=null;
+        validateUser();				//重复操作的业务代码
+        try {
+            result =method.invoke(obj,objs);	//对象的执行方法
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    //重复操作的业务代码
+    public void validateUser(){
+        System.out.println("验证用户");
+    }
+    
+    public static void main(String [] args){
+        DynamicProxy proxy=new DynamicProxy();
+        IHello hello=(IHello)proxy.bind(new Hello());
+        hello.sayHello1();
+        hello.sayHello2();
+        hello.sayHello3();
+    }
+}
+
+==================打印结果都是：
+验证用户
+say hello1
+验证用户
+say hello2
+验证用户
+say hello3

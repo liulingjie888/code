@@ -1,0 +1,109 @@
+
+1.点击开发工具即可输入命令（或输入http://127.0.0.1:5601/app/kibana#/dev_tools/console?_g=()）
+PUT /how2java?pretty		#创建索引how2java
+DELETE /how2java?pretty		#删除索引
+GET /_cat/indices?v		#查询所有索引
+
+=====查看分词效果
+GET _analyze		
+{
+  "analyzer":"ik_max_word",
+  "text":"护眼带光源"
+}
+
+=====添加或修改文档，product表示类型，1为id
+PUT /how2java/product/1?pretty
+{
+  "name": "蜡烛"
+}
+
+=====修改文档
+POST /how2java/product/1/_update?pretty
+{
+  "doc": { "name": "蓝色蜡烛" }
+}
+
+=====删除文档
+DELETE /how2java/product/1?pretty
+
+=====查询
+GET /how2java/product/1?pretty
+结果：
+{
+  "_index": "how2java",		#表示哪个索引
+  "_type": "product",		#表示哪个表
+  "_id": "1",			
+  "_version": 1,		
+  "found": true,
+  "_source": {			#数据内容
+    "name": "蜡烛"
+  }
+}
+
+
+=====批量导入
+POST _bulk
+{"index":{"_index":"how2java","_type":"product","_id":10001}}
+{"code":"540785126782","price":398,"name":"房屋卫士自流平美缝剂瓷砖地砖专用双组份真瓷胶防水填缝剂镏金色","place":"上海","category":"品质建材"}
+{"index":{"_index":"how2java","_type":"product","_id":10002}}
+{"code":"24727352473","price":21.799999237060547,"name":"艾瑞泽手工大号小号调温热熔胶枪玻璃胶枪硅胶条热溶胶棒20W-100W","place":"山东青岛","category":"品质建材"}
+{"index":{"_index":"how2java","_type":"product","_id":10003}}
+
+
+==================================查询
+=====查询how2java下的所有数据
+GET /how2java/_search
+{
+    "query": { "match_all": {} }
+}
+
+=====id 倒排序查询
+ 
+GET /how2java/_search
+{
+  "query": { "match_all": {} },
+  "sort": [
+    { "_id": "desc" }
+  ]
+}
+
+=====只返回部分字段
+GET /how2java/_search
+{
+  "query": { "match_all": {} },
+  "_source": ["name","price"]
+}
+
+=====条件模糊查询
+GET /how2java/_search
+{
+  "query": { "match": { "name": "连衣裙" } }
+}
+
+=====分页查询，1表示从第一页开始，3表示每页显示的数量
+GET /how2java/_search
+{
+  "query": { "match_all": {} },
+  "from": 1,
+  "size": 3,
+  "sort": { "_id": { "order": "desc" } }
+}
+
+=====统计数据（第一个size:0表示不用显示每条数据，第二个size:3表示分组数据显示3条）
+
+GET /how2java/_search
+{
+  "size": 0,
+  "aggs": {
+    "group_by_place": {
+      "terms": {
+        "field": "place.keyword",
+        "size": 3
+      }
+    }
+  }
+}
+
+相当于：
+select count(*),place from product group by place limit 0,3  
+

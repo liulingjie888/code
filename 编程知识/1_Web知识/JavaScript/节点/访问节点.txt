@@ -1,0 +1,54 @@
+元素节点
+
+.attributes	返回该节点已有属性节点组成的数组
+.attributes[i]			节点已有属性节点的第i+1个节点
+.atrributes['属性名']		根据属性名得到该属性节点
+
+
+属性节点
+nodeName	属性的名字
+nodeValue	属性的值
+
+
+var  div1 = document.getElementById("d1");
+//获取属性节点
+var as = div1.attributes;
+document.write("div总共有"+as.length +" 个属性");
+document.write("分别是:");
+for(i = 0; i< as.length; i++){
+document.write("<br>");
+document.write(as[i].nodeName);
+document.write(":");
+document.write(as[i].nodeValue);
+}
+document.write("<br>");
+document.write("div的id属性值是："+ as["id"].nodeValue);
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+内容节点
+
+.childNodes	返回该节点中所有节点组成的数组
+.childNodes[0]	通常第一个节点为该元素节点的内容节点
+
+内容节点
+nodeName	节点的名字
+nodeValue	节点的值
+
+首先通过document.getElementById获取元素节点，
+然后通过childNodes获取其所有的子节点。 其中第一个子节点，就是其内容节点。
+然后借助nodeName和nodeValue把内容节点的名称和值打印出来。
+
+
+<div id="d1" align="center" class="abc">hello HTML DOM</div>
+<script>
+var  div1 = document.getElementById("d1");
+var content = div1.childNodes[0];
+document.write("div的内容节点名是:"+content.nodeName);
+document.write("<br>");
+document.write("div的内容节点值是:"+content.nodeValue);
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+
+ 

@@ -1,0 +1,22 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char string[10],i;
+    int Le;
+    int count(char s[]);
+    printf("input string:\n");
+    for(i=0;i<10;i++)
+		scanf("%c",&string[i]);
+    Le=count(string);
+    printf("大写字母有%d个",Le);
+    return 0;
+}
+int count(char s[])        
+{
+	int sum=0,i;
+    for (i=0;s[i]!='\0';i++)
+	    if (s[i]>='A'&&s[i]<='Z')
+		    sum++;
+    return sum;
+}

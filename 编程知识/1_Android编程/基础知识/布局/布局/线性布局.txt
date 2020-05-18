@@ -1,0 +1,20 @@
+线性布局LinearLayout
+
+属性：orientation: 	vertical
+		honrizontal
+          gravity（内部内容位置）: 
+	       center		
+	       center_horizontal
+	       center_vertical
+          layout_gravity（自身相对于父控件的位置）:
+	       center		
+	       center_horizontal
+	       center_vertical
+
+honrizontal:如果LinearLayout的layout_width属性为"match_parent"，控件的宽用layout_weight属性控制
+vertical:如果LinearLayout的layout_height属性为"match_parent"，控件的高用layout_weight属性控制
+
+在布局文件中设置layout_weight（比重）属性时，以宽为例，假如 android:layout_width="wrap_content",或者 android:layout_width="0dp"，此时，设置的layout_weight属性和数值成正比；假如 android:layout_width="match_parent"，此时，设置的layout_weight属性和数值成反比。
+
+控件属性:
+layout_weight

@@ -1,0 +1,45 @@
+
+==================流程
+1输入下面指令生成公钥，会在 ~/ 下生成 .ssh 文件夹，进去打开 id_rsa.pub
+ssh-keygen -t rsa -C "邮箱"
+
+2复制内容到github的key中
+
+3验证连接
+ssh -T git@github.com
+
+4添加仓库，输入下面指令添加远程仓库（origin是别名）
+git remote add 别名 git@github.com:用户名/仓库名.git
+
+5输入下面指令提交当前分支到仓库
+git push -u 别名 分支名
+
+==================操作
+git fetch				#从远程仓库下载新分支与数据，该命令执行完后需要执行git merge 远程分支到你所在的分支
+git fetch [别名] [分支名]		#下载某个远端仓库中的分支
+git merge				#从远端仓库提取数据并尝试合并到当前分支
+git merge 别名/分支名			#合并名为origin/master的分支到当前所在分支
+git push [别名] [分支名]		#推送你的分支到某个远端仓库
+git remote rm [别名]			#删除远程仓库别名
+git remote				#查看远程仓库别名
+git remote -v				#查看远程仓库详细内容
+git remote rename 旧别名 新别名		#修改别名
+git remote set-url 别名 仓库地址	#修改仓库地址
+git reset --hard 别名/分支名		#回退到和远程版本一样
+
+=================git clone
+git clone Git仓库url [本地目录]		#从现有 Git 仓库中拷贝项目[克隆到指定的目录]
+例：
+比如，要克隆 Ruby 语言的 Git 代码仓库 Grit，可以用下面的命令：
+$ git clone git://github.com/schacon/grit.git
+
+几种效果等价的git clone写法：
+git clone http://github.com/CosmosHua/locate new
+git clone http://github.com/CosmosHua/locate.git new
+
+git clone git@github.com:fsliurujie/test.git         	--SSH协议
+git clone git://github.com/fsliurujie/test.git          --GIT协议
+git clone https://github.com/fsliurujie/test.git      	--HTTPS协议
+
+
+

@@ -1,0 +1,18 @@
+---------基本循环
+loop
+    执行;
+    [exit;]		  //跳出循环
+    [exit  when 条件]	  //条件退出
+end loop;
+
+---------while
+while  条件  loop
+	执行;
+end  loop;
+
+---------for
+for  变量名  in  初始值  ..  最后值   loop	//执行完自动加1
+	执行;
+end  loop;
+
+----------嵌套循环

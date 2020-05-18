@@ -1,0 +1,49 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class student
+{
+public:
+	void input(string a,string b,int c);
+	string get_name()
+	{
+		return name;
+	}
+	string get_number()
+	{
+		return number;
+	}
+	int get_age()
+	{
+		return age;
+	}
+private:
+	string name,number;
+	int age;
+};
+void student::input(string a,string b,int c)
+{
+	name=a;
+	number=b;
+	age=c;
+}
+void swap_student(student &a,student &b)
+{
+	string c;
+	c=a.get_name();
+	a.input(b.get_name(),a.get_number(),a.get_age());
+    b.input(c,b.get_number(),b.get_age());
+}
+int main()
+{
+    student a,b;
+	a.input("liu","201720180411",20);
+    b.input("zhou","201720180412",19);
+	cout<<"姓名："<<a.get_name()<<"学号："<<a.get_number()<<"年龄："<<a.get_age();
+	cout<<"姓名："<<b.get_name()<<"学号："<<b.get_number()<<"年龄："<<b.get_age()<<"\n";
+	cout<<"数据交换后：\n";
+	swap_student(a,b);
+	cout<<"姓名："<<a.get_name()<<"学号："<<a.get_number()<<"年龄："<<a.get_age();
+	cout<<"姓名："<<b.get_name()<<"学号："<<b.get_number()<<"年龄："<<b.get_age()<<endl;
+	return 0;
+}

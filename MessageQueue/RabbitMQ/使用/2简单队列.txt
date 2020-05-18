@@ -1,0 +1,59 @@
+
+=====发送者（生产者和消费者的队列名称必须保持一致，如果有多个消费者，则为分食模式）：
+public class WorkSender {
+    private static final String QUEUE = "队列名";
+
+    public static void main(String[] args) {
+        Connection con = null;
+        Channel channel = null;
+        try {
+            // 获取连接
+            con = ConnectionUtils.getConnection();
+            // 从连接中创建通道
+            channel = con.createChannel();
+            // 声明一个队列
+            channel.queueDeclare(QUEUE, false, false, false, null);
+            // 发送50条消息
+            for (int i = 0; i < 50; i++) {
+                // 消息内容
+                String msg = "work queue " + i;
+                // 发送消息
+                channel.basicPublish("", QUEUE, null, msg.getBytes());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭连接
+            ConnectionUtils.close(channel, con);
+        }
+    }
+}
+
+=====消费者：
+public class WorkRecver {
+    private static final String QUEUE = "队列名";
+
+    public static void main(String[] args) throws IOException, TimeoutException {
+        // 获取连接
+        Connection con = ConnectionUtils.getConnection();
+        // 从连接中创建通道
+        Channel channel = con.createChannel();
+        // 声明队列
+        channel.queueDeclare(QUEUE, false, false, false, null);
+        // 创建消费者
+        Consumer consumer = new DefaultConsumer(channel) {
+            // 获取消息
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, BasicProperties properties, byte[] body)
+                    throws IOException {
+                String msg = new String(body, "utf-8");
+                System.out.println("接收到消息——" + msg);
+            }
+
+        };
+        // 监听队列
+        channel.basicConsume(QUEUE, true, consumer);
+    }
+}

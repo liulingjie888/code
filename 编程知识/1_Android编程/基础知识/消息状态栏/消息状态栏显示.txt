@@ -1,0 +1,54 @@
+判断条件：
+Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+
+
+安卓8.0版本后：
+
+	//创建点击启动事件的意图
+	Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.baidu.com"));
+	PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,0);
+
+	
+                NotificationManager manager=(NotificationManager)getSystemService((NOTIFICATION_SERVICE));
+                NotificationChannel mChannel = new NotificationChannel("自定义id", "自定义名字", NotificationManager.IMPORTANCE_LOW);
+                manager.createNotificationChannel(mChannel);
+
+	//设置通知栏
+                Notification.Builder  builder=new Notification.Builder(this);
+                builder.setContentTitle("消息饶广")
+                        .setChannelId("自定义id")
+                        .setContentText("标题")
+                        .setWhen(System.currentTimeMillis())
+                        .setContentIntent(pendingIntent)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                        .setAutoCancel(true);
+
+	Notification  notification=builder.build();
+	notification.defaults = Notification.DEFAULT_SOUND; 	//设置为默认的声音
+	//显示
+                manager.notify(自定义ID,notification);
+
+
+安卓版本8.0之前：
+
+	//创建点击启动事件的意图
+	Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.baidu.com"));
+	PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,0);
+	
+	NotificationManager manager=(NotificationManager)getSystemService((NOTIFICATION_SERVICE));
+	Notification.Builder builder = new Notification.Builder ( MainActivity.this.getApplicationContext() );
+
+                builder.setContentIntent( pendingIntent ) // 设置PendingIntent
+                        .setContentTitle("标题") 
+                        .setContentText("文本内容")
+                        .setSmallIcon(R.mipmap.ic_launcher) 	// 设置状态栏内的小图标
+                        .setAutoCancel(true)			//自动取消
+                        .setWhen(System.currentTimeMillis()); 	// 设置该通知发生的时间
+
+                Notification notification = null;
+                notification = builder.build();
+                notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
+
+                //弹出消息状态栏
+                manager.notify(自定义ID,notification);

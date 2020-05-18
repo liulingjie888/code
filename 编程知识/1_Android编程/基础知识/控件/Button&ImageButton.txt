@@ -1,0 +1,10 @@
+Button
+import android.widget.Button;
+属性：
+textAllCaps="false"		//文本按大小写显示
+
+ImageButton
+
+属性：
+src="@drawable/图形文件名"
+

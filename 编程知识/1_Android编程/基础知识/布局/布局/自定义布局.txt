@@ -1,0 +1,11 @@
+public class TitleLayout extends LinearLayout {
+	//构造函数
+	public TitleLayout(Context  context,AttributeSet  attrs) {
+		super(context,attrs);
+		LayoutInflater.from( context ).inflate( R.layout.自定义布局 , this );
+		//可以在该布局文件的控件添加事件
+		. . .
+	}
+}
+
+然后在将该包类引入要使用的布局文件中。这样就可以在引入该布局时自动注册事件，减少代码量

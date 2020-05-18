@@ -1,0 +1,44 @@
+【】Sleep()函数
+头文件：<windows.h>
+用法：unsigned Sleep(unsigned seconds);
+功能：停止进程一段时间，在VC中，是以毫秒为单位，如：
+				Sleep(1000);则停滞1s
+
+【】void srand(unsigned seed)函数
+头文件：<time.h>
+ 产生随机种子  srand((unsigned) time(NULL))；   
+再用rand()给变量赋值得到任意数，如：
+		srand((unsigned) time(NULL))；
+		a=rand();
+【】_kbhit()函数
+头文件：<stdio.h> <conio.h>
+功能：检验是否有按键输入，有则返回按键值，无则返回0；
+
+
+【】fflush(stdin);
+头文件：<stdio.h>
+函数原型：int fflush(FILE *stream) ;
+功能：清除文件缓冲区，文件以写方式打开时将缓冲区内容写入文件
+
+//无按键的处理
+if(_kbhit())	//kbhit()有按键按下则返回按键值，否则返回0
+{
+	fflush(stdin);
+	key=_getch();
+}
+
+void gotoxy(int x,int y)
+{
+	//调用win32API去设置控制台的光标位置
+	//1.找到控制台的这个窗口
+	HANDLE handle=GetStdHandle(STD_OUTPUT_HANDLE);
+	//2.光标的结构体
+	COORD coord;
+	//3.设置光标
+	coord.X=x;
+	coord.Y=y;
+	//4.同步到控制台
+	SetConsoleCursorPosition(handle,coord);
+}
+
+

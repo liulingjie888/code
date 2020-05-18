@@ -1,0 +1,57 @@
+
+=======================SchedulerListener
+SchedulerListener会在Scheduler的生命周期中关键事件发生时被调用。与Scheduler有关的事件包括：增加一个job/trigger，删除一个job/trigger，scheduler发生严重错误，关闭scheduler等。
+SchedulerListener的接口如下：
+
+public interface SchedulerListener {
+
+    public void jobScheduled(Trigger trigger);
+
+    public void jobUnscheduled(String triggerName, String triggerGroup);
+
+    public void triggerFinalized(Trigger trigger);
+
+    public void triggersPaused(String triggerName, String triggerGroup);
+
+    public void triggersResumed(String triggerName, String triggerGroup);
+
+    public void jobsPaused(String jobName, String jobGroup);
+
+    public void jobsResumed(String jobName, String jobGroup);
+
+    public void schedulerError(String msg, SchedulerException cause);
+
+    public void schedulerStarted();
+
+    public void schedulerInStandbyMode();
+
+    public void schedulerShutdown();
+
+    public void schedulingDataCleared();
+}
+复制代码
+其中：
+
+1) jobScheduled方法：用于部署JobDetail时调用
+
+2) jobUnscheduled方法：用于卸载JobDetail时调用
+
+3) triggerFinalized方法：当一个 Trigger 来到了再也不会触发的状态时调用这个方法。除非这个 Job 已设置成了持久性，否则它就会从 Scheduler 中移除。
+
+4) triggersPaused方法：Scheduler 调用这个方法是发生在一个 Trigger 或 Trigger 组被暂停时。假如是 Trigger 组的话，triggerName 参数将为 null。
+
+5) triggersResumed方法：Scheduler 调用这个方法是发生成一个 Trigger 或 Trigger 组从暂停中恢复时。假如是 Trigger 组的话，假如是 Trigger 组的话，triggerName 参数将为 null。参数将为 null。
+6) jobsPaused方法：当一个或一组 JobDetail 暂停时调用这个方法。
+7) jobsResumed方法：当一个或一组 Job 从暂停上恢复时调用这个方法。假如是一个 Job 组，jobName 参数将为 null。
+8) schedulerError方法：在 Scheduler 的正常运行期间产生一个严重错误时调用这个方法。
+9) schedulerStarted方法：当Scheduler 开启时，调用该方法
+10) schedulerInStandbyMode方法： 当Scheduler处于StandBy模式时，调用该方法
+11) schedulerShutdown方法：当Scheduler停止时，调用该方法
+12) schedulingDataCleared方法：当Scheduler中的数据被清除时，调用该方法。
+
+==============================注册监听器
+// 创建SchedulerListener
+scheduler.getListenerManager().addSchedulerListener(实现SchedulerListener的子类);
+        
+// 移除对应的SchedulerListener
+scheduler.getListenerManager().removeSchedulerListener(实现SchedulerListener的子类);

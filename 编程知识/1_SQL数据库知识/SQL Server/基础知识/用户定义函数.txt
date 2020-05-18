@@ -1,0 +1,42 @@
+create function 函数名
+( @变量名1  类型，· · · ）
+return  返回类型
+as
+begin
+	语句
+	return 表达式
+end
+
+调用例：print 函数名（形参）
+
+///////////////////////////////////////////////
+
+create function 函数名
+( @变量名1  类型，· · · ）
+return  table
+as
+begin
+	语句
+	return  (select语句)
+end
+
+调用例：select * from 函数名（形参）
+
+/////////////////////////////////////////////
+
+create function 函数名
+( @变量名1  类型，· · · ）
+return  @返回变量 table(表定义结构)
+as
+begin
+	语句
+	return 
+end
+
+调用例：select * from 函数名（形参）
+
+////////////////////////////////////////////////
+修改
+alter ~
+删除
+drop ~

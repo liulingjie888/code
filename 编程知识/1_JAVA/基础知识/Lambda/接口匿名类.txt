@@ -1,0 +1,27 @@
+接口做方法参数时，相应匿名类的方法的简化
+
+//一般调用
+        filter(heros,new HeroChecker() {
+            @Override
+            public boolean test(Hero h) {
+                return (h.hp>100 && h.damage<50);
+            }
+        });
+//Lambdan调用
+filter(heros,h->h.hp>100 && h.damage<50);	
+
+
+
+接口
+public interface HeroChecker {
+    public boolean test(Hero h);
+}
+方法
+private static void filter(List<Hero> heros,HeroChecker checker) {
+    for (Hero hero : heros) {
+       if(checker.test(hero))
+             System.out.print(hero);
+    }
+}
+
+Lambda 其实就是匿名方法，这是一种把方法作为参数进行传递的编程思想。

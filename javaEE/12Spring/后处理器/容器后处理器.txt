@@ -1,0 +1,17 @@
+
+1. BeanFactoryPostProcessor
+public class MyBeanFactory implements BeanFactoryPostProcessor{
+	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory){
+		System.out.print("在启动容器前调用");
+}
+2.applicationContext.xml:
+<bean id="beanfactorypost" class="容器后处理类"/>
+
+注意：
+使用ApplicationContext作为容器会自动调用BeanFactoryPostProcessor来处理容器。
+使用BeanFactory作为spring容器则必须手动调用该方法（如postProcessBeanFactory(BeanFactory对象)）。
+
+========================PropertyPlaceHolderConfigurer:属性占位符配置器
+========================PropertyOverrideConfigurer:重写占位符配置器
+========================CustomAutowireConfigurer:自定义自动装配的配置器
+========================CustomScopeConfigurer:自定义作用域的配置器

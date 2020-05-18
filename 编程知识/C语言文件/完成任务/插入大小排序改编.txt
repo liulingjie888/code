@@ -1,0 +1,28 @@
+#include<stdio.h>
+#define n 50
+int main()
+{
+	int i,j,score[n]={2,4,6,8,10,12,14,16,18,25,27,30,45,50,60,65,70,71,80,90},m;
+	printf("请输入一个数：");
+	scanf("%d",&m);
+	for(i=0;i<=n-1;i++)
+	{
+		if(score[i]>m)
+		{
+			for(j=1;j<=n-i-1;j++)
+			{
+				score[n-j]=score[n-j-1];
+			}
+			score[i]=m;
+			break;
+		}
+		else
+			score[20]=m;
+	}
+	for(i=0;i<=n-1;i++)
+		{
+		    printf("%5d",score[i]);
+		}
+	return 0;
+}
+

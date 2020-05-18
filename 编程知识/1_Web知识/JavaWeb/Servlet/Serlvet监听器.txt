@@ -1,0 +1,66 @@
+
+------------------------------------------------------对象监听器--------------------------------------
+
+===========ServletContextListener接口
+方法：
+public void contextInitialized(ServletConextEvent  arg0){}	//ServletContext对象创建时调用
+public void contextDestroyed(ServletConextEvent  arg0){}	//ServletContext对象销毁时调用
+
+
+===========ServletRequestListener接口
+方法：
+public void requestInitialized(ServletRequestEvent  arg0){}	//ServletRequest对象创建时调用
+public void requestDestroyed(ServletRequestEvent  arg0){}	//ServletRequest对象销毁时调用
+
+
+===========HttpSessionListener接口
+方法：
+public void sessionCreated(HttpSessionEvent  arg0){}	//HttpSession对象创建时调用
+public void sessionDestroyed(HttpSessionEvent  arg0){}	//HttpSession对象销毁时调用
+
+
+------------------------------------------------------属性监听器---------------------------------------
+
+===========ServletContextAttributeListener接口
+方法：
+public void attributeAdded(ServletContextAttributeEvent sae){	//ServletContext添加属性时调用
+	Stirng name=sae.getName();		//获取添加属性名
+	sae.getServletContext().getAttribute(name);//获取添加属性值
+}
+public void attributeRemoved(ServletContextAttributeEvent sae){}	//ServletContext删除属性时调用
+public void attributeReplaced(ServletContextAttributeEvent sae){}	//ServletContext设置属性时调用
+
+
+
+===========ServletRequestAttributeListener接口
+方法：
+public void attributeAdded(ServletRequestAttributeEvent sra){	//ServletRequest添加属性时调用
+	Stirng name=sra.getName();		//获取添加属性名
+	sra.getServletRequest().getAttribute(name);//获取添加属性值
+}
+public void attributeRemoved(ServletRequestAttributeEvent sra){}	//ServletRequest删除属性时调用
+public void attributeReplaced(ServletRequestAttributeEvent sra){}	//ServletRequest设置属性时调用
+
+
+
+===========HttpSessionAttributeListener接口
+方法：
+public void attributeAdded(HttpSessionBindingEvent hbe){		//HttpSession添加属性时调用
+	Stirng name=hbe.getName();		//获取添加属性名
+	hbe.getSession().getAttribute(name);	//获取添加属性值
+}
+public void attributeRemoved(HttpSessionBindingEvent hbe){}	//HttpSession删除属性时调用
+public void attributeReplaced(HttpSessionBindingEvent hbe){}	//HttpSession设置属性时调用
+
+
+----------------------------------------------web配置----------------------------------------------
+web.xml配置：
+<listener>
+	<listener-class>继承监听器完整包类名</listener-class>
+</listener>
+
+----------------------------------------------------------------------------------------------------
+
+HttpSessionBindingListener接口：用于监听JavaBean对象绑定到HttpSession对象和从HttpSession 解绑的事件
+HttpSessionActivationListener接口：用于监听HttpSession中对象活化（HttpSession对象从硬盘转移至内存的过程）和钝化（反之）的过程，
+

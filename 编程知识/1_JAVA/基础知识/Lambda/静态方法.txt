@@ -1,0 +1,14 @@
+
+        filter(heros, 类名::testHero);		//引用类静态方法
+
+       
+    public static boolean testHero(Hero h) {
+        return h.hp>100 && h.damage<50;
+    }
+       
+    private static void filter(List<Hero> heros, HeroChecker checker) {
+        for (Hero hero : heros) {
+            if (checker.test(hero))
+                System.out.print(hero);
+        }
+    }

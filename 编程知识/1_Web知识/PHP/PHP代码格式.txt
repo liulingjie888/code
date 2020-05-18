@@ -1,0 +1,4 @@
+XML风格	<?php……?>
+简短风格	<?……?>		php.ini文件中short_open_tag=On
+脚本风格	<script language='php'>……</script>
+ASP风格	<%……%>	php.ini文件中asp_tags=On

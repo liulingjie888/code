@@ -1,0 +1,22 @@
+JPanel即为基本面板 
+面板和JFrame一样都是容器，不过面板一般用来充当中间容器，把组件放在面板上，然后再把面板放在窗体上。 
+一旦移动一个面板，其上面的组件，就会全部统一跟着移动，采用这种方式，便于进行整体界面的设计
+
+import javax.swing.JPanel;
+import java.awt.Color;
+
+        ……
+        JPanel p1 = new JPanel();
+        // 设置面板大小
+        p1.setBounds(50, 50, 300, 60);
+        // 设置面板背景颜色
+        p1.setBackground(Color.RED);
+ 
+        // 这一句可以没有，因为JPanel默认就是采用的FlowLayout
+        p1.setLayout(new FlowLayout());
+        ……
+        // 把按钮加入面板
+        p1.add(b1);
+        p1.add(b2);
+        p1.add(b3);
+        ……

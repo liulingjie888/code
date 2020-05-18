@@ -1,0 +1,39 @@
+android.content.BroadcastReceiver;
+android.content.Context;
+android.content.Intent;
+
+1.静态注册
+New -> Other -> Broadcast Receiver；
+Exported复选框用户选择是否接受当前程序之外的广播；
+Enabled复选框用户限制广播接受者的是否可以由系统实例化；
+
+重写onReceive(Context context , Intent intent)方法用于实现广播接受者的相关操作。
+
+清单文件自动注册：
+<receiver	
+	android:name=".MyReceiver"
+	android:enabled="true"	//接受者MyReceiver是否接受当前程序之外的广播；
+	android:exported="true" >	//接受者MyReceiver是否可以由系统实例化；
+	//有序广播接收者设置优先级
+	<intent-filter  android:priority="100">
+		<action android:name="名称"/>
+	</intent-filter>
+</receiver>
+
+2.动态注册
+
+//实例化广播接受者
+MyRecevier receiver = new MyReceiver();
+//实例化过滤器并设置要过滤的广播
+String action="android.provider.Telephony.SMS_RECEIVED";
+IntentFilter intentfilter =new IntentFilter(action);
+//注册广播接收者
+registerReceiver(receiver,intentfilter);
+
+//销毁动态注册广播接收者
+@Override
+protected void onDestroy( ) {
+	super.onDestroy( );
+	//取消注册BroadcastReceiver
+	unregisterReceiver(receiver);
+}

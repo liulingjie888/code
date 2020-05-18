@@ -1,0 +1,36 @@
+android.content.ContextValues;
+android.database.Cursor;
+android.database.sqlite.SQLiteDatabase;
+android.database.sqlite.SQLiteOpenHelper;
+
+
+
+使用SQLiteOpenHelper的子类创建数据库，并重写该类的onCreate()方法和onUpgrade() 方法即可。
+
+public class MyHelper extends SQLiteOpenHelper {
+	//第三个参数（SQLiteDatabase.CursorFactory）为允许我们在查询数据库时返回一个自已Cursor,一般为null；
+	//第四个参数（int）为数据库表示当前数据库版本号，1表示不会执行onUpgrade方法，2表示数据库升级会执行onUpgrade 
+	public MyHelper(Context context) {
+		super (context,"数据库名.db",null,2);
+	}
+
+	//数据库第一次创建时调用该方法(一般用于创建表)
+	public void onCreate(SQLiteDatabase db) {
+		db.execSQL(  "create table informaion(_id integer primary key autoincrement,name varchar(20),price integer)"  );
+	}
+
+	//当数据库的版本号增加时调用（版本号不增加该方法不调用）
+	//当我们要再创建一个表时，如果将执行语句写入到onCreate是不会执行的，因为之前执行过原表存在
+	//我们可以通过增加构造函数的版本号，就会执行onUpgrade方法，可以将之前所有表删除，在执行onCreate方法，如：
+	public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
+		db.execSQL("drop table if exists  表名1");
+		db.execSQL("drop table if exists  表名2");
+		onCreate(db);
+	}
+}
+
+数据类型：
+integer
+real	浮点型
+text
+blob	二进制

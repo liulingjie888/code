@@ -1,0 +1,10 @@
+//声明该布局文件应用于activity，如果activity中设置了theme属性，则会应用到该布局文件
+tools:context=".activity"
+//内容布局
+gravity="center"
+
+values目录下创建xml文件，直接调用值
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+</resources>

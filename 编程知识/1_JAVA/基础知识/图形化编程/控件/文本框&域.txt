@@ -1,0 +1,40 @@
+JTextField 输入框
+setText 设置文本
+getText 获取文本
+JTextField 是单行文本框，如果要输入多行数据，请使用JTextArea
+
+grabFocus(); 表示让密码输入框获取焦点
+setHorizontalAlignment(JTextField.RIGHT);//右对齐
+setHorizontalAlignment(JTextField.LEFT);//左对齐
+
+import javax.swing.JTextField;
+
+       ……
+        JTextField tfName = new JTextField("");
+        tfName.setText("请输入账号");	//设置文本信息
+        tfName.setPreferredSize(new Dimension(80, 30));
+        ……
+        JTextField tfPassword = new JTextField("");
+        tfPassword.setText("请输入密码");
+        tfPassword.setPreferredSize(new Dimension(80, 30));
+       ……
+        tfPassword.grabFocus();		//获取焦点
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+JTextArea：文本域。
+和文本框JTextField不同的是，文本域可以输入多行数据
+如果要给文本域初始文本，通过\n来实现换行效果
+JTextArea通常会用到append来进行数据追加
+如果文本太长，会跑出去，可以通过setLineWrap(true) 来做到自动换行
+
+import javax.swing.JTextArea;
+
+        ……
+        JTextArea ta = new JTextArea();
+        ta.setPreferredSize(new Dimension(200, 150));
+        ta.setText("抢人头！\n抢你妹啊抢！\n");	//设置文本信息
+        ta.append("我去送了了了了了了了了");	//追加文本信息
+        ta.setLineWrap(true);			//设置自动换行
+        ……
+

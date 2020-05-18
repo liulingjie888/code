@@ -1,0 +1,42 @@
+request = javax.servlet.http.HttpServletRequest;
+response = javax.servlet.http.HttpServletResponse;
+config = javax.servlet.ServletConfig;
+session = javax.servlet.http.Session;
+application = javax.servlet.ServletContext;
+page = java.lang.Object;
+上面这些在Servlet有介绍。只能在<% %>这使用
+
+重点介绍：
+（1）out = javax.servlet.jsp.JspWriter;
+作用与ServletResponse.getWriter()类似，不同的是它相当于带缓存的PrintWriter，如遇ServletResponse.getWriter()，JspWriter在其后输出，原理：
+JspWriter缓冲区 -> Response缓冲区 -> Servlet引擎
+
+如果不想输出在JspWriter缓冲区停留，在page中写属性buffer="0kb",这样输出顺序和代码顺序一致
+
+（2）pageContext = javax.servlet.jsp.PageContext;
+它代表当前JSP页面的运行环境，并提供一系列用于获取其他隐式对象的方法：
+getOut();
+getPage();
+getRquest();
+getResponse();
+getSession();
+getException();
+getServletConfig();
+getServletContext();
+
+它也可以储存数据：
+setAttribute("名称" , Object 值 , int scope);
+Object getAttribute("名称" , int scope);
+removeAttribute("名称" [ ,int scope ] );
+Object findAttribute("名称");			//全范围查找，查找顺序：page,request,session,application
+
+scope表示pageContext的作用范围
+pageContext.PAGE_SCOPE  :页面范围
+pageContext.REQUEST_SCOPE  :请求范围
+pageContext.SESSION_SCOPE  :会话范围
+pageContext.APPLICATION_SCOPE  :Web应用程序范围(ServletContext对象)
+
+（3）exception = java.lang.Throwable;
+只有在设置了isErrorPage="true"的界面（即错误处理界面）才使用
+
+<%=exception.getMessage() %>	//显示错误信息

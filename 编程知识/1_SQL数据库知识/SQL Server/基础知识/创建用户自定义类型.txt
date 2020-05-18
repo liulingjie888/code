@@ -1,0 +1,3 @@
+create type  名称
+from  数据类型
+[null  |  not null ]

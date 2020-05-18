@@ -1,0 +1,126 @@
+#include "stdafx.h"
+#include<iostream>
+#define PI 3.1415926
+using namespace std;
+
+class shape
+{
+public:
+	virtual float area()=0;
+	virtual float volume()=0;
+	virtual void printinfo()=0;
+private:
+
+};
+
+class point:public shape
+{
+public:
+	point()
+	{
+		x=0;
+		y=0;
+	}
+	point(int x,int y):x(x),y(y)
+	{
+	}
+	~point()
+	{
+		cout<<"point destructor"<<endl;
+	}
+	void printinfo()
+	{
+		cout<<"the point coordinates is "<< "("<<x<<","<<y<<")\n"<<endl;
+	}
+	float volume()
+	{
+		return 0;
+	}
+	float area()
+	{
+		return 0;
+	}
+private:
+	int x;
+	int y;
+};
+
+class circle:public point
+{
+public:
+	circle():point(0,0)
+	{
+		r=0;
+	}
+	circle(float r):r(r),point(0,0)
+	{
+	}
+	~circle()
+	{
+		cout<<"circle destructor"<<endl;
+	}
+	float area()
+	{
+		return r*r*PI;
+	}
+	void printinfo()
+	{
+		cout<<"the circle's radius is "<<r<<endl;
+		cout<<"the circle's area is "<<area()<<"\n"<<endl;
+	}
+	float get_r()
+	{
+		return r;
+	}
+private:
+	float r;
+};
+
+class cylinder:public circle
+{
+public:
+	cylinder():circle(0)
+	{
+		h=0;
+	}
+	cylinder(float h,float r):h(h),circle(r)
+	{
+	}
+	~cylinder()
+	{
+		cout<<"cylinder destrutor"<<endl;
+	}
+	void printinfo()
+	{
+		cout<<"the cylinder's high is "<<h<<endl;
+		cout<<"the cylinder's radius is "<<get_r()<<endl;
+		cout<<"the cylinder's area is "<<area()<<endl;
+		cout<<"the cylinder's volume is "<<volume()<<"\n"<<endl;
+	}
+	float area()
+	{
+		return 2*circle::area()+h*2*PI*get_r();
+	}
+	float volume()
+	{
+		return circle::area()*h;
+	}
+private:
+	float h;
+};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	point po(2,2);
+	circle c(2);
+	cylinder cy(2,2);
+	shape &po1=po;
+	shape &c1=c;
+	shape &cy1=cy;
+	po1.printinfo();
+	c1.printinfo();
+	cy1.printinfo();
+	system("pause");
+	return 0;
+}
+

@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char a[100];
+	int length(char *p);
+	gets(a);
+	printf("%d",length(a));
+	return 0;
+}
+int length(char *p)
+{
+	int i,count=0;
+	for(;*p!='\0';p++)
+	{
+			count++;
+	}
+	return count;
+
+}

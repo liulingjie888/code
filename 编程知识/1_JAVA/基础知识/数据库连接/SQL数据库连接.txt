@@ -1,0 +1,57 @@
+注：项目需导入相关库类；	导包步骤： 右键project->property->java build path->libaries->add external jtds.jar
+
+1.加载数据库驱动
+SQL SERVER:	Class.forName("net.sourceforge.jtds.jdbc.Driver");
+MYSQL:		Class.forName("com.mysql.jdbc.Driver");
+
+也可以（不推荐）
+DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+但是该方式会是数据库驱动注册两次，因为Driver类的源码已经在静态代码块中完成了注册；
+
+2.数据库连接	connection对象=DriverManager.getConnection(数据库URL,用户名,密码);
+SQL SERVER		URL="jdbc:jtds:sqlserver://服务器:端口号/数据库"
+MYSQL			URL="jdbc:mysql://服务器:端口号/数据库?characterEncoding=UTF-8"
+
+3.创建Statement对象	Statement对象=connection对象.createStatement();
+
+4.执行语句	Statement.execute(SQL语句)
+		execute返回boolean类型，true表示执行的是查询语句，false表示执行的是insert,delete,update等等
+		Statement.executeQuery(SQL语句)	
+		Statement.executeUpdate(SQL语句)	//返回受影响的行数，出错返回-1
+   执行查询语句	ResultSet对象=Statement.executeQuery(查询语句)
+
+5.关闭结果集
+   关闭会话
+   关闭数据库连接
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+结果集操作
+	rs.getString(字段或列数);	//读取信息
+	rs.next();			//移动，无则返回false,有返回true	
+	
+
+import  java.sql.DriverManager;	//数据库驱动
+import  java.sql.ResultSet;		//结果集
+import  java.sql.SQLException;		//相关异常
+import  java.sql.Connection;		//连接
+import  java.sql.Statement;		//
+
+try{
+	Class.forName("net.sourceforge.jtds.jdbc.Driver"); //数据库驱动加载
+	System.out.println("数据库驱动加载成功");
+}catch(ClassNotFoundException e){
+	e.printStackTrace();
+}
+
+//PreparedStatement有预编译机制，性能比Statement更快
+//防止SQL注入式攻击,可读性和维护性强	
+import java.sql.PreparedStatement;
+
+String sql = "insert into hero values(null,?,?,?)";
+PreparedStatement ps = c.prepareStatement(sql);
+//参数设置
+ps.setString(2, "提莫");
+ps.setFloat(3, 313.0f);
+ps.setInt(4, 50);
+// 执行
+ps.execute();

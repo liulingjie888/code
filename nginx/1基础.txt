@@ -1,0 +1,57 @@
+
+=====================安装
+apt-get install nginx
+
+查看nginx是否安装成功
+nginx -v
+
+启动nginx
+service nginx start
+
+===================nginx文件安装完成之后的文件位置：
+- /usr/sbin/nginx：主程序
+- /etc/nginx：存放配置文件
+- /usr/share/nginx：存放静态文件
+- /var/log/nginx：存放日志
+
+
+===================修改了nginx配置
+输入： 
+sudo nginx -t 		#查看nginx的配置是否正确。 
+sudo nginx -s reload	#重新加载
+sudo nginx restart	#重启
+
+=========端口
+/etc/nginx/nginx.conf的HTTP中加入：
+
+http{
+	#不能出现下划线
+	upstream tomcat8081{		
+		server	127.0.0.1:8080 weight=1;
+		server	127.0.0.1:8081 weight=2;
+		ip_hash;		#会话session共享
+    	}
+		
+	server {
+		listen 80;
+		server_name localhost;
+			
+		#反向代理知道服务器
+		location / {
+			proxy_pass http://127.0.0.1:8080;
+			#多个服务处理
+			#proxy_pass http://tomcat8081;
+		}
+
+		#制定访问后缀jpg等的静态资源目录，例如可通过127.0.0.1/1.jpg访问
+		location ~\.(css|js|png|jpg)$ {
+				root /home/liulingjie/图片;
+		}
+
+	}
+}
+
+
+
+
+

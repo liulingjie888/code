@@ -1,0 +1,64 @@
+
+
+
+-------------------------------------------------------
+	New -> Other -> Content Provider
+清单注册：
+	<provider
+		android:name=".MyContentProvider"
+		android:authorities="cn.itcast.mycontentprovider"（自定义，通常为类的全名）
+		android:enabled="true"		//表示是否启动这个提供者
+		android:exported="true">		//表示是否允许外部程序访问
+	<provider>
+
+----------------------------------------------------
+
+android.content.ContentProvider;
+android.content.ContentValues;
+android.database.Cursor;
+android.net.Uri;
+
+ContentProvider子类：
+	//自定义，通常为类的全名
+	String authority="com.android.providers.该类名";		
+	String db_table="表名";
+	//该Uri常量可以设置成静态供其他类调用
+	Uri content_uri=Uri.parse("content://"+authority+"/"+db_table);
+	//设置匹配的Uri
+	UriMatcher matcher=new UriMatcher(0);
+	matcher.addURI(authority,db_table,匹配成功返回的码);
+	
+
+	public int delete(Uri uri,String selection,String[] selectionArgs){
+		if( matcher.match(uri)==匹配成功返回的码)
+			对数据库的删除操作；
+		return  删除数量；
+	}
+	public Uri insert(Uri uri,ContentValues values){
+		if( matcher.match(uri)==匹配成功返回的码)
+			对数据库的插入操作；
+		return  Uri.withAppendedId（uri, 插入的条数);
+	}
+	public int update(Uri uri,ContentValues values,String selection,String[] selectionArgs){
+		if( matcher.match(uri)==匹配成功返回的码)
+			对数据库更新操作；
+		return  更新数量；
+	}
+	public Cursor query(Uri uri,String[] projection,String selection ,String[] selectionArgs,String sortOrder){
+		if( matcher.match(uri)==匹配成功返回的码)
+			Cursor cursor=查询指定数据返回；
+		return cursor;
+	}
+	//当ContentProvider被建立时运行
+	public boolean onCreate(){
+	}
+	//返回Uri代表的数据的MIME类型
+	public String getType(Uri uri){
+		如果Uri以路径结尾：
+		return  vnd.android.cursor.dir/vnd.<authority>.<path>
+		如果Uri以ID结尾：
+		return  vnd.android.cursor.item/vnd.<authority>.<path>
+	}
+
+
+

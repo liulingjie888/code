@@ -1,0 +1,5 @@
+Toast
+import android.widget.Toast;
+
+//this为activity对象,Toast.LENGTH_SHORT为显示时间短,Toast.LENGTH_LONG显示时间长
+Toast.makeText(this,"Helloworld",Toast.LENGTH_SHORT).show();

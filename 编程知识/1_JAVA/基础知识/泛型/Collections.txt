@@ -1,0 +1,23 @@
+import java.util.Collections;
+
+//使List中的数据倒置
+.reverse(List对象);
+
+//混淆List中数据的顺序
+.shuffle(List对象);
+
+//排序
+.sort(List对象)
+
+//交换元素
+.swap(List对象,下标1,下标2)
+
+//把List中的数据，向右滚动指定单位的长度
+.rotate(List对象,int 滚动长度)
+
+-----------------------------------------------------------------------
+
+//synchronizedList 把非线程安全的List转换为线程安全的List。
+List<Integer> numbers = new ArrayList<>();
+List<Integer> synchronizedNumbers = (List<Integer>) Collections.synchronizedList(numbers);
+ 

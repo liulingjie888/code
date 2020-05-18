@@ -1,0 +1,32 @@
+protected void onCreate(Bundle savedInstanceState)	//该Bundle一定为null，如何之前销毁前用onSaveInstanceState保存了数据，
+						//那么该Bundle则和onSaveInstanceStateBundle为同一对象，一般用于恢复数据
+	      ~onStart()
+	      ~onResume()
+	      ~onPause()
+	      ~onStop()
+	      ~onDestroy()
+	      ~onRestart()
+
+onSaveInstanceState(Bundle outState);		//该方法在回收activity前一定会调用,我们可以将数据保存在该Bundle中
+
+---------------------------------过程-------------------------
+主页面跳其他页面，再跳回来
+create->start->resume跳转->pause->stop跳回来->restart->resume退出->stop->destory
+
+主页面弹出对话框，再取消对话框
+弹出->pause取消->resume
+
+其他页面或对话框从主页跳再跳回：
+create->start->resume跳回->pause->stop->destory
+
+
+---------------------------------其他------------------------
+
+在应用横竖屏切换时，活动会被销毁；防止销毁在其对应<activity>标签中写入 
+			android:configChanges="orientation|keyboardHidden|screenSize"
+希望某一界面一直处于竖屏或横屏状态，在对应<activity>加入
+			竖屏：android:screenOrientation="portrait"
+			横屏：android:screenOrientation="landscape"
+
+
+			

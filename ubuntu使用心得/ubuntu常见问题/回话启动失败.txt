@@ -1,0 +1,11 @@
+1.ctrl + alt +f1 进入tty
+//解决tty控制台不能显示中文问题
+2.sudo vim /etc/default/locale改编码为UTF8，可以省略
+3.sudo apt-get install zhcon
+4.sudo adduser $(whoami) video
+5.logout,重新登入
+6.zhcon --utf8
+//安装会话
+7.sudo apt-get install ubuntu-session
+8.选择lightdm，登入比gbm3好看
+9.reboot重启就可以了

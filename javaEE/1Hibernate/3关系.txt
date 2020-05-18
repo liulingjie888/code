@@ -1,0 +1,114 @@
+Product和Category都是标准的javaBean
+
+==================================多对一
+
+=========代码
+public class Product {
+    ......
+    Category category;			//表示一个Category对应多个Product
+
+    public Category getCategory() { return category;}
+    public void setCategory(Category category) {this.category = category;}
+    ......
+}
+
+=========在Product.hbm.xml中设置Category 多对一关系
+<class name="Product" table="product_">
+        ......
+        <many-to-one name="category" class="Category" column="cid" />		//cid表示指向 category_表的外键
+</class>
+
+=========操作
+Category c =new Category();
+c.setName("c1");
+s.save(c);
+ 
+Product p = (Product) s.get(Product.class, 8);
+p.setCategory(c);
+s.update(p);
+
+==================================一对多
+
+=========代码
+public class Category {
+    ......
+    Set<Product> products;		//表示多个Product对应一个Category
+
+    public Set<Product> getProducts() {
+    public void setProducts(Set<Product> products) {this.products = products;}
+}
+
+=========在Category.hbm.xml增加one-to-many映射
+
+<class name="Category" table="category_">
+	......
+        <set name="products" lazy="false" cascade="delete">		//表示非延时加载
+            <key column="cid" not-null="false" />	//表示该类的外键名是cid，可以为空
+            <one-to-many class="Product" />		//表示一对多所对应的类是Product
+        </set>
+                 
+</class>
+
+注释：
+cascade:	detele：表示删除Category时，与它关联的Product删除
+		save-pudate：表示保存和更新时执行级联操作
+		all：所有操作都执行级联操作
+		none：所有操作都不执行级联操作（默认）
+=========操作
+Category c = (Category) s.get(Category.class, 1);
+Set<Product> ps = c.getProducts();
+
+==================================多对多
+
+=========代码
+public class User {
+    ......
+    Set<Product> products;
+    
+    public Set<Product> getProducts() {return products;}
+    public void setProducts(Set<Product> products) {this.products = products;}
+    ......
+}
+public class Product {
+    ......
+    Set<User> users;
+ 
+    public Set<User> getUsers() {return users; }
+    public void setUsers(Set<User> users) { this.users = users; }
+    ......
+}
+
+===============配置文件
+======User.hbm.xml:
+<class name="User" table="user_">
+        ......
+        <set name="products" table="user_product" lazy="false">	//table表示它们的关系表名
+            <key column="uid" />				//该类的外键名称为uid
+            <many-to-many column="pid" class="Product" />	//关系类外键名称为pid
+        </set>       
+ </class>
+
+=====Product.hbm.xml:
+<class name="Product" table="product_">
+	......
+	<set name="users" table="user_product" lazy="false">
+		    <key column="pid" />
+		    <many-to-many column="uid" class="User" />
+	</set>
+</class>
+
+
+============操作
+//增加3个用户
+Set<User> users = new HashSet();
+for (int i = 0; i < 3; i++) {
+    User u =new User();
+    u.setName("user"+i);
+    users.add(u);
+    s.save(u);
+}
+  
+//产品1被用户1,2,3购买
+Product p1 = (Product) s.get(Product.class, 1);
+p1.setUsers(users);
+s.save(p1);

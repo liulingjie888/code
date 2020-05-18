@@ -1,0 +1,26 @@
+
+//获取本地广播管理者实例
+LocalBroadcastManager  localBroadcastManager=LocalBroadcastManager.getInstance(this);
+//自定义广播接受者引用
+LocalReceiver  localReveiver;
+
+-----------------------------------------发送本地广播：
+
+Intent intent=new Intent("自定义动作名");
+//发送本地广播
+localBroadcastManager.sendBroadcast( intent );
+
+
+-----------------------------------------注册本地广播接收者：
+onCreate方法中
+
+IntentFilter  intentFilter=new IntentFilter();
+intentFilter.addAction("自定义动作名");
+localReveiver  =new LocalReceiver();
+//注册
+localBroadcastManager.registerReceiver( localReceiver , intentFilter );	
+
+---------------------------------------取消注册
+onDestory方法中
+
+localBroadcastManager.unregisterReceiver( loalReceiver );

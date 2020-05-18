@@ -1,0 +1,51 @@
+java.net.HttpURLConnection;
+java.net.URL;
+涉及权限：
+<uses-permission android:name="android.permission.INTERNET/>
+
+GET方式提交
+
+String path="http:/192.168.1.100:8080/web/LoginServlet?username="+URLEncoder.encode("liulingjie");
+URL url=new URL(paht);
+HttpURLConnection conn=(HttpURLConncetion)url.openConnection( );
+//设置请求方式
+conn.setRequestMethod("GET");
+//设置超时时间
+conn.setConncetTimeout(5000);
+//获取状码
+int responseCode=conn.getResponseCode( );
+//访问成功
+if(responseCode==200){
+	//设置服务器返回的输入流
+	InputStream is=conn.getInputStream( );
+	. . . . . .
+}
+
+-------------------------------------------------------------------------------------------------------------------
+POST方式提交
+
+String path="http:/192.168.1.100:8080/web/LoginServlet";
+URL url=new URL(path);
+HttpURLConnection conn=(HttpURLConnection)url.openConnection( );
+conn.setConnnectTimeout(5000);
+conn.setRequestMethod("POST");
+String data="username="+URLEncoder.encode("liulingjie")+"&password="+URLEncoder.encode("123");
+
+//post方式，实际上是浏览器把数据写给服务器
+//设置请求头数据提交方式，这里是以form表单的方式提交
+conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+//设置请求头，设置提交数据的长度
+conn.setRequestProperty("Content-Length",data,length()+"");
+//设置允许向外写数据
+conn.setDoOutput(true);
+//利用数据层往服务器写数据
+OutputStream os=conn.getOutputStream( );
+//将数据写成
+os.write(data.getBytes( ));
+//获取状态码
+int code=conn.getResponseCode( );
+//200为请求成功
+if(code==200) {
+	InputStream is conn.getInputStream( );
+	. . . . . .
+}

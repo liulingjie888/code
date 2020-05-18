@@ -1,0 +1,62 @@
+$变量=array(元素，元素，array（……）);
+
+自行给每个元素索引赋值
+$变量=array（'索引'=>'内容',……）；
+
+$arr[]='添加数组元素'	
+unset($arr[2]);	删除数组元素
+删除的元素索引不会被新添加的数组元素占用
+
+$LOC=&$CITYS;		引用赋值数组（传地址赋值）
+
+内置函数
+count(数组变量[,1])		获取一维元素个数，有1则所有元素个数
+print_r(数组)		打印数组
+数组变量=array_count_values(数组)		计数，数组元素内容变索引，出现次数变元素内容
+数组变量=explode("分隔符"，数组[,个数])		将字符串切割取出形成一维数组
+变量=implode("连接符",数组）			通过连接符形成字符串
+数组变量=range(start,end);			快速创建一个重start到end的数字或字符数组
+排序函数
+sort(array)	元素值升序  键值改变	
+rsort(array)	降序
+asort()		元素值升序  键值不改变
+arort()		降序
+ksort()		索引值升序  键值不改变
+krsort()		降序
+natsort()		元素值自然升序   键值不改变
+natcasesort()	元素值不区分大小写升序  键值不改变
+shuffle()		元素值随机乱序	键值改变
+
+array_reverse()	倒序
+array_unique()	删除重复元素
+in_array(target,array)	是否存在target，在返回true
+array_search(target,array)	是否存在target,在返回键值，不在返回false
+array_key_exist(key,array)	是否存在指定键，在返回true
+array_keys(array[,search])	返回数组所有键名，若有search，返回对应的键值
+array_values(array)		返回数组所有的值
+
+list(变量1，变量2，变量3……)=array		用数组给变量赋值，要求键值从0顺序递增
+extract(array)			生产一组以键名为变量名的变量，值为对应元素内容
+array=compact(变量1,变量2，……）	生产以变量名为键值，元素内容为对应值得数组
+
+数组指针
+current(数组)	返回所指元素的值
+key(数组)		返回所指元素的键值
+next(数组)		指针移动下一个
+prev(数组)	指针移动上一个
+end(数组)		指针移动到最后一个并返回元素值
+reset(数组)	指针移动到第一个并返回元素值
+each(数组)	以数组形式返回当前元素，例：
+		print_r(each(数组));
+		Array([1]=>元素内容 [value]=>元素内容 [0]=>键值 [key]=键值)
+
+遍历数组
+foreach(数组名 as $value){
+	print_r($value);
+}
+
+foreach(数组名 as $key =>$value){
+	print_r($key.'=>'.$value+"\n");
+}
+
+

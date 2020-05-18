@@ -1,0 +1,44 @@
+javax.sql.DataSource;
+org.apache.commons.dbcp.BasicDataSource;
+
+第一种方法创建数据源：
+DataSource  bds=new BasicDataSource();
+bds.setDriverClassName("");		//设置数据库驱动
+bds.setUrl("");			//设置数据流URL
+bds.setUsername("用户名");		
+bds.setPassword("密码");		
+bds.setInitialSize(5);			//设置数据库连接池初始的连接数目
+bds.setMaxActive(5);		//设置最大活跃的连接数目
+bds.setMinldle(2);			//设置最小闲置的连接数目
+Connection conn=bds.getConnection();	//获取连接对象
+
+----------------------------------------------------------------
+
+java.util.Properties;
+java.sql.DataSource;
+org.apache.commons.dbcp.BasicDataSourceFactory;
+
+第二种方法用工厂类和配置文件创建数据源：
+//表示该包类所在的文件目录（不含包）
+InputStream in==该类.getClass().getClassLoader().getResourceAsStream("dbcpconfig.properties");
+Properties  prop=new Properties();
+//装载配置文件
+prop.load(in);	
+//工厂创建数据源
+DataSource  bds=BasicDataSourceFactory.createDataSource(prop);
+//获取连接对象
+Connection conn=bds.getConnection();	
+-----------------------------------------
+配置文件dbcpconfig.properties:
+
+#连接设置
+driverClassName=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/jdbc
+username=root
+password=123456
+#初始化连接
+initialSize=5
+#最大连接数
+maxActive=10
+#最大空闲连接
+maxIdle=10

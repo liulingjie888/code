@@ -1,0 +1,60 @@
+select distinct deptno from emp;		//去掉重复记录
+
+select ename || '员工的工资' || sal from emp	//连接输出
+
+//条件查询
+select * from emp 				
+where sal >2000		
+where sal between 200 and 300
+where sal  in(10,20)
+where name like "%A%"  //_代表任一字符，模糊查询效率非常低
+where name not null       //and or not
+
+//分组
+select deptno from emp 		//平均工资大于3000的部门
+group by deptno having arg(sal) > 3000
+
+//排序
+select * from emp 			//排是最后一步，优先级最低。默认升序asc,降序desc
+order by sal desc,hiredate asc
+
+//集合运算操作（要求进行集合运算的结果集的属性的类别、个数和顺序一致）
+UNION	并集，合并两个操作的结果，去掉重复的部分
+UNION ALL       并集，合并两个操作的结果，保留重复的部分
+MINUS	差集，从前面的操作结果中去掉与后面操作结果相同的部分
+INTERSECT      交集，取两个操作数结果中相同的部分
+
+---------------------------------------函数
+
+//分组函数（聚合），分组函数只能出现在select子句，having子句和order by子句中。
+//计算时忽略空值
+select count (*) from emp
+select avg(sal),sum(sal) from emp
+select min(sal),max(sal) from emp
+
+//转换函数
+TO_CHAR：    NUMBER，DATE -> VARCHAR
+to_char(其他类型,'fm00')	//表示转换为2位的字符串，空位用0填充
+TO_DATE：    CHAR -> DATE
+TO_NUMBER(CHAR['字符'])：   CHAR -> NUMBER
+例：
+select to_char (sysdate,'DD-MONTH-YYYY') from dual;
+select to_date('2016-10-07','DD-MONTH-YYYY') from dual;
+
+//其他函数
+select * fromemp
+where lower(name)='smith';		//upper()转换成大写
+
+select * from emp
+where instr(name,'A',1)>0		//查询name含有A的记录（推荐用这取代模糊查询）
+
+sysdate - hiredate			//获取时间差天，sysdate,hiredate为date类
+to_char(sysdate,'yyyy') - to_char(hiredate,'yyyy')	//获取时间差年
+months_between(sysdate,hiredate)	//获取时间差月
+
+instr(字符串1,字符串2,n[,m])		//返回字符串2在字符串1从位置n开始第m次出现的位置
+substr(字符串,n,m)			//返回字符串第n开始长度为m的字符
+concat(字符串1,字符串2)		//返回连接字符串
+ltim(字符串1,字符串2)		//返回字符串1 截去 最左边匹配字符串2中任一字符的连续字符串
+
+

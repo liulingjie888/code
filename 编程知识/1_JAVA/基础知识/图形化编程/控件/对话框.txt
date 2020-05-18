@@ -1,0 +1,27 @@
+JOptionPane 用于弹出对话框
+
+JOptionPane.showConfirmDialog(父类控件, "是否 使用外挂 ？");
+表示询问，第一个参数是该对话框以哪个组件对齐
+JOptionPane.showInputDialog(父控件, "请输入yes，表明使用外挂后果自负");
+接受用户的输入
+JOptionPane.showMessageDialog(f, "你使用外挂被抓住！ 罚拣肥皂3次！");
+显示消息
+
+import javax.swing.JOptionPane;
+
+        ……
+        int option = JOptionPane.showConfirmDialog(f, "是否 使用外挂 ？");
+        if (JOptionPane.OK_OPTION == option) {
+            String answer = JOptionPane.showInputDialog(f, "请输入yes，表明使用外挂后果自负");
+            if ("yes".equals(answer))
+                JOptionPane.showMessageDialog(f, "你使用外挂被抓住！ 罚拣肥皂3次！");
+        }
+
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+在输入对话框设置下拉菜单选择框 
+Object[] fruits = {“苹果”,”梨子”,”香蕉”,”西瓜”,”荔枝”}; 
+JOptionPane.showInputDialog(null,”你喜欢什么水果”,”标题”,JOptionPane.QUESTION_MESSAGE,null,fruits,fruits[2]); 
+
+最后一个参数是预选项，你希望显示出来的选项。

@@ -1,0 +1,83 @@
+
+==========================使用lombok的javaBean
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+ 
+@Data
+public class Hero {
+    private int id;
+    private String name;
+}
+
+注解：
+@Data	//为类的所有属性自动生成setter/getter、equals、canEqual、hashCode、toString方法，如为final属性，则不会为该属性生成setter方法。
+@AllArgsConstructor	//提供全参构造方法
+@NoArgsConstructor	//提供无参构造方法
+@Builder		//builder 方式创建设置对象Hero h2 =Hero.builder().id(1).name("gareen").build();
+
+===========================依赖
+
+
+maven添加依赖：
+<dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.18</version>
+      <scope>provided</scope>
+</dependency>
+===========================一般的javaBean
+public class Hero {
+ 
+    private int id;
+    private String name;
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Override
+    public String toString() {
+        return "Hero [id=" + id + ", name=" + name + "]";
+    }
+    public Hero(int id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Hero other = (Hero) obj;
+        if (id != other.id)
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
+}

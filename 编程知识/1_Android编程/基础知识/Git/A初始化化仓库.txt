@@ -1,0 +1,4 @@
+进入到你的android Studio项目目录下，输入:
+git  init
+
+就会生成一个.git文件夹

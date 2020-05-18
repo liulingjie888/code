@@ -1,0 +1,42 @@
+android.content.ContextValues;
+android.database.Cursor;
+android.database.sqlite.SQLiteDatabase;
+
+PS:SQLite数据库的数据只能由原来建立数据文件的程序存取，其他程序不能使用
+//从SQLiteOpenHelper的子类获取可读写SQLiteDatabase对象
+SQLiteDatabase  db=helper.getWritableDatabase( );
+
+
+1.插入数据
+（1）
+// 创建ContentValues对象
+ContentValues values=new ContentValues( );
+values.put("值",表字段名);
+. . . . . . 
+第二个参数为当字段没有值时赋值为该参数，
+long id=db.insert("表名",null,values); 
+db.close();
+（2）
+db.execSQL("insert into information values(?,?)", new Object[] { "值","值"} );
+-----------------------------------------------------------------------------------
+
+2.修改数据
+（1）
+// 创建ContentValues对象
+ContentValues values=new ContentValues( );
+values.put("要修改的表字段名","值");
+//第三个参数为where判断语句，第四个参数是为取代第三个参数中 ？的字符数组
+int number=db.update("表名",values,"字段名=?",new String[]{值，……} );
+db.close();
+（2）
+db.execSQL("update information set name=? where price=?", new Object[] { "值","值"} );
+---------------------------------------------------------------------------------------
+
+3.删除数据
+（1）
+//第二个参数为where判断语句，第三个参数是为取代第二个参数中 ？的字符数组
+int number=db.delete("表名","字段名=?",new String[]{值，……} );
+db.close();
+（2）
+db.execSQL("delete from information where id=1");
+

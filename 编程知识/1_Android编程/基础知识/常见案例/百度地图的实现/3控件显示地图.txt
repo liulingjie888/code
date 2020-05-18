@@ -1,0 +1,52 @@
+------------------控件：
+<com.baidu.mapapi.map.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+-----------------Acitivity中：
+private  MapView  mapView;                //地图控件
+private  BaiduMap  baiduMap;             //地图实例
+
+
+//在setContentView方法前执行：
+ SDKInitializer.initialize(getApplicationContext());
+//获取控件
+mapView=(MapView) findViewById(R.id.mapView);
+//获取地图实例
+baiduMap=mapView.getMap();
+//设置显示自己位置
+baiduMap.setMyLocationEnable(true);
+
+------------------------------设置地图控件显示位置
+//创建经纬度对象
+LatLng  ll=new LatLng(纬度 , 经度);
+MapStatusUpdate  update=MapStatusUpdateFactory.newLatLng(ll);
+//更新地图位置
+baiduMap.animateMapStatus(update);
+
+------------------------------设置地图显示范围
+//参数为3-19，且为float类型，越大表示范围越大
+update=MapStatusUpdateFactory.zoomTo(16f);
+baiduMap.animateMapStatus(update);
+
+
+------------------------------设置显示自己的位置图标
+
+        MyLocationData.Builder locationBuilder=new MyLocationData.Builder();        //创建自己坐标
+        locationBuilder.latitude( 纬度 );           		//设置坐标
+        locationBuilder.longitude( 经度 );
+        MyLocationData locationData=locationBuilder.build();   //构造实例
+        baiduMap.setMyLocationData(locationData);             	//设置
+
+
+----------------------其他方法
+onResume方法:
+mapView.onResume();
+
+onPause方法：
+mapView.onPause();
+
+onDestroy方法:
+mapView.onDestroy();
+baiduMap.setMyLocationEnabled( false );

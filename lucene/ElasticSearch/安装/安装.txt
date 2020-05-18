@@ -1,0 +1,37 @@
+
+==========================安装elasticsearch
+直接启动安装包中bin下的elasticsearch文件，出现下面的话则表示启动成功（oct_0i1为节点名称）:
+[2020-04-26T21:11:27,471][INFO ][o.e.n.Node               ] [oct_Oi1] started
+访问http://127.0.0.1:9200/
+
+安装中文分词器：
+下载对应es版本的分词器
+https://github.com/medcl/elasticsearch-analysis-ik/releases?after=v6.7.0
+
+在安装目录的plugins目录下创建一个文件夹ik，将elasticsearch-analysis-ik-6.6.2.zip解压到ik下
+
+重启es就可以了
+ 
+
+==========================安装kibana
+运行不同主版本号的 Kibana 和 Elasticsearch 是不支持的（例如 Kibana 5.x 和 Elasticsearch 2.x），若主版本号相同，运行 Kibana 子版本号比 Elasticsearch 子版本号新的版本也是不支持的（例如 Kibana 5.1 和 Elasticsearch 5.0）。
+
+Kibana 是在ElasticSearch 有了相当多的数据之后，进行分析这些数据用的工具。 但是现在还么有数据呀，为什么就要介绍这个工具呢？ 因为Kibana 里面有一个叫做 Dev Tools的，可以很方便地以Restful 风格向 ElasticSearch 服务器提交请求
+
+（1）解压，编辑安装目录下的config/kibana.yml，加入：
+#Elasticsearch主机地址
+elasticsearch.url: "http://ip:9200" 
+# 允许远程访问
+server.host: "0.0.0.0" 
+# Elasticsearch用户名 这里其实就是我在服务器启动Elasticsearch的用户名
+elasticsearch.username: "es"  
+# Elasticsearch鉴权密码 这里其实就是我在服务器启动Elasticsearch的密码
+elasticsearch.password: "es"  
+
+（2）进入bin目录后
+nohup ./kibana &
+
+（3）访问管理页面
+访问http://127.0.0.1:5601
+
+

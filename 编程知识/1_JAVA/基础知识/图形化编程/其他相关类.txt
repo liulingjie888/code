@@ -1,0 +1,33 @@
+import java.awt.Dimension;
+Java的一个类，封装了一个构件的高度和宽度，这个类与一个构件的许多属性具有相关性，因此在Component类中定义多个与之有关的方法，LayoutManager接口也与一个Dimension对象有关联。Dimension类的高度和宽度值是一个整数，表明有多少个像素点。
+
+与Dimension类相关方法：getSize()和setSize(Dimension size)。分别用来获得和设置方格的大小。
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+import java.awt.Color;
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+import java.awt.Font;
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+import java.util.Date;
+
+
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+import java.util.Locale;
+java.util.Locale代表特定的地理、政治和文化。需要Locale来执行其任务的操作叫语言环境敏感的操作。
+属性:Locale.CHINA
+
+构造一个系统默认的Locale：
+Locale defaultLocale = Locale.getDefault();
+获得此Java虚拟机当前线程默认的语言环境值
+
+获取当前Java虚拟机线程默认的国家和语言信息：
+String country = defaultLocale.getCountry();//返回国家地区代码
+String language = defaultLocale.getLanguage();//返回国家的语言
+String displayCountry = defaultLocale.getDisplayCountry();//返回适合向用户显示的国家信息
+String displayLanaguage = defaultLocale.getDisplayLanaguage();//返回适合向用户展示的语言信息
+String displayName = defaultLocale.getDisplayName();//返回适合向用户展示的语言环境名

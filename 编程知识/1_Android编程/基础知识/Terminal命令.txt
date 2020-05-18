@@ -1,0 +1,2 @@
+//查看密钥库信息
+keytool -v -list -keystore  签名文件路径

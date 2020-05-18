@@ -1,0 +1,18 @@
+java.net.InetAddress;
+是IP地址的封装类
+
+//获取本机信息创建的InetAddress对象
+public static InetAddress InetAddress.getLocalHost()
+
+//根据给定的主机创建一个InetAddress对象，可用于查看该主机的IP地址
+public static InetAddress getByName(String hostname);
+
+//根据指定的IP地址创建一个InetAddress对象,可用于查找对应的主机名
+public static InetAddress getByAddress(byte[] addr);
+
+//获取IP地址
+public String getHostAddress();
+
+//获取主机名
+public String getHostName();
+

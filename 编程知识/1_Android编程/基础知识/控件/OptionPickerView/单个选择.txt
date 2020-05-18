@@ -1,0 +1,20 @@
+---------------单个选择
+//货车类型
+    private List<String>vehicleTypeItems=new ArrayList<>();
+
+private void showVehicleTypePicker(){
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                text_vehicleType.setText(vehicleTypeItems.get(options1));
+            }
+        })
+                .setTitleText("货车类型")
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(20)
+                .build();
+
+        pvOptions.setPicker(vehicleTypeItems);
+        pvOptions.show();
+    }

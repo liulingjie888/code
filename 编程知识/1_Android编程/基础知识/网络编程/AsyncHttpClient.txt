@@ -1,0 +1,16 @@
+com.loopj.android.http.AsyncHttpClient;
+com.loopj.android.http.AsyncHttpResponseHandler;
+
+//该类提供了get 、put 、post 、delete 、head等请求方式
+
+AsyncHttpClient client=new AsyncHttpClient( );
+使用GET方式请求URL中文件
+client.get("文件的URL",new AsyncHttpResponseHandler( ){
+	//参数三bytes代表读入的字节流
+	@Override
+	public void onSccess(int i , org.apache.http.Header[]  headers , byte[] bytes){
+		//将接收的字节流进行编码
+		String str=new String(bytes,"utf-8");
+		. . . . . . 
+	}
+});

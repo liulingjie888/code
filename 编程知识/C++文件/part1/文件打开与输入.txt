@@ -1,0 +1,30 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int main()
+{	
+	ofstream ofs;
+	char a[100];
+	ofs.open("d:\\my.txt",ios::out);
+	if(ofs)
+	{
+		while(cin.getline(a,100))
+		{
+			ofs<<a<<endl;
+		}
+		ofs.close();
+	}
+	ifstream ifs;
+	ifs.open("d:\\my.txt",ios::in);
+	if(ifs)
+	{
+		while(!ifs.eof())
+		{
+			ifs>>a;
+			cout<<a<<endl;
+		}
+		ifs.close();
+	}
+	return 0;
+}

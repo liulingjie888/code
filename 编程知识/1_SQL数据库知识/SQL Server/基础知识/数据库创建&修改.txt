@@ -1,0 +1,56 @@
+数据类型：int	4个字节
+	smallint	2个字节
+	tinyint	1个字节(0~255)
+	bit	1个字节 (代表0,1或NULL)
+	real	4个字节（精确到7位小数）
+	float	8个字节（精确到15位小数）
+	char(n)	(n取值1-8000,固定长度）
+	nchar(n)	(n取值1-4000,固定长度，两个字节储存一个字符)
+	varchar(n)	(n取值1-8000，可变长度，储存大小比实际大2字节）
+	text	(储存大量文本）
+	date	3字节(yyyy-mm-dd)
+	time	3~5字节(hh:mm:ss)
+	datetime	8个字节（yyyy-mm-dd hh:mm:ss）
+	money	8字节（有四位小数的decimal值）
+	smallmoney	4个字节（跟money差不多）
+创建数据库代码：
+	create base 数据库名
+	on primary
+	(
+	name=数据文件名(JXGL_data)
+	filename=‘文件路径+数据文件名.mdf’,
+	size=初始化大小MB
+	maxsize=最大大小MB
+	filegrowth=增长大小MB或百分比
+	)
+	log on		//日志文件
+	(
+	name=日志文件名（JXGL_log）
+	filename=‘文件路径+日志文件名.ldf’,
+	size=初始化大小MB
+	maxsize=最大大小MB
+	filegrowth=增长大小MB或百分比
+	)
+
+数据库修改代码：
+	USE 数据库
+	GO
+	ALTER DATABASE 数据库名
+	代码
+	GO 
+
+	代码：	ADD/MODIFY  FILE		//增加/修改辅助文件
+          		(
+           		内容
+          		）
+		ADD/MODIFY  LOG FILE	//增加修改辅助日志文件
+		(
+		内容
+		)
+		REMOVE FILE 文件名	//删除文件
+		MODIFY NAME = 新数据库名	//修改数据库名
+删除数据库:
+	DROP DATABASE 数据库名
+///////////////////////////////////////////////////////////////////////////////////
+	
+	

@@ -1,0 +1,41 @@
+*--------------------------------基本流程
+源文件->预处理文件
+gcc -E hello.c -o hello.i
+
+预处理文件->汇编源文件
+gcc -S hello.i -o hello.s
+
+汇编源文件->二进制文件（编译不链接）
+gcc -c hello.s -o hello.o
+
+二进制文件->可执行文件
+gcc hello.o -o hello
+
+
+*--------------------------------其它命令
+在目标路径搜索头文件
+gcc hello.c -I /root/workpalce/ -o hello
+
+编译时显示的报警信息
+gcc -Wall warning.c -o warning
+
+生成可以被gdb调试的执行文件
+gcc -g test.c -o test
+
+
+*--------------------------------库使用
+----------静态库使用
+有unsgn_pow.c库文件和pow_test.c主程序文件
+
+生成静态库：
+gcc -c unsgn_pow.c			//生成二进制文件
+ar rcsv libpow.a unsgn_pow.o		//在库插入模块(libpow.a为静态库文件)
+
+----------动态库使用
+生成动态库（要将生成的库文件放入lib中，或修改/etc/ld.so.conf，或修改LD_LIBRARY_PATH环境变量）
+gcc -fPIC -Wall -c unsgn_pow.c	//为动态库构造一个目标文件
+gcc -shared -o libpow.so unsgn_pow.o	//生成动态库文件libpow.so
+
+gcc -o pow_test pow_test.c -L -lpow	
+
+

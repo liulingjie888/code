@@ -1,0 +1,12 @@
+android.app.Service;
+andoird.os.IBinder;
+
+创建方式：New -> Service -> Service
+
+	清单注册
+	<service
+		android:name=".MyService"
+		android:enabled="true"	//是否可以实例化
+		android:exported="true"	//是否可以被其他程序组件调用或交互
+	</service>
+

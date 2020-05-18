@@ -1,0 +1,39 @@
+#include<stdio.h>
+int main()
+{
+	char ch[3][81],i,j,number=0,space=0,sletter=0,bletter=0,other=0;
+    for(i=0;i<=2;i++)
+	gets(ch[i]);
+	for(i=0;i<=2;i++)
+	{
+		for(j=0;j<=80;j++)
+		{
+			if(ch[i][j]!='\0')
+			{
+				if(ch[i][j]==' ')
+					space++;
+				else
+				{
+					if(ch[i][j]<='z'&&ch[i][j]>='a')
+						sletter++;
+					else
+					{
+						if(ch[i][j]<='Z'&&ch[i][j]>='A')
+							bletter++;
+						else
+						{
+							if(ch[i][j]<='9'&&ch[i][j]>='0')
+								number++;
+							else
+								other++;
+						}
+					}
+				}
+			}
+			else
+				break;
+		}
+	}
+    printf("大写字母有%d个，小写字母有%d个，数字有%d个，空格有%d个，其他有%d个。",bletter,sletter,number,space,other);
+	return 0;
+}

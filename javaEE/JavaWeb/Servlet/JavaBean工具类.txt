@@ -1,0 +1,16 @@
+import org.apache.commons.beanutils.BeanUtils;
+
+JavaBean类的属性的获取和设置至少定义一种。
+例:
+Person p=new Person();
+//用工具设置对象的属性
+BeanUtils.setProperty(p,"属性名",值);
+//使用Map属性集来设置对象
+Map<String,Object> map=new HashMap<String,Object>();
+map.put("属性名",值);
+. . . . 
+BeanUtils.populate(p,map);
+
+//获取对象属性值
+String name=BeanUtils.getProperty(p,"属性名");
+

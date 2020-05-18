@@ -1,0 +1,38 @@
+javax.servlet.servletConfig;接口
+
+方法：
+//获取web.xml中<init-param>中<param-name>内容为name的<param-value>的内容
+String  getInitParameter(String name)
+
+//获取web.xml中<init-param>所有<param-name>
+Enumeration  getInitParameterNames()
+
+//返回当前应用的ServletContext对象
+ServletContext  getServletContext()
+
+//返回web.xml中<servlet-name>的的内容
+String  getServletName()
+-----------------------------------------------------------------------
+例（HttpServlet子类中）：
+
+//获取ServletConfig对象
+ServletConfig  config=this.getServletConfig();
+Enumeration e = config.getInitParameterNames();
+//获取所有参数信息
+while(e.hasMoreElements()){
+      String name = (String) e.nextElement();
+      String value = this.config.getInitParameter(name);
+      System.out.println(name+"="+value);
+}
+-----------------------------------------------------------------------
+web.xml相关部分:
+<servlet>
+	. . . . . .
+	//一般用于写Servlet的信息
+	<init-param>
+		<param-name>参数名</param-name>
+		<param-value>值</param-value>
+	</init-param>
+</servlet>
+
+

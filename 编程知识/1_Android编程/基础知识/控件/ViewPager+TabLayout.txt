@@ -1,0 +1,98 @@
+布局文件：
+
+<android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        app:tabIndicatorColor="@color/green_1"
+        app:tabSelectedTextColor="@color/green_1"
+        app:tabTextColor="@android:color/black"
+        tools:ignore="NotSibling" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        app:layout_constraintTop_toBottomOf="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+-----------------------------------------------------------------
+
+ViewPager的适配器：
+
+public class ViewPagerAdapter extends PagerAdapter {
+
+    private List<View>mViewList;
+    private List<String>mTitleLists;
+
+    public ViewPagerAdapter(List<View>mViewLists, List<String>mTitleLists){
+        this.mViewList = mViewLists;
+        this.mTitleLists = mTitleLists;
+    }
+
+    @Override
+    public int getCount() {
+        return mViewList.size();      //页卡数
+    }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        return view == object;       //官方推荐
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        container.addView(mViewList.get(position));           //添加页卡
+        return mViewList.get(position);
+    }
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        container.removeView(mViewList.get(position));         //删除页卡
+    }
+
+    public CharSequence getPageTitle(int position){
+        return mTitleLists.get(position);             //页卡标题
+    }
+}
+-----------------------------------------------------------------------------
+
+活动文件：
+
+    private View mainView;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private View view_protocol,view_pay,view_transport,view_history;
+    private LayoutInflater mInflater;
+    private List<String> mListTitle=new ArrayList<>();
+    private List<View> mListView=new ArrayList<>();
+
+private void initView(){
+        mTabLayout=(TabLayout)mainView.findViewById(R.id.tabs);
+        mViewPager=(ViewPager)mainView.findViewById(R.id.viewPager);
+        mInflater=LayoutInflater.from(getActivity());
+        //订单页面
+        view_protocol=mInflater.inflate(R.layout.order_view_protocol,null);
+        view_pay=mInflater.inflate(R.layout.order_view_pay,null);
+        view_transport=mInflater.inflate(R.layout.order_view_transport,null);
+        view_history=mInflater.inflate(R.layout.order_view_history,null);
+        mListView.add(view_protocol);
+        mListView.add(view_pay);
+        mListView.add(view_transport);
+        mListView.add(view_history);
+        //页面标题
+        Resources resources=getResources();
+        String[] order_step=resources.getStringArray(R.array.order_step);
+        mListTitle=new ArrayList<String>(Arrays.asList(order_step));
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
+        //添加选项卡
+        for(int i=0;i<mListTitle.size();i++)
+            mTabLayout.addTab(mTabLayout.newTab().setText(mListTitle.get(i)));
+
+        ViewPagerAdapter mAdapter = new ViewPagerAdapter(mListView,mListTitle);
+        mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
+        mTabLayout.setupWithViewPager(mViewPager);  //将TabLayout和ViewPager关联起来。
+        mTabLayout.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器
+    }
+

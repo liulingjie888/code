@@ -1,0 +1,8 @@
+solr start [-p 8983]		//启动（指定端口号）
+～stop				//停止
+
+solr create -c core名字		//创建core（在/var/solr/data/下创建同名文件）
+solr delete -c core名字
+
+
+

@@ -1,0 +1,13 @@
+nodeName	节点名称
+nodeValue	节点值
+nodeType		节点类型（通常是数字）
+
+
+innerHTML	元素的文本内容
+childNodes[0].nodeValue 和 innerHTML 效果是一样的。
+
+
+元素.getAttribute("属性名")		获取该元素制定属性的值
+元素.attribute["属性名"].nodeValue	
+
+

@@ -1,0 +1,47 @@
+字节流保存到文件
+
+InputStream input=对象.getInputStream();
+byte[] data=new byte[1024];
+int len=0;
+FileOutputStream fileout=new FileOutputStream("D:\\test.png");
+while( (len=input.read(  data,0,data.length))!=-1){
+	fileout.write(data,0,len);
+}
+----------------------------------------------------------------------------------
+通过字节缓冲流保存到文件
+BufferedInputStream inputByteBuffer= new BufferedInputStream(  InputStream对象  );
+byte[] data=new byte[1024];
+int len=0;
+FileOutputStream fileout=new FileOutputStream("D:\\test.png");
+while( (len=inputByteBuffer.read(  data,0,data.length))!=-1){
+	fileout.write(data,0,len);
+}
+
+-----------------------------------------------------------------------------------
+直接将字节数组中的内容保存到文件
+byte[] data = page.getContent();
+DataOutputStream out = new DataOutputStream(new FileOutputStream(new File(filePath)));
+for (int i = 0; i < data.length; i++) {
+	out.write(data[i]);
+}
+out.flush();
+
+----------------------------------------------------------------------------------
+字符流保存到文件
+ BufferedReader buffer=new BufferedReader(new InputStreamReader(url.openStream(),编码方式));
+PrintWriter out=new PrintWriter( new File(filePath) );
+String inputLine;
+while((inputLine=buffer.readLine())!=null){
+	out.print(inputLine);
+}
+buffer.flush();
+
+--------------------------------------------------------------------------------------
+字符流保存到文件
+BufferedReader reader=new BufferedReader(new InputStreamReader(url.openStream(),编码方式));
+BufferedWriter writer=new BufferedWriter(new FileWriter(new File(filePath));
+String inputLine;
+while((inputLine=reader.readLine())!=null){
+	writer.write(inputLine);
+}
+writer.flush();

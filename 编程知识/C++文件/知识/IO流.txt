@@ -1,0 +1,49 @@
+标准I/O流：键盘输入数据，数据输出到显示屏
+文件I/O流：磁盘文件输入数据，数据输出到磁盘文件
+串I/O流：对内存指定空间进行输入输出，通常指定一个字符串数组为存储空间（可以利用该空间存储任何信息）
+
+进行标准I/O操作使用<iostream>,它包括iostream  istream ostream ios
+进行文件I/O操作使用<fstream>,它包括fstream  ifstream ofstream fstreambase
+进行标准I/O操作使用<strstream>,它包括strstream  istrstream ostrstream strstreambase
+
+istream类的函数
+istream&   ignore(streamsize num=1,int delim=EOF)
+istream&   putback(char ch);
+int   peek();
+streamsize   gcount();//计算最后一个非格式化（get,getline,read,ignore)读取到的字符数
+
+cerr>> 标准错误输出，无缓冲
+clog>>  标准错误输出，有缓冲
+
+cout.put(字符)
+cout.write(字符地址，个数）
+
+cin.get(char& ch);
+cin.getline(字符地址，个数，结束符=‘\0’）
+cin.read(字符地址，个数）
+
+cout.setf(设置状态，清除状态）
+cout.unsetf(清除状态）
+cout.flags(【flag】)
+cout.width(宽度）		每次要设
+cout.precision(精度）	设一次
+cout.fill(字符）
+cout.setfill(字符）
+cout.setw(宽度）
+
+ifstream/ofstream/fstream   fs(文件名）
+fs.open(文件名，[打开方式])
+fs.close()
+
+reinterprte_cast<char *>(地址）
+
+ios::beg=0;  文件开头
+ios::cur=1;  当前位置
+ios::end=2; 文件结尾
+ifs.seekg(移动个数, 位置）
+ifs.tellg()		文件指针位置
+ofs.seekp(移动个数, 位置）
+ofs.seekp()              文件指针位置
+
+ostrstream os(字符首地址，读取个数，[模式]）
+istrstream is(字符首地址，模式=ios::in/读取个数）

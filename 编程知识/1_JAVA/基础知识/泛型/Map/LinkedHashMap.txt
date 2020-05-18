@@ -1,0 +1,18 @@
+java.util.LinkedHashMap;
+key和value允许为空。
+非线程安全类。
+
+删除：
+clear();
+
+判断：
+containsValue(Object value);			//是否包含某值
+
+获取：
+get(Object key);				//获取指定键的值
+getOrDefault(Object key, V defaultValue);	///获取某键的值，不存在返回default
+
+创建：
+entrySet() 				//返回一个 Set映射的视图包含在这个Map。 
+keySet();					//返回所有键的Set
+values();					//好像返回的是对应的哈希值的Set

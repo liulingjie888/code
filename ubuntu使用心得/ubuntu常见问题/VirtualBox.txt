@@ -1,0 +1,7 @@
+
+==========实现文件拖拽
+1、运行虚拟机ubuntu后，在这个窗口的设备(Devices)菜单下有一个安装增强功能(Intall Guest Additions) 选项,单击它. 这样virtualbox就把VBoxGuestAdditions.iso文件作为一张光盘插入你的虚拟机中了。
+2、获取root权限 sudo -i
+3、cd /home/用户名/media/VBOXADDITIONS_4.2.12_84980
+4、./VboxLinuxaddition.run
+5、重启一下最好

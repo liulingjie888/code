@@ -1,0 +1,6 @@
+界面黑屏卡在clean，blocks
+
+1.进入ubuntu高级选项，选择root
+2.执行 sudo apt-get remove --purge nvidia*
+3.执行 sudo ubuntu-drivers autoinstall
+4.reboot

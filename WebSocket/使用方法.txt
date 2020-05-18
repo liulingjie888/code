@@ -1,0 +1,89 @@
+依赖：
+<dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+</dependency>
+==========================服务端
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+
+/**
+ * @ServerEndpoint 注解是一个类层次的注解，它的功能主要是将目前的类定义成一个websocket服务器端,
+ * 注解的值将被用于监听用户连接的终端访问URL地址,客户端可以通过这个URL来连接到WebSocket服务器端
+ */
+@ServerEndpoint("/ws/bitcoinServer")
+public class BitCoinServer {
+	
+	//与某个客户端的连接会话，需要通过它来给客户端发送数据
+	private Session session;
+
+	//表示有浏览器链接过来的时候被调用
+	@OnOpen
+	public void onOpen(Session session){
+		this.session = session;    
+	}
+	
+	//向客户端发送消息
+	public void sendMessage(String message) throws IOException{
+		this.session.getBasicRemote().sendText(message);
+	}
+
+	//表示浏览器发出关闭请求的时候被调用
+	@OnClose
+	public void onClose(){
+		...
+	}
+
+	//表示浏览器发消息的时候被调用
+	@OnMessage
+	public void onMessage(String message, Session session) {
+		System.out.println("来自客户端的消息:" + message);
+	}
+
+	//表示有错误发生，比如网络断开了等等
+	@OnError
+	public void onError(Session session, Throwable error){
+		System.out.println("发生错误");
+		error.printStackTrace();
+	}
+}
+
+==========================客户端
+<script type="text/javascript">
+    var websocket = null;
+    //判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        websocket = new WebSocket("ws://localhost:8080/test1_war_exploded/ws/bitcoinServer");
+
+        //连接成功建立的回调方法
+        websocket.onopen = function () {
+            websocket.send("客户端链接成功");	//向服务端发送消息，由onMessage注释函数处理
+        }
+
+        //接收到消息的回调方法
+        websocket.onmessage = function (event) {
+            setMessageInnerHTML(event.data);	//event.data为服务端发来的消息
+        }
+        
+        //连接发生错误的回调方法
+        websocket.onerror = function () {
+            alert("WebSocket连接发生错误");
+        };
+
+       //连接关闭的回调方法
+        websocket.onclose = function () {
+            alert("WebSocket连接关闭");
+        }
+
+        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = function () {
+            websocket.close();		//关闭WebSocket连接
+        }
+        
+    }
+    else {
+        alert('当前浏览器 Not support websocket')
+    }
+</script>

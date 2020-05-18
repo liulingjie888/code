@@ -1,0 +1,84 @@
+AMQP的事务机制：
+事务的实现主要是对通道（Channel）的设置，主要的方法有三个：
+channel.txSelect()：声明启动事务模式
+channel.txComment()：提交事务
+channel.txRollback()：回滚事务
+
+=====================生产者的事务：
+public class Sender {
+	private static final String QUEUE = "test_tx_queue";
+ 
+	public static void main(String[] args) {
+		Connection con = null;
+		Channel channel = null;
+		try {
+			// 获取连接
+			con = ConnectionUtils.getConnection();
+			// 从连接中创建通道
+			channel = con.createChannel();
+			// 声明一个队列
+			channel.queueDeclare(QUEUE, false, false, false, null);
+			// 消息内容
+			String msg = "tx queue hello!";
+			// 开启事务
+			channel.txSelect();
+			// 发送消息
+			channel.basicPublish("", QUEUE, null, msg.getBytes());
+			// 模拟异常
+			int num = 1/0;
+			// 提交事务
+			channel.txCommit();
+			System.out.println("send success");
+		} catch (Exception e) {
+			// 事务回滚
+			try {
+				channel.txRollback();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			// 关闭连接
+			ConnectionUtils.close(channel, con);
+		}
+ 
+	}
+ 
+}
+消费者Recver
+
+public class Recver {
+	private static final String QUEUE = "test_tx_queue";
+ 
+	public static void main(String[] args) throws IOException, TimeoutException {
+		// 获取连接
+		Connection con = ConnectionUtils.getConnection();
+		// 从连接中创建通道
+		Channel channel = con.createChannel();
+		// 声明队列
+		channel.queueDeclare(QUEUE, false, false, false, null);
+		// 创建消费者
+		Consumer consumer = new DefaultConsumer(channel) {
+			// 获取消息
+			@Override
+			public void handleDelivery(String consumerTag, Envelope envelope, BasicProperties properties, byte[] body)
+					throws IOException {
+				String msg = new String(body, "utf-8");
+				System.out.println("接收到消息——" + msg);
+			}
+ 
+		};
+		// 监听队列
+		channel.basicConsume(QUEUE, true, consumer);
+	}
+}
+运行消费者和生产者，生产者报错而且消费者也没有收到消息，说明消息已经被回滚了。
+
+=====================消费者模式使用事务
+
+结果分为两种情况：
+autoAck=false手动应对的时候是支持事务的，也就是说即使你已经手动确认了消息已经收到了，但在确认消息会等事务的返回解决之后，在做决定是确认消息还是重新放回队列，如果你手动确认现在之后，又回滚了事务，那么已事务回滚为主，此条消息会重新放回队列。
+
+autoAck=true如果自定确认为true的情况是不支持事务的，也就是说你即使在收到消息之后在回滚事务也是于事无补的，队列已经把消息移除了。
+这种事务模式有个缺陷：性能差，降低了rabbitmq的消息吞吐量，使用了事务模式比非事务模式性能差很多，那么有没有既能保证消息的可靠性又能兼顾性能的解决方案呢？那就是下面的Confirm模式。、
+

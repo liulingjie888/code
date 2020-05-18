@@ -1,0 +1,42 @@
+结构
+<table>
+<tr><td></td><td></td></tr>
+<tr></tr>
+</table>
+
+<table>表格
+<tr>行
+<td>单元格
+<th>单元格（区别td 内容以粗体居中方式显示）
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+<table>属性
+cellpadding="1"	填充（内容到边框距离）
+cellspacing="1"	间距（单元格与单元格的间距）
+、、、、、、、、、、、、、、、、、、、、、、、、
+
+
+<tr>行
+、、、、、、、、、、、、、、、、、、、、、、、、
+
+<td><th>单元格属性
+width
+height
+valign		内容垂直对齐(middle top bottom)
+align		内容水平对齐(left center right)
+nowrap		不换行
+bordercolor	
+background
+、、、、、、、、、、、、、、、、、、、、、、、、
+
+共有属性
+border="1"
+bgcolor="颜色"	边框颜色（实际为表格的背景颜色）
+
+如属性相同，可将<tr>包含在<tbody>内，在设置tbody属性，减少代码冗长
+<table>
+<tbody bgcolor="red"><tr></tr><tr></tr>……</tbody>
+</table>
+
+
+	

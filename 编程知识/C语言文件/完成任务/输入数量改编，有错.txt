@@ -1,0 +1,24 @@
+#include<stdio.h>
+int main()
+{
+	int i,number=0,space=0,bletter=0,sletter=0,other=0;
+	char ch;
+	for(i=0;ch=(getchar())!='\n';i++)
+	{
+		if(ch>='0'&&ch<='9')
+			number++;
+		else
+			if(ch==' ')
+				space++;
+			else
+				if(ch<='z'&&ch>='a')
+					sletter++;
+				else
+					if(ch<='Z'&&ch>='A')
+						bletter++;
+					else
+						other++;
+	}
+	printf("你输入的输入的数字有%d个，大写字母有%d个，小写字母有%d个，空格有%d个，其他字符有%d个。",number,bletter,sletter,space,other);
+	return 0;
+}

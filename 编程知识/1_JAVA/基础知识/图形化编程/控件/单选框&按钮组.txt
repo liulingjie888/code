@@ -1,0 +1,38 @@
+JRadioButton 单选框
+使用isSelected来获取是否选中了 
+在这个例子里，两个单选框可以被同时选中，为了实现只能选中一个，还需要用到ButtonGroup
+
+import javax.swing.JRadioButton;
+
+        ……
+        JRadioButton b1 = new JRadioButton("物理英雄");
+        // 设置 为 默认被选中
+        b1.setSelected(true);
+        b1.setBounds(50, 50, 130, 30);
+
+        JRadioButton b2 = new JRadioButton("魔法 英雄");
+        b2.setBounds(50, 100, 130, 30);
+ 
+        System.out.println(b2.isSelected());
+        ……
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+ButtonGroup 对按钮进行分组，把不同的按钮，放在同一个分组里 ，同一时间，只有一个 按钮 会被选中
+
+import javax.swing.ButtonGroup;
+
+        ……
+        JRadioButton b1 = new JRadioButton("物理英雄");
+        ……
+        JRadioButton b2 = new JRadioButton("魔法 英雄");
+        ……
+        // 按钮分组
+        ButtonGroup bg = new ButtonGroup();
+        // 把b1，b2放在 同一个 按钮分组对象里 ，这样同一时间，只有一个 按钮 会被选中
+        bg.add(b1);
+        bg.add(b2);
+ 
+        f.add(b1);
+        f.add(b2);
+        ……

@@ -1,0 +1,45 @@
+表单含文件上传时要设置 enctype="multipart/form-data"
+
+------------------------------------------------ServletFileUpload类-------------------------------------
+
+构造方法：
+ServletFileUpload();
+ServletFileUpload(FileItemFactory  fileltemFactory);
+
+方法：
+//设置和获取请求消息实体内容的最大上限（byte）
+setSizeMax(long  sizeMaz);
+getSizeMax();
+
+//设置和获取单个上传文件的最大尺寸限制（byte）
+setFileSizeMax(long fileSizeMax);
+getFileSizeMax();
+
+//将请求体中的表单字段解析出来封装到FileItem的list返回
+List  parseRequest(HttpServletRequest  req);
+
+//与parseRequest类似，但返回的是迭代器而且保存的是FileItemStream对象（每一个文件项的输入流），一般追求性能用该方法
+Iterator getItemIterator(HttpServletRequest req);
+
+//返回信息主体内容类型是否是"multipart/form-data"类型，是返回true
+static boolean  isMultipartContent(HttpServletRequest req);
+
+//设置和获取fileItemFactory属性
+setFileItemFactory( FileItemFactory  factory);
+getFileItemFactory();
+
+//设置编码方式，如果没有设置则会采用HttpServletRequest设置的字符编码，最后采用系统默认编码
+setHeaderEncoding("编码方式");
+getHeaderEncoding();
+
+//获取系统默认编码方式
+System.getProperty("file.encoding");
+
+---------------------------------------代码示例--------------------------------------
+DiskFileItemFactory  factory=new DiskFileItemFactory();
+factory.setRepository ( new File("E:\\TempFolder");
+ServletFileUpload fileupload=new ServletFileUpload( factory );
+List<FileItem> fileitems=fileupload.parseRequest( request );
+for(FileItem item: fleitems){
+	. . . .
+}

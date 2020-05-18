@@ -1,0 +1,49 @@
+1.创建Dynamic Web Project
+
+2.导包：
+	apache.commons.logging
+	apache.log4j
+	beans
+	context
+	core
+	expression
+
+3.创建javaBean对象
+
+4.src下创建配置文件applicationContext.xml
+
+5.导入约束
+     添加约束文件：window -> Preference -> XML -> XMLcatalog -> Add -> Filesystem 
+		->选择约束文件(beans约束文件) ->keyType选择schemaLocation
+		->将location的最后一段名字复制到key的最后 -> OK
+     设置标签的约束： 
+	写下<beans></beans>后点击design ->右击beans,点editNameSpace -> Add
+	(1)select From Registered NameSpace -> 选择xsi ->OK
+	(2)specify New Namespace -> Browse -> select XML catalog entry 
+	->选择刚刚创建的约束文件key -> OK  ->Namespace Name填LocationHint除去最后一段名称前面所有的字符串 > OK
+
+6.配置对象信息
+	<beans>
+		<bean name="名称1" class="完整的javaBean类包名"></bean>
+	</beans>
+
+7.测试容器创建对象
+	(1)//创建容器
+	   ApplicationContext  ac=new ClassPathXmlAppliction("配置文件路径/applicationContext.xml");
+	(2)//向容器要对象
+	   User u=(User)ac.getBean("名称1"); 
+	   
+===============其他
+在web.xml下写入：
+//要spring容器随web一起启动
+<listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+
+//spring初始化加载文件
+<context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>/WEB-INF/config.xml</param-value>
+</context-param>
+
+   

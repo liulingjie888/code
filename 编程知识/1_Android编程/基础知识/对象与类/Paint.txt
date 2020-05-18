@@ -1,0 +1,40 @@
+Paint类代表画笔
+
+android.graphics.Paint;
+android.graphics.Color;
+
+方法：
+
+Paint()
+//创建一个对象，使用指定属性
+Paint (int flags)
+
+//设置透明度颜色；第一个参数代表透明度，后面代表红绿蓝，均为0-255
+setARGB (int a,int r,int g,int b)
+
+//设置颜色
+setColor (int color)
+
+//设置透明度
+setAlpha (int a)
+
+//是否使用抗锯齿功能，使用会降低绘画速度
+setAntiAlias (boolean aa)
+
+//是否使用图像抖动处理，使用使图像颜色更加平滑饱满，清晰
+setDither (boolean dither)
+
+//设置阴影，radius为阴影的角度，dx和dy为阴影在x轴和y轴的上的距离，color为阴影的颜色
+setShadowLayer (float radius,float dx,float dy,int color)
+
+//设置绘制文本的对齐方式，参数值为Align.CENTER , Align.LEFT , AlignRIGHT
+setTextAlign (Align align)
+
+//设置文字大小
+setTextSize (float textSize)
+
+//设置是否为粗体
+setFakeBoldText (boolean fakeBoldText)
+
+//设置图形重叠时的处理方式，有合并，取交集或并集，常用来制作橡皮的擦除效果
+setXfermode(Xfermode xfermode)

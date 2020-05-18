@@ -1,0 +1,35 @@
+RadioButton
+
+放在<RadioGroup android:orientation="horizontal"></RadioGroup>中起效
+
+属性：
+textSize="25dp"
+text
+checked="true"	//设置是否选中
+
+java:
+//获取选择的ID,通常在OnClickListener中调用
+RadioGroup对象.getCheckedRadioButtonId()
+
+-------------------其他
+android:drawableTop="@drawable/selector_tab_user"
+
+
+selector_tab_user.xml文件:
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@mipmap/user"/>
+    <item android:state_pressed="true"  android:drawable="@mipmap/dingdan"/>
+    <item android:state_checked="false" android:drawable="@mipmap/cart"/>
+    <item android:drawable="@mipmap/dingdan"/>
+</selector>
+
+------------------------事件
+RadioGroup.OnCheckedChangeListener；
+
+@Override
+public void onCheckedChanged(RadioGroup radioGroup, int i) {
+	 i表示被点击的radio按钮id
+}
+
+RadioGroup控件.setOnCheckedChangeListener(this); //点击事件

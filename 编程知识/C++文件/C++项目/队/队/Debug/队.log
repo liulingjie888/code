@@ -1,0 +1,17 @@
+﻿生成启动时间为 2018/11/5 18:58:16。
+     1>项目“C:\Users\MAIBENBEN\Documents\Visual Studio 2012\Projects\队\队\队.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\软件\VS2012\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Queue.cpp
+         Queue.cpp
+     1>c:\users\maibenben\documents\visual studio 2012\projects\队\队\queue.cpp(67): warning C4552: “%”: 运算符不起任何作用；应输入带副作用的运算符
+     1>c:\users\maibenben\documents\visual studio 2012\projects\队\队\queue.cpp(92): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 d:\软件\vs2012\vc\include\conio.h(131) : 参见“getch”的声明
+     1>c:\users\maibenben\documents\visual studio 2012\projects\队\队\queue.cpp(79): warning C4101: “i”: 未引用的局部变量
+       Link:
+         D:\软件\VS2012\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MAIBENBEN\Documents\Visual Studio 2012\Projects\队\Debug\队.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MAIBENBEN\Documents\Visual Studio 2012\Projects\队\Debug\队.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MAIBENBEN\Documents\Visual Studio 2012\Projects\队\Debug\队.lib" /MACHINE:X86 Debug\Queue.obj
+         队.vcxproj -> C:\Users\MAIBENBEN\Documents\Visual Studio 2012\Projects\队\Debug\队.exe
+     1>已完成生成项目“C:\Users\MAIBENBEN\Documents\Visual Studio 2012\Projects\队\队\队.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.08

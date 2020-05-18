@@ -1,0 +1,316 @@
+srand函数是随机数发生器的初始化函数。
+原型：void srand(unsigned seed);
+用法：它需要提供一个种子，这个种子会对应一个随机数，如果使用相同的种子后面的rand()函数会出现一样的随机数。
+如： srand(1); 直接使用1来初始化种子。不过为了防止随机数每次重复，常常使用系统时间来初始化，
+即使用 time函数来获得系统时间，它的返回值为从 00:00:00 GMT, January 1, 1970 到现在所持续的秒数，
+然后将time_t型数据转化为(unsigned)型再传给srand函数，即： srand((unsigned) time(&t)); 还有一个经常用法，
+不需要定义time_t型t变量,即： srand((unsigned) time(NULL)); 直接传入一个空指针，因为你的程序中往往并不需要经过参数获得的t数据。
+例子：#include <stdlib.h>
+#include <stdio.h>
+#include <time.h> /*用到了time函数，所以要有这个头文件*/
+#define MAX 10
+int main( void)
+{
+int number[MAX] = {0};
+int i;
+srand((unsigned) time(NULL)); /*播种子*/
+for(i = 0; i < MAX; i++)
+{
+number[i] = rand() % 100; /*产生100以内的随机整数*/
+printf("%d ", number[i]);
+}
+printf("\n");
+return 0;
+}
+************************************************
+1.源自 头文件<conio.h>
+ 
+2. 原型：extern int kbhit(void);
+  
+   用法：#include <stdio.h>
+  
+   功能：检测按键
+  
+   说明：检测键盘是否有键按下。
+         如果有键按下，则返回对应键值；否则返回零。
+         kbhit不等待键盘按键。无论有无按键都会立即返回。
+  
+   举例：
+
+       // kbhit.c
+      
+       #include <stdio.h>
+
+       main()
+       {
+         int i=0;
+        
+         clrscr();
+        
+         while(!kbhit())
+         {
+           clrscr();
+           printf("%05d",i++);
+         }
+        
+         clrscr();
+         printf("End.");
+        
+         getchar();
+         return 0;
+       }
+      
+3.kbhit()检测键盘是否有键按下,并工作在非阻塞模式下(即不等待状态,如果没有键按下,
+函数立即返回),如果有键按下,函数返回按键的ACSII码,
+**************************************************************************************************************
+fflush(stdin) 会清空输入缓冲区中的内容，读取时输入缓冲区中的内容会被scanf函数逐个取走，
+正常case下scanf()函数可以根据返回值判断成功取走的数目；当发生异常读取的时候，如应该读取一个整形，
+结果输入缓冲区内当前的内容是个字符串，发生读取异常。发生读取异常之后，输入缓冲区中的内容并未被取走，那么下次循环之时，
+scanf()函数发现输入缓冲区中有内容（显然编译器不会关心这个内容是不是合法），于是不再等待user输入，
+直接尝试读取输入缓冲区中的内容，显而易见的又是一次读取异常，如此反复。
+***************************************************************************************************************
+
+/*
+
+		1.数据设计
+		2.模块化设计
+		3.实现过程
+
+*/
+#include "stdafx.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<windows.h>   			//光标设置的API   =
+#include<time.h>			//食物随机
+#include<conio.h>			//按键监控
+
+//辅助宏定义
+#define MAPHEIGHT 25	  //窗口高			
+#define MAPWIDTH 60		  //窗口宽
+#define SNAKESIZE 50      //蛇的最大节数
+
+
+
+//		数据设计
+/////////////////////////////////////
+//		食物的结构体
+struct
+{
+	//用坐标与定位食物
+	int x;
+	int y;
+}food;
+//////////////////////////////////////
+//蛇的结构体
+struct
+{
+	//记录每一节蛇的坐标
+	int x[SNAKESIZE];
+	int y[SNAKESIZE];
+	int len;		//蛇的长度
+	int speed;		//蛇的移动速度
+}snake;
+
+////////////////////////////////////
+//		全局变量
+char key='a';		//初始化蛇的移动方向
+int changeFlag=0;	//蛇的变化标记
+
+
+//模块化设计--->功能的划分--->抽象到函数
+///////////////////////////////////////////
+//		怎么抽象：具体了解业务逻辑
+///////////////////////////////////////////
+//1.画地图
+void drawMap();
+//2.食物的产生
+void createFood();
+//3.按键操作
+void keyDown();
+//4.蛇的状态
+int snakeStatus();
+//5.辅助函数：光标移动
+void gotoxy(int x,int y);	//TC是有这个函数，现已淘汰，需自己实现
+
+int main()
+{
+	drawMap();
+	while(1)
+	{
+		createFood();
+		Sleep(snake.speed);
+		keyDown();
+		if(snakeStatus())
+			break;
+		
+	}
+	gotoxy(MAPWIDTH/2-9,MAPHEIGHT/2);
+	printf("游戏结束！");
+	system("pause");
+	return 0;
+}
+
+//1.画地图
+void drawMap()
+{
+	//蛇身：▓ 食物：◎ 围墙：◆
+	srand((unsigned int)time(NULL));         //随机函数种子
+	// 1.圈地
+	//1.1左右边框
+	for(int i=0;i<MAPHEIGHT;i++)
+	{
+		gotoxy(0,i);
+		printf("◆");
+		gotoxy(MAPWIDTH-2,i);
+		printf("◆");
+	}
+	//1.2上下边框 PS：“◆”占用两个字符
+	for(int i=2;i<=MAPWIDTH-4;i+=2)
+	{
+		 gotoxy(i,0);
+		 printf("◆");
+		 gotoxy(i,MAPHEIGHT-1);
+		 printf("◆");
+	}
+	//2.画蛇
+	//2.1蛇的属性
+	snake.len=3;
+	snake.speed=200;
+	//开始蛇头在中心
+	snake.x[0]=MAPWIDTH/2;
+	snake.y[0]=MAPHEIGHT/2;
+
+	//2.2画蛇
+	//蛇头
+	gotoxy(snake.x[0],snake.y[0]);
+	printf("●");
+	//身体
+	for(int k=1;k<snake.len;k++)
+	{
+		snake.x[k]=snake.x[k-1]+2;
+		snake.y[k]=snake.y[k-1];
+		gotoxy(snake.x[k],snake.y[k]);
+		printf("▓");
+	}
+	//3.画食物
+	//3.1确定坐标
+	food.x=rand()%(MAPWIDTH-5)+2;
+	food.y=rand()%(MAPHEIGHT-2)+1;
+	//3.2根据坐标画出食物
+	gotoxy(food.x,food.y);
+	printf("◎");  
+}
+
+//2.食物的产生
+void createFood()
+{
+	//蛇把食物吃了
+	if(snake.x[0]==food.x&&snake.y[0]==food.y)
+	{
+		while(1)
+		{
+			int flag=1;     //标记食物出现是否合适
+			srand((unsigned int)time(NULL));
+			food.x=rand()%(MAPWIDTH-5)+2;
+			food.y=rand()%(MAPHEIGHT-2)+1;
+			for(int i=0;i<snake.len;i++)
+			{
+				if((snake.x[i]==food.x&&snake.y[i]==food.y)||food.x%2==1)	//食物出现在蛇身上或食物X坐标为奇数时，重新出现食物
+				{
+					flag=0;
+					break;
+				}
+			}
+			if(flag)
+				break;
+		}
+		gotoxy(food.x,food.y);
+		printf("◎");
+		snake.len++;
+		changeFlag=1;      //蛇吃到食物的标记是1
+	}
+}
+
+//3.按键操作
+void keyDown()
+{
+	//无按键的处理
+	if(_kbhit())		//kbhit()有按键按下则返回按键值，否则返回0
+	{
+		fflush(stdin);
+		char judge=_getch();
+		//按反方向无用
+		if((key=='W' || key=='w' || key == 's' ||key== 'S') && (judge=='a' || judge=='A' || judge=='d' || judge=='D') ){
+			key=judge;
+		}
+		if((key=='A' || key=='a' || key == 'D' ||key== 'd') && (judge=='W' || judge=='w' || judge=='S' || judge=='s') ){
+			key=judge;
+		}
+	}
+	//擦除后面的位置
+	if(!changeFlag)		//如果蛇没有变化
+	{
+		gotoxy(snake.x[snake.len-1],snake.y[snake.len-1]);
+		printf("  ");
+	}
+	//后面的蛇身
+	for(int i=snake.len-1;i>0;i--)
+	{
+		snake.x[i]=snake.x[i-1];
+		snake.y[i]=snake.y[i-1];
+	}
+	//移动方向的处理
+	switch(key)
+	{
+	case'w':
+	case'W':
+		snake.y[0]--;
+		break;
+	case's':
+	case'S':
+		snake.y[0]++;
+		break;
+	case'a':
+	case'A':
+		snake.x[0]-=2;
+		break;
+	case'd':
+	case'D':
+		snake.x[0]+=2;
+		break;                                                                                                                                                                                           
+	}
+	gotoxy(snake.x[0],snake.y[0]);
+	printf("●");
+	gotoxy(snake.x[1],snake.y[1]);
+	printf("▓");
+	changeFlag=0;
+	gotoxy(MAPWIDTH+2,0 );	//移开光标
+}
+
+//4.蛇的状态
+int snakeStatus()
+{
+	if(snake.x[0]==0||snake.y[0]==0||snake.x[0]==MAPWIDTH-2||snake.y[0]==MAPHEIGHT-1)		//蛇头撞墙
+		return 1; 
+	for(int i=1;i<snake.len;i++)
+	{
+		if(snake.x[0]==snake.x[i]&&snake.y[0]==snake.y[i])		//蛇头撞自己
+			return 1;   
+	}
+	return 0;  
+}
+
+//5.辅助函数：光标移动
+void gotoxy(int x,int y)
+{
+	//调用win32API去设置控制台的光标位置
+	//1.找到控制台的这个窗口
+	HANDLE handle=GetStdHandle(STD_OUTPUT_HANDLE);
+	//2.光标的结构体
+	COORD coord;
+	//3.设置光标
+	coord.X=x;
+	coord.Y=y;
+	//4.同步到控制台
+	SetConsoleCursorPosition(handle,coord);
+}

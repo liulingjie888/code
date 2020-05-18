@@ -1,0 +1,33 @@
+List<People>  peoples=LitePalSupport.findAll (People.class);		//查询所有
+
+People  people=LitePalSupport.findFirst (People.class);		//查询第一条
+
+People  people=LitePalSupport.findLast(People.class);		//查询最后一条
+
+List<People>  peoples=LitePalSupport.select("name","sex").find (People.class);		//指定字段查询所有
+
+List<People>  peoples=LitePalSupport.where("name=?","刘凌杰").find(People.class);	//指定查询
+
+List<People>  peoples=LitePalSupport.order("sex asc").find (People.class);		//指定字段排序查询
+
+List<People>  peoples=LitePalSupport.limit( 3 ).find (People.class);			//查询前3行
+
+List<People>  peoples=LitePalSupport.limit( 3 ).offset(int 开始下标).find (People.class);	//从指定下标开始查询3行
+
+List<People>  peoples=LitePalSupport.select("name","sex")		//联合查询
+			.where("sex>?","6")
+			.order("sex asc")
+			.limit( 5 )
+			.offset( 3 )
+			.find(People.class);		
+
+--------------------------------经典查询
+
+Cursor cursor=LitePalSupport.findBySQL("SQL语句");
+
+方法:
+cursor.getCount();		//返回记录数
+cursor.moveToFirst();	//移至第一行记录
+cursor.moveToNext();	//移至下一行且判断是否为空
+cursor.getString(下标);	//获取数据
+cursor.getColumnIndex("字段名");	//获取该字段在结果中的下标

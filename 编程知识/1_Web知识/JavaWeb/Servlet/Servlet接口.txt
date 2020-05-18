@@ -1,0 +1,38 @@
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+Servlet接口方法：
+// 容器创建好Servlet对象好会调用此方法
+void init(SerletConfig config)
+//用于获取Servlet对象的配置信息
+ServletConfig getServletConfig()
+//返回关于Servlet的信息，例如作者、版本、版权等
+String getServletInfo()
+//客户端请求该Servlet时调用，负责响应客户端
+void service(ServletRequest request,ServletResponse response)
+//服务器关闭会移出该Servlet时调用
+void destory()
+--------------------------------------------------------------------------
+
+javax.servlet.GenericServlet：
+GenericServlet是一个抽象类，它为Servlet接口提供了部分实现，但没有实现HTTP请求处理
+----------------------------------------------------------------------------
+
+javax.servlet.http.HttpServlet：
+HttpServlet是GennericServlet的子类，并实现了处理POST、GET等HTTP请求的方法：
+//处理get方法的HTTP请求
+protected void doGet(HttpServletRequest req,HttpServletResponse  resp)
+//处理post方法的HTTP请求	
+protected void doPost(HttpServletRequest req,HttpServletResponse  resp)
+//处理put方法的HTTP请求
+protected void doPut(HttpServletRequest req,HttpServletResponse  resp)
+--------------------------------------------------------------------------
+
+HttpServlet源码解析:
+service(ServletRequest req,ServletResponse  resp)方法中将Servlet~转换成Http~对象--->
+service(HttpServletRequest req,HttpServletResponse  resp)--->
+doGet方法、doPost方法等（我们只要实现这些方法就行）
+--------------------------------------------------------------------------
+
+

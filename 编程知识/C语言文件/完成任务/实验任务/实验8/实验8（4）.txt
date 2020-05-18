@@ -1,0 +1,25 @@
+#include<stdio.h>
+int main()
+{
+	int i,j,t,a[10];
+	for(i=0;i<10;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	printf("输入完毕！");
+	for(i=0;i<9;i++)
+	{
+		for(j=i;j<9;j++)
+		{
+			if(a[i]>a[j+1])
+			{
+				t=a[i];
+				a[i]=a[j+1];
+				a[j+1]=t;
+			}
+		}
+	}
+	for(i=0;i<10;i++)
+	printf("%5d",a[i]);
+	return 0;
+}

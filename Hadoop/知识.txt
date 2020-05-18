@@ -1,0 +1,9 @@
+Hadoop提供了如下内容的数据类型，这些数据类型都实现了WritableComparable接口，以便用这些类型定义的数据可以被序列化进行网络传输和文件存储，以及进行大小比较。
+BooleanWritable：标准布尔型数值
+ByteWritable：单字节数值
+DoubleWritable：双字节数
+FloatWritable：浮点数
+IntWritable：整型数
+LongWritable：长整型数
+Text：使用UTF8格式存储的文本
+NullWritable：当<key,value>中的key或value为空时使用

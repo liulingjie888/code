@@ -1,0 +1,41 @@
+form加上enctype="multipart/form-data"，表示提交的数据是二进制的.
+文件会直接封装到doc类中
+===================
+Action类：
+public class UploadAction {
+ 
+    File doc;				//doc是表单上传文件的输入框的name值
+    String docFileName;
+    String docContentType;
+ 
+    public File getDoc() {
+        return doc;
+    }
+ 
+    public void setDoc(File doc) {
+        this.doc = doc;
+    }
+ 
+    public String getDocFileName() {
+        return docFileName;
+    }
+ 
+    public void setDocFileName(String docFileName) {
+        this.docFileName = docFileName;
+    }
+ 
+    public String getDocContentType() {
+        return docContentType;
+    }
+ 
+    public void setDocContentType(String docContentType) {
+        this.docContentType = docContentType;
+    }
+ 
+    public String upload() {
+        System.out.println(doc);
+        System.out.println(docFileName);
+        System.out.println(docContentType);
+        return "success";
+    }
+}

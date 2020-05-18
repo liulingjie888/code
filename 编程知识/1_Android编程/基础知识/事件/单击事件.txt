@@ -1,0 +1,9 @@
+import android.view.View;
+
+控件.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                · · · · · ·
+	v.getId();		//获取点击控件的id
+            }
+});

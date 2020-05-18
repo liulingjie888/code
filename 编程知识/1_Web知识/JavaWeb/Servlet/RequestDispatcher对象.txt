@@ -1,0 +1,8 @@
+---------------------------------------------------------服务端请求发---------------------------------------------------
+request.getRequestDispatcher("相对路径?name=value").forward(request, response);
+相对目录必须以根目录/开头
+forward是服务器请求资源,服务器直接访问目标地址的Servlet并且当前后面代码不再执行,通过request传递信息，那个Servlet处理后负责响应浏览器
+浏览器根本不知道服务器发送的内容从哪里来的,所以它的地址栏还是原来的地址.
+
+request.getRequestDispatcher("相对路径?name=value").include(request, response);
+与前面的不同，它会将本身的响应信息加上跳转的Servlet的响应消息一起发送给客户端，响应消息顺序以当前Servlet代码顺序，且以当前Servlet负责响应浏览器

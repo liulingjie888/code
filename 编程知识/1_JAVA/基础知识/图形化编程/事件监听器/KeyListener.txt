@@ -1,0 +1,26 @@
+键盘监听器： KeyListener
+keyPressed 		代表 键被按下
+keyReleased 		代表 键被弹起
+keyTyped 代		表 一个按下弹起的组合动作
+KeyEvent.getKeyCode() 	可以获取当前点下了哪个键
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+组件.addKeyListener(new KeyListener() {
+  
+            // 键被弹起
+            public void keyReleased(KeyEvent e) {
+  	……
+            }
+  
+            //键被按下
+            public void keyPressed(KeyEvent e) {
+               	……
+            }
+  
+            // 一个按下弹起的组合动作
+            public void keyTyped(KeyEvent e) {
+  	……
+            }
+        });

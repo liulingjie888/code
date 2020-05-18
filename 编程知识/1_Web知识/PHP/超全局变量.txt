@@ -1,0 +1,30 @@
+ $_POST		
+$_GET
+$_REQUEST	包含了$_POST、$_GET和$_COOKIE三类数组中的信息
+$_SERVER		获取HTTP请求中的环境变量信息
+$_SESSION	存取和读取为单个用户保存的信息''
+$_COOKIE	读取用户的cookie信息-
+$_FILE		获取通过POST方式上传文件的相关信息，为多维数组
+$_ENV		获取服务器名称和系统shell等与服务器相关的信息
+---------------------------------------------------
+$_SERVER['REMOTE_ADDR']		获取用户ip地址
+$_SERVER['HTTP_PEFERER']		获取用户的来路（比如通过哪个网页进来）
+
+--------------------$_SESSION常量--------------------------------
+//网页在使用$_SESSION常量要在最前面添加：
+session_start();
+//取消某个或全部$_SESSION常量
+session_unset();
+//销毁所有$_SESSION常量
+session_destroy();
+
+--------------------$_COOKIE常量--------------------------------
+//设置与读取$_COOKIE
+setcookie("user[name]",值,time()+intval(多少秒));
+$_COOKIE['user']['name']
+
+//遍历
+foreach($_COOKIE['user'] as $key=>$value){
+	setcookie("user[$key]","");
+//销毁
+setcookie("user['name']","");

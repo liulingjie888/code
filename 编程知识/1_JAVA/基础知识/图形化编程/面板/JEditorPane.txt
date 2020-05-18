@@ -1,0 +1,64 @@
+﻿import javax.swing.JEditorPane;
+
+构造函数
+
+JEditorPane() 
+			//创建一个新的 JEditorPane。
+
+
+JEditorPane(String url) 		//根据包含 URL 规范的字符串创建一个 JEditorPane。
+
+
+JEditorPane(String type, String text) 
+ 	//创建一个已初始化为给定文件的 JEditorPane。
+
+
+JEditorPane(URL initialPage)		//根据用作输入的指定 URL 创建一个 JEditorPane。
+
+
+
+
+常用方法
+
+addHyperlinkListener(HyperlinkListener listener) 	//为了通知所有的更改（例如选中和进入某个链接）而添加一个超链接侦听器。
+
+
+getContentType() 
+	   		//获得设置此编辑器当前要处理的内容类型。
+
+
+getEditorKit() 
+			//获取用于处理内容的、当前已安装的工具包。
+
+getPage() 
+ 			//获得当前正在显示的 URL。
+
+
+getPreferredSize()  			//返回该 JEditorPane 的首选大小。
+
+
+getText()  			//根据此编辑器的内容类型返回此 TextComponent 中所包含的文本。
+
+
+getStream(URL page) 
+ 		//获取给定 URL 的流，该 URL 是将要由 setPage 方法加载的。
+
+
+scrollToReference(String reference) 	//将视图滚动到给定的参考位置（也就是正在显示的 URL 的 UL.getRef 方法所返回的值）。
+
+
+setContentType(String type)  		//设置此编辑器所处理的内容类型。
+
+
+setEditorKit(EditorKit kit) 
+ 		//设置当前为处理内容而安装的工具包。
+
+
+setPage(String url) 
+			//设置当前要显示的 URL。
+
+
+setPage(URL page)  		//设置当前要显示的 URL。
+
+
+setText(String t)			//将此 TextComponent 的文本设置为指定内容，预期以此编辑器的内容类型格式提供该内容。

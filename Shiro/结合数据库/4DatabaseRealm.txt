@@ -1,0 +1,46 @@
+
+DatabaseRealm 就是用来通过数据库 验证用户，和相关授权的类。
+两个方法分别做验证和授权：doGetAuthenticationInfo(), doGetAuthorizationInfo()
+
+
+public class DatabaseRealm extends AuthorizingRealm {
+
+    //授权（给予该用户权限和角色）
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        //获取用户名（能进入到这里，表示账号已经通过验证了）
+        String userName =(String) principalCollection.getPrimaryPrincipal();
+        //获取用户的所有角色和权限
+        Set<String> permissions = new Dao().listPermissions(userName);
+        Set<String> roles = new Dao().listRoles(userName);
+
+        //授权对象
+        SimpleAuthorizationInfo s = new SimpleAuthorizationInfo();
+        //把通过DAO获取到的角色和权限放进去
+        s.setStringPermissions(permissions);
+        s.setRoles(roles);
+        return s;
+    }
+    
+    //验证（用户输入的账号和密码和数据库的密码作比较来判断是否校验成功）
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        //获取账号（token中的账号和密码是用户输入的）
+        UsernamePasswordToken t = (UsernamePasswordToken) token;
+        String userName= token.getPrincipal().toString();
+        //获取密码
+        String password= new String( t.getPassword());
+        
+        //获取数据库中的密码
+        String passwordInDB = new Dao().getPassword(userName);
+
+        //如果为空就是账号不存在，如果不相同就是密码错误，但是都抛出AuthenticationException，而不是抛出具体错误原因，免得给破解者提供帮助信息
+        if(null==passwordInDB || !passwordInDB.equals(password))
+            throw new AuthenticationException();
+
+        //认证信息里存放账号密码, getName() 是当前Realm的继承方法,通常返回当前类名 :databaseRealm
+        SimpleAuthenticationInfo a = new SimpleAuthenticationInfo(userName,password,getName());
+        return a;
+    }
+
+}

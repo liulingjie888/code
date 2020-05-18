@@ -1,0 +1,16 @@
+ProgressDialog
+import android.app.ProgressDialog
+
+ProgressDialog prodialog=new ProgreaaDialog(this);	//this为activity对象
+
+属性
+
+setTitle("标题")
+setIcon(R.mipmap.ic_launcher);
+setMessage("提示信息")
+show()
+
+//将进度条样式设为水平，ProgressDialog.STYLE_SPINNER为圆形进度条
+setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+//false表示不能通过取消键取消
+setCancelable(false);			

@@ -1,0 +1,43 @@
+jar下载地址：http://commons.apache.org/proper/commons-dbutils/index.html
+继承ResultSetHandler接口的类：
+
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.haddlers.BeanListHandler;
+
+BeanHandler：将结果集中的第一行数据都封装到一个对应的JavaBean实例中：
+BeanHandler  bh=new BeanHandler( JavaBean类.class );
+Object obj=bh.handle( JavaBean类对应的结果集 );.
+JavaBean类  bean=(JavaBean类)obj;
+
+BeanListHandler：将结果集中的每一行数据都封装到一个对应的JavaBean实例中：
+BeanListHandler  blh=new BeanListHandler( JavaBean类.class );
+Object obj=blh.handle( JavaBean类对应的结果集 );.
+ArrayList<JavaBean类>  bean=(ArrayList<JavaBean类>)obj;
+
+ScalarHandler：将结果集的某一条记录的其中一列存储成Object对象：
+ScalarHandler sh=new ScalarHandler("字段");
+Object obj=sh.handle( JavaBean类对应的结果集 );
+String bean=(String)obj;
+
+这些类可以用ResultSetHandler<?>表示
+---------------------------------------------------------------------------
+
+QueryRunner类
+import org.apache.commons.dbutils.QueryRunner;
+构造方法：
+QueryRunner( javax.sql.DataSource接口 );
+方法：
+//将结果封装在Javabean（Object）中返回
+query("SQL语句",ResultSetHandler  rsh, Object... params);
+
+
+QueryRunner runner=new QuerRunner(DataSource数据源);
+sql="select * from user";
+List lsit=(List)runner.query(sql,new BeanListHandler(User.class));
+
+sql="select * from user where id=?"
+User user=(User)runner.query(sql,new BeanHandler(User.class),new Object[]{id});//没有为null
+
+//返回受影响的行数
+int update("SQL语句",Object... params);
+int updata("SQL语句");

@@ -1,0 +1,45 @@
+define("PI","3.14")
+define("SIZE","5",true)	不区分大小写
+defined("PI")		判断是否被定义过，是返回1
+
+__FILE__		存储当前脚本的物理路径及文件名
+__LINE__		存储该常量所在的行号
+__FUNCTION__	存储该常量所在的函数名称
+PHP_VERSION	存储当前PHP的版本号
+PHP_OS		存储当前服务器的操作系统名、
+
+变量的生存周期
+全局变量在函数中要继续引用则要用global声明，用完之后 用unset(变量)销毁，很占资源
+
+静态变量		能够在函数结束后仍然保留变量的值
+static  变量
+
+可变变量：
+$a='b';
+$b=''一个变量";
+echo $$a;		相当于$b
+
+引用赋值：
+$b=&$a;		改变$b等于改变$a
+
+界定符：
+echo <<<STD
+字符串……
+STD;			双引号不用转义就能显示
+
+强制类型转换
+（数据类型）变量
+Boolean 转换成string 	false转换成""  true转换成"1"
+
+echo是以字符串输出的
+
+include(paht/filename)
+编译器会将该文件的所有代码嵌入到该语句所在的位置
+include嵌套HTML文件时，相当于在其前加?>其后加<?
+
+include_once()
+如果该文件的代码以经包含过则不会再包含
+
+require()
+require_once()
+方法与include一样，区别在于包含文件存在问题时，require会出现报错并终止程序，include只会抛出警告信息并继续执行

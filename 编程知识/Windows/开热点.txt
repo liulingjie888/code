@@ -1,0 +1,4 @@
+netsh wlan set hostednetwork mode=allow
+netsh wlan set hostednetwork ssid=wifi名
+netsh wlan set hostednetwork key =密码
+netsh wlan set hostednetwork

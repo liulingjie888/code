@@ -1,0 +1,29 @@
+工具栏JToolBar
+工具栏可以放控件
+默认情况下 工具栏可以通过鼠标拖动,
+
+import javax.swing.JToolBar;        JFrame f = new JFrame("LoL");
+        f.setSize(400, 300);
+        f.setLocation(200, 200);
+        
+        addMenu(f);		// 自定义函数添加菜单
+ 
+        JToolBar tb = new JToolBar();		// 工具栏
+        
+        JButton b1 = new JButton(new ImageIcon("e:/project/j2se/1.jpg"));	//按钮添加图片
+        JButton b2 = new JButton(new ImageIcon("e:/project/j2se/2.jpg"));
+        
+        tb.add(b1);	// 为工具栏增加按钮
+        tb.add(b2);
+        
+        b1.setToolTipText("坑爹英雄");	//当鼠标放在按钮上的时候会出现提示
+        tb.setFloatable(false)可以禁止鼠标拖动功能
+        ……
+
+  
+
+ 
+
+
+
+

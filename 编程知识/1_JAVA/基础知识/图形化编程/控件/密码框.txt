@@ -1,0 +1,16 @@
+JPasswordField 密码框 
+与文本框不同，获取密码框里的内容，推荐使用getPassword，该方法会返回一个字符数组，而非字符串
+
+import javax.swing.JPasswordField;
+
+        ……
+        // 密码框
+        JPasswordField pf = new JPasswordField("");
+        pf.setText("&48kdh4@#");		//设置文本信息
+        pf.setPreferredSize(new Dimension(80, 30));
+ 
+        // 与文本框不同，获取密码框里的内容，推荐使用getPassword，该方法会返回一个字符数组，而非字符串
+        char[] password = pf.getPassword();	//获取密码内容
+        String p = String.valueOf(password);	//转换成字符串
+        System.out.println(p);
+       ……

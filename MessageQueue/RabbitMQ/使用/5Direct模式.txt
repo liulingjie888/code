@@ -1,0 +1,70 @@
+Direct交换机根据消息的routekey将其放入对应的队列
+
+sender：
+public class DirectSender {
+
+    private static final String EXCHANGE = "test_exchange_direct1";
+
+    public static void main(String[] args) {
+        Connection con = null;
+        Channel channel = null;
+        try {
+            // 获取连接
+            con = ConnectionUtils.getConnection();
+            // 从连接中创建通道
+            channel = con.createChannel();
+            // 声明交换机,采用direct类型
+            channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.DIRECT,false,false,null);
+            // 消息
+            String msg = "你好 exchange direct!";
+            // 发送消息,指定路由键
+            channel.basicPublish(EXCHANGE, "info", null, msg.getBytes());
+            System.out.println("send success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭连接
+            ConnectionUtils.close(channel, con);
+        }
+    }
+}
+
+
+recver:
+public class DirectRecver1{
+    private static final String EXCHANGE = "test_exchange_direct1";
+    private static final String QUEUE = "test_queue_direct_2";
+
+    public static void main(String[] args) throws IOException, TimeoutException {
+        // 获取连接
+        Connection con = ConnectionUtils.getConnection();
+        // 从连接中创建通道
+        final Channel channel = con.createChannel();
+        // 声明队列
+        channel.queueDeclare(QUEUE, true, false, false, null);
+        // 绑定交换机,指定路由键为error,info,warning
+        channel.queueBind(QUEUE, EXCHANGE, "error");
+        channel.queueBind(QUEUE, EXCHANGE, "info");
+        channel.queueBind(QUEUE, EXCHANGE, "warning");
+        // 保证一次只分发一条消息
+        channel.basicQos(1);
+        // 创建消费者
+        Consumer consumer = new DefaultConsumer(channel) {
+            // 获取消息
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
+                    throws IOException {
+                String msg = new String(body, "utf-8");
+                System.out.println("Recver2接收到消息——" + msg);
+                // 手动确认消息
+                channel.basicAck(envelope.getDeliveryTag(), false);
+            }
+
+        };
+        // 监听队列
+        channel.basicConsume(QUEUE, false, consumer);
+    }
+}
+

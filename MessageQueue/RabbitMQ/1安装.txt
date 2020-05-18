@@ -1,0 +1,71 @@
+
+============================ubuntu安装
+
+由于rabbitMq使用erlang语言开发，在安装rabbitMq之前需要安装erlang
+sudo apt-get install erlang
+
+1查看erlang版本
+sudo erl
+
+2安装rabbitMq
+sudo apt-get install rabbitmq-server
+
+3要查看服务器状态
+sudo rabbitmq
+
+4启用后台管理插件
+sudo rabbitmq-plugins enable rabbitmq_management
+
+队列数据迁移插件
+sudo rabbitmq-plugins enable rabbitmq_shovel
+sudo rabbitmq-plugins enable rabbitmq_shovel_management
+
+
+安装完成后系统默认启动。
+
+用户管理
+安装完成后在rabbitMQ中添加用户
+sudo rabbitmqctl add_user 用户名 密码
+
+创建和赋角色完成后查看并确认
+sudo rabbitmqctl list_users
+
+将用户设置为管理员（只有管理员才能远程登录）
+sudo rabbitmqctl set_user_tags 用户名 administrator
+
+同时为用户设置读写等权限
+sudo rabbitmqctl set_permissions -p /  用户名 '.*' '.*' '.*'
+
+安装完成
+使用以下链接：http://localhost:15672 进入插件提供的管理界面，用户名密码为上一步设置的用户名与密码（默认密码guest/guest;admin/admin@zh）
+
+常用命令
+sudo systemctl restart rabbitmq-server
+sudo systemctl start rabbitmq-server
+sudo systemctl stop rabbitmq-server
+
+============================在CentOS安装
+1.安装erlang环境
+yum -y install epel-release
+yum -y install erlang
+验证：
+yum info erlang
+
+2.安装rbbitMQ
+yum -y install socat
+wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.10/rabbitmq-server-3.6.10-1.el7.noarch.rpm
+rpm -Uvh rabbitmq-server-3.6.10-1.el7.noarch.rpm
+
+3.安装页面访问的管理插件
+rabbitmq-plugins enable rabbitmq_management
+
+4.修改/usr/lib/rabbitmq/lib/rabbitmq_server-3.6.10/ebin/rabbit.app文件：
+ 将：
+{loopback_users, [<<”guest”>>]}
+ 改为：
+{loopback_users, []}
+原因：rabbitmq从3.3.0开始禁止使用guest/guest权限通过，除localhost外的访问
+
+5.通过http://liulingjie.cn:15672/#/访问，用户和密码均为guest
+
+

@@ -1,0 +1,34 @@
+
+============================TriggerListener
+任务调度过程中，与触发器Trigger相关的事件包括：触发器触发、触发器未正常触发、触发器完成等。TriggerListener的接口如下：
+
+public interface TriggerListener {
+
+    //用于获取触发器的名称
+    public String getName();
+
+    //当与监听器相关联的Trigger被触发，Job上的execute()方法将被执行时，Scheduler就调用该方法。
+    public void triggerFired(Trigger trigger, JobExecutionContext context);
+
+    //在 Trigger 触发后，Job 将要被执行时由 Scheduler 调用这个方法。TriggerListener 给了一个选择去否决 Job 的执行。假如这个方法返回 true，这个 Job 将不会为此次 Trigger 触发而得到执行，同时job触发器的jobExecutionVetoed方法会触发
+    public boolean vetoJobExecution(Trigger trigger, JobExecutionContext context);
+
+    //Scheduler 调用这个方法是在 Trigger 错过触发时。你应该关注此方法中持续时间长的逻辑：在出现许多错过触发的 Trigger 时，长逻辑会导致骨牌效应。你应当保持这上方法尽量的小。
+    public void triggerMisfired(Trigger trigger);
+
+    //Trigger 被触发并且完成了 Job 的执行时，Scheduler 调用这个方法。
+    public void triggerComplete(Trigger trigger, JobExecutionContext context,int triggerInstructionCode);
+}
+
+
+=========================注册监听器的3中方式
+// 创建并注册一个全局的Trigger Listener
+scheduler.getListenerManager().addTriggerListener(实现TriggerListener接口的类, EverythingMatcher.allTriggers());
+        
+// 创建并注册一个局部的Trigger Listener
+scheduler.getListenerManager().addTriggerListener(new SimpleTriggerListener("SimpleTrigger"), KeyMatcher.keyEquals(TriggerKey.triggerKey("HelloWord1_Job", "HelloWorld1_Group")));
+        
+// 创建并注册一个特定组的Trigger Listener
+scheduler.getListenerManager().addTriggerListener(new SimpleTriggerListener("SimpleTrigger"), GroupMatcher.groupEquals("HelloWorld1_Group"));
+
+

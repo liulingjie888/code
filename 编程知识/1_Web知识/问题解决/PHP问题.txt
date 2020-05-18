@@ -1,0 +1,4 @@
+PHP 出现 The requested URL was not found on this server 怎么办？
+
+1，找到apache配置文件httpd.conf配置文件中的AllowOverride none
+	改成Options Indexes FollowSymLinks

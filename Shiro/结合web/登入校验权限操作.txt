@@ -1,0 +1,85 @@
+
+理解：
+1.subject.login(token)会将用户的账号和密码交给AuthorizingRealm类；
+2.再调用其doGetAuthenticationInfo方法进行检验，
+  所以通常从数据库中取出用户和密码在该方法中与传入的token检验。
+  如果检验失败则抛出new AuthenticationException()异常；
+  成功则返回存放账号密码认证对象SimpleAuthenticationInfo("用户名","密码")。
+4.成功后会进入其 doGetAuthorizationInfo方法，我们在这将用户的角色和权限进行添加。
+5.用户的session就会将他的subject（存放了用户的角色和权限信息）通过setAttribute("subject", subject)保存下来。
+6.此时subject.principal为非空值，通过这个来判断是否登入过。
+7.要退出登入则访问shiro.ini文件中logout指定的url（如/doLogout=logout则表示访问/doLogout退出登入）
+注意退出只是撤销了他的角色和权限，session没有并销毁。
+=======================web.xml的webapp标签下加入：
+ <listener>
+        <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>shiroEnvironmentClass</param-name>
+        <param-value>org.apache.shiro.web.env.IniWebEnvironment</param-value><!-- 默认先从/WEB-INF/shiro.ini，如果没有找classpath:shiro.ini -->
+    </context-param>
+    <context-param>
+        <param-name>shiroConfigLocations</param-name>
+        <param-value>classpath:shiro.ini</param-value>
+    </context-param>
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+=======================验证登入的servlet
+@WebServlet(name = "loginServlet", urlPatterns = "/login")
+public class LoginServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+            
+        String name = req.getParameter("name");
+        String password = req.getParameter("password");
+        
+        Subject subject = SecurityUtils.getSubject();
+        
+        UsernamePasswordToken token = new UsernamePasswordToken(name, password);
+        try {
+            subject.login(token);			//登入成功后记录下subject（此时subject.principal为非空值，通过这个来判断是否登入过）
+            Session session=subject.getSession();
+            session.setAttribute("subject", subject);
+
+            resp.sendRedirect("");			//成功后跳转到你想要的界面
+        } catch (AuthenticationException e) {
+            req.setAttribute("error", "验证失败");	//校验失败报异常
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+        }
+    }
+}
+
+=========================url规划（写入shiro.ini）
+
+[main]
+databaseRealm=shiro.DatabaseRealm
+securityManager.realms=$databaseRealm
+
+#当访问需要验证的页面，但是又没有验证的情况下，跳转到login.jsp
+authc.loginUrl=/login.jsp
+#当访问需要角色的页面，但是又不拥有这个角色的情况下，跳转到noroles.jsp
+roles.unauthorizedUrl=/noRoles.jsp
+#当访问需要权限的页面，但是又不拥有这个权限的情况下，跳转到noperms.jsp
+perms.unauthorizedUrl=/noPerms.jsp
+
+#users，roles和perms都通过前面知识点的数据库配置了
+[users]
+
+#urls用来指定哪些资源需要什么对应的授权才能使用
+[urls]
+
+/doLogout=logout		#/访问doLogout地址就会进行退出行为（撤销用户的角色和权限）
+
+/login.jsp=anon			#login.jsp,noroles.jsp,noperms.jsp 可以匿名访问
+/noroles.jsp=anon
+/noperms.jsp=anon
+
+/listProduct.jsp=authc					#查询所有产品,需要登录后才可以查看
+/deleteProduct.jsp=authc,roles[productManager]		#删除商品不仅需要登录，而且要拥有 productManager 权限才可以操作
+/deleteOrder.jsp=authc,perms["deleteOrder"]		#删除订单，不仅需要登录，而且要拥有 deleteOrder 权限才可以操作

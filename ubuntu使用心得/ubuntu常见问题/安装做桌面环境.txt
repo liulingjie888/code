@@ -1,0 +1,12 @@
+//下载
+sudo apt-get install gdm3
+sudo apt-get install lightdm
+sudo apt-get install sddm
+
+//应用
+sudo dpkg-reconfigure lightdm
+
+
+//安装budgie主题
+sudo apt update && sudo apt upgrade
+sudo apt install ubuntu-budgie-desktop

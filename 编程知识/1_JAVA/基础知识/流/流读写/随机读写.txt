@@ -1,0 +1,4 @@
+
+RandomAccessFile  file=new RandomAccessFile("文件路径");
+file.seek(5);	//向后跳5个字节
+file.write(data,0,1024);

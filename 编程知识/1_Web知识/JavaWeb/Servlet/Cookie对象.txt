@@ -1,0 +1,35 @@
+javax.servlet.http.Cookie;
+
+响应头字段：Set-Cookie: user=liulingjie; Path=/;		//属性之间用分号和空格分隔
+第一次访问服务器，服务器设置Cookie变量，放在响应头字段发送给浏览器，浏览器下次访问时会将Cookie一起发送；
+请求头字段: Cookie: user=liulingjie; Path=/;		//属性之间用分号和空格分隔
+--------------------------------------------------常见使用----------------------------------------------------
+
+Cookie cookie=new Cookie("名称","值");
+//获取请求消息的Cookie数组对象
+Cookie[] cookie=request.getCookies();
+//响应头发送cookie
+response.addCookie( Cookie对象 );
+--------------------------------------------------方法-----------------------------------------------
+
+getName()		//获取名称
+setValue("值");		//设置值
+getValue);		//获取值
+
+setMaxAge(int 秒);		//设置保存时效秒,设置负数时关闭浏览器删除，设置0为立即删除
+getMaxAge()		//获取保存失效秒
+
+setPath("路径");		//设置该Cookie的有效目录，“/”为web应用下所有都有效
+getPath();			//获取有效目录
+
+setDomain("域名");		//设置指定浏览器访问的域该Cookie才会发送，域必须以“.”开头如“.liulingjie.cn”，可以实现跨域共享Cookie
+getDomain();		//获取该Cookie的有效域
+
+setVersion(int v);		//设置采用的协议版本
+getVersion();		//获取采用的协议版本
+
+setComment("注释");	//设置Cookie的注释
+getComment();		//获取注释
+
+setSecure(boolean flag);	//设置Cookie是否只能使用安全的协议传输
+boolean getSecure();	//获取Cookie是否是只能使用安全的协议传输

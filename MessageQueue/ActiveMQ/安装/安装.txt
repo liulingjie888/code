@@ -1,0 +1,42 @@
+
+1、解压apache-activemq-5.12.1-bin.tar.gz
+ 
+2、启动,进入activemq安装目录
+	1) 普通启动方式
+	./activemq start
+	2) 启动并指定日志文件
+	./activemq start >/tmp/test
+	注：test为文件，并且test需之前存在
+	3) 后台启动方式并指定日志文件
+	nohup ./activemq start >/tmp/test
+
+3、检查activemq是否启动
+	通过activemq的web页面:http://localhost:8161
+
+ 
+
+4、关闭activemq
+	如果通过1)或2)方式启动，则直接ctrl+c直接关闭。
+　　	如果通过3)方式启动，先查找activemq在后台的进程：ps -ef | grep activemq,然后将对应的进程杀死，假设中找到的进程为8444，则kill 8444
+
+===============================密码管理
+~/conf/users.properties下:默认账户admin，密码admin
+
+=================设置密码
+一：
+ActiveMQ使用的是jetty服务器, 打开~/conf/jetty.xml文件，找到
+
+ <bean id="securityConstraint" class="org.eclipse.jetty.http.security.Constraint">
+       <property name="name" value="BASIC" />
+       <property name="roles" value="admin" />
+      <property name="authenticate" value="false" />
+ </bean> 
+roperty name为authenticate的属性value=“false” 改为"true"（有的版本已经默认设置为了true）
+
+二：
+控制台的登录用户名密码保存在～/conf/jetty-realm.properties文件中,内容如下:
+#格式是 [用户名 : 密码 ,角色名]
+admin: admin, admin
+user: user, user
+
+

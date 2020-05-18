@@ -1,0 +1,16 @@
+#include<stdio.h>
+int main()
+{
+	int i,j,score[3][4];
+	for(i=0;i<=2;i++)
+	{
+		printf("请输入第%d个学生的成绩：\n",i+1);
+		for(j=0;j<=3;j++)
+		{
+			printf("\t请输入第%d门课程的成绩：",j+1);
+			scanf("%5d",&score[i][j]);
+		}
+	
+	}
+	return 0;
+}

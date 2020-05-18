@@ -1,0 +1,79 @@
+
+概述
+Quartz的监听器用于当任务调度中你所关注事件发生时，能够及时获取这一事件的通知。类似于任务执行过程中的邮件、短信类的提醒。Quartz监听器主要有JobListener、TriggerListener、SchedulerListener三种，顾名思义，分别表示任务、触发器、调度器对应的监听器。三者的使用方法类似，在开始介绍三种监听器之前，需要明确两个概念：全局监听器与非全局监听器，二者的区别在于：全局监听器能够接收到所有的Job/Trigger的事件通知，而非全局监听器只能接收到在其上注册的Job或Trigger的事件，不在其上注册的Job或Trigger则不会进行监听。
+
+===============================================job监听器
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.JobListener;
+ 
+public class MailJobListener implements JobListener {
+ 
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return "listener of mail job";
+    }
+ 
+    @Override
+    public void jobExecutionVetoed(JobExecutionContext context) {
+        // TODO Auto-generated method stub
+        System.out.println("取消执行：\t "+context.getJobDetail().getKey());
+    }
+ 
+    @Override
+    public void jobToBeExecuted(JobExecutionContext context) {
+        // TODO Auto-generated method stub
+        System.out.println("准备执行：\t "+context.getJobDetail().getKey());
+    }
+ 
+    @Override
+    public void jobWasExecuted(JobExecutionContext context, JobExecutionException arg1) {
+        // TODO Auto-generated method stub
+        System.out.println("执行结束：\t "+context.getJobDetail().getKey());
+        System.out.println();
+    }
+ 
+}
+
+测试执行顺序：
+开始先执行4次getName方法
+//以下或会跟随job的重复而执行
+执行getName方法
+执行jobToBeExecuted方法
+执行job的execute方法
+执行getName方法
+执行jobWasExecuted方法
+
+======================================用法
+
+            Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+            Trigger trigger = newTrigger().withIdentity("trigger1", "group1") //定义名称和所属的租
+                .startNow()
+                .withSchedule(simpleSchedule()
+                    .withIntervalInSeconds(2) //每隔2秒执行一次
+                    .withRepeatCount(10)) //总共执行11次(第一次执行不基数)
+                .build();
+            JobDetail mailJob = newJob(MailJob.class) //指定干活的类MailJob
+                .withIdentity("mailjob1", "mailgroup") //定义任务名称和分组
+                .usingJobData("email", "admin@10086.com") //定义属性
+                .build();
+ 
+            //增加Job监听
+            MailJobListener mailJobListener= new MailJobListener();
+            KeyMatcher<JobKey> keyMatcher = KeyMatcher.keyEquals(mailJob.getKey());
+            scheduler.getListenerManager().addJobListener(mailJobListener, keyMatcher);	//第二个参数为EverythingMatcher.allJobs()时监听所有job
+             
+            scheduler.scheduleJob(mailJob, trigger);
+            scheduler.start();
+            Thread.sleep(20000);
+            scheduler.shutdown(true);
+    }
+
+
+其他知识
+1) 将同一任务组的任务注册到监听器中
+scheduler.getListenerManager().addJobListener(new SimpleJobListener(), GroupMatcher.jobGroupEquals("HelloWorld2_Group"));
+2) 将两个任务组的任务注册到监听器中
+scheduler.getListenerManager().addJobListener(new SimpleJobListener(), OrMatcher.or(GroupMatcher.jobGroupEquals("HelloWorld1_Group"), GroupMatcher.jobGroupEquals("HelloWorld2_Group")));
+

@@ -1,0 +1,8 @@
+import java.util.Stack;
+
+方法：
+empty();
+peek();		//获取栈顶元素
+pop();		//获取并移除栈顶元素
+push(E e);
+search(Object o);

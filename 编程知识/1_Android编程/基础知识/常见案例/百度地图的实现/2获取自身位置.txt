@@ -1,0 +1,44 @@
+
+-------------------------------------实现位置监听器
+public class MyLocationListener  implements BDLocationListener{
+        @Override
+        public void onReceiveLocation(final BDLocation bdLocation) {
+	if(bdLocation.getLocType()==BDLocation.TypeGpsLocation || bdLocation.getLocType() == BDLocation.TypeNetWorkLocation)	//如果是通过GPS或网络定位
+                        操作：
+                    	纬度： bdLocation.getLatitude()		//只有设置了可以通过地址显示位置才能使用
+                    	经度：bdLocation.getLongitude()
+                    	国家：bdLocation.getCountry()
+                    	省：bdLocation.getProvince()
+                    	市：bdLocation.getCity()
+                    	区：bdLocation.getDistrict()
+                    	街道：bdLocation.getStreet()
+		。。。。。。
+	}
+        }
+
+}
+
+
+--------------------------------onCreate方法中：
+LocationClitent  locationClient=new LocationClient( getApplicationContext() );	//获取位置工具类
+locationClient.registerLocationListener( new MyLocationListener() );		//注册监听器
+
+检查获取权限后执行：
+
+[  LocationClientOption option=new LocationClientOption();
+ //1秒刷新一次位置,每次刷新都会调用监听器的onReceiveLocation方法，设为0不会再次刷新
+option.setScanSpan(1000);  
+ //开启GPS定位，默认是网络定位
+option.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);  
+//设置可以通过地址显示位置
+option.setIsNeedAddress(true);      
+//开启位置实时更新
+locationClient.setLocOption(option);      ]
+
+//开始
+locationClient.start();
+
+
+-------------------------在onDestroy方法中：
+locationiClient.stop();
+

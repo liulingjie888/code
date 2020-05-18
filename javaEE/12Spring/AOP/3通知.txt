@@ -1,0 +1,246 @@
+接口：
+public interface IHello {
+    public void sayHello1() ;
+    public void sayHello2();
+    public void sayHello3();
+    public void sayHello4() throws Exception;
+}
+
+
+实现接口的业务类：
+public class Hello implements IHello {
+    public void sayHello1()  {
+        System.out.println("say hello1");
+    }
+    public void sayHello2(){
+        System.out.println("say hello2");
+    }
+    public void sayHello3(){
+        System.out.println("say hello3");
+    }
+
+    @Override
+    public void sayHello4() throws Exception {		//方法4抛出异常,用来测试异常通知
+        System.out.println("say hello4");
+        throw new Exception("hello4 Exception");
+    }
+}
+
+
+=============================================1.前置通知（Before Advice)）
+
+========前置通知类（实现MethodBeforeAdvice接口）
+public class AdviceBeforeHello implements MethodBeforeAdvice {
+    @Override
+    public void before(Method method, Object[] objects, Object o) throws Throwable {
+        System.out.println("这里是执行业务的方法前执行的操作");
+    }
+}
+
+========applicationContext.xml
+<bean id="hello" class="proxy.Hello"/>						//声明被代理的业务类
+<bean id="beforeAdvice" class="aop.AdviceBeforeHello"/>				//声明前置通知类
+<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">	//声明代理，后面创建业务类用该id
+	<property name="proxyInterfaces"><value>proxy.IHello</value></property>	//设置被代理的业务类的接口
+	<property name="target" ref="hello"></property>				//设置目标对象，也就是业务类
+	<property name="interceptorNames">
+	    <list>
+		<value>beforeAdvice</value>			//设置前置通知类，可以设置多个通知类
+	    </list>
+	</property>
+</bean>
+    
+
+========操作：
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("proxy");
+        hello.sayHello3();
+        hello.sayHello1();
+}
+结果：
+这里是执行业务的方法前执行的操作"
+say hello3
+这里是执行业务的方法前执行的操作"
+say hello1
+
+=============================================2.后置通知（After Advice)）
+
+========后置通知类（实现AfterReturningAdvice接口）
+public class AdviceAfterHello implements AfterReturningAdvice {
+    @Override
+    public void afterReturning(Object o, Method method, Object[] objects, Object o1) throws Throwable {
+        System.out.println("这里是执行业务的方法后执行的操作");
+    }
+}
+
+========applicationContext.xml
+<bean id="hello" class="proxy.Hello"/>						
+<bean id="afterAdvice" class="aop.AdviceAfterHello"/>				//声明后置通知类
+<bean id="afterproxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces"><value>proxy.IHello</value></property>
+        <property name="target" ref="hello"></property>
+        <property name="interceptorNames">
+            <list>
+                <value>afterAdvice</value>			//设置后置通知类，可以设置多个通知类
+            </list>
+        </property>
+</bean>
+
+========操作：
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("beforeproxy");
+        hello.sayHello3();
+        hello.sayHello1();
+}
+结果：
+say hello3
+这里是执行业务的方法后执行的操作
+say hello1
+这里是执行业务的方法后执行的操作
+
+=============================================3.环绕通知（Around Advice)）
+
+========环绕通知类（实现MethodInterceptor接口）
+public class AdviceAroundHello implements MethodInterceptor {
+
+
+    @Override
+    public Object invoke(MethodInvocation methodInvocation) throws Throwable {
+        System.out.println("这里是执行业务的方法前执行的操作");
+        Object result=null;
+        result=methodInvocation.proceed();			//业务类方法执行的位置
+        System.out.println("这里是执行业务的方法后执行的操作");
+        return result;
+    }
+    
+}
+
+========applicationContext.xml
+<bean id="hello" class="proxy.Hello"/>						
+<bean id="rondAdvice" class="aop.AdviceAroundHello"/>				//声明环绕通知类	
+<bean id="aroundproxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+	<property name="proxyInterfaces"><value>proxy.IHello</value></property>
+	<property name="target" ref="hello"></property>
+	<property name="interceptorNames">
+	    <list>
+		<value>rondAdvice</value>					//设置环绕通知类，可以设置多个通知类
+	    </list>
+	</property>
+</bean>
+
+========操作：
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("aroundproxy");
+        hello.sayHello3();
+        hello.sayHello1();
+}
+结果：
+这里是执行业务的方法前执行的操作
+say hello3
+这里是执行业务的方法后执行的操作
+这里是执行业务的方法前执行的操作
+say hello1
+这里是执行业务的方法后执行的操作
+
+=============================================4.异常通知（Throw Advice)）
+
+========异常通知类（实现MethodInterceptor接口）
+public class AdviceThrow implements ThrowsAdvice {
+    public void afterThrowing(Throwable throwable){
+        System.out.println("有异常抛出");
+    }
+}
+
+========applicationContext.xml
+<bean id="throwAdvice" class="aop.AdviceThrow"/>				//声明异常类
+<bean id="throwproxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+	<property name="proxyInterfaces"><value>proxy.IHello</value></property>
+	<property name="target" ref="hello"></property>
+	<property name="interceptorNames">
+	    <list>
+		<value>throwAdvice</value>					//设置异常通知，可以设置多个通知类
+	    </list>
+	</property>
+</bean>
+========操作：
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("throwproxy");
+        hello.sayHello1();
+        try {
+            hello.sayHello4();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+结果：
+say hello1
+say hello4
+有异常抛出
+java.lang.Exception: hello4 Exception
+
+============================================配置通知只拦截业务类指定方法
+
+===========================用NameMatchMethodPointcutAdvisor类
+========第一步：
+<bean id="method2Advice" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="mappedName" value="*2"></property>		//设置拦截指定的业务类的方法（这里将会拦截sayHello2方法）
+        <property name="advice" ref="beforeAdvice"></property>		//设置拦截的通知类（这里设置上面的前置通知）
+</bean>
+
+========第二步：
+在上面设置通知的<list>中加入该id，如：
+<property name="interceptorNames">
+	    <list>
+		<value>method2Advice</value>
+	    </list>
+</property>
+
+========操作：
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("beforeproxy");
+        hello.sayHello3();
+        hello.sayHello2();
+}
+
+结果：
+say hello3
+这里是执行业务的方法前执行的操作
+say hello2
+
+
+===========================用NameMatchMethodPointcutAdvisor类
+========第一步：
+<bean id="method3Advice" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="pattern" value=".*3"></property>		//设置拦截指定的业务类的方法（这里将会拦截sayHello3方法）
+        <property name="advice" ref="beforeAdvice"></property>		//设置拦截的通知类（这里设置上面的前置通知）
+</bean>
+
+========第二步：
+在上面设置通知的<list>中加入该id，如：
+<property name="interceptorNames">
+	    <list>
+		<value>method3Advice</value>
+	    </list>
+</property>
+
+========操作：
+public static void main(String[] args){
+        ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hello=(IHello)ac.getBean("beforeproxy");
+        hello.sayHello3();
+        hello.sayHello2();
+}
+
+结果：
+这里是执行业务的方法前执行的操作
+say hello3
+say hello2
+
+注意：
+只要配置了第一步，匹配的方法都会被通知拦截，奇怪
+

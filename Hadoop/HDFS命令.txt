@@ -1,0 +1,26 @@
+
+hadoop fs -ls /								//显示目录信息
+hadoop fs  -mkdir  -p  /aaa/bbb/cc/dd					//在hdfs上创建目录
+hadoop fs -rm -r /aaa/bbb/						//删除文件或文件夹
+hadoop fs  -rmdir   /aaa/bbb/ccc					//删除空目录
+
+hadoop fs -appendToFile a.txt /user/newDir/test.txt			//追加一个文件到已经存在的文件末尾
+hadoop fs -cat /user/newDir/test.txt					//显示文件内容
+hadoop fs -tail /user/newDir/test.txt					//显示一个文件的末尾
+
+hadoop fs  -cp  /aaa/jdk.tar.gz  /bbb/jdk.tar.gz.2			//从hdfs的一个路径拷贝到hdfs的另一个路径
+hadoop fs  -mv  /aaa/jdk.tar.gz  /					//在hdfs目录中移动文件
+
+hadoop fs -getmerge /aaa/log.* ./log.sum				//合并下载多个文件，比如hdfs的目录 /aaa/下有多个文件:log.1, log.2,log.3,…
+
+hadoop fs  -copyFromLocal  ./jdk.tar.gz  /aaa/				//从本地文件系统中拷贝文件到hdfs
+hadoop fs -copyToLocal /aaa/jdk.tar.gz					//从hdfs拷贝到本地
+hadoop fs  - moveFromLocal  /home/hadoop/a.txt  /aaa/bbb/cc/dd		//从本地剪切粘贴到hdfs
+
+hadoop fs -get  /aaa/jdk.tar.gz						//等同于copyToLocal，就是从hdfs下载文件到本地
+hadoop fs  -put  /aaa/jdk.tar.gz  /bbb/jdk.tar.gz.2			//等同于copyFromLocal，就是从本地下载文件到hdfs
+
+hadoop fs  -df  -h  /							//统计文件系统的可用空间信息
+hadoop fs  -du  -s  -h /aaa/*						//统计文件夹的大小信息
+hadoop fs -count /aaa/							//统计一个指定目录下的文件节点数量
+hadoop fs -setrep 3 /aaa/jdk.tar.gz					//设置hdfs中文件的副本数量

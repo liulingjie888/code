@@ -1,0 +1,53 @@
+CardLayerout 布局器 很像TabbedPanel ，在本例里面上面是一个下拉框，下面是一个CardLayerout 的JPanel
+这个JPanel里有两个面板，可以通过CardLayerout方便的切换
+
+import java.awt.CardLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+        JFrame f = new JFrame("CardLayerout");
+ 
+        JPanel comboBoxPane = new JPanel();
+        String buttonPanel = "按钮面板";
+        String inputPanel = "输入框面板";
+        String comboBoxItems[] = { buttonPanel, inputPanel };
+        JComboBox<String> cb = new JComboBox<>(comboBoxItems);
+        comboBoxPane.add(cb);				//添加下拉框用于选中面板
+ 
+        // 两个Panel充当卡片
+        JPanel card1 = new JPanel();
+        ……
+ 
+        JPanel card2 = new JPanel();
+        ……
+ 
+        JPanel cards = new JPanel(new CardLayout()); // a panel that uses CardLayout
+        ……
+        f.add(comboBoxPane, BorderLayout.NORTH);	//comboBoxPane面板放北
+        f.add(cards, BorderLayout.CENTER);		//cards面板放中
+ 
+        ……
+ 
+        cb.addItemListener(new ItemListener() {
+ 
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, (String) evt.getItem());
+            }
+        });    
+（1）  定义使用卡片布局的容器
+
+例如：Panel cardPanel=new Panel();
+
+
+（2）  定义卡片对象：CardLayout 布局对象名称=new CardLayout();
+
+例如：CardLayoutcard=new CardLayout();
+
+
+（3）  设置使用卡片布局的容器为卡片布局：
+
+格式：容器名称.setLayout(布局对象名称);
+
+例如：							cardPanel.setLayout(card);

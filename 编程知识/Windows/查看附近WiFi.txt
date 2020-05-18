@@ -1,0 +1,42 @@
+//获取附近WiFi
+netsh wlan show networks mode=bssid
+
+//连接其中一个WiFi
+netsh wlan connect name="SSID"
+
+//断开连接
+netsh wlan disconnect
+
+//列出WiFi配置文件（成功连接的WiFi自动生成）
+netsh wlan show profiles
+
+//导出配置文件到当前工作目录
+netsh wlan export profile key=clear
+
+//添加和删除SSID配置文件
+netsh wlan add profile name="SSID"
+netsh wlan delete profile name="SSID"
+
+//列出无线接口
+netsh wlan show interface
+
+//开启无线接口
+netsh interface set interface "接口名称" enalbed
+
+----------------------------------------用于开发参考------------------------------
+
+//连接成功时
+netsh wlan connect name="vivoZ3"
+已成功完成连接请求。
+
+//断开连接成功时
+netsh wlan disconnect
+已成功完成接口“WLAN”的断开连接请求。
+
+//该SSID没有分配配置文件时
+netsh wlan connect name="vivoZ3"
+没有分配给指定接口的配置文件“vivoZ3”。
+
+//该SSID不存在或连接失败时
+netsh wlan connect name="vivoZ3"
+配置文件“vivoZ3”指定的网络无法用于连接。

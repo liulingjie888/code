@@ -1,0 +1,77 @@
+1.对象结构
+{
+	"键名":value1,
+	"键名":value2,
+	. . . . . .
+}
+
+2.数组结构
+[
+	value1,
+	value2,
+	. . . . . . 
+]
+
+对象结构中的值可以为对象结构和数组结构。
+数组结构中的值可以为对象结构和数组结构。
+----------------------------------------------------------
+
+JSON解析
+android.util.Xml;
+org.xmlpull.vq.XmlPullParser;
+com.google.gson.Gson;
+com.google.gson.TypeToken;
+java.lang.reflect.Type;
+
+1.org.json解析
+//解析对象
+ JSONObject  JSONObject对象=new JSONObject(json字符串);
+JSONObject对象.optString("键名");	//返回键名的值
+//解析数组
+JSONArray JSONArray对象=new JSONArray(json字符串);
+for(int i=0;i<JSONArray对象.length();i++) {
+	int age=JSONArray对象.optInt(i);
+	或  JSONObject  json=JSONArray对象.getJSONObject(i);
+	等等
+}
+
+ 要想从JSONObject 对象中获取所有key通过迭代器完成：
+
+                
+Iterator<String> keys=json.keys();
+
+while(keys.hasNext()){
+	
+System.out.println("key:"+keys.next());
+
+
+}
+-------------------------------------------------------
+2.使用Gson解析JSON数据
+需要将gson.jar添加到项目中：
+ File -> Project Structure -> app -> Dependencies -> + ->Library dependency ->搜索com.google.code.gson:gson:2.2.4 ->确认
+或添加依赖app/build.gradle:
+implementation  'com.goole.code.gson:gson2.7'
+
+//javaBean标准模型的Person中的成员名称要与JSON数据的key值一致
+//解析对象
+Gson gson=new Gsno();
+Person person=gson.fromJson(json字符串,Person.class);
+
+//解析数组
+Gson gson=new Gson()
+Type listType=new TypeToken<List<类名>>(){}.getType();
+List<类名> ages=gson.fromJson(json字符串,listType);
+
+--------------------------------------------------------------
+例：
+
+InputStream is=this.getResources().openRawResource(R.raw.json文件名);
+byte[]  buffer=new byte[ is.available() ];
+String  json=new String(buffer,"utf-8");
+
+//WeatherInfo中的成员名称要与JSON数据的key值一致
+Gson gson=Gson();
+Type listType=new TypeToken<List<WeatherInfo>>(){}.getType();
+List<WeatherInfo>  weatherInfos=gson.fromJson(json,listType);
+ 

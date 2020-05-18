@@ -1,0 +1,31 @@
+第一种情况：继承Activity的某一个Activity：
+//去掉标题栏注意这句一定要写在setContentView()方法的前面，不然会报错的
+
+
+
+requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+
+
+
+第二种情况：继承AppCompatActivity
+
+：	
+//去掉标题栏注意这句一定要写在setContentView()方法的后面
+
+
+//第一种情况在这无效
+
+ActionBar actionbar=getSupportActionBar();
+if(actionbar!=null)
+	actionbar.hide();
+
+
+
+第三种情况：style.xml被调用的样式中的parent改为Theme.AppCompat.Light.NoActionBar
+<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>

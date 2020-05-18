@@ -1,0 +1,27 @@
+#include<stdio.h>
+int main()
+{
+	int i,j,score[10]={2,4,6,8,10,12,14,16,18},n;
+	printf("请输入一个数：");
+	scanf("%d",&n);
+	for(i=0;i<=8;i++)
+	{
+		if(score[i]>n)
+		{
+			for(j=1;j<=9-i;j++)
+			{
+				score[10-j]=score[9-j];
+			}
+			score[i]=n;
+			break;
+		}
+		else
+			score[9]=n;
+	}
+	for(i=0;i<=9;i++)
+		{
+		    printf("%5d",score[i]);
+		}
+	return 0;
+}
+

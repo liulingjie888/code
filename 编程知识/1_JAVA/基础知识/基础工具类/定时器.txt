@@ -1,0 +1,14 @@
+
+public class MainTask extends TimerTask{
+	public void run(){
+		System.out.println("定时器每隔一段时间的操作");
+	}
+}
+
+
+public class MainTest{
+	public static void main(String[] args){
+		Timer timer=new MainTask();
+		//参数1表示要执行的定时任务，参数2表示要首次启动时间，参数3表示时间间隔（毫秒）
+		timer.schedule(new MainTask(),0,1000);
+}

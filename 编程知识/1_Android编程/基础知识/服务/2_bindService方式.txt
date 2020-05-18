@@ -1,0 +1,72 @@
+
+
+bindService方式启动（服务会与组件绑定，提供一个客户端和服务器接口）
+
+个人理解：在Service中定义一个Binder子类，该类用于调用Service的方法或它本身；然后通过Service中的onBind方法新建并返回该Binder子类；
+ServiceConnection 子类中的onServiceConnected( ComponentNmae name, IBinder service) 方法中的service为该Binder子类，通过它来间接获取Service的方法:
+Servic中的Binder子类   -->   onBind()   -->   ServiceConnection 子类中的onServiceConnected( ComponentName name, IBinder service) 方法中的service,在该方法中通过service来间接操作Service
+
+service
+
+（1）创建
+Myservice.java:
+
+	android.app.Service;
+	android.os.Binder;
+	android.os.IBinder;
+
+	public class MyService extends Service {
+		//创建服务的代理，调用服务中的方法或返回该类
+		class MyBinder extends Binder {
+			public void callMethodInService() {
+				methodInService();
+			}
+			public Myservice getService();{	
+				return MyService.this;
+			}
+		}
+		@Override
+		//创建服务
+		public void onCreate(){
+			super.onCreate(); 	
+		}
+		//绑定服务（返回一个IBinder给ServiceConnection，在通过ServiceConncetion类获取IBinder，
+		//IBinder子类对象一般用于访问者与服务的交互）
+		public IBinder onBind(Intent intent){
+			return new MyBinder();      
+		}
+		//服务要操作的事
+		public void methodInService(){ 
+		}
+		//解绑服务
+		public boolean onUnbind(Intent intent ) {     
+			return super.onUnbind(intent);   
+		}
+	}
+（2）启动
+MainActivity.java:
+	android.content.ComponentName;
+	android.content.ServiceConnection;
+	android.os.IBinder;
+	
+	Intent intent=new Intent(this,MyService.class);
+	//绑定服务
+	//参数1为service的Intent,参数2为连接对象（ServiceConnection子类）
+	//参数3 BIND__AUTO_REATE表示服务不存在则创建服务，为0时即不自动创建
+	bindService(intent,ServiceConnection子类,BIND__AUTO_CREATE);
+	
+	//解绑服务
+	unbindService(ServiceConnection子类);
+
+	//ServiceConnection子类（通过该类可以获取用于和服务交互的IBinder类）：
+	private class MyConn implements ServiceConnection {
+		//当成功绑定到服务时调用的方法
+		public void onServiceConnected( ComponentNmae name, IBinder service) {
+			//该service来自service的onBind()返回值
+			myBinder = (MyService.MyBinder)  service;
+		}
+		//当服务失去连接时调用的方法
+		public void onServiceDisconnected(ComponentName name){
+		}
+	}
+	

@@ -1,0 +1,39 @@
+*如果属性的某个值不是一个单词，则值要用引号引起来，如：
+	p{ font-family: "sans serif"}
+
+*如果属性有多个值，则每个值之间用空格隔开，如：
+	a{ padding:6px 4px 5px 3px}
+
+*如果要为某个属性设置多个候选值，则每个值之间用逗号隔开，如：
+	p{ font-family: "Times New Roman",Times,serif}
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+HTML引入CSS方法
+
+行内式
+<td style="color:red; text-decoration:underline"  width="92%">
+如果属性的某个值不是一个单词
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+嵌入式
+<head>
+<style type="text/css">
+	h1{
+		color:red;
+		font-size:25px;	}
+</style></head>
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+链接式	先装载CSS文件
+<link href="CSS文件路径" rel="stylesheet" type="text/css" />
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+导入式	后装载CSS文件
+<style type="text/css">
+	@import url("CSS文件路径");
+</style>
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ 
+
+

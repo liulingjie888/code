@@ -1,0 +1,75 @@
+
+===========================创建集群
+#1创建管理节点
+docker-machine create -d virtualbox swarm-manager
+
+#2创建工作节点
+docker-machine create -d virtualbox swarm-worker1
+......
+
+#3进入管理节点，初始化集群
+docker-machine ssh swarm-manager
+docker swarm init --advertise-addr 本节点ip 	#这里的 IP 为创建机器时分配的 ip（docker-machine ls查看）
+初始化后会得到一下内容：
+docker swarm join --token SWMTKN-1-5amey2yslq12t4wdrxa9wnxuxw8zocdqaf10k4bymryoa834gp-58x9w7jrxvvov642pe7himmmv 192.168.99.101:2377
+
+#4进入工作节点，执行上一步得到的内容，表示该节点加入上一步创建的集群
+
+==========================管理节点
+#进入管理节点
+
+=============服务
+//创建一个服务到随机1个工作节点工作
+docker service create --replicas 1 --name 服务名 镜像 程序命令	
+
+docker service scale 服务名=2			//将服务部署到2个节点
+docker service rm 服务名			//删除服务
+docker service update --image 服务的镜像名:版本号 服务名	//滚动升级服务
+
+
+docker node ls					//查看所有节点
+docker info					//查看集群信息
+docker ps					//查看服务信息
+docker service ps 服务名			//查看服务在那个工作节点运行
+docker service inspect --pretty 服务名		//查看服务的具体部署信息
+
+=============节点
+docker node update --availability drain 节点名	//停止制定节点接受新的服务
+docker node update --availability active 节点名	//恢复指定节点接受新的服务
+
+========================其他命令
+//查看虚拟机
+docker-machine ls
+
+//创建虚拟机
+docker-machine create [OPTIONS] [arg...]
+
+//移除虚拟机
+docker-machine rm [OPTIONS] [arg...]
+
+//登录虚拟机
+docker-machine ssh [arg...]
+
+//docker客户端配置环境变量
+docker-machine env [OPTIONS] [arg...]
+
+//检查机子信息
+docker-machine inspect
+
+//查看虚拟机列表
+docker-machine ls [OPTIONS] [arg...]
+
+//查看虚拟机状态
+docker-machine status [arg...]  //一个虚拟机名称
+
+//启动虚拟机
+docker-machine start [arg...]  //一个或多个虚拟机名称
+
+//停止虚拟机
+docker-machine stop [arg...]  //一个或多个虚拟机名称
+
+//重启虚拟机
+docker-machine restart [arg...]  //一个或多个虚拟机名称
+
+
+

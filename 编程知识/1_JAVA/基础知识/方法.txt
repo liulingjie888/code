@@ -1,0 +1,28 @@
+*复制数组:
+
+	System.arraycopy(源数组1，1起始下标,数组2,2起始下标,复制长度);
+
+----------------Math
+
+*数学函数:
+
+	Math.random()
+	Math.round(3.14)
+	Math.sqrt(9)
+	Math.pow(2,2)
+	Math.PI
+	Math.E
+	Math.floor(2.2)
+	Math.
+
+-------------------时间
+y年--M月--d日--E星期--a上下午--H小时(24)--h小时(12)--m分--s秒
+DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+Date date = new Date();
+System.out.println(dateFormat.format(date));
+
+-------------------------获取运行时间
+long start = System.currentTimeMillis();
+·  ·  ·  ·  ·  ·  ·
+long end = System.currentTimeMillis();
+System.out.println("程序运行时间："+(end-start)+"ms");

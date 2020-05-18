@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 	xmlns="http://www.springframework.org/schema/beans" 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd ">
+	//spring创建对象配置
+	<bean [id="id号"] name="名称" class="完整类包名" 
+		scope=""
+		init-method="容器创建时调用类中的非静态方法名"
+		destroy-method="容器销毁时调用类中的非静态方法名">
+
+		//（set注入），普通属性注入
+		<property name="属性名" value="值"></property>
+		//通过其他对象配置注入对象属性
+		<property name="类属性名" ref="该类配置的name值"></property>
+
+		//（构造注入），当多个构造函数包含参数名相同时，用index属性来表示参数名的优先级从而调用器构造函数；当构造参数名相同时用type表示类型实现区分调用
+		<constructor-arg name="构造方法中普通属性参数名" value="值" [index=0] [type="java.lang.Integer"]></constructor-arg>
+		<constructor-arg name="构造方法中对象属性参数名" ref="其他相同类对象配置的name值"></constructor-arg>
+	</bean>
+
+	//工厂静态创建对象配置
+	<bean name="工厂名称" class=""完整类包名" 
+		factory-method="类中静态返回创建的对象的方法名"></bean>
+	//工厂非静态创建对象配置
+	<bean name="工厂名称" class=""完整类包名"
+		factory-bean="类名" 
+		factory-method="类中非静态返回创建的对象的方法名"></bean>
+	//导入其他配置文件
+	<import resource="路径/其他配置文件"/>
+</beans>
+
+scope属性:
+（1）singleton(默认值): 单例对象，只会存在一个
+（2）prototype: 每次获取对象时才会创建新的对象，容器启动时不创建
+（3）request: web环境下，对象与request生命周期一致
+（4）session: web环境下，对象与session生命周期一致
+
+（1）p名称空间注入:
+加入:<xmls:p="http://www.springframework.org/schema/beans/p"/>
+<bean name="名称" class="类包名" p:属性名="值" p:类属性名-ref="该类配置的name值"></bean>
+
+（2）spel注入：
+<bean name="名称" class="类包名">
+	<property name="属性名" value="#{其他对象配置name值.属性名}"></property>
+	<property name="对象属性名" ref="其他对象配置name值"></property>
+</bean>
+ 
+（3）复杂类型注入：
+//cb中含有数组或集合
+<bean name="cb" class="cn.itcastt.c_injection.CollectionBean">
+	//只给数组或List第一个元素注入
+	<property name="数组名" value="值"></property>
+
+	//给数组多个元素注入
+	<property name="数组名">
+		<array>
+			<value>值</value>
+			<value>值</value>
+			<ref bean="其他对象配置name值"/>
+		</array>
+	</property>
+
+	//给List属性多个元素注入
+	<property name="List属性名">
+		<list>
+			<value>值</value>
+			<value>值</value>
+			<ref bean="其他对象配置name值"/>
+		</list>
+	</property>
+
+	//给Map属性多个元素注入
+	<property name="Map属性名">
+		<map>
+			<entry key="键名" value="值"></entry>
+			<entry key="键名" value-ref="其他对象配置name值">/entry>
+			<entry key-ref="其他对象配置name值" value-ref="其他对象配置name值"></entry>
+		</map>
+	</property>
+
+	//给properties对象属性注入
+	<property name="properties属性名">
+		<props>
+			<prop key="键名">值</prop>
+		<props>
+	</property>
+</bean>
+
+-----------------------------------------------------------
+//使容器ApplicationContext只存在一个，! ! !需要导入web包
+import javax.servlet.ServletContext;
+import org.apache.struts2.ServletActionContext;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+----------------------web.xml：
+<!-- 使spring随项目的创建而创建，关闭而关闭 -->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 加载spring的配置文件的位置 -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:applicationContext.xml（spring配置文件）</param-value>
+  </context-param>
+
+----------------------代码获取ApplicationContext：
+//获得servletContext对象
+ServletContext sc=ServletActionContext.getServletContext();
+//获取spring容器
+WebApplicationContext ac=WebApplicationContextUtils.getWebApplicationContext(sc);
+
+User u=(User)ac.getBean("user");

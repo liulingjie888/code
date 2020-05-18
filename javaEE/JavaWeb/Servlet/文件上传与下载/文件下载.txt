@@ -1,0 +1,7 @@
+处理下载文件请求要添加响应头：
+Content-Disposition: attachment; filename=文件名		//设定接收程序处理数据的方式
+Content-Type: application/x-msdownload		//设定实体内容的MIME内容
+
+Content-Type: application/octet-stream			//通知浏览器以下载的方式打开
+
+如果出现乱码用URLEncoder.encode(filename,"编码方式")编码

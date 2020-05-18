@@ -1,0 +1,98 @@
+java.awt.Graphics2D;
+
+-----------------------------------画板设置
+//创建画板
+createGraphics();
+
+//渲染效果配置(抗锯齿)
+g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_DEFAULT);
+g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+
+//设置画笔大小
+setStroke(new BasicStroke(5));
+
+//设置画笔颜色
+setPaint( Paint paint );
+
+//设置文字样式
+setFont(Font font);
+
+//设置前景颜色
+setColor(Color c);
+~
+
+//设置背景颜色
+setBackground(Color c);
+get~
+
+---------------------------------画图
+
+//填充图片（坐标在左上角），observer一般设置为null，c为显示矩形背景颜色，observer是图形监视器
+drawImage(Image img, int x, int y, [Color c, ]ImageObserver observer);
+//width与height为显示矩形的宽和高，图形按比例缩放显示在该矩形
+drawImage(Image img, int x, int y,int width, int height, [Color c, ]ImageObserver observer);
+//img - 要绘制的指定图像。如果 img 为 null，则此方法不执行任何操作。
+dx1 - 目标矩形第一个角的 x 坐标。
+dy1 - ~第一个角的 y 坐标。
+dx2 - ~第二个角的 x 坐标。
+dy2 - ~第二个角的 y 坐标。
+sx1 - 相对于源矩形第一个角的 x 坐标。
+sy1 - ~第一个角的 y 坐标。
+sx2 - ~第二个角的 x 坐标。
+sy2 - ~第二个角的 y 坐标。
+observer - 当缩放并转换了更多图像时要通知的对象。
+drawImage(Image img,
+                                  int dx1,
+                                  int dy1,
+                                  int dx2,
+                                  int dy2,
+                                  int sx1,
+                                  int sy1,
+                                  int sx2,
+                                  int sy2,[Color c,]
+                                  ImageObserver observer);
+
+//写字 (坐标是字体左下角)
+drawString(String str, int x, int y);
+
+//画矩形 (字体左上角)
+drawRect(int x, int y, int width, int height);
+fillRect(int x, int y, int width, int height);
+
+//画一个线框
+draw3DRect(80,100,40,25,true);
+fill~	//有阴影凸显3D
+
+//圆角矩形（坐标左上角）
+drawRoundRect(int x, int y, int width, int height, int arcwidth, int archeight);
+fillRoundRect(int x, int y, int width, int height, int arcwidth, int archeight);
+
+//画圆弧 startAngle=90（坐标圆心），width为X轴长，height为Y轴长
+drawArc(int x, int y, int width, int height,int startAngle, int arcAngle);
+fillArc(int x, int y, int width, int height,int startAngle, int arcAngle);
+
+//画椭圆 width = height时为圆（坐标圆心）
+drawOval(int x, int y, int width, int height);
+fillOval(int x, int y, int width, int height);
+
+//多边形
+第一种方法：
+//xPoints[]存储x坐标点，yPoints[]存储y坐标点，nPoints是坐标点个数。最后一个坐标要和第一个坐标相同
+drawPolygon(int xpoints[],int yPoints[],int nPoints);
+fillPolygon(int xpoints[],int yPoints[],int nPoints);
+
+第二种方法：
+Polygon ponlygon=new Polygon();
+ponlygon.addPoint(50,10);	//加入多边形坐标
+或
+Polygon polygon = new Polygon(x,y,8);	//x,y为多边形坐标的x轴，y轴的数组
+
+g2d.drawPolygon(ponlygon);
+
+-----------------------------其他
+//擦除指定矩形
+clearRect(int x, int y, int width, int height);
+//将指定矩形复制到(dx,dy)处
+copyArea(int x,int y,int width, int height, int dx, int dy);	
+

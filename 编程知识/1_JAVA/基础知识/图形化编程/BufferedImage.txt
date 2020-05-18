@@ -1,0 +1,60 @@
+Image是一个抽象类，BufferedImage是其实现类，是一个带缓冲区图像类。
+主要作用是将一幅图片加载到内存中（BufferedImage生成的图片在内存里有一个图像缓冲区，利用这个缓冲区我们可以很方便地操作这个图片）
+-------------------------------------Image类--------------------
+java.awt.Image;
+Image image=new ImageIcon("路径").getImage();
+
+-------------------------------------BufferedImage构造--------------------------------
+java.awt.image.BufferedImage;
+
+//将一幅图片加载到内存的方法
+String imgPath = "C://demo.jpg";  
+BufferedImage image = ImageIO.read(new FileInputStream(imgPath));
+
+//创建图片
+//指定宽高、图像字节灰度
+
+new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY)
+;
+//创建一个不带透明色的对象
+
+new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+//创建一个带透明色的对象
+
+new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+//根据已经存在的BufferedImage对象创建一个copy体
+createBufferedImage(BufferedImage src);
+
+--------------------缓存网络图片
+
+ //获得图片地址
+  
+Url img = new  URL(url);
+
+  //获得图片输入流
+  
+InputStream in = img.openStream();
+ 
+ //把输入流转为BufferedImage
+  
+JPEGImageDecoder decoderFile = JPEGCodec.createJPEGDecoder(in);
+  
+BufferedImage image = decoderFile.decodeAsBufferedImage();
+
+---------------------------------流的转换--------------------------------
+
+在传输中，图片是不能直接传的，需要先转为字节数组,字节数组再转回BufferedImage则还原图片。
+
+//将image缓冲区传输到流，format为图片格式如JPG
+ ImageIO.write(BufferedImage image,String format,OutputStream out);
+
+//将流传输到image缓冲区
+ BufferedImage image = ImageIO.read(InputStream in);
+------------------------------------方法----------------------------------
+//获取图片绘画的工具
+getGraphics();
+
+//结束图像绘画过程
+dispose();

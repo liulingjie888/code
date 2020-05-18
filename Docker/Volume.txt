@@ -1,0 +1,67 @@
+Docker镜像是由多个文件系统（只读层）叠加而成。当我们启动一个容器的时候，Docker会加载只读镜像层并在其上（译者注：镜像栈顶部）添加一个读写层。如果运行中的容器修改了现有的一个已经存在的文件，那该文件将会从读写层下面的只读层复制到读写层，该文件的只读版本仍然存在，只是已经被读写层中该文件的副本所隐藏。当删除Docker容器，并通过该镜像重新启动时，之前的更改将会丢失。在Docker中，只读层及在顶部的读写层的组合被称为Union File System（联合文件系统）。
+为了能够保存（持久化）数据以及共享容器间的数据，Docker提出了Volume的概念。简单来说，Volume就是目录或者文件，它可以绕过默认的联合文件系统，而以正常的文件或者目录的形式存在于宿主机上。
+
+========================设置匿名卷
+下面的命令会将/data挂载到容器中，并绕过联合文件系统，我们可以在主机上直接操作。默认目录/var/lib/docker/vfs/dir下。
+我们可以通过两种方式来初始化Volume，这两种方式有些细小而又重要的差别。我们可以在运行时使用-v来声明Volume：
+$ docker run -it -v /data debian /bin/bash
+$ docker run -v /home/adrian/data:/data debian ls /data		#容器上挂载指定的主机目录（Dockerfile做不到）
+
+========================查看
+使用docker inspect命令找到Volume在主机上的存储位置：
+$ docker inspect -f {{.Volumes}} 容器name
+你会看到类似的输出：
+map[/data:/var/lib/docker/vfs/dir/cde167197ccc3e138a14f1a4f...b32cec92e79059437a9] 
+
+
+为了保证可移植性（并不是所有的系统的主机目录都是可以用的），挂载主机目录不需要从Dockerfile指定。当使用-v参数时，镜像目录下的任何文件都不会被复制到Volume中。（注：Volume会复制到镜像目录，镜像不会复制到卷）
+========================数据共享
+如果要授权一个容器访问另一个容器的Volume，我们可以使用-volumes-from参数来执行docker run。
+不管被共享容器是否运行，它都会起作用。只要有容器连接Volume，它就不会被删除。
+$ docker run -it --volumes-from 被共享的容器name debian /bin/bash
+
+========================数据容器
+常见的使用场景是使用纯数据容器来持久化数据库、配置文件或者数据文件等。例如：
+$ docker run --name dbdata postgres echo "Data-only container for postgres"
+
+该命令将会创建一个已经包含在Dockerfile里定义过Volume的postgres镜像，运行echo命令然后退出。当我们运行docker ps命令时，echo可以帮助我们识别某镜像的用途。我们可以用-volumes-from命令来识别其它容器的Volume：
+$ docker run -d --volumes-from dbdata --name db1 postgres
+
+使用数据容器的两个注意点：
+不要运行数据容器，这纯粹是在浪费资源。
+不要为了数据容器而使用“最小的镜像”，如busybox或scratch，只使用数据库镜像本身就可以了。你已经拥有该镜像，所以并不需要占用额外的空间。
+
+=========================备份
+dbdata为postgres镜像的name，官方的postgres Dockerfile在/var/lib/postgresql/data目录下定义了一个Volume
+如果你在用数据容器，那做备份是相当容易的，将共享的volume打包到当前运行容器的volume下：
+$ docker run --rm --volumes-from dbdata -v $(pwd):/backup debian tar cvf /backup/backup.tar /var/lib/postgresql/data
+
+
+========================权限与许可
+通常你需要设置Volume的权限或者为Volume初始化一些默认数据或者配置文件。要注意的关键点是，在Dockerfile的VOLUME指令后的任何东西都不能改变该Volume，比如：
+FROM debian:wheezy
+RUN useradd foo
+VOLUME /data
+RUN touch /data/x
+RUN chown -R foo:foo /data
+
+该Docker file不能按预期那样运行，我们本来希望touch命令在镜像的文件系统上运行，但是实际上它是在一个临时容器的Volume上运行。如下所示：
+FROM debian:wheezy
+RUN useradd foo
+RUN mkdir /data && touch /data/x
+RUN chown -R foo:foo /data
+VOLUME /data
+
+Docker可以将镜像中Volume下的文件挂载到Volume下，并设置正确的权限。如果你指定Volume的主机目录将不会出现这种情况。
+如果你没有通过RUN指令设置权限，那么你就需要在容器启动时使用CMD或ENTRYPOINT指令来执行（注：CMD指令用于指定一个容器启动时要运行的命令，与RUN类似，只是RUN是镜像在构建时要运行的命令）。
+
+========================删除Volumes
+这个功能可能会更加重要，如果你已经使用docker rm来删除你的容器，那可能有很多的孤立的Volume仍在占用着空间。
+
+Volume只有在下列情况下才能被删除：
+docker rm －v 容器name	
+docker run中使用了--rm参数
+
+即使用以上两种命令，也只能删除没有容器连接的Volume。连接到用户指定主机目录的Volume永远不会被docker删除。
+除非你已经很小心的，总是像这样来运行容器，否则你将会在/var/lib/docker/vfs/dir目录下得到一些僵尸文件和目录，并且还不容易说出它们到底代表什么。
+

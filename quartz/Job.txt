@@ -1,0 +1,81 @@
+=====================Job由 3 个部分组成
+JobDetail: 用于描述这个Job是做什么的
+实现Job的类: 具体干活的
+JobDataMap: 给 Job 提供参数用的
+
+=====================注解
+@DisallowConcurrentExecution：表示该Job不会并行执行，默认会并行
+
+=====================Job 异常
+任务里发生异常是很常见的。 异常处理办法通常是两种：
+1. 当异常发生，那么就通知所有管理这个 Job 的调度，停止运行它
+2. 当异常发生，修改一下参数，马上重新运行
+
+public class ExceptionJob2  implements Job {
+    static int i = 0;
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+ 
+        try {
+            //故意发生异常
+            System.out.println("运算结果"+100/i);
+             
+        } catch (Exception e) {
+            System.out.println("发生了异常，修改一下参数，立即重新执行");
+            i = 1;
+            JobExecutionException je =new JobExecutionException(e);
+            je.setRefireImmediately(true);	//重启任务
+	    [je.setUnscheduleAllTriggers(true);]//通知所有管理这个 Job 的调度，停止运行它
+            throw je;
+        }
+    }
+}
+
+=====================中断 Job
+在业务上，有时候需要中断任务，那么这个Job需要实现 InterruptableJob 接口，然后就方便中断
+
+//必须实现InterruptableJob（该接口继承类Job）
+public class StoppableJob implements InterruptableJob {
+
+	private boolean stop = false;
+
+   	public void execute(JobExecutionContext context) throws JobExecutionException {
+        while(true){
+            if(stop)
+                break;
+            ......操作
+        }
+    }
+
+    @Override
+    public void interrupt() throws UnableToInterruptJobException {
+        System.out.println("被调度叫停");
+            stop=true;
+    }
+}
+
+=========中断调用scheduler.interrupt(job.getKey());
+	Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        Trigger trigger = newTrigger().withIdentity("trigger1", "group1")
+                .startNow()
+                .build();
+
+        //定义一个JobDetail
+        JobDetail job = newJob(MailJob.class)
+                .withIdentity("exceptionJob1", "someJobGroup")
+                .build();
+
+        //调度加入这个job
+        scheduler.scheduleJob(job, trigger);
+
+        //启动
+        scheduler.start();
+
+        Thread.sleep(5000);
+        System.out.println("过5秒，调度停止 job");
+
+        //key 就相当于这个Job的主键(返回job组名.job名,如这个为someJobGroup.exceptionJob1)
+        scheduler.interrupt(job.getKey());
+
+        //等待20秒，让前面的任务都执行完了之后，再关闭调度器
+        Thread.sleep(20000);
+        scheduler.shutdown(true);

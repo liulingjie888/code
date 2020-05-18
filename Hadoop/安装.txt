@@ -1,0 +1,54 @@
+
+1.配置好ssh，jdk
+2.解压包到/usr/local，并将安装的目录名改成hadoop（则安装目录为/usr/local/hadoop）
+3.进入到hadoop目录，执行：
+sudo vim ./etc/hadoop/core-site.xml
+改为：
+<configuration>
+	<!--指定存储位置-->
+        <property>
+             <name>hadoop.tmp.dir</name>
+             <value>file:/usr/local/hadoop/tmp</value>
+             <description>Abase for other temporary directories.</description>
+        </property>
+        <!--指定HDFS的管理节点-->
+        <property>			
+             <name>fs.defaultFS</name>
+             <value>hdfs://localhost:9000</value>
+        </property>
+</configuration>
+
+4.执行：
+sudo vim ./etc/hadoop/hdfs-site.xml
+改为：
+<configuration>
+        <property>
+             <name>dfs.replication</name>
+             <!--伪分布必须为1-->
+             <value>1</value>
+        </property>
+        <property>
+             <name>dfs.namenode.name.dir</name>
+             <value>file:/usr/local/hadoop/tmp/dfs/name</value>
+        </property>
+        <property>
+             <name>dfs.datanode.data.dir</name>
+             <value>file:/usr/local/hadoop/tmp/dfs/data</value>
+        </property>
+	<property>
+		<name>dfs.http.address</name>
+		<value>localhost:50070</value>
+	</property>
+</configuration>
+
+5.执行：
+sudo vim ./etc/hadoop/hadoop-env.sh
+修改java环境变量（你安装的位置）:
+export JAVA_HOME=/usr/java/jdk1.8.0_211
+
+6.执行 NameNode 的格式化:
+sudo ./bin/hdfs namenode -format
+
+7.开启 NameNode 和 DataNode 守护进程
+sudo ./sbin/start-dfs.sh
+关闭命令sbin/stop-dfs.sh

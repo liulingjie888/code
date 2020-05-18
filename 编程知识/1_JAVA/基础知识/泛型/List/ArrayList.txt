@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+
+构造:
+mListTitle=new ArrayList<String>(Arrays.asList(order_step));		//order_step为字符数组
+-------------------------------------------方法------------------------------------------
+
+添加：
+add([int index], 对象);	//添加对象
+addAll(集合);		//将集合中的元素全部添加进来
+
+设置：
+set(下标,对象);		//用于替换指定位置的元素
+
+删除
+remove(下标 | 对象);		//删除指定下标的对象或指定对象
+removeAll(集合) 		//从这个列表中移除包含在指定集合中的所有元素。
+clear();			//清空一个ArrayList
+
+查询：
+get(下标);			//获取指定位置的对象
+indexOf(对象);		//获取对象在ArrayList中所处的下标
+lastIndexOf(对象);		//获取最后一个对象在ArrayList中所处的下标
+size();			//用于获取ArrayList的大小
+
+创建：
+toArray();			//可以把一个ArrayList对象转换为数组
+toArray(对象数组);		//例：Hero hs[] = (Hero[])heros.toArray(new Hero[]{});
+iterator();			//返回迭代
+listIterator([int location]);
+List<E>  subList(int start,int end);
+
+判断：
+isEmpty();			//判断是否为空
+contains(对象);		//String类型判断值是否存在，其他类判断是否存在
+
+
+
+
+

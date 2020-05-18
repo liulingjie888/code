@@ -1,0 +1,42 @@
+java.util.TreeSet;
+
+TreeSet集合是用来对象元素进行排序的,同样他也可以保证元素的唯一。
+底层其实是一个二叉树机构，顺序是中序遍历的顺序。
+且每插入一个新元素(第一个除外)都会调用其compareTo()方法去和上一个插入的元素作比较，并按二叉树的结构进行排列
+
+TreeSet构造函数什么都不传, 默认按照类中Comparable的顺序(没有就报错ClassCastException)
+TreeSet如果传入Comparator, 就优先按照Comparator
+
+类实现implements接口
+public class Person implements Comparable<Person> {
+    private String name;
+    private int age;
+    ...
+    public int compareTo(Person o) {
+        this.age-o.age;	     //从小到大排序
+        o.age-this.age;	     //从大到小排序
+        return 0;                //返回0的时候不插入
+        return 1;                //返回正数的时候根据数据结构插入到二叉树右边
+        return -1;               //返回负数的时候根据数据结构插入到二叉树左边
+    }
+}
+
+-------------------------------------特有方法-----------------------------------
+查询：
+ceiling(E e);		//返回大于或等于e的第一个元素
+floor(E e);			//返回小于或等于e的第一个元素
+higher(E e);		//返回e前一个元素
+lower(E e);		//返回e后一个元素
+
+first();			//返回第一个元素
+pollFirst();			//并删除
+last();			//返回最后一个元素
+pollLast();			//并删除
+
+
+创造：
+headSet(E toElement [,true])；	//获取以E分界线前面的Set，有true时Set包含toElement
+tailSet(E formElement [,ture]);	//获取以E分界线后面的Set，有true时Set包含
+descendingIterator();	//返回反向迭代器
+descendingSet();		//返回反向Set
+

@@ -1,0 +1,26 @@
+
+=======================命令：
+docker network ls		//列出网络
+docker network rm 网络名	//删除网络
+docker network inspect 网络名	//查看信息
+docker network create	
+
+
+docker network connect 网络名 容器名	//将容器加入指定网络
+docker network disconnect 网络名 容器名	//将容器退出指定网络
+
+=================docker：
+
+======Docker守护进程创建了一个虚拟以太网桥docker0，ip为172.17.0.1
+新建的容器会自动桥接到这个docker0接口,并分配ip（该接口为eth0，172.17.0.2，可以ping 172.17.0.1）
+
+新建的machine会自动桥接到这个docker0接口（该接口为docker0,只有swarm的管理节点可以ping 172.17.0.2，其他machine不行）,所有的machine不会分配ip
+
+容器和machine都可以ping到docker_gwbridge（172.18.0.1），很奇怪明明不再一个网段。
+
+======当我们初始化一个swarm或是加入到一个swarm中时，在docker主机上会出现两种网络：
+
+1、称为ingress的overlay网络，用于传递集群服务的控制或是数据消息，若在创建swarm服务时没有指定连接用户自定义的overlay网络，将会加入到默认的ingress网络
+
+2、machine组成的swarm会自动桥接到名为docker_gwbridge的桥接网络(而且所有的machine都相同172.18.0.1)
+

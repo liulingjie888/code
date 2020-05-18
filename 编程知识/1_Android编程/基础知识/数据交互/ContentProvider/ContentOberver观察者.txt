@@ -1,0 +1,23 @@
+
+android.database.ContentObserver;
+android.net.Uri;
+android.os.Handler;
+
+方法：
+public void ContentObserver(Handler handler);
+//当观察到Uri代表的数据发生变化时，会触发该方法
+public void onChange(boolean selfChange);
+
+--------------------------------------------------------------------------------------
+使用方法：
+//将ContentObserver对象单独注册在一个activity文件中，也可以触发
+
+ContentResolver resolver=getContentResolver();
+Uri uri=new Uri.parse("content:/aaa.bbb.ccc");
+//注册uri的内容观察者对象
+resolver.registerContentObserver(要观察的uri,true,ContentObserver子类对象);
+
+//在ContentProvider类中的操作方法（delete insert update）中最后
+//调用ContentResolver的norifyChange()方法来触发ContentOberver的onChange()方法:
+
+getContent().getContentResolver().notifyChange(观察的uri,指定内容观察者);

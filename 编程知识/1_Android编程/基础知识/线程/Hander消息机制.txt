@@ -1,0 +1,38 @@
+作用：用于处理接收的消息
+4个关键对象：Message , Handler , MessageQueue , Looper
+
+介绍：
+主线程创建Handler对象，其中的handleMessage方法用于接收消息并处理，参数msg为接收的Message对象
+子线程调用Handler对象的sendMessage方法发送Message对象消息
+
+Message对象.what	//int类型用于表示如何处理
+Message对象.obj	//用于存放对象，其他对象获取该obj的数据时需强制类型转换
+
+----------------------------------------示范--
+
+android.os.Handler;
+android.os.Message;
+android.text.TextUtils;
+android.URL;
+android.net.HttpURLConnection;
+ 
+
+---在Activity类:
+主线程中:
+Handler handler=new Handler( ){
+	//处理消息调用该方法
+	public void handleMessage(android.os.Message msg){
+		if(msg.what=int类型自定义状态){
+			//在这里设置UI
+			. . . . . .
+		}
+		//其他状态
+		. . . . . .
+	}
+};
+
+子线程中：
+Message msg=new Message();
+msg.what=状态;
+msg.Object=对象;
+hander.sendMessage(msg);

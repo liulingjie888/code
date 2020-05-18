@@ -1,0 +1,53 @@
+import javax.servlet.http.HttpServletResponse;
+继承了javax.servlet.ServletResponse;
+重写该对象可以继承HttpServletResponseWrapper类
+
+-----------------------------------------http响应消息设置--------------------------------------------------------
+//设置状态码
+setStatus(int 状态码 );
+//用户发送表示错误信息的状态码
+sendError(int 状态码 );
+//用户发送表示错误信息的状态码，提示信息存入在实体内容中发送
+sendError(int 状态码, String  提示信息 );
+
+//设置响应头字段
+setHeader("响应头字段","字段值");
+setIntHeader("响应头字段",int 字段值);
+//设置响应头字段，不同于setHeader的是它可以增加同名字段，而setHeader是覆盖同名字段
+addHeader("响应头字段","字段值");
+addIntHeader("响应头字段",int 字段值);
+
+//设置响应信息实体内容的大小
+setContentLength(int len);
+
+//用于设置Servlet输入内容的MIME类型
+//如果响应信息为文本内容还可以设置字符编码,如"text/html;charset=UTF-8",该设置应用于浏览器和服务端
+setContentType("MIME类型");
+
+//设置响应消息的本地化信息，如http中可以设置Content-Language和Content-Type响应头字段
+//如果http消息响应头没有ContentType字段，setLocale()方法设置的字符编码不会出现在响应头
+//setCharacterEncoding和setContentType方法设置了字符编码，则setLocale不具有指定字符编码的功能
+setLocal(Local loc);
+
+//设置输出内容使用的字符编码，只应用于服务端
+//如果http消息响应头没有ContentType字段，该方法设置的字符编码不会出现在响应头
+//该方法设置编码等级最高，可以覆盖其他设置的字符编码
+setCharacterEncoding("编码类型");
+
+--------------------------------------------获取输出流-------------------------------------------
+//这两个方法不能同时调用，因为后者中调用了前者，否则出现IllegalStateException异常
+OutputStream  getOutputStream();
+PrintWriter getWriter();
+
+--------------------------------------------跳转---------------------------------------
+//两秒后跳转到指定页面（重定向）
+.setHeader("Refresh","2;URL=http://www.baidu.com");
+//每3秒刷新一次servlet
+.setHeader("Refresh","3");
+//告诉浏览器请求指定文件（重定向）,该方法会生成302响应码和Location响应头，浏览器会通过获取响应头的Location获取URL
+//路径可以用相对路径，其中“/”表示根目录webapps
+.sendRedirect("/myWebProject/login.html");
+
+//服务端跳转
+request.getRequestDispatcher("相对路径").forward(request, response);
+forward是服务器请求资源,服务器直接访问目标地址的URL,把那个URL的响应内容读取过来,然后把这些内容再发给浏览器.浏览器根本不知道服务器发送的内容从哪里来的,所以它的地址栏还是原来的地址.

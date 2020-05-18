@@ -1,0 +1,47 @@
+app/build.gradle中dependencies添加依赖：
+implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+
+注意：要开启线程执行
+
+-------------------------------GET方式请求：
+OkHttpClient  client=new OkHttpClient();
+
+//创建请求体
+Request  request=new Request.Builder()
+	.url("http://www.baidu.com")
+	.build();
+//访问并获得响应体
+Response  response=client.newCall( request ).execute();
+//获得HTML内容
+String  responseData=response.body().string();
+
+
+------------------------------POST方式请求：
+OkHttpClient  client=new OkHttpClient();
+//post设置参数
+RequestBody  requestBody=new FormBody.Builder()
+	.add("键","值")
+	.add("键","值")
+	.build();
+//创建请求体
+Request  request=new Request.Builder()
+	.url("http://www.baidu.com")
+	.post( requestBody )
+	.build();
+//访问并获得响应体
+Response  response=client.newCall( request ).execute();
+//获得HTML内容
+String  responseData=response.body().string();
+
+-------------------------------将请求方法写入工具类中如何在子线程中获取到响应的内容-----------------
+
+运用接口回调，如：
+。 。 。 。 。 。
+okhttp3.Callback  callback=  new okhttp3.Callback(){			//这个在UI线程中作为参数插入根据方法中
+	public void onResponse(Call call , Response  response )throws  IOException{
+		//处理返回的内容
+		String responseData=response.body.string();
+	}
+	public void onFailure( Call call,IOException e){ //处理异常报错}
+}
+client.newCall( request ).enqueue( callback );

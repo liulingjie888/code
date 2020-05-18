@@ -1,0 +1,81 @@
+// ConsoleApplication2.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+class point 
+{
+private:
+	float x,y;
+public:
+	point()
+	{
+		x=0;
+		y=0;
+	}
+	point(float x,float y):x(x),y(y)
+	{
+	}
+	point(point &a)
+	{
+		x=a.x;
+		y=a.y;
+	}
+	~point()
+	{
+	}
+	void setx(int x)
+	{
+		this->x=x;
+	}
+	void sety(int y)
+	{
+		this->y=y;
+	}
+	float getx()
+	{
+		return x;
+	}
+	float gety()
+	{
+		return y;
+	}
+};
+
+class line
+{
+private:
+	point p,q;
+public:
+	line()
+	{
+		p=point(0,0);
+		q=point(0,0);
+	}
+	line(float px,float py,float qx,float qy)
+	{
+		p.setx(px);
+		p.sety(py);
+		q.setx(qx);
+		q.sety(qy);
+	}
+	~line()
+	{
+	}
+	double getlength()
+	{
+		return sqrt(pow(p.getx()-q.getx(),2)+pow(p.gety()-q.gety(),2));
+	}
+};
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	line L(1,2,3,4);
+	cout<<"the length of L is "<<L.getlength()<<endl;
+	system("pause");
+	return 0;
+}
+

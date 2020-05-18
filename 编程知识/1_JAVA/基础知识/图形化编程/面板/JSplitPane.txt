@@ -1,0 +1,29 @@
+创建一个水平JSplitPane，左边是pLeft,右边是pRight
+
+        import javax.swing.JSplitPane;
+  
+        ……
+        JPanel pLeft = new JPanel();
+        pLeft.setBounds(50, 50, 300, 60);
+        pLeft.setBackground(Color.RED);
+        pLeft.setLayout(new FlowLayout());
+        ……
+        pLeft.add(b1);
+        pLeft.add(b2);
+        pLeft.add(b3);
+  
+        JPanel pRight = new JPanel();
+        ……
+        pRight.add(b4);
+        pRight.add(b5);
+        pRight.add(b6);
+        ……
+  
+        // 创建一个水平JSplitPane（可以垂直），左边是p1,右边是p2
+        JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pLeft, pRight);
+        sp.setDividerLocation(80);	 // 设置分割条的位置
+  
+        f.setContentPane(sp);		// 把sp当作ContentPane	
+  
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);

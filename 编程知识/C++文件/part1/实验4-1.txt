@@ -1,0 +1,107 @@
+#include<iostream>
+#include<cmath>
+#define PI 3.1415926
+using namespace std;
+
+class Circle
+{
+public:
+	Circle()
+	{
+		radius=0;
+	}
+	Circle(float radius)
+	{
+		this->radius=radius;
+	}
+	float get_radius()
+	{
+		return radius;
+	}
+private:
+	float radius;
+};
+
+class Cylinder:public Circle
+{
+public:
+	Cylinder():Circle(0)
+	{
+		high=0;
+		volume=0;
+	}
+	Cylinder(float radius,float high):Circle(radius),high(high)
+	{
+	}
+	void set_volume()
+	{
+		volume=PI*pow(get_radius(),2)*high;
+	}
+	void get_volume()
+	{
+		cout<<"the Cylinder's volume is "<<volume<<endl;
+	}
+private:
+	float volume,high;
+};
+
+
+class Circular: public Circle
+{
+public:
+	Circular():Circle(0)
+	{
+		high=0;
+		volume=0;
+	}
+	Circular(float radius,float high):Circle(radius),high(high)
+	{
+	}
+	void set_volume()
+	{
+		volume=((float)1/3)*PI*pow(get_radius(),2)*high;
+	}
+	void get_volume()
+	{
+		cout<<"the Circular's volume is "<<volume<<endl;
+	}
+private:
+	float volume,high;
+};
+
+
+class Ball: public Circle
+{
+public:
+    Ball():Circle(0)
+	{
+		volume=0;
+	}
+	Ball(float radius):Circle(radius)
+	{
+	}
+	void set_volume()
+	{
+		volume=((float)4/3)*PI*pow(get_radius(),3);
+	}
+	void get_volume()
+	{
+		cout<<"the Ball's volume is "<<volume<<endl;
+	}
+private:
+	float volume;
+};
+
+int main()
+{
+	Cylinder s1(1,2);
+	s1.set_volume();//计算体积
+	s1.get_volume();//显示
+	Circular s3(1,2);
+	s3.set_volume();//计算体积
+	s3.get_volume();//显示
+	Ball s2(2);
+	s2.set_volume();//计算体积
+	s2.get_volume();//显示
+	return 0;
+}

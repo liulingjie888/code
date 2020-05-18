@@ -1,0 +1,5 @@
+java.util.LinkedHashSet;
+
+LinkedHashSet继承自HashSet
+元素顺序是可以保证的，也就是说遍历序和插入序是一致的。
+方法详见HashSet

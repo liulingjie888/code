@@ -1,0 +1,19 @@
+--------------------继承IntentService服务类：
+
+public  class MyIntentService  extends  IntentService{
+	public MyIntentService() {
+		super("MyIntentService");
+	}
+	protected  void onHandlerIntent( Intent  intent){
+		进行逻辑操作，该方法自动在子线程执行 ，执行完自行销毁
+	}
+	
+	public  void onDestory(){
+		super.onDestoryj();
+	}
+}
+
+
+-------------Activity启动：
+Intent  intentService=new Intent(this ,MyIntentService.class);
+startService( intentService );

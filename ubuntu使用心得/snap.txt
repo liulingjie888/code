@@ -1,0 +1,23 @@
+sudo snap list
+列出已经安装的snap包
+
+sudo snap find <text to search>
+搜索要安装的snap包,search也可以
+
+sudo snap install <snap name>
+安装一个snap包
+
+sudo snap refresh <snap name>
+更新一个snap包，如果你后面不加包的名字的话那就是更新所有的snap包
+
+sudo snap revert <snap name>
+把一个包还原到以前安装的版本
+
+sudo snap remove <snap name>
+删除一个snap包
+
+snap changes
+查看正在安装的包
+
+snap abort 正在安装包的IDsnap
+终止安装

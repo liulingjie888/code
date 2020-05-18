@@ -1,0 +1,13 @@
+<android.support.percent.PercentFrameLayout>
+
+该布局为Frame和Relative布局提供控件大小可以通过百分比来设置
+首先要建立依赖，在app/build.gradle中：
+在dependencies中加入: 
+compile 'com.android.support:percent:24.2.1'
+
+该布局和Frame很像，控件都是默认在左上角
+属性：
+layout_gravity="right|bottom"
+app:layout_widthPercent="50%"
+app:layout_heightPercent="50%"
+

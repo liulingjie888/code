@@ -1,0 +1,104 @@
+java.net.HttpURLConnection;
+java.net.URL;
+涉及权限：
+<uses-permission android:name="android.permission.INTERNET/>
+
+--------------------------------------GET方式提交---------------------------
+
+String path="http://192.168.1.100:8080//web//LoginServlet?username="+URLEncoder.encode("liulingjie");
+URL url=new URL(path);
+HttpURLConnection conn=(HttpURLConncetion)url.openConnection( );
+//设置请求方式
+conn.setRequestMethod("GET");
+//设置超时时间
+conn.setConncetTimeout(5000);
+//获取状码
+int responseCode=conn.getResponseCode( );
+//访问成功
+if(responseCode==200){
+	//设置服务器返回的输入流
+	InputStream is=conn.getInputStream( );
+	. . . . . .
+}
+
+----------------------------------POST方式提交-----------------------------------
+
+String path="http:/192.168.1.100:8080/web/LoginServlet";
+URL url=new URL(path);
+HttpURLConnection conn=(HttpURLConnection)url.openConnection( );
+conn.setConnectTimeout(5000);
+conn.setRequestMethod("POST");
+String userData="username="+URLEncoder.encode("liulingjie")+"&password="+URLEncoder.encode("123");
+
+//post方式，实际上是浏览器把数据写给服务器
+//设置请求头数据提交方式，这里是以form表单的方式提交
+conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+//设置请求头，设置提交数据的长度
+conn.setRequestProperty("Content-Length",data.length()+"");
+//设置允许向外写数据
+conn.setDoOutput(true);
+conn.setDoInput(true);
+//利用数据层往服务器写数据
+OutputStream os=conn.getOutputStream( );
+//将数据写出
+os.write(userData.getBytes( ));
+//获取状态码
+int code=conn.getResponseCode( );
+//200为请求成功（用于响应）
+if(code==200) {
+	InputStream is =conn.getInputStream( );
+	ByteArrayOutputStream byteout=new ByteArrayOutputStream();
+	byte[] data=new byte[1024];
+	int len=0;
+	while((len=is.read(data))!=-1){
+		byteout.write(data,0,len);
+	}
+	String result=new String(byteout.toByteArray(),"UTF-8");
+	. . . . . .
+}
+
+
+-------------------HttpURLConnectioin方法---------------------------
+//设置请求头字段
+conn.setRequestProperty("字段名","值");
+
+//获取响应头字段
+conn.getHeadFiled("字段名");
+Map<String,List<String>>  conn.getHeadFileds();
+Map<String, List<String>> map=conn.getHeaderFields();
+//遍历
+for(Map.Entry<String,List<String>> entry:map.entrySet()){
+          System.out.println(entry.getKey()+":"+entry.getValue().get(0));
+}
+
+-------------------------------------------------------------------------
+
+//POST方式获取图片
+
+public class Http_get {
+    private static final String path="http://localhost:80/123.png";
+    public static void main(String [] args){
+        try {
+            URL url=new URL(path);
+            HttpURLConnection http=(HttpURLConnection)url.openConnection();
+            http.setRequestMethod("POST");
+            http.setConnectTimeout(3000);
+            http.setDoInput(true);
+            if(http.getResponseCode()==200){
+                InputStream input=http.getInputStream();
+                byte[] data=new byte[1024];
+                int len=0;
+                FileOutputStream fileout=new FileOutputStream("D:\\test.png");
+                while( (len=input.read(data,0,1024))!=-1){
+                    fileout.write(data,0,len);
+                }
+                input.close();
+                fileout.close();
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
