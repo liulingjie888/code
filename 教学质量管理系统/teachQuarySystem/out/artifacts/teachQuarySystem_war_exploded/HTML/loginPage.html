@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登入界面</title>
+
+    <style>
+        .t1{
+            font-size:18px;
+            width:250px;
+            height:30px;
+        }
+        .t2{
+            width:65px;
+            height:35px;
+            font-size:18px;
+        }
+        .t3{
+            width:20px;
+            height:20px;
+        }
+        table{
+            font-size:20px;
+        }
+        select{
+            font-size:18px;
+            width:100px;
+        }
+    </style>
+</head>
+
+<body>
+<form name="form1" method="post" action="check_user_passwd.php">
+    <table align="center" width="1000" height="600" border="0" background="../image/loginBackground.jpg"
+ cellpadding="5" cellspacing="0">
+        <tr ><td height="25%" colspan="2" align="center" valign="middle"><font size="+3">教学质量网络测评系统</font></td></tr>
+
+        <tr><td align="right"  width="58%">用户名</td><td height="60"><input name="username" type="text" class="t1" required="required"/>&nbsp;<input name="manager" type="checkbox" class="t3" value="power" onclick="checkbox()"/>管理员</td></tr>
+        <tr><td align="right">
+            密码</td><td height="80"><input name="password" type="password" class="t1" required="required"/></td></tr>
+        <tr><td align="right"></td><td height="20" align="left"><font size="+1">保存时间</font> <select name="save">
+            <option value="0">不保存</option>
+            <option value="8640">一天</option>
+            <option value="604800">一周</option>
+            <option value="2592000">一个月</option></select>
+        </td></tr>
+        <tr><td></td><td valign="top"><br />&nbsp;&nbsp;<input name="submit" type="submit" class="t2" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="reset" type="reset" class="t2"/></td></tr>
+    </table>
+</form>
+<script>
+    /*function check_user(){
+        if(form1.username.value.length<=0){
+            alert("请输入用户名！");
+            return false;
+        }
+        return true;
+    }
+    function check_password(){
+        if(form1.password.value.length<=0){
+            alert("请输入密码");
+        }
+    }*/
+    function checkbox(){
+        if(""==form1.save.disabled){
+            form1.save.disabled="disabled";
+        }
+        else{
+            form1.save.disabled="";
+        }
+    }
+</script>
+
+</body>
+</html>

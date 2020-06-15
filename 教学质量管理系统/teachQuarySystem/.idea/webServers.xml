@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="0726da45-3fa0-4323-9ae7-f944643381be" name="CentOStomcat" url="http://liulingjie.cn:8080/">
+        <fileTransfer host="liulingjie.cn" port="22" rootFolder="/usr/local/tomcat/tomcat7/webapps" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

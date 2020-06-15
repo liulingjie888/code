@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="teachQuarySystem:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4918d977-c1d8-463d-b2f6-e1a009e47458" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Redis/1安装.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Redis/1安装.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Redis/命令/1key键.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Redis/命令/1key键.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Redis/命令/2string字符串.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Redis/命令/2string字符串.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Redis/命令/5Set集合.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Redis/命令/5Set集合.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Redis/高级教程" beforeDir="false" afterPath="$PROJECT_DIR$/../../Redis/高级教程" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Hibernate/1流程.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/1Hibernate/1流程.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Hibernate/2操作.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/1Hibernate/2操作.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Hibernate/3关系.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/1Hibernate/3关系.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/1web配置文件.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/2实现控制器Action.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/3Struts配置文件.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/4struts.properties配置文件.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/5ActionContext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/6上传文件处理.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/7拦截器" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/8注解.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/1Struts2/核心包/struts-2.5.20-min-lib.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/2Mybatis/1流程.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/2Mybatis/1流程.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/2Mybatis/2操作.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/2Mybatis/2操作.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/2Mybatis/3注释" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/2Mybatis/3注释" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/2Mybatis/4标签.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/2Mybatis/4标签.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../javaEE/2Spring MVC/3注解方式.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../javaEE/2Spring MVC/3注解方式.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ubuntu使用心得/ubuntu常见问题/ssh.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ubuntu使用心得/好用的程序.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../ubuntu使用心得/好用的程序.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../编程知识/1_Android编程/基础知识/布局/无标题.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../编程知识/1_Android编程/基础知识/广播接收者/自定义广播.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../编程知识/1_Android编程/基础知识/广播接收者/自定义广播.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../编程知识/1_Android编程/基础知识/控件/EditText&amp;TextView.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../编程知识/1_Android编程/基础知识/控件/EditText&amp;TextView.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../编程知识/1_Android编程/基础知识/数据存储/JSON/JSON.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../编程知识/1_Android编程/基础知识/数据存储/JSON/JSON.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../编程知识/1_JAVA/基础知识/图形化编程/Graphics2D.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../编程知识/1_JAVA/基础知识/数据库连接/其他知识.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../编程知识/1_JAVA/基础知识/流/文件File.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../编程知识/1_JAVA/基础知识/流/文件File.txt" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/jie/reqandresp/checkUserServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+        <option value="Class" />
+        <option value="Jsp File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_info_show.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/sch_info/sch_update.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/schEva_insert.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/schEva_update.jsp" />
+        <option value="$PROJECT_DIR$/web/JS/eva_check_exist.js" />
+        <option value="$PROJECT_DIR$/web/JS/sch_check_exist.js" />
+        <option value="$PROJECT_DIR$/src/com/jie/object/Classes.java" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/teaEva_update.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/teaEva_insert.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/check.jsp" />
+        <option value="$PROJECT_DIR$/web/index.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/jsVar.jsp" />
+        <option value="$PROJECT_DIR$/web/JS/searchPage.js" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_info.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/sch_info/sch_info.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_info.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/schEva_info.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/teaEva_info.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/relative/sch.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/relative/tea.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/sch_info/sch_info.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/tea_info/tea_info.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/stu_eva/stu_tea.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/stu_eva/stu_sch.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/sch_info/sch_info_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/teaEva_info_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/schEva_info_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_info_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/relative/tea_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/relative/sch_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_info_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/sch_info/showAll.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/sch_info/sch_info_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/tea_info/tea_info_show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/sch_info/showRela.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/tea_info/showRela.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/tea_info/showAll.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_rela.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/stu_eva/show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/stu_eva/show.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_insert.jsp" />
+        <option value="$PROJECT_DIR$/src/com/jie/reqandresp/photo.java" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_update.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_insert.jsp" />
+        <option value="$PROJECT_DIR$/src/com/jie/reqandresp/Insert.java" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_update.jsp" />
+        <option value="$PROJECT_DIR$/src/com/jie/reqandresp/Update.java" />
+        <option value="$PROJECT_DIR$/src/com/jie/filter/AllFilter.java" />
+        <option value="$PROJECT_DIR$/src/com/jie/utiltool/DBUtil.java" />
+        <option value="$PROJECT_DIR$/web/CSS/fontSize.css" />
+        <option value="$PROJECT_DIR$/web/JSP/manager/managerHome.jsp" />
+        <option value="$PROJECT_DIR$/web/JSP/student/student_info.jsp" />
+      </list>
+    </option>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="980" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="teachQuarySystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="teachQuarySystem" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="teachQuarySystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="teachQuarySystem" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="teachQuarySystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="teachQuarySystem" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="teachQuarySystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="teachQuarySystem" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1568635786920" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\web\WEB-INF\lib" />
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\web\image" />
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\web\JSP\manager\information" />
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\web\JSP\manager\evaluation" />
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\web\CSS" />
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\web\JSP\manager" />
+      <recent name="D:\文件\JAVA项目\teachQuarySystem\web\JSP\student\tea_info" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 7.0.75">
+    <configuration name="DBUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jie.utiltool.DBUtil" />
+      <module name="teachQuarySystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jie.utiltool.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jie.Main" />
+      <module name="teachQuarySystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="loginPage.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://liulingjie.cn:8080/web/HTML/loginPage.html">
+      <method v="2" />
+    </configuration>
+    <configuration name="CentOStomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote" APPLICATION_SERVER_NAME="Tomcat 7.0.75" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="HOST" value="liulingjie.cn" />
+      <option name="LOCAL" value="false" />
+      <option name="UPDATING_POLICY" value="hot-swap-classes" />
+      <deployment>
+        <artifact name="teachQuarySystem:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/teachQuarySystem_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <data>
+          <option name="targets">
+            <list>
+              <WatchedTargetModelImpl>
+                <option name="name" value="CONTEXT_XML" />
+                <option name="transportStagingTarget">
+                  <TransportTarget>
+                    <option name="id" value="d42a27f0-5a9f-4613-a743-1af4a0a337cf" />
+                    <id>d42a27f0-5a9f-4613-a743-1af4a0a337cf</id>
+                  </TransportTarget>
+                </option>
+                <option name="watchedLocalPath" value="" />
+                <watched-path />
+                <name>CONTEXT_XML</name>
+                <transport-target>
+                  <TransportTarget>
+                    <option name="id" value="d42a27f0-5a9f-4613-a743-1af4a0a337cf" />
+                    <id>d42a27f0-5a9f-4613-a743-1af4a0a337cf</id>
+                  </TransportTarget>
+                </transport-target>
+              </WatchedTargetModelImpl>
+              <StagingTargetModelImpl>
+                <option name="name" value="STAGING" />
+                <option name="stagingRemotePath" value="/usr/local/tomcat/tomcat7/webapps" />
+                <option name="transportStagingTarget">
+                  <TransportTarget>
+                    <option name="id" value="01895888-ba74-4f31-a02d-950b2a0ccf3e" />
+                    <id>01895888-ba74-4f31-a02d-950b2a0ccf3e</id>
+                  </TransportTarget>
+                </option>
+                <staging-path>/usr/local/tomcat/tomcat7/webapps</staging-path>
+                <name>STAGING</name>
+                <transport-target>
+                  <TransportTarget>
+                    <option name="id" value="01895888-ba74-4f31-a02d-950b2a0ccf3e" />
+                    <id>01895888-ba74-4f31-a02d-950b2a0ccf3e</id>
+                  </TransportTarget>
+                </transport-target>
+              </StagingTargetModelImpl>
+            </list>
+          </option>
+          <option name="transportHostId" value="0726da45-3fa0-4323-9ae7-f944643381be" />
+          <host-id>0726da45-3fa0-4323-9ae7-f944643381be</host-id>
+        </data>
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="6103" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="teachQuarySystem:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="Tomcat 7.0.75" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.24" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="teachQuarySystem:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/teachQuarySystem_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_teachQuarySystem" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="19225" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="teachQuarySystem:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.DBUtil" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JavaScript Debug.loginPage.html" />
+      <item itemvalue="Tomcat Server.CentOStomcat" />
+      <item itemvalue="Tomcat Server.Tomcat 7.0.75" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DBUtil" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JavaScript Debug.loginPage.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4918d977-c1d8-463d-b2f6-e1a009e47458" name="Default Changelist" comment="" />
+      <created>1567214239622</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1567214239622</updated>
+      <workItem from="1567214242673" duration="49000" />
+      <workItem from="1567214393920" duration="8809000" />
+      <workItem from="1567245688274" duration="13572000" />
+      <workItem from="1567302041461" duration="15051000" />
+      <workItem from="1567330777895" duration="316000" />
+      <workItem from="1567387460376" duration="10434000" />
+      <workItem from="1567473005097" duration="18014000" />
+      <workItem from="1567669151654" duration="54000" />
+      <workItem from="1567674659654" duration="9609000" />
+      <workItem from="1567727235150" duration="31792000" />
+      <workItem from="1567822617101" duration="11250000" />
+      <workItem from="1567848457036" duration="16563000" />
+      <workItem from="1567866913570" duration="1580000" />
+      <workItem from="1567900894821" duration="30536000" />
+      <workItem from="1567936327965" duration="5445000" />
+      <workItem from="1567942744582" duration="2628000" />
+      <workItem from="1567949036428" duration="346000" />
+      <workItem from="1567949432310" duration="4452000" />
+      <workItem from="1567987643326" duration="14201000" />
+      <workItem from="1568015817034" duration="15841000" />
+      <workItem from="1568073689250" duration="5720000" />
+      <workItem from="1568082031624" duration="5985000" />
+      <workItem from="1568093178816" duration="6426000" />
+      <workItem from="1568112647288" duration="6912000" />
+      <workItem from="1568180292649" duration="13721000" />
+      <workItem from="1568215113040" duration="2128000" />
+      <workItem from="1568251807191" duration="38110000" />
+      <workItem from="1568304165823" duration="4983000" />
+      <workItem from="1568342497422" duration="15429000" />
+      <workItem from="1568357970155" duration="8851000" />
+      <workItem from="1568433658261" duration="37017000" />
+      <workItem from="1568523307906" duration="649000" />
+      <workItem from="1568524077211" duration="31000" />
+      <workItem from="1568524140202" duration="238000" />
+      <workItem from="1568524406652" duration="6114000" />
+      <workItem from="1568530555063" duration="299000" />
+      <workItem from="1568533610727" duration="137000" />
+      <workItem from="1568546524383" duration="16964000" />
+      <workItem from="1568600704554" duration="8164000" />
+      <workItem from="1568620413589" duration="11647000" />
+      <workItem from="1568689307855" duration="3307000" />
+      <workItem from="1568734823772" duration="740000" />
+      <workItem from="1568795193097" duration="24000" />
+      <workItem from="1568795262344" duration="4497000" />
+      <workItem from="1568890709396" duration="1504000" />
+      <workItem from="1569050097165" duration="1755000" />
+      <workItem from="1591502153533" duration="953000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="412847000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="34" width="1920" height="1046" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49902534" visible="true" weight="0.22585838" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Learn" order="7" />
+      <window_info id="Web" order="8" sideWeight="0.50097466" side_tool="true" weight="0.2533512" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49865952" weight="0.25168538" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932975" weight="0.32956153" />
+      <window_info anchor="bottom" id="Application Servers" order="7" weight="0.32956153" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32956153" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013405" side_tool="true" weight="0.27439886" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32956153" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="bottom" id="File Transfer" order="14" weight="0.21640736" />
+      <window_info anchor="bottom" id="Messages" order="15" weight="0.32921347" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" visible="true" weight="0.10085837" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="9" side_tool="true" weight="0.3297587" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/stu_eva/stu_tea.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_info.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1349">
+          <caret line="71" column="12" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/sch_info/sch_info.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="42" column="108" selection-start-line="42" selection-start-column="108" selection-end-line="42" selection-end-column="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/teaEva_info_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/sch_info/sch_info_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/sch_info/showAll.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="64" column="22" lean-forward="true" selection-end-line="82" selection-end-column="57" />
+          <folding>
+            <element signature="e#1246#1252#0#HTML" expanded="true" />
+            <element signature="e#1252#1258#0#HTML" expanded="true" />
+            <element signature="e#1258#1264#0#HTML" expanded="true" />
+            <element signature="e#1264#1270#0#HTML" expanded="true" />
+            <element signature="e#1270#1276#0#HTML" expanded="true" />
+            <element signature="e#1276#1282#0#HTML" expanded="true" />
+            <element signature="e#1293#1299#0#HTML" expanded="true" />
+            <element signature="e#1300#1306#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/object/Classes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/schEva_info_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="30" column="50" lean-forward="true" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/sch_info/showRela.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#887#893#0#HTML" expanded="true" />
+            <element signature="e#893#899#0#HTML" expanded="true" />
+            <element signature="e#899#905#0#HTML" expanded="true" />
+            <element signature="e#905#911#0#HTML" expanded="true" />
+            <element signature="e#911#917#0#HTML" expanded="true" />
+            <element signature="e#917#923#0#HTML" expanded="true" />
+            <element signature="e#934#940#0#HTML" expanded="true" />
+            <element signature="e#941#947#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/sch_info/sch_info_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="44" lean-forward="true" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JS/sch_check_exist.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-167">
+          <caret line="6" column="55" lean-forward="true" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/change_pawd.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_info.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="17" column="102" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/check.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/eva_check.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_rela.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="76" column="33" lean-forward="true" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JS/eva_check_exist.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="43" column="21" lean-forward="true" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/relative/tea_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/relative/sch_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/stu_eva/show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/evaluation/teaEva_info/stu_eva/show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/HTML/managerHome.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/HTML/loginPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="37" column="83" lean-forward="true" selection-start-line="37" selection-start-column="83" selection-end-line="37" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/HTML/studentHome.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/object/Teacher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="61" selection-start-line="12" selection-start-column="61" selection-end-line="12" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/schEva_update.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/evaluation/schEva_info/schEva_insert.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-798" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_info_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/reqandresp/Update.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="109" column="140" lean-forward="true" selection-start-line="109" selection-start-column="140" selection-end-line="109" selection-end-column="140" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_update.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/stu_info/stu_insert.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="21" column="155" lean-forward="true" selection-start-line="21" selection-start-column="125" selection-end-line="21" selection-end-column="155" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_insert.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding>
+            <element signature="e#1003#1009#0#HTML" expanded="true" />
+            <element signature="e#1009#1015#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/tea_info/showAll.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="55" column="26" lean-forward="true" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/tea_info/tea_eva.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/tea_info/tea_info_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/tea_info/showRela.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/object/Schedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/filter/AllFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="27" column="36" lean-forward="true" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/c3p0-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/reqandresp/Insert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="140" column="60" lean-forward="true" selection-start-line="140" selection-start-column="60" selection-end-line="140" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/object/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-813" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/reqandresp/Delete.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
+          <folding>
+            <element signature="method#doGet#0;class#Delete#0" />
+            <element signature="e#1206#1708#1" />
+            <element signature="e#1745#2247#1" />
+            <element signature="e#2287#3039#1" />
+            <element signature="e#3079#3831#1" />
+            <element signature="e#3867#4376#1" />
+            <element signature="e#4412#4921#1" />
+            <element signature="method#doPost#0;class#Delete#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/utiltool/DBUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="96" column="22" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="initializer##0;class#DBUtil#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/CSS/fontSize.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="25" column="1" lean-forward="true" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/reqandresp/photo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_info_show.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/information/tea_info/tea_update.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="31" column="12" lean-forward="true" selection-start-line="31" selection-start-column="12" selection-end-line="32" selection-end-column="163" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/student/student_info.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="35" column="152" selection-start-line="35" selection-start-column="152" selection-end-line="35" selection-end-column="152" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/JSP/manager/managerHome.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="562">
+          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jie/reqandresp/checkUserServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>teachQuarySystem:war exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>teachQuarySystem</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>c3p0-0.9.2.1</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
