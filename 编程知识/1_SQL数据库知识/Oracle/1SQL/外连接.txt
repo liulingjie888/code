@@ -5,7 +5,7 @@
 左外连接：
 将左侧表中不符合连接条件的记录加入结构集中，与之对应的连接操作符右侧表列用NULL填充
 Select ename,sal,dname			//显示雇员的名称、工资和所在的部门名称
-From em , dept				//及没有属于任何部门的雇员
+From em , dept					//及没有属于任何部门的雇员
 Where emp.deptno=dept.deptno(+)		//join省略，(+)表示右边被约束
 
 select * from tbl1 Left (OUTER) Join tbl2 where ...		//条件约束右边的（tbl2)连接结果集

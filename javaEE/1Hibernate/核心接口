@@ -1,0 +1,25 @@
+==========Configuration接口:
+#负责管理Hibernate的配置信息
+Configuration configuration=new Configuration().configure();
+
+==========ServiceRegistry和SessionFactory接口:
+#ServiceRegistry根据当前的数据库配置信息,应用代理来构造SessionFacory实例并返回
+#SessionFactory负责创建Session实例,安全类
+ServiceRegistry serviceRegistry=new StandardServiceRegistryBUilder().cofigure.build();
+sessionFactory =new MetadataSources(serviceRegistry).buildMetadata().buildSessionFactory();
+
+==========Session接口:
+#是Hibernate持久化操作的基础,只可一个线程使用
+Session session=sessionFactory.openSession();
+
+==========Transaction接口:
+#事务操作的接口
+Transaction ts=session.beginTransaction();
+
+==========Query接口:
+#查询接口
+String name = "iphone";
+Query q =s.createQuery("from Product p where p.name like ?");
+q.setString(0, "%"+name+"%");		//下标从0开始
+List<Product> ps= q.list();
+

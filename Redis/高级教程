@@ -10,7 +10,7 @@ CONFIG GET dir
 
 ====================密码
 config set requirepass "密码"	#设置密码
-config get requirepass		#获取密码
+config get requirepass	#获取密码
 auth "密码"			#登入验证
 
 ===================客户端连接

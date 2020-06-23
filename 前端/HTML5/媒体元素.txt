@@ -1,0 +1,64 @@
+音视频文件
+<embed ></embed>	（视频支持avi、wmv、mpg、rm、rmvb等）
+
+属性
+src="源文件路径"
+width
+height
+autostart="false|true"	是否自动播放
+hidden			隐藏
+loop="true"		循环播放
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+视频
+<video></video>
+
+属性
+src
+width 
+heitght 
+controls="controls"		是否显示控制条
+
+<source>	用于备用源文件（浏览器不支持则切换源文件）
+<video>
+	<source src="文件路径">
+	<source src="文件路径">
+	……
+</video>
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+音频
+<audio></audio>	用法与<video>类似
+
+属性
+autoplay="false"
+controls="controls"		显示控制条
+loop="true"		循环播放
+preload			 媒体文件在页面加载时就加载，有autoplay属性则忽略该属性
+//播放(继续播放)
+audio.play();
+ 
+//暂停
+audio.pause();
+ 
+//停止
+audio.pause();
+audio.currentTime = 0;
+ 
+//重新播放
+audio.currentTime = 0;
+audio.play();
+
+<!-- 用户点击播放才开始下载 -->
+<audio src="hangge.mp3" controls preload="none"></audio>
+
+自动播放
+使用autoplay属性可以让浏览器加载完音频文件后立即播放。（如果想用来作为背景音乐的话可以把controls属性去掉）
+<audio src="hangge.mp3" controls autoplay></audio>
+
+
+循环播放
+使用loop属性让音乐播放结束时，在从头开始播放。
+<audio src="hangge.mp3" controls loop></audio>

@@ -14,16 +14,20 @@ public class Product {
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
 <hibernate-mapping package="com.how2java.pojo">
-    <class name="Product" table="product_">  	//table值为对应数据库的表名
-        <id name="id" column="id">		//表示id为表的id
+    <class name="Product" table="product_">  	//table值为对应数据库的表名(其他:schema属性为用户名,catalog表示数据库名)
+        <id name="id" column="id">			//表示id为表的id
 	     <!--version标签必须紧挨着id后面  -->
             [<version name="version" column="ver" type="int"></version>]	//乐观锁（做同样的业务就会抛出异常，提示该行已经被其他事务删除或者修改过了，本次修改无法生效）
             <generator class="native"/>		//表示id的自增长方式采用数据库的本地方式      
-                [<param name="sequence">bigsword.category_sequence</param>]	//oracle数据库制定增长方式
+                [<param name="sequence">bigsword.category_sequence</param>]	//oracle数据库指定增长方式
             </generator>
         </id>
-        <property name="name" />
+        <property name="name" type=""java.lang.String/>
         <property name="price" />
+        或
+        <property name="name" type=""java.lang.String>		//Product的name属性
+        	<column name="name" length="20" not-null="true"	//对应表中的name字段
+        </property>
     </class>
 </hibernate-mapping>
 
@@ -41,10 +45,10 @@ public class Product {
         <property name="connection.password">admin</property>
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>	//这表示使用MYSQL方言。
-        <property name="current_session_context_class">thread</property>	//Hibernate事务管理方式每个线程一个事务
-        <property name="show_sql">true</property>				//在控制台显示执行的sql语句
+        <property name="current_session_context_class">thread</property>		//Hibernate事务管理方式每个线程一个事务
+        <property name="show_sql">true</property>					//在控制台显示执行的sql语句
         <property name="hbm2ddl.auto">update</property>				//自动更新数据库的表结构
-        <mapping resource="com/how2java/pojo/Product.hbm.xml" />		//Hibernate会去识别Product这个实体类
+        <mapping resource="com/how2java/pojo/Product.hbm.xml" />			//Hibernate会去识别Product这个实体类
     </session-factory>
 </hibernate-configuration>
 
@@ -70,3 +74,12 @@ s.save(p);
 s.getTransaction().commit();
 s.close();
 sf.close();
+
+其他:
+实体对象生命周期:
+瞬时态(transient,属于VO)
+持久态(persistent,属于PO)
+托管状态(detached,属于VO)
+
+VO(Value Object):值对象
+PO(Persistent Object):持久对象

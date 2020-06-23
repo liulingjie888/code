@@ -1,0 +1,118 @@
+
+==================================普通校验
+===========action执行方法中校验
+
+public class MyAction{
+	public String execute(){
+		if(username.equals("") || username==null){
+			addFieldError("username","username为空");
+		}
+		if(hasErrors()){
+			return INPUT;
+		}
+		return SUCCESS;
+	}
+}
+
+如果客户没有输入，就会在输入框上面显示"username为空"（输入框name为"username"）
+
+==========validate方法中校验（效果跟上面方法一样，且更容易维护）
+public void validate(){
+	if(username.equals("") || username==null){
+			addFieldError("username","username为空");
+	}
+}
+
+==================================使用Struts2校验框架
+
+在Action类同包下创建ActionName-validation.xml文件（如RegistAction-validation.xml）,也可以命名为ActionName-别名-validation.xml:
+
+======字段型校验配置：
+<validator type="校验器名">
+	<param name="fieldName">要校验的字段名</param>
+	<message>校验失败的提示信息</message>
+</validator>
+
+======非字段型校验配置：
+<validators>
+	<field name="要校验的字段名">
+		<field-validator type=""校验器名">
+			[<param name="参数名">参数值</param>]
+			<message>校验失败信息</message>
+		</field-validator>
+		...
+	</field>
+</validators>
+======校验器名:
+required:检查字段是否为空
+requiredstring:检查字段是否为字符串且是否为空
+int:检查字段是否为整数且在[min,max]范围
+double:检查字段是否为双精度且在[min,max]范围
+date:检查字段是否为日期格式且在[min,max]范围
+expression:对指定OGNL表达式求值
+fieldexpression:对指定字段OGNL表达式求值
+email：是否为E-mail格式
+url:检查字段是否为URL格式
+visitor：引用指定对象各属性对应的检验规则
+conversion:检查字段是否发生类型错误
+stringlength:检查字符产度是否在指定范围
+regex:检查字段是否匹配指定的正则表达式
+
+======例子：
+<validators>
+	<field name="username">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>username为空！！！</message>
+		</field-validator>
+	</field>
+
+	<field name="password">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>password为空！！！</message>
+		</field-validator>
+	</field>
+
+	<field name="repassword">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+		</field-validator>
+		<messagere>password为空！！！</message>
+		<field-validator type="fieldexpression">
+			<param name="expression">
+				<![CDAT[repassword.equals(password))]]>
+			</param>
+			<message>两次密码不一致！</message>
+		</field-validator>
+	</field>
+
+	<field name="age">
+		<field-validator type="int">
+			<param name="min">1</param>
+			<param name="max">150</param>
+			<message>age必须在1到150之间</message>
+		</field-validator>
+	</field>
+</validators>
+
+======================================客户端校验
+
+1.在<s:form>中加入"validate="true"
+2.在项目webRoot\WEB-INF下创建content文件，然后将所有JSP页面移到该目录
+3.在struts.xml中增加如下配置：
+<action name="*">
+	<result>/WEB-INF/content/{1}.jsp</result>
+<action>
+
+原理：
+Struts2框架会把配置的验证信息转换成JavaScript代码，并在页面验证.
+但只支持以下校验器：
+int
+double
+required
+requiredstring
+stringlength
+regex
+email
+url

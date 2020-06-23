@@ -1,0 +1,13 @@
+但是无论是execute还是executeUpdate都不会返回这个自增长id是多少。需要通过Statement的getGeneratedKeys获取该id
+代码后面加了个Statement.RETURN_GENERATED_KEYS参数，以确保会返回自增长ID。 通常情况下不需要加这个，有的时候需要加，所以先加上，保险一些
+ 
+PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+ 
+
+// 在执行完插入语句后，MySQL会为新插入的数据分配一个自增长id
+// JDBC通过getGeneratedKeys获取该id
+ResultSet rs = statement引用.getGeneratedKeys();
+if (rs.next()) {
+	int id = rs.getInt(1);
+	System.out.println(id);
+}

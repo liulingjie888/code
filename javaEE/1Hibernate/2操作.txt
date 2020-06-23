@@ -1,14 +1,30 @@
+方式一:
 SessionFactory sf = new Configuration().configure().buildSessionFactory();
 Session s = sf.openSession();
+s.beginTransaction();			//开启事务(查询可以不开启事务)
+...操作
+s.getTransaction().commit();		//提交事务
+s.close();
+
+方式二:
+Session s=HibernateSessionFactory.getSession();
+Transaction t=session.beginTransactioin();
+...操作
+t.commit();
+HibernateSessionFactory.closeSession();
 
 
-
+其他:
+session.flush();	//清空session,表示执行session缓存的所有操作
+session.clear();	//释放内存供下批数据是哟你
 ==========================插入
 Product p = new Product();
 p.setName("iphone"+i);
 p.setPrice(i);
 s.save(p);
 
+注意:
+saveOrUpdate方法就是不存在则插入,反之更新
 ==========================删除
 Product p =(Product) s.get(Product.class, 5);
 s.delete(p);
@@ -37,6 +53,13 @@ List<Product> ps= q.list();
 注意：
 使用hql的时候，用的是类名Product,而不是表名product_;不需要在前面加 select *
 
+还可以
+Query q =s.createQuery("from Product p where p.name like :nameValue");
+q.setString("nameValue", "%"+name+"%");		//下标从0开始
+
+其他:
+q.setFirstResult(n);			//指定从哪一个对象开始查
+q.setMaxResults(m);			//指定一次查处多少条
 =========Criteria 完全是 面向对象的方式在进行数据查询，将不再看到有sql语句的痕迹
 String name = "iphone";
 Criteria c= s.createCriteria(Product.class);
@@ -64,3 +87,69 @@ Query q =s.createQuery("select count(*) from Product p where p.name like ?");
 q.setString(0, "%"+name+"%");
 long total= (Long) q.uniqueResult();
 
+其他:
+q.setFirstResult(n);			//指定从哪一个对象开始查
+q.setMaxResults(m);			//指定一次查处多少条
+q.addEntity("p",Product.class);	//将查询到的记录与Product实体关联,SQL为"select * from product_ as p"
+Person person=(Person)q.uniqueResult();	//唯一结果
+sql.addScalar("字段名",IntegerType.INSTRANCE);//将查询出来的字段值装换成指定格式
+
+=======================动态类的使用
+<hibernate-mapping>  
+    <!-- 这里class里面用的是entity-name，没有创建持久化类，也就是实体类 -->  
+    <class entity-name="org.tie.User" table="user" catalog="tie">  
+        <id name="id" type="long">  
+            <column name="id" />  
+            <generator class="identity" />  
+        </id>  
+        <property name="name" type="string">  
+            <column name="name" length="45" not-null="true" />  
+        </property>  
+        <property name="email" type="string">  
+            <column name="email" length="45" />  
+        </property>  
+        <property name="addr" type="string">  
+            <column name="addr" length="45" />  
+        </property>  
+    </class>  
+</hibernate-mapping>  
+
+操作(Map操作):
+//插入
+Map user = new HashMap();   
+user.put("name", "zhongguoren");   
+user.put("email","zhongguoren@163.com");   
+user.put("addr","zhongguobeijing");   
+   
+Session session = factory.openSession();   
+Transaction tr = session.beginTransaction();   
+
+session.save("org.tie.User", user);   	//这里的save比较特别点   
+tr.commit();   
+session.close();   
+
+//查询&更新&删除
+Session session = factory.openSession();     
+Map user = (Map)session.load("org.tie.User", new Long(4));  
+System.out.println(user.get("email")); 
+...更新,删除,操作  
+session.close();   
+
+=========================批量操作
+
+执行批量插入配置:
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.jdbc.batch_size">50</property>		//设置批量尺寸为50(一次最多执行50插入)
+		<property name="">false</property>					//关闭二级缓存
+	</session-factory>
+</hibernate-configuration>
+
+执行批量更新,删除配置:
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.query.factory_class">
+			org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory
+		</property>		
+	</session-factory>
+</hibernate-configuration>

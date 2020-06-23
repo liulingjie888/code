@@ -1,0 +1,3 @@
+
+sqlplus / as sysdba				#登入实例
+select instance_name from V$instance;		#查看当前实例

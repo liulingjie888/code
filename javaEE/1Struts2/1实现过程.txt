@@ -1,0 +1,114 @@
+
+=============================================1web.xml文档
+
+<web-app>
+  <filter>
+  	<filter-name>struts-prepare</filter-name>
+  	<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareFilter</filter-class>
+  </filter>
+  <filter>
+  	<filter-name>struts-execute</filter-name>
+  	<filter-class>org.apache.struts2.dispatcher.filter.StrutsExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>struts-prepare</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>struts-execute</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>
+
+访问过程
+ip地址/struts/action的name值  ->  跳转到配置文件中指定action的指定类的指定方法中  ->  
+通过请求参数名来调用对应的set方法设置值，javaBean模型则参数名为Bean类名.属性名  ->
+在指定执行方法操作后返回字符串  ->  action根据字符串在result中判断选择跳转
+
+
+
+==============================================2实现Action
+========================Action接口
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+  
+public interface Action {
+	public static final String SUCCESS="success";
+	public static final String NONE="none";
+	public static final String ERROR="error";
+	public static final String INPUT="input";
+	public static final String LOGIN="login";
+	public String execute() throws Exception;	//默认执行方法
+
+
+=======================ActionSupport继承了的接口Action:
+Validateable: 提供了validate()方法用于效验表单数据
+ValidationAware: 提供了addFiledError(String fieldname, String errorMessage)方法来验证出错时保存错误信息
+TextProvider: 提过了一系列getText()方法来获得对应的国际化信息资源
+LocaleProvider: 提供了用于国际化是获得语言、地区信息的getLocale()方法
+Serializable:
+
+//实现ActionSuuport子类
+//该类一般用于处理请求，可以将请求中的字段属性封装在该类在该类中
+
+=======字段传值方法：
+public class LoginAction extends ActionSupport {
+	private String name;		//属性名
+	private String password;	//属性名
+	public String execute() throws Exception{
+		//返回处理类型
+	}
+	//方法名必须是输入框的name名，因为是调用输入框名对应的方法名来设置属性
+	. . . name和password的set,get方法
+}
+
+
+=======模型传值方法：
+public class LoginAction extends ActionSupport{
+	private Login login;
+	public String execute() throws Exception{
+	}
+	public Login getLogin(){
+		return login;
+	}
+	public void setLogin(Login login){
+		this.login=login;
+	}
+}
+
+Login为javaBean模型，
+将表单中的action属性改为  struts配置文件的指定处理action类的name值.action（如login.action）
+输入框name设置为  javaBean类名.属性名（如login.name,login.password）
+
+
+==============================================3配置Action
+在下一章中
+
+==============================================ActionContext
+
+--------------获取ServletAPI
+ActionContext ac=ActionContext.getContext();
+Map session=ac.getSession();		//获得session对象
+Map application=ac.getApplication();	//获得application对象
+Map request=ac.get();			//获得request对象
+
+//方式一获取
+HttpServletRequest req=ServletActionContext.getRequest();
+HttpServletResponse resp=ServletActionContext.getResponse();
+HttpSession session=req.getSession();
+
+//方式二获取
+ActionContext ac=ActionContext.getContext();
+HttpServletRequest req=(HttpServletRequest)ac.get(ServletActionContext.HTTP_REQUEST);
+HttpServletReponse resp=(HttpServletReponse)ac.get(ServletActionContext.HTTP_RESPONSE);
+HttpSession session=req.getSession();
+
+-----------------通过*Aware接口获取(实现接口后再这些方法中获取)
+接口			方法
+ApplicationAware	void setApplication(Map application);
+CookiesAware		void setCookies(Map cookies);
+RequestAware		void setRequest(Map request);
+ServletRequestAware	void setServletRequest(HttpServletReque st request);
+ServletResponseAware	void setServletResponse(HttpServletResponse response);
+SessionAware		void setSession(Map session);

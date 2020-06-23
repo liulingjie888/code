@@ -1,0 +1,35 @@
+==========Action:
+
+public class MyTypeConverterAction extends ActionSupport{
+
+	private Tel[] tel;
+	public String execute (){
+	...
+	}
+	
+	public Tel[] getTel(){...}
+	public void setTel(Tel[] tel){...}
+}
+=========转换器
+public class MyStrutsTypeConverter extends StrutsTypeConverter{
+	public Object convertFromString(Map arg0,String[] arg1, Class arg2){	//String类型转Tel类型
+		Tel[] tel=new Tel[arg1.length];
+		for(int i=0;i<arg1.length;i++){			//根据String逐个设置Tel	
+			Tel t=new Tel();
+			String[] str=arg1[i].split("-");
+			t.setSectionNo(str[0]);
+			t.setTelNo(str[1]);
+			tel[i]=t;
+		}
+		return tel;
+	}
+	
+	public String converToString(Map arg0,Object arg1){			//Tel类型转String类型
+		Tel[] tel=(Tle[])arg1;
+		return 打印出tel信息;
+	}
+}
+
+
+ArrayList类似
+

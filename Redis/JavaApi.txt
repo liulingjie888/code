@@ -1,0 +1,12 @@
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>3.2.0</version>
+</dependency>
+
+===================java
+ //连接redis服务
+Jedis j=new Jedis("liulingjie.cn",6379);
+//查看服务是否运行
+j.auth("LLJ-Redis");
+System.out.println(j.ping());

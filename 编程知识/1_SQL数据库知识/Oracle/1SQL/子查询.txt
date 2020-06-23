@@ -13,7 +13,7 @@ from emp
 where sal > ALL(select sal from emp where job='salesman');		//高于所有
 
 select name from emp
-where job IN (select job from emp where deptno=0);		//包含其中
+where job IN (select job from emp where deptno=0)			//包含其中
 and deptno=20;
 
 //多列子查询

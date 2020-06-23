@@ -4,7 +4,7 @@ exists key			#检查给定 key 是否存在
 expire key seconds		#为给定 key 设置过期时间，以秒计
 pexpire key milliseconds	#设置 key 的过期时间以毫秒计
 persist key			#移除 key 的过期时间，key 将持久保持
-ttl key				#以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)
+ttl key			#以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)
 pttl key			#以毫秒为单位返回 key 的剩余的过期时间
 rename key newkey		#修改 key 的名称
 renamenx key newkey		#仅当 newkey 不存在时，将 key 改名为 newkey 

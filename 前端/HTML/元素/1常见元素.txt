@@ -1,0 +1,62 @@
+区块元素:<h1>, <p>, <ul>, <table>,<div>
+内联元素:<b>, <td>, <a>, <img>,<span>
+
+标题:<h1> - <h6>
+段落:<p></p>
+链接:<a href="https://www.runoob.com">这是一个链接</a>
+换行:<br/>
+水平线:<hr/>
+
+=========图像:<img src="/images/logo.png" alt="some_text" width="258" height="39" />
+图像的映射(图像制定区域可以点击跳转):
+<img src="planets.gif" width="145" height="126" alt="Planets" usemap="#planetmap">
+<map name="planetmap">
+  <area shape="rect" coords="0,0,82,126" alt="Sun" href="sun.htm">
+  <area shape="circle" coords="90,58,3" alt="Mercury" href="mercur.htm">
+  <area shape="circle" coords="124,58,8" alt="Venus" href="venus.htm">
+</map>
+
+=========超链接
+<a></a>		
+属性:
+href:
+	"链接文件路径(#锚点)"		跳到某文件锚点
+	"#ID或name"					跳到锚点，仅#则跳至网页顶部
+	"mailto:邮件"				打开默认
+	"tel:电话号码"				拨打电话
+	"sms:电话号码"				发短信
+
+target:
+"_blank"	在新窗口打开
+"_self"		在当前窗口打开（默认值）
+"_parent"	在当前窗口的父窗口打开
+"_top"		在整个浏览器窗口打开链接
+
+=========列表
+无序列表:
+	<ul>					
+		<li> · · · </li>
+		<li> · · · </li>
+	</ul>	
+	<ul style="list-style-type:disc">	//圆点列表		
+	<ul style="list-style-type:circle">	//圆圈列表
+	<ul style="list-style-type:square">	//正方形列表
+	
+有序列表:
+	<ol [start=20]>			
+		<li>Coffee</li>
+		<li>Milk</li>
+	</ol>
+	
+定义列表:
+	<dl>
+		<dt>Coffee</dt>
+		<dd>- black hot drink</dd>
+		<dt>Milk</dt>
+		<dd>- white cold drink</dd>
+	</dl>
+	显示效果:
+		Coffee
+			- black hot drink
+		Milk
+			- white cold drink

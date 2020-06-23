@@ -28,6 +28,11 @@ sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
+20.04版:
+sudo add-apt-repository \
+"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+bionic \
+stable"
 
 ============================安装 Docker Engine-Community
 =======更新 apt 包索引。

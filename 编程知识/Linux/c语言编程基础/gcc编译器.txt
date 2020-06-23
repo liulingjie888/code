@@ -1,4 +1,4 @@
-*--------------------------------基本流程
+`*--------------------------------基本流程
 源文件->预处理文件
 gcc -E hello.c -o hello.i
 
@@ -13,6 +13,9 @@ gcc hello.o -o hello
 
 
 *--------------------------------其它命令
+将该目录添加进库搜索范围
+gcc hello.c -L /root/workpalce/ -o hello
+
 在目标路径搜索头文件
 gcc hello.c -I /root/workpalce/ -o hello
 
@@ -36,6 +39,7 @@ ar rcsv libpow.a unsgn_pow.o		//在库插入模块(libpow.a为静态库文件)
 gcc -fPIC -Wall -c unsgn_pow.c	//为动态库构造一个目标文件
 gcc -shared -o libpow.so unsgn_pow.o	//生成动态库文件libpow.so
 
+----------库使用方法
 gcc -o pow_test pow_test.c -L -lpow	
 
 

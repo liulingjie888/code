@@ -1,5 +1,7 @@
- mRotateAnimation = new RotateAnimation(0,360,iv_loading.getMeasuredWidth()/2,iv_loading.getMeasuredHeight()/2);
-        mRotateAnimation.setInterpolator(new LinearInterpolator());
-        mRotateAnimation.setDuration(1000);
-        mRotateAnimation.setRepeatCount(-1);
-        iv_loading.startAnimation(mRotateAnimation);
+
+
+mRotateAnimation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+mRotateAnimation.setInterpolator(new LinearInterpolator());
+mRotateAnimation.setDuration(1000);
+mRotateAnimation.setRepeatCount(-1);
+iv_loading.startAnimation(mRotateAnimation);

@@ -1,0 +1,19 @@
+=====(行内式)内联样式:
+<p style="color:blue;margin-left:20px;">这是一个段落。</p>
+
+=====(嵌入式)内部样式表:
+<head>
+	<style type="text/css">
+		body {background-color:yellow;}
+		p {color:blue;}
+	</style>
+</head>
+
+=====外部样式表:
+1.链接式	先装载CSS文件
+<link href="CSS文件路径" rel="stylesheet" type="text/css" />
+
+2.导入式	后装载CSS文件
+<style type="text/css">
+	@import url("CSS文件路径");
+</style>

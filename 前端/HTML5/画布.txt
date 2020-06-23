@@ -1,0 +1,49 @@
+<canvas id="myCanvas" width="200" height="100"
+	style="border:1px solid #000000;">
+</canvas>
+
+
+它本身不会绘制图形，要借助JavaScript程序来完成，例：
+	<script>
+		var c=document.getElementById("myCanvas");
+		var cxt=c.getContext("2d");		//环境设为2d，返回一个环境对象，导出二维绘图的API
+		
+		cxt.fillStyle="#ffff00";		//填充颜色(设置fillStyle属性可以是CSS颜色，渐变，或图案。fillStyle 默认设置是#000000（黑色）)
+		
+		cxt.fillRect(0,0,150,75);		//绘制矩形
+		
+		cxt.moveTo(10,10);			//将画笔移动要指定位置
+		
+		ctx.arc(95,50,40,0,2*Math.PI);	//画圆,参数1:x;参数2:y;参数3:半径;参数4:开始角度;参数5:结束角度
+		
+		cxt.lineTo(150,150);			//绘制线条,起点坐标
+		cxt.lineTo(10,50);			//终点坐标
+		cxt.stroke();				//产生路径
+		
+		ctx.font="30px Arial";		//定义字体
+		ctx.fillText("Hello World",10,50);	//绘制实心字体
+		ctx.strokeText("Hello World",10,50);	//绘制空心字体
+		
+		createLinearGradient(x,y,x1,y1);	//创建线条渐变(起点坐标,重点坐标)
+		grd.addColorStop(0,"red");		//开始颜色
+		grd.addColorStop(1,"white");		//结束颜色
+		ctx.fillStyle=grd;			//填充渐变
+		ctx.fillRect(10,10,150,80);
+		
+		
+		var grd=ctx.createRadialGradient(75,50,5,90,60,100);	// 创建原型渐变
+		grd.addColorStop(0,"red");
+		grd.addColorStop(1,"white");
+		ctx.fillStyle=grd;			// 填充渐变
+		ctx.fillRect(10,10,150,80);
+		
+		<img id="scream" src="img_the_scream.jpg" alt="The Scream" width="220" height="277">
+		
+		var img=document.getElementById("scream");
+		img.onload = function() {
+			ctx.drawImage(img,10,10);	//放置图片
+		} 
+		
+		
+	</script>
+

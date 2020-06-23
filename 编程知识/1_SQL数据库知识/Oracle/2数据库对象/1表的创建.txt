@@ -12,7 +12,7 @@ create table 表名
 字段名  数据类型  [默认值]  [约束],
 //表级约束
 [constraint  约束名] primary key(字段名,. . .)
-foreign key(字段名,...) [constraint  约束名] references 表明(字段名...)
+foreign key(字段名,...) [constraint  约束名] references 表名(字段名...)
 [constraint 约束名] unique((字段名, . . .)
 [constraint 约束名] check(约束条件)
 )[AS 子查询结果]				//子查询返回的行插入到表中

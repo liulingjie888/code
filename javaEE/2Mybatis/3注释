@@ -18,6 +18,9 @@ public interface CategoryMapper {
         
     @Select(" select * from category_ ") 
     public List<Category> list(); 
+    
+    @Select("SELECT * FROM USER WHERE USERNAME=#{userName} AND USERID = #{userId}") 
+    public List<Map<String, Object>> getUserInfo(@Param("userName")String userName, @Param("userId")String userId)
 }
 
 ============================mybatis-config.xml

@@ -1,0 +1,15 @@
+第一步   127     .      0           .           0         .        1         
+
+第二步 01111111     00000000     00000000     00000001      =   2130706433   （主机字节序）
+
+第三步 00000001     00000000     00000000    01111111        =   16777343    （网络字节序）
+
+addrSrv.sin_addr.S_un.S_addr=htonl(2130706433);	//计算出主机对应的网络字节序再赋值
+addrSrv.sin_addr.S_un.S_addr=inet_addr("127.0.0.1");	//效果同上
+inet_ntoa(addrSrv.sin_addr.S_un.S_addr)		//转换回127.0.0.1
+
+
+uint16_t htons(uint16_t host16bit) 	把16位值从主机字节序转到网络字节序(端口转换,端口2字节)
+uint32_t htonl(uint32_t host32bit)  	把32位值从主机字节序转到网络字节序(IP转换,IP 4字节)
+uint16_t ntohs(uint16_t net16bit) 	把16位值从网络字节序转到主机字节序
+uint32_t ntohs(uint32_t net32bit)  	把32位值从网络字节序转到主机字节序

@@ -1,0 +1,5 @@
+1.安装
+yum install redis
+
+2.查看安装路径
+rpm -ql redis

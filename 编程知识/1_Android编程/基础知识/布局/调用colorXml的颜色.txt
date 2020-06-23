@@ -1,0 +1,2 @@
+int color = Resources.getSystem().getColor(R.color.red);  
+btn1.setBackgroundColor(color);

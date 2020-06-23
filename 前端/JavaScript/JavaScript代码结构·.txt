@@ -1,0 +1,23 @@
+行内式
+<p onclick="alert('Hello,The Web World !');">Click</p>
+
+嵌入式
+<head>
+· · · · · ·
+<script>
+	function msg(){
+		alert("Hello,The Web World!");	
+	}
+</script></head>
+<body>
+	<p onclick="msg()">Click Here </p>
+</body>
+
+链接式
+<body>
+<script type="text/JavaScript" src="JavaScript文件路径"></script>
+</body>
+
+
+不支持JavaScript:
+<noscript>抱歉，你的浏览器不支持 JavaScript!</noscript>

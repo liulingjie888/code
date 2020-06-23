@@ -1,0 +1,66 @@
+
+
+继承映射关系:
+
+=================================1.每个类一个数据表:
+#如A,B,C都为POJO,其中A为B,C的父类.
+#则该方法映射会创建ABC三张表,但使用起来就好像只有B,C两张表一样
+#A配置就在class中,而B,C的配置映射写在<joined-subclass>标签类中,如下:
+
+
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping package="com.how2java.pojo">
+    <class name="Product" table="product_"> 
+        <id name="id" column="id">						//A类配置
+            <generator class="native"/>
+        </id>
+        <property name="name" type=""java.lang.String/>
+        <property name="price" />
+        
+        <joined-subclass name="子POJO类包名" tale="对应的表名">		//B类配置(B的主键一定是来源于A的主键)
+        	<key column="id名"/>
+        	<property name="POJO的字段名" column="对应的表字段名" type="string"/>
+        </joined-subclass>
+        
+        <joined-subclass name="子POJO类包名" tale="对应的表名">		//C类配置
+        	<key column="id名"/>
+        	<property name="POJO的字段名" column="对应的表字段名" type="string"/>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>
+
+================================2.共享一个数据库表
+#如A,B,C都为POJO,其中A为B,C的父类.
+#则该方法映射只创建一张表,会将BC各自的字段都添加进去,并会指定一个字段来区分这条记录属于B还是C,但使用起来就好像只有B,C两张表一样
+#A配置就在class中,而B,C的配置映射写在<subclass>标签类中,如下:
+
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping package="com.how2java.pojo">
+    <class name="Product" table="product_"> 							//A配置
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <discriminator column="区别类型字段名" type="string"/>				//设置区别类型字段名
+        <property name="name" type=""java.lang.String/>
+        <property name="price" />
+        
+        <subclass name="子POJO类包名" discriminator-value="区别类型字段的值">		//B配置
+        	<property name="POJO的字段名" column="对应的表字段名" type="string"/>
+        </subclass>
+        
+        <subclass name="子POJO类包名" discriminator-value="区别类型字段的值">		//C配置
+        	<property name="POJO的字段名" column="对应的表字段名" type="string"/>
+        </subclass>
+    </class>'
+</hibernate-mapping> 
+
+=================================3.每个子类一个数据表
+B,C各自建立一个完整的数据表,相互无影响

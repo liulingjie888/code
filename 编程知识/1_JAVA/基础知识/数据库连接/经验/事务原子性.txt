@@ -1,0 +1,24 @@
+
+
+public static  boolean motormanAcceptOrder(AcceptOrder order)  {
+        定义对象等...
+        try {
+            conn=dataSources.getConnection();
+            conn.setAutoCommit(false);		//关闭自动提交
+	    数据库操作...
+            conn.commit();				//提交事务
+        } catch (SQLException e) {
+            if(conn!=null) {
+                try {
+                    conn.rollback();			//回滚事务
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        }finally {
+             关闭操作...
+
+        }
+        return flag;
+}

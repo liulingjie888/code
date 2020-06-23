@@ -3,3 +3,12 @@ import android.widget.Toast;
 
 //this为activity对象,Toast.LENGTH_SHORT为显示时间短,Toast.LENGTH_LONG显示时间长
 Toast.makeText(this,"Helloworld",Toast.LENGTH_SHORT).show();
+
+通过setGravity设置Toast位置，可以是 
+ Gravity.CENTER：中间
+ Gravity.BOTTOM：下方
+ Gravity.TOP：上方
+ Gravity.RIGHT：右边
+Gravity.LEFT：左边
+
+如setGravity(Gravity.CENTER, 0, 0);

@@ -1,0 +1,109 @@
+第一步：获取Authorization Code
+
+https://graph.qq.com/oauth2.0/authorize?
+response_type=code&
+client_id=101759515&
+redirect_uri=http://liulingjie.cn:8080/javaWeb_war_exploded/QQLogin&	//纯数字英文可以不编码，如要编码用URLEncoder.encode(url);
+state=test&
+scope=get_user_info&
+display=mobile	//移动网站需要
+
+登入成功跳转到http://liulingjie.cn:8080/javaWeb_war_exploded/QQLogin?code=9A5F************************06AF&	//10分钟后过期
+state=test
+code即为Authorization Code
+
+
+----------------------------------------------------------------------------------
+第二步：通过Authorization Code获取Access Token授权令牌
+
+https://graph.qq.com/oauth2.0/token?
+grant_type=authorization_code&
+client_id=101759515&
+client_secret=26a3b7a6ab65707f04140df12a51d179&
+code=上一步返回的AuthorizationCode&
+redirect_uri=http://liulingjie.cn:8080/javaWeb_war_exploded/QQLogin		//纯英文数字可以不编码
+
+请求成功后返回包，不是跳转到指定页，坑啊，而且只能请求一次
+包内容：
+
+access_token=FE04************************CCE2&		//得到授权令牌
+expires_in=7776000&				//令牌有效时间（默认3个月）
+refresh_token=88E4************************BE1		//重新获取新的授权令牌需要提供的参数（这个添加到cookie一定要trim）
+
+
+---------------------------------------------------------------------------------
+第三步：获取openID
+
+https://graph.qq.com/oauth2.0/me?access_token=第二步获取的授权令牌
+成功后返回：callback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} ); 
+
+或获取unionID
+
+https://graph.qq.com/oauth2.0/me?access_token=第二步获取的授权令牌&unionid=1
+
+成功返回：callback(
+{
+"client_id":"YOUR_APPID",
+"openid":"YOUR_OPENID",
+"unionid":"YOUR_UNIONID"
+}
+);
+----------------------------------------------------------------------------------
+获取用户基本信息：
+https://graph.qq.com/user/get_user_info?
+access_token=YOUR_ACCESS_TOKEN&
+oauth_consumer_key=YOUR_APP_ID&
+openid=YOUR_OPENID
+JSON数据：
+{ 
+"ret": 0, 
+"msg": "", 
+"is_lost":0, 
+"nickname": "可乐配鸡翅_", 
+"gender": "男", 
+"province": "江西", 
+"city": "赣州", 
+"year": "1999",
+ "constellation": "",
+ "figureurl": "http:\/\/qzapp.qlogo.cn\/qzapp\/101759515\/CBD63775D31F8BBF9ECE7EFF1C1AD27C\/30", 
+"figureurl_1": "http:\/\/qzapp.qlogo.cn\/qzapp\/101759515\/CBD63775D31F8BBF9ECE7EFF1C1AD27C\/50", 
+"figureurl_2": "http:\/\/qzapp.qlogo.cn\/qzapp\/101759515\/CBD63775D31F8BBF9ECE7EFF1C1AD27C\/100", 
+"figureurl_qq_1": "http://thirdqq.qlogo.cn/g?b=oidb&k=1AjjhJDgBObbo3GtibuNA2w&s=40&t=1556804492", 
+"figureurl_qq_2": "http://thirdqq.qlogo.cn/g?b=oidb&k=1AjjhJDgBObbo3GtibuNA2w&s=100&t=1556804492", 
+"figureurl_qq": "http://thirdqq.qlogo.cn/g?b=oidb&k=1AjjhJDgBObbo3GtibuNA2w&s=140&t=1556804492", 
+"figureurl_type": "1", 
+"is_yellow_vip": "0", 
+"vip": "0", 
+"yellow_vip_level": "0", 
+"level": "0",
+ "is_yellow_year_vip": "0" 
+}
+
+------------------------------------------重新授权-------------------------------
+
+https://graph.qq.com/oauth2.0/token?
+grant_type=refresh_token&
+client_id=101759515&
+client_secret=26a3b7a6ab65707f04140df12a51d179&
+refresh_token=前面获取的重新请求参数
+
+成功后与第二步结果一致。
+--------------------------------------权限-------------------------------------------
+get_user_info,
+add_topic,
+add_one_blog,
+add_album,upload_pic,
+list_album,
+add_share,
+check_page_fans,
+add_t,
+add_pic_t,
+del_t,
+get_repost_list,
+get_info,
+get_other_info,
+get_fanslist,
+get_idollist,
+add_idol,
+del_ido,
+get_tenpay_addr

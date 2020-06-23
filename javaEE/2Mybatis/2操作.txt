@@ -6,7 +6,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.how2java.pojo">
-<insert id="addCategory" parameterType="Category" >		//parameterType表示参数类型
+<insert id="addCategory" parameterType="Category" >			//parameterType表示参数类型
     insert into category_ ( name ) values (#{name})   		//#{name}会自动获取Category对象的name属性值
 </insert>
  
@@ -24,7 +24,7 @@
 
 <select id="listCategory" resultType="Category">
     select * from   category_     
-</select>    
+</select>   
 </mapper>
 
 ===============================代码
@@ -33,34 +33,34 @@ InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 SqlSession session = sqlSessionFactory.openSession();
 
-=====插入
+==================插入
 Category c = new Category();
 c.setName("新增加的Category");
 session.insert("addCategory",c);	//第一参数为配置文件调用sql的id，后面参数为对应SQL语句中的变量
 
-=====删除
+==================删除
 Category c = new Category();
 c.setId(6);
 session.delete("deleteCategory",c);	//mybatis-config.xml没有<typeAliases>则要写全路径，如  Category路径.deleteCategory
 
-=====更新
+==================更新
 Category c= session.selectOne("getCategory",3);
 c.setName("修改了的Category名稱");
 session.update("updateCategory",c);
 
-=====查询
+==================查询
 Category c= session.selectOne("getCategory",3);		//调用查询1个对象sql的id获取多个对象
 List<Category> cs = session.selectList("listCategory");	//调用查询多个对象sql的id获取多个对象
 
 session.commit();
 session.close();
 
-其他查询：
+=========其他传参：
 <select>标签中：
 	select * from   category_  where name like concat('%',#{0},'%')		//concat('%',#{0},'%') 这是mysql的写法
 代码：
 	List<Category> cs = session.selectList("listCategoryByName","cat");
-===========
+====
 <select>标签中：
 <select id="listCategoryByIdAndName"  parameterType="map" resultType="Category">
     select * from   category_  where id> #{id}  and name like concat('%',#{name},'%')
@@ -70,6 +70,38 @@ session.close();
         params.put("id", 3);
         params.put("name", "cat");
         List<Category> cs = session.selectList("listCategoryByIdAndName",params);
+        
+====
+@Select("SELECT * FROM USER WHERE USERNAME=#{userName} AND USERID = #{userId}") 
+public List<Map<String, Object>> getUserInfo(@Param("userName")String userName, @Param("userId")String userId)
+等效于:   
+<select id="listCategoryByIdAndName"  parameterType="map" resultType="Category">
+    SELECT * FROM USER WHERE USERNAME=#{userName} AND USERID = #{userId}
+</select>
 
+=========只取部分字段:
+<!-- 定义resultMap，type为HashMap -->
+<resultMap id="PartBookMap" type="java.util.HashMap">
+    <id column="book_id" property="bookId" jdbcType="BIGINT" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+</resultMap>
+
+<!-- 查询语句 -->
+<select id="selectPartBook" resultMap="PartBookMap">
+    select book_id, book_name, author from book
+</select>
+
+ SqlSession session=SQLSessionFactory.getSession();
+Map result= session.selectOne("selectPartBook");
+System.out.println(result.get("bookId")+" "+result.get("bookName"));
+
+或者
+<select id="queryMotorNamePhone" resultType="map">
+        select m_name,m_phone
+        from motorman_ a join acceptOrder_  b where a.m_id = b.m_id and o_id=#{o_id}
+</select>
+
+直接用Map接收结果就行,键值就是字段名
 
 

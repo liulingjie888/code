@@ -1,0 +1,48 @@
+
+src下命名资源文件 基本名称_语言代码_国家代码.properties,如：
+中国国际化资源： 基本名称_zh_CN.properties
+英国国际化资源：基本名称_en_US.properties
+
+内容格式（key=value）：
+login=login
+login=\u7676\u5F55		//对应为登录
+
+ 
+ ===========================================实例
+ 
+ 在Struts中，提供了il8n的拦截器（在默认拦截器中）在执行action前，自动查找请求中一个名为request_locale的参数。
+ 如果该参数存在，拦截器就将该参数值转换成Locate对象，并将该对象存入用户名为"WW_TRANS_I18N_LOCALE"的session中。
+
+========1.在src/struts.properties中的文件写入：
+struts.customil8n.resources=message		//message为自定义,后面要同
+
+========2.在src/message_en_US.properties文件写入：
+key=value
+...
+
+在src/message_zh_CN.properties文件写入：
+key=value
+...
+
+========3.在用户的session中设置好Location对象(根据用户的这个对象来调用资源文件)，如：
+Locale locale=new Locale("zh"，"CN");
+session.put("WW_TRANS_I18N_LOCALE",locale);
+
+========4.网页标签：
+<s:i18n name="message">
+	访问方式同下面的三种方式
+</s:i18n>
+
+=====方式一：
+<s:text name="login"/>
+
+=====方式二：
+<s:textfield name="login" key="login"/>		//login键没有值则显示login
+
+=====方式三：
+getText("键名")，如：
+	<s:property value="%{getText('login')}"/>	//同上第一种方式
+	<s:textfield label="%{getText('login')}"/>	//同上第二种方式
+
+	在action类可以用getText("键名")代替值
+	在校验0配置文件中可以用${getText("键名")}代替值

@@ -1,0 +1,171 @@
+服务端:
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <netdb.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#define SERVER_PORT 6666
+ 
+int main(){
+ 
+    int serverSocket;       //调用socket函数返回的文件描述符
+    int clientSocket;       //客户套接字的描述符
+
+    char buffer[200];       //缓存接收的字节数组
+    int iDataNum;	     //读取到的字节长度
+    
+    //声明两个套接字sockaddr_in结构体变量，分别表示客户端和服务器
+    struct sockaddr_in server_addr;
+    struct sockaddr_in client_addr;
+    int addr_len = sizeof(client_addr);
+
+    //创建socket
+    //第一个参数表示使用的地址类型，一般都是ipv4，AF_INET
+    //第二个参数表示套接字类型：tcp：面向连接的稳定数据传输SOCK_STREAM
+    //第三个参数设置为0
+    if((serverSocket = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+        perror("socket");
+        return 1;
+    }
+    
+    //初始化服务器端的套接字信息
+    bzero(&server_addr, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;           //设置套接字为ipv4
+    server_addr.sin_port = htons(SERVER_PORT);  //端口转换成网络字节序来设置监听端口
+    server_addr.sin_addr.s_addr=inet_addr("127.0.0.1");
+    
+    //绑定套接字
+    if(bind(serverSocket, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0){
+        perror("connect");
+        return 1;
+    }
+    
+    //设置服务器上的socket为监听状态
+    if(listen(serverSocket, 5) < 0){
+        perror("listen");
+        return 1;
+    }
+    
+    while(1){
+        printf("监听端口: %d\n", SERVER_PORT);
+        //客户连接,连接后获取到文件描述符clientSocket和其套接字信息client_addr
+        clientSocket = accept(serverSocket, (struct sockaddr*)&client_addr, (socklen_t*)&addr_len);
+        if(clientSocket < 0){
+            perror("accept");
+            continue;
+        }
+        
+        printf("等待消息...\n");
+        printf("IP 是 %s\n", inet_ntoa(client_addr.sin_addr));    //表达式：char *inet_ntoa (struct in_addr);inet_ntoa ip地址转换函数，将网络字节序IP转换为点分十进制IP
+        printf("Port 是 %d\n", htons(client_addr.sin_port));
+
+        while(1){
+            printf("读取消息:");
+            buffer[0] = '\0';
+
+	    //读取客户消息
+            iDataNum = recv(clientSocket, buffer, 1024, 0);
+            if(iDataNum < 0) {
+                perror("recv null");
+                continue;
+            }
+            buffer[iDataNum] = '\0';
+        
+            if(strcmp(buffer, "quit") == 0){
+            	 close(clientSocket);
+                break;
+            }
+            printf("%s\n", buffer);
+        
+            //发送消息给客户
+            printf("发送消息:");
+            scanf("%s", buffer);
+        
+            send(clientSocket, buffer, strlen(buffer), 0);
+            if(strcmp(buffer, "quit") == 0)
+                break;
+        
+        }
+    
+    }
+    close(serverSocket);	//关闭文件描述符
+    return 0;
+}
+
+
+
+客户端:
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <netdb.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+ 
+#define SERVER_PORT 6666
+ 
+/*
+连接到服务器后，会不停循环，等待输入，
+输入quit后，断开与服务器的连接
+*/
+ 
+int main(){
+ 
+    
+    int clientSocket;               //客户端只需要一个套接字文件描述符，用于和服务器通信
+    struct sockaddr_in serverAddr;  //描述服务器的socket
+    
+    char sendbuf[200];	     //发送字节缓存
+    char recvbuf[200];	     //接收字节缓存
+    int iDataNum;		     //接收字节读取的长度
+
+    //创建套接字
+    if((clientSocket = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+        perror("socket");
+        return 1;
+    }
+    //初始化套接字信息
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(SERVER_PORT);
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");    //指定服务器端的ip，本地测试：127.0.0.1;inet_addr()函数，将点分十进制IP转换成网络字节序IP
+    //开始连接
+    if(connect(clientSocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0){
+        perror("connect");
+        return 1;
+    }
+    
+    printf("连接到主机...\n");
+    
+    while(1){
+        printf("发送消息:");
+        scanf("%s", sendbuf);
+        send(clientSocket, sendbuf, strlen(sendbuf), 0);	//发送消息
+        if(strcmp(sendbuf, "quit") == 0)
+            break;
+        
+        printf("读取消息:");
+        recvbuf[0] = '\0';
+        iDataNum = recv(clientSocket, recvbuf, 200, 0);	//读取消息
+        recvbuf[iDataNum] = '\0';
+        printf("%s\n", recvbuf);
+    }
+    
+    close(clientSocket);
+    return 0;
+    
+}
+ 

@@ -1,0 +1,34 @@
+======<base> 标签描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接:
+<head>
+	<base href="http://www.runoob.com/images/" target="_blank">
+</head>
+
+======<link> 标签定义了文档与外部资源之间的关系。通常用于链接到样式表:
+<head>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+<head>
+	<link rel="shortcut icon" href="图片url">
+	<title>这是一个带图片的标签</title>
+</head>
+
+======<style> 标签定义了HTML文档的样式文件引用地址.可以直接添加样式来渲染 HTML 文档:
+<head>
+<style type="text/css">
+	body {background-color:yellow}
+	p {color:blue}
+</style>
+</head>
+
+======<meta> 标签- 使用实例
+为搜索引擎定义关键词:
+<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript">
+
+为网页定义描述内容:
+<meta name="description" content="免费 Web & 编程 教程">
+
+定义网页作者:
+<meta name="author" content="Runoob">
+
+每30秒钟刷新当前页面:
+<meta http-equiv="refresh" content="30">

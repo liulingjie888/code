@@ -7,11 +7,11 @@ PLSQL不能直接使用DDL语句，可以使用DML，DCL语句
 declare
 	声明变量，类型，游标及局部的存储过程和函数;	//声明部分
 begin
-	过程及SQL语句;			//执行部分,必须的部分
+	过程及SQL语句;				//执行部分,必须的部分
 exception
 	错误处理;				//执行异常部分
 end;
-/					//表示plsql程结束
+/						//表示plsql程结束
 '''
 ------------------声明块
 PL/SQL块可以分为：
@@ -32,7 +32,7 @@ PL/SQL块可以分为：
 
 定义变量:
   变量名  变量类型;		//如 i  number(2);
-  变量名  变量类型:=值	//如 msg varchar2(12):='哈哈'	
+  变量名  变量类型:=值		//如 msg varchar2(12):='哈哈'	
 
 积累类型：
   ROWID		//表示变量是存储记录的rowid类型
@@ -46,5 +46,5 @@ returning  sql执行记录的字段  into  变量,...;	//将上一次执行dml�
 
 dbms_output.put_line(变量);			//输出变量
 
-select 字段名 into 字段变量			//将查询结果赋值给字段变量
+select 字段名 into 字段变量			//将查询结果(只能有一个结果)赋值给字段变量
 from 表 where 条件

@@ -1,0 +1,5 @@
+一个显示网页的小窗口:
+a中的target表示点击链接后,只是iframe内的网页进行跳转
+
+<iframe src="demo_iframe.htm" name="iframe_a"></iframe>
+<p><a href="http://www.runoob.com" target="iframe_a">RUNOOB.COM</a></p>

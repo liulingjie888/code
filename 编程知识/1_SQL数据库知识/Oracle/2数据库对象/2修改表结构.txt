@@ -14,7 +14,7 @@ char和varchar2间可以任意转换
 //列的修改
 ALTER TABLE 表名+
 
-add 列名  数据类型  [default 默认值]  [约束]	//添加一列
+add 列名  数据类型  [default 默认值]  [约束]		//添加一列
 add (列名  数据类型  [default 默认值]  [约束], . . .)	//添加多列
 
 modify 列名  数据类型  [default 默认值]  [约束] 	//修改一列

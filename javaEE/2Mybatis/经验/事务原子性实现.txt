@@ -1,0 +1,12 @@
+
+
+使用事务，不自动提交
+在mybatis api中，控制Trancation是在创建org.apache.ibatis.session.SqlSession的时候设置boolean类型的参数来实现的。调用方法没有差别，支持事务的最后会调用commoit或者rollback。
+SqlSession session = sqlSessionFactory.openSession(false);
+try {
+session.insert("insert into table1(id, name) values(1, 'a');");
+session.insert("insert into table1(id, name) values(2, 'b');");
+session.commit();
+} catch (Exception e) {
+session.rollback();
+}

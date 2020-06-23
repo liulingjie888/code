@@ -1,2 +1,13 @@
 **图片资源不能中文和大写
 
+**配置http能够请求
+1.新建\app\src\main\res\xml\network_security_config.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+ 
+    <base-config cleartextTrafficPermitted="true" />
+ 
+</network-security-config>
+2. 配置AndroidManifest.xml
+application标签加入该属性:
+android:networkSecurityConfig="@xml/network_security_config">

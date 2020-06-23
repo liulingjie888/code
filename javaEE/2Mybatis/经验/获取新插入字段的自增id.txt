@@ -1,0 +1,12 @@
+1.在Mybatis Mapper文件中添加属性“useGeneratedKeys”和“keyProperty”，其中keyProperty是Java对象的属性名，而不是表格的字段名。
+
+<insert id="insert" parameterType="Spares" useGeneratedKeys="true" keyProperty="id">  
+        insert into system(name) values(#{name})  
+</insert> 
+
+2.Mybatis执行完插入语句后，自动将自增长值赋值给对象systemBean的属性id。因此，可通过systemBean对应的getter方法获取！
+int count = systemService.insert(systemBean);  
+int id = systemBean.getId(); //获取到的即为新插入记录的ID 
+
+【注意事项】
+2.java Dao中的Insert方法，传递的参数必须为java对象，也就是Bean，而不能是某个参数。

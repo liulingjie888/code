@@ -1,0 +1,10 @@
+ubuntu环境下:
+1.sudo apt-get install libmysqlclient-dev
+2.执行make
+
+CentOS环境下:
+1.sudo yum install mysql-devel
+2.将makefile的第二行换成:
+gcc $^ -o $@ -L/usr/lib64/mysql -lmysqlclient -lpthread
+3.执行make
+

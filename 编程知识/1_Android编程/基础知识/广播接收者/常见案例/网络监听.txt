@@ -23,4 +23,14 @@ intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
 NetworkChangeReceiver  networkChangeReceiver=new NetworkChangeReceiver();
 registerReceiver(networkChangeReceiver,intentFilter);
 
+静态注册:
+<receiver
+    android:name="com.example.llj.broadcastReceiver.NetworkChangeReceiver"
+    android:enabled="true"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+    </intent-filter>
+</receiver>
+
 

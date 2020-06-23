@@ -17,4 +17,4 @@ connect 用户名/口令
 drop user 用户名  [cascade]			//cascade删除其模式（表，索引等）
 
 --------授权
-grant create session to 用户名			//授予用户会话权限（用户是否能够连接）
+grant create session to 用户名		//授予用户会话权限（用户是否能够连接）

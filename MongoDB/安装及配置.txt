@@ -1,0 +1,13 @@
+
+安装
+sudo apt-get install mongodb
+
+卸载
+sudo apt-get --purge remove mongodb mongodb-clients mongodb-server
+
+配置文件
+/etc/mongodb.conf
+
+进入
+mongo
+

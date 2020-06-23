@@ -1,0 +1,5 @@
+1.方案一
+env GTK_IM_MODULE=xim dia
+2.方案二
+修改 /usr/share/applications/dia.desktop文件：
+把Exec=dia %F 改为Exec=env GTK_IM_MODULE=xim dia %F

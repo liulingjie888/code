@@ -14,6 +14,9 @@ SQuirrel SQL
 DB Browser for SQLite	Sqlite数据库工具
 
 PhotoGIMP	PS工具
+flatpak install https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
+flatpak run org.gimp.GIMP//stable
+[flatpak update]
 
 gedit		文本工具
 

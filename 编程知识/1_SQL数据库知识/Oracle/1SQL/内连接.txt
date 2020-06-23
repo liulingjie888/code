@@ -1,13 +1,17 @@
 
 交叉连接：
 select * from emp,dept;		//结果集交叉连接（笛卡儿积）
+select * from emp cross join dept;
 
 ---------------
 
 内连接：根据指定的连接条件进行连接查询，
 只有满足连接条件的数据才会出现在结构集中
 例：
-select * from tb1 INNER JOIN tb2 ON tb1.id=tb2.id;
+select * from tb1 INNER JOIN tb2 ON tb1.id=tb2.id;		#两个id字段不合并
+select * from tb1 NATURAL INNER JOIN tb2 ON tb1.id=tb2.id;	#id字段合并
+select * from tb1 INNER JOIN tb2 USING tb1.id=tb2.id;	#id字段合并
+select * from tb1 INNER JOIN tb2 USING (id);			#id字段合并
 
 
 相等内连接：
@@ -21,10 +25,10 @@ ON emp.depthno=dept.deptno
 
 非相等内连接：
 Select e.name , e.sal , s.grade			//查询员工名字，工资，和工资等级
-From emp e,salgrade s			//e,s相等与表的别名
+From emp e,salgrade s					//e,s相等与表的别名
 Where e.sal BETWEEN s.losal AND s.hisal;
 
 自连接：
-Select worker.name manager.name		//显示雇员名称和雇员的经理名称
+Select worker.name manager.name		//显示雇员名称和雇员的经理名称(mgr上级,empno下级)
 From emp worker,emp manager
 WHERE worker.mgr=manager.empno

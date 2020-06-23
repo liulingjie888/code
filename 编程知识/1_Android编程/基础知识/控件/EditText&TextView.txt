@@ -6,8 +6,8 @@ text
 textColor			//文本颜色
 textSize=15sp""		// 设置文字大小，推荐单位sp
 textStyle="bold"		//设置文字样式，如italic(斜体)，bold(粗体)，bolditalic(斜粗体)
-maxLength="10"		//设置文本的长度，超出不显示
-minHeight="100dp"	//最小高度
+maxLength="10"			//设置文本的长度，超出不显示
+minHeight="100dp"		//最小高度
 gravity="center"		//文本居中，可以用设多个值，如bottom|right(右下方)
 layout_gravity="center";	//位置居中
 visibility="visible"		//设为可见

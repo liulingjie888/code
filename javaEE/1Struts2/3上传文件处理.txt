@@ -1,0 +1,72 @@
+form加上enctype="multipart/form-data"，表示提交的数据是二进制的.
+文件会直接封装到doc类中
+
+=======================文件上传
+Action类：
+public class UploadAction {
+ 
+    File doc;				//doc是表单上传文件的输入框的name值，多个文件则doc类型改为List<File>
+    String docFileName;			//文件名
+    String docContentType;		//文件类型
+ 
+    public File getDoc() {
+        return doc;
+    }
+ 
+    public void setDoc(File doc) {
+        this.doc = doc;
+    }
+ 
+    public String getDocFileName() {
+        return docFileName;
+    }
+ 
+    public void setDocFileName(String docFileName) {
+        this.docFileName = docFileName;
+    }
+ 
+    public String getDocContentType() {
+        return docContentType;
+    }
+ 
+    public void setDocContentType(String docContentType) {
+        this.docContentType = docContentType;
+    }
+ 
+    //处理请求
+    public String upload() {
+        System.out.println(doc);
+        System.out.println(docFileName);
+        System.out.println(docContentType);
+        return "success";
+    }
+}
+
+=======================文件下载
+Action类：
+public class DownloadAction extends ActionSupoort{
+	private String downloadFile;				//需要下载的文件路径
+	
+	public void setDownloadFile(String downloadFile){
+		this.downloadFile=downloadFile;
+	}
+	
+	public InputStream getTargetFile(){			//生成文件的输入流
+		return ServletActionContext.getServletContext().getResourceAsStream(downloadFile);
+	}
+	
+	public String execute(){
+		reutrn Sueecss;
+	}
+}
+
+struts.xml文件：
+<action name="download" class="DownloadAction">
+	<param name="downloadFile">/image/用例.rar</param>			//下载文件的路径，name对应Action的downloadFile
+	<result name="success" type="stream">					//表示这是一个流的action
+		<param name="inputName">targetFile</param>			//输入流的名称，对应Action类的getTargetFile方法
+		<param name=contentDisposition">filename="example.rar"</param>	//用户看到下载文件的名称
+		<param name="bufferSize">4096</pararm>				//指定下载文件时缓冲区的大小
+		[<param name="contentType">mage/png</param>]				//指定文件的类型（有则浏览器会根据类型直接打开该文件，没有则直接下载到磁盘）
+	</result>
+</action>

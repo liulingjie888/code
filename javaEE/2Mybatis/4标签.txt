@@ -16,11 +16,11 @@
 	<where>					//多重选择条件
 	    <if test="name!=null">
 	        and name like concat('%',#{name},'%')
-	    </if>        
+	    </if>
 	    <if test="price!=null and price!=0">
 	        and price > #{price}
 	    </if>
-	</where>     
+	</where>
     </select>
 </mapper>
 

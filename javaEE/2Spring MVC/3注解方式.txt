@@ -21,6 +21,12 @@ public class IndexController {		//不用实现Controller接口
     }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 }
 
+其他知识:
+#返回类型为中文String时用这个防止乱码:
+@RequestMapping(value ="/queryOrders",produces = "text/html; charset=utf-8")
+
+#指定处理Post请求方式的注释:
+@RequestMapping(method={RequestMethod.POST}, value="/doctorsss")
 ==================配置文件
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -38,3 +44,14 @@ public class IndexController {		//不用实现Controller接口
         <property name="suffix" value=".jsp" />
     </bean>
 </beans>
+
+====================不需要进行页面跳转而是直接返回数据。
+这时候我们可以在方法上，添加注解：@ResponseBody
+@Controller
+public class UserController{
+	@ResponseBody
+	@RequestMapping(“/login”)
+	public String login(){
+		return “hello”;
+	}
+}

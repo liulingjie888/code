@@ -6,7 +6,7 @@
 一般给字段设置别名（因为有无名字段存在），如果数据是根据多数记录计算出来的，则不能进行DML操作
 
 ----------创建视图语句
-create [or replace]  [force|noforce] view 视图名 [别名, . . .]
+create [or replace]  [force|noforce] view 视图名 [字段别名, . . .]
 as 子查询语句
 [with check option [constraint 约束名] ]
 [with read only]

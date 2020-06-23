@@ -1,0 +1,48 @@
+
+==============================配置文件声明
+<package name="default" namespace="/" extends="struts-default">
+    <!--声明拦截器-->
+    <interceptors>
+        <interceptor name="interceptor1" class="interceptorClass"/>	//标签内可以放入<param name="参数名">参数值</param>
+        <interceptor name="interceptor2" class="interceptorClass"/>
+        <!--定义一个拦截器栈myStack，该拦截器栈中包含两个拦截器和一个默认拦截器栈-->
+        <interceptor-stack name="myStack">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="interceptor1"/>
+            <interceptor-ref name="interceptor2"/>
+        </interceptor-stack>
+    </interceptors>
+</package>
+
+==============================使用例子
+==========拦截器类：
+
+public class DateInterceptor extends AbstractInterceptor {
+ 
+    public String intercept(ActionInvocation invocation) throws Exception {
+       ProductAction action = (ProductAction)invocation.getAction();
+       action.setDate(new Date());
+       return invocation.invoke();			//invocation表示执行下一个拦截器或最后一个Action，返回它们的name值
+    }
+}
+
+可以实现destory和init方法。
+ActionContext ctx=invocation.getInvocationContext(); 
+==========struts.xml配置：.
+<package name="basicstruts" extends="struts-default">
+        <interceptors>				//声明拦截器
+            <interceptor name="dateInterceptor" class="com.how2java.interceptor.DateInterceptor" />
+        </interceptors>
+ 
+        <action name="*Product*" class="com.how2java.action.ProductAction" method="{1}">
+  	    <interceptor-ref name="defaultStack" />  		//使用默认拦截器栈。使用自定义拦截器后，默认拦截器会失效，使用需添加
+            <interceptor-ref name="dateInterceptor" />		//使用拦截器
+            <result name="show">show.jsp</result>
+            <result name="list">list.jsp</result>
+        </action>
+ 
+</package>
+
+==========================案例：表单重复提交问题
+1.在<s:form>标签中加入<s:token/>
+2.<action>标签中配置<result name="invalid.token">wrong.jsp</result>	//重复提交表单就会跳到wrong.jsp页面，invalid.token拦截器是Struts定义好的拦截器

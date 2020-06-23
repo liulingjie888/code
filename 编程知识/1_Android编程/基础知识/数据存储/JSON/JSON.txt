@@ -55,13 +55,13 @@ implementation  'com.goole.code.gson:gson2.7'
 
 //javaBean标准模型的Person中的成员名称要与JSON数据的key值一致
 //解析对象
-Gson gson=new Gsno();
+Gson gson=new Gson();
 Person person=gson.fromJson(json字符串,Person.class);
 
 //解析数组
 Gson gson=new Gson()
-Type listType=new TypeToken<List<类名>>(){}.getType();
-List<类名> ages=gson.fromJson(json字符串,listType);
+Type listType=new TypeToken<List<Person.class>>(){}.getType();
+List<Person.class> ages=gson.fromJson(json字符串,listType);
 
 --------------------------------------------------------------
 例：

@@ -83,3 +83,18 @@ public class TestMybatis {
 	2.4 把多个Category对象装在一个Category集合中
 3. 返回一个Category集合
 
+====================================注意！！！
+IDEA的Maven是不会编译src的java目录的xml文件，所以在Mybatis的配置文件中找不到xml文件！
+解决方法：
+把原pom文件拿出来，把下面这段代码复制进入：
+<build>
+    <resources>
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.xml</include>		//这个路径是你要存放xml文件的路径
+            </includes>
+        </resource>
+    </resources>
+</build>
+

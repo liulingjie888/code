@@ -1,7 +1,7 @@
 ==========================Redis 集合命令
 sadd key member1 [member2]		#向集合添加一个或多个成员
 
-smove source destination member		#将 member 元素从 source 集合移动到 destination 集合
+smove source destination member	#将 member 元素从 source 集合移动到 destination 集合
 
 srem key member1 [member2]		#移除集合中一个或多个成员
 spop key				#移除并返回集合中的一个随机元素
@@ -9,7 +9,7 @@ spop key				#移除并返回集合中的一个随机元素
 smembers key				#返回集合中的所有成员
 scard key				#获取集合的成员数
 sismember key member			#判断 member 元素是否是集合 key 的成员
-srandmember key [count]			#返回集合中一个或多个随机数
+srandmember key [count]		#返回集合中一个或多个随机数
 
 sdiff key1 [key2]			#返回给定所有集合的差集
 sdiffstore destination key1 [key2]	#返回给定所有集合的差集并存储在 destination 中

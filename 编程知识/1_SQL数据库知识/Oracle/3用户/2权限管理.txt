@@ -16,12 +16,12 @@ from public | 角色 | 用户名
 
 --------------------------
 对象权限：
-权限名称		表	视图	序列	进程	快照
+权限名称	表	视图	序列	进程	快照
 select		*	*	*		*
 insert		*	*
 update		*	*
 delete		*	*		*
-execute					*
+execute				*
 alter		*		*
 index		*
 references	*
@@ -33,6 +33,6 @@ to  用户名,...
 [with grant option]		//可以获得其管理权（没有只有使用权）
 
 //回收权限（具有级联性）
-revoke 
+revoke 对象权限,...
 on 对象名称
 from  用户名,...

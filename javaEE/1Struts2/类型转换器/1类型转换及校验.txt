@@ -1,0 +1,84 @@
+
+常用类型转换：
+boolean和Boolean的转换：
+char和Character：
+int和Integer:
+long和Long:
+float和Float:
+double和Double:			//这些都可以与String完成自动转换
+Date:				//与String自动转换，日期格式为用户请求本地的SHORT格式（如98-9-25）
+
+===========================自定义类型转换器
+
+====模型：
+pulic class Tel{
+	private String sectionNo;		//区号
+	private String telNo;			//电话号码
+	get,set...
+}
+
+
+====Action:
+
+public class MyTypeConverterAction extends ActionSupport{
+
+	private Tel tel;
+	public String execute (){
+	...
+	}
+	
+	public Tel getTel(){...}
+	public void setTel(Tel tel){...}
+}
+
+注意：提交的输入框的name必需为tel
+
+
+==========================类型转换器
+实现一：
+public class MyTypeCOnverter extends DefaultTypeConverter{
+
+	//context是类型转换的上下文，value为要转换类型源对象，toType为转换成的目标类型
+	//（如下：客户端提交请求时为String转换成Tel类型，页面展示Tel对象时为Tel类型转换成String类型）
+	public Object converValue(Map context, Object value,Class toType){
+		if(toType==Tel.class){				//String类型转Tel类型
+			String [] str=(String[])value;		//输入框有多个name相同的则会有多个value
+			Tel t=new Tel();
+			
+			for(int i=0;i<str.length;i++){
+				...根据str自定义设置t
+			}
+			return t;
+		}else if(toType==String.class){			//Tel类型转String类型
+			Tel t=(Tel)value;
+			return t.getSectionNo()+"-"+t.getTelNo();
+		}
+		return null;
+	}
+}
+
+实现二：
+public class MyStrutsTypeConverter extends StrutsTypeConverter{
+	public Object convertFromString(Map arg0,String[] arg1, Class arg2){	//String类型转Tel类型
+		Tel t=new Tel();
+		String[] str=arg1[0].split("-");
+		t.setSectionNo(str[0]);
+		t.setTelNO(str[1]);
+		return t;
+	}
+	
+	public String converToString(Map arg0,Object arg1){			//Tel类型转String类型
+		Tle t=(Tel)arg1;
+		return t.getSectionNo()+"-"+t.getTelNo();
+	}
+}
+
+
+==========注册类型转换
+在该Action类所在包编写配置文件MyTypeConverterAction-conversion.properties:
+tel=struts.MyTypeCOnverter		//表示这个参数用该类型转换器
+
+==========配置说明
+配置文件名格式必须为：  Action类名-conversion.properties
+全局配置：在src下创建xwork-conversion.properties:
+org.vo.Tel=org.converter.MyStrutsTypeConverter		//表示这个Tel类型的对象都用MyStrutsTypeConverter转换器

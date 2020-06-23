@@ -4,8 +4,8 @@ Docker镜像是由多个文件系统（只读层）叠加而成。当我们启�
 ========================设置匿名卷
 下面的命令会将/data挂载到容器中，并绕过联合文件系统，我们可以在主机上直接操作。默认目录/var/lib/docker/vfs/dir下。
 我们可以通过两种方式来初始化Volume，这两种方式有些细小而又重要的差别。我们可以在运行时使用-v来声明Volume：
-$ docker run -it -v /data debian /bin/bash
-$ docker run -v /home/adrian/data:/data debian ls /data		#容器上挂载指定的主机目录（Dockerfile做不到）
+$ docker run -it -v /data debian /bin/bash				#在宿主机/var/lib/docker/volumes/下自动生成Volumn卷
+$ docker run -v /home/adrian/data:/data debian ls /data		#容器上挂载指定的主机的volumn目录（Dockerfile做不到）
 
 ========================查看
 使用docker inspect命令找到Volume在主机上的存储位置：
@@ -16,7 +16,7 @@ map[/data:/var/lib/docker/vfs/dir/cde167197ccc3e138a14f1a4f...b32cec92e79059437a
 
 为了保证可移植性（并不是所有的系统的主机目录都是可以用的），挂载主机目录不需要从Dockerfile指定。当使用-v参数时，镜像目录下的任何文件都不会被复制到Volume中。（注：Volume会复制到镜像目录，镜像不会复制到卷）
 ========================数据共享
-如果要授权一个容器访问另一个容器的Volume，我们可以使用-volumes-from参数来执行docker run。
+如果要授权一个容器访问另一个容器的Volume，我们可以使用-volumes-from参数来执行docker run。(继承其volumn映射)
 不管被共享容器是否运行，它都会起作用。只要有容器连接Volume，它就不会被删除。
 $ docker run -it --volumes-from 被共享的容器name debian /bin/bash
 
@@ -62,6 +62,15 @@ Volume只有在下列情况下才能被删除：
 docker rm －v 容器name	
 docker run中使用了--rm参数
 
-即使用以上两种命令，也只能删除没有容器连接的Volume。连接到用户指定主机目录的Volume永远不会被docker删除。
+即使用以上两种命令，也只能删除没有容器连接且没有指定主机目录的Volume。连接到用户指定主机目录的Volume永远不会被docker删除。
 除非你已经很小心的，总是像这样来运行容器，否则你将会在/var/lib/docker/vfs/dir目录下得到一些僵尸文件和目录，并且还不容易说出它们到底代表什么。
+
+========================命令
+docker volume --help
+Commands:
+  create      创建一个数据卷
+  inspect     打印一个或多个数据卷的详细信息
+  ls          列出所有数据卷
+  prune       删除所有未使用的数据卷
+  rm          删除一个或多个数据卷
 

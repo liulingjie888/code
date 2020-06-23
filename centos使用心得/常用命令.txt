@@ -1,0 +1,6 @@
+
+rpm -ql 软件名			#查看软件的按照目录
+
+systemctl enable redis	#开机自启动
+systemctl status redis	#查看状态
+systemctl start redis		#启动服务

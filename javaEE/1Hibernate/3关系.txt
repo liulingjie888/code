@@ -1,5 +1,8 @@
 Product和Category都是标准的javaBean
 
+==================================一对一
+
+
 ==================================多对一
 
 =========代码
@@ -15,7 +18,7 @@ public class Product {
 =========在Product.hbm.xml中设置Category 多对一关系
 <class name="Product" table="product_">
         ......
-        <many-to-one name="category" class="Category" column="cid" />		//cid表示指向 category_表的外键
+        <many-to-one name="category" class="Category" column="cid" />		//cid表示指向 category_表的外键,(添加unique="true"则设成一对一关系)
 </class>
 
 =========操作
@@ -83,8 +86,8 @@ public class Product {
 <class name="User" table="user_">
         ......
         <set name="products" table="user_product" lazy="false">	//table表示它们的关系表名
-            <key column="uid" />				//该类的外键名称为uid
-            <many-to-many column="pid" class="Product" />	//关系类外键名称为pid
+            <key column="uid" />					//该类在Product的外键名称为uid
+            <many-to-many column="pid" class="Product" />		//Product类在该类外键名称为pid
         </set>       
  </class>
 
