@@ -1,0 +1,31 @@
+注意: 如果字体系列的名称超过一个字，它必须用引号，如Font Family："宋体"。
+#font-family 属性应该设置几个字体名称作为一种"后备"机制，如果浏览器不支持第一种字体，他将尝试下一种字体。
+font-family:"Times New Roman", Times, serif;
+
+=====
+font-style:normal;		# 正常显示文本
+italic				#以斜体字显示的文字
+oblique			#文字向一边倾斜（和斜体非常类似，但不太支持）
+inherit			#规定应该从父元素继承字体样式。
+=====
+font-size:40px;		#设置文字的大小与像素
+2.5em				#1em相当与16px
+100%				#占原本大小的百分比
+=====
+font-variant:small-caps;	#把所有小写字母设置为小型大写字母字体
+=====
+font-weight:			#normal	默认值。定义标准的字符。
+bold				#定义粗体字符。
+bolder				#定义更粗的字符。
+lighter			#定义更细的字符。
+100				#定义由粗到细的字符。400 等同于 normal，而 700 等同于 bold。
+200
+300
+400
+500
+600
+700
+800
+900
+
+

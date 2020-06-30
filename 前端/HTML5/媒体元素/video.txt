@@ -1,0 +1,60 @@
+视频
+<video></video>
+
+属性
+src
+width 
+heitght 
+controls="controls"		是否显示控制条
+<source>			用于备用源文件（浏览器不支持则切换源文件）
+
+
+<video id="video1" width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+  您的浏览器不支持 HTML5 video 标签。
+</video>
+
+<script> 
+var myVideo=document.getElementById("video1"); 
+
+function playPause()
+{ 
+	if (myVideo.paused) 		//如果暂停就播放,反之暂停
+	  myVideo.play(); 
+	else 
+	  myVideo.pause(); 
+} 
+
+其他:
+<video>
+...
+<track src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English">
+<track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian">
+</video>
+
+说明:
+<track> 标签为媒体元素（比如 <audio> and <video>）规定外部文本轨道。
+属性
+default	default	规定该轨道是默认的。如果用户没有选择任何轨道，则使用默认轨道。
+kind		captions	规定文本轨道的文本类型。
+		chapters
+		descriptions
+		metadata
+		subtitles	
+label		text		规定文本轨道的标签和标题。
+src		URL		必需的。规定轨道文件的 URL。
+srclang	language_code	规定轨道文本数据的语言。如果 kind 属性值是 "subtitles"，则该属性是必需的。
+
+=============================最好的 HTML 解决方法
+以下实例中使用了 4 种不同的视频格式。HTML 5 <video> 元素会尝试播放以 mp4、ogg 或 webm 格式中的一种来播放视频。如果均失败，则回退到 <embed> 元素。
+
+HTML 5 + <object> + <embed>
+<video width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+  <source src="movie.webm" type="video/webm">
+  <object data="movie.mp4" width="320" height="240">
+    <embed src="movie.swf" width="320" height="240">
+  </object>
+</video>

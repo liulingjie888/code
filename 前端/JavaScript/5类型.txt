@@ -1,0 +1,111 @@
+#在 JavaScript 中有 6 种不同的数据类型：
+string
+number
+boolean
+object
+function
+symbol
+
+#3 种对象类型：
+Object
+Date
+Array
+
+#2个不包含任何值的数据类型：
+null
+undefined
+
+=======================================类型检测
+请注意：
+NaN 的数据类型是 number
+数组(Array)的数据类型是 object
+日期(Date)的数据类型为 object
+null 的数据类型是 object
+未定义变量的数据类型为 undefined
+==
+constructor 属性返回所有 JavaScript 变量的构造函数。
+"John".constructor                 // 返回函数 String()  { [native code] }
+(3.14).constructor                 // 返回函数 Number()  { [native code] }
+false.constructor                  // 返回函数 Boolean() { [native code] }
+[1,2,3,4].constructor              // 返回函数 Array()   { [native code] }
+{name:'John', age:34}.constructor  // 返回函数 Object()  { [native code] }
+new Date().constructor             // 返回函数 Date()    { [native code] }
+function () {}.constructor         // 返回函数 Function(){ [native code] }
+
+//查看对喜爱那个是否是Array类型
+function isArray(myArray) {
+    return myArray.constuctor.toString().indexOf("Array") > -1;
+}
+=======================================类型转换
+=====转换成字符串:
+String(x)            // 将变量 x 转换为字符串并返回
+String(123)          // 将数字 123 转换为字符串并返回
+String(100 + 23)     // 将数字表达式转换为字符串并返回
+String(false)        // 返回 "false"
+true.toString()      // 返回 "true"
+或
+x.toString()
+(123).toString()
+(100 + 23).toString()
+
+=====字符串转换成数字:
+Number("3.14")    // 返回 3.14
+Number(" ")       // 返回 0
+Number("")        // 返回 0
+Number("99 88")   // 返回 NaN
+
+parseFloat()	解析一个字符串，并返回一个浮点数。
+parseInt()	解析一个字符串，并返回一个整数。
+
+=====一元运算符+(将变量转换为数字):
+var y = "5";
+var x = + y;      // x 是5
+
+var y = "John";
+var x = + y;      // x 是NaN
+
+=====布尔转换成数字:
+Number(false)     // 返回 0
+Number(true)      // 返回 1
+
+=====日期转换成数字:
+d = new Date();
+Number(d)          // 返回 1404568027739
+
+d = new Date();
+d.getTime()        // 返回 1404568027739
+
+=====自动转换类型:
+5 + null    // 返回 5         null 转换为 0
+"5" + null  // 返回"5null"    null 转换为 "null"
+"5" + 1     // 返回 "51"      1 转换为 "1" 
+"5" - 1     // 返回 4         "5" 转换为 5
+
+=====自动转换数组为字符串:
+myVar = {name:"Fjohn"}  // toString 转换为 "[object Object]"
+myVar = [1,2,3,4]       // toString 转换为 "1,2,3,4"
+myVar = new Date()      // toString 转换为 "Fri Jul 18 2014 09:08:55 GMT+0200"
+
+原始值			转换为数字	转换为字符串		转换为布尔值
+false			0		"false"		false
+true			1		"true"			true
+0			0		"0"			false
+1			1		"1"			true
+"0"			0		"0"			true
+"000"			0		"000"			true
+"1"			1		"1"			true
+NaN			NaN		"NaN"			false
+Infinity		Infinity	"Infinity"		true
+-Infinity		-Infinity	"-Infinity"		true
+""			0		""			false
+"20"			20		"20"			true
+"Runoob"		NaN		"Runoob"		true
+[ ]			0		""			true
+[20]			20		"20"			true
+[10,20]		NaN		"10,20"		true
+["Runoob"]		NaN		"Runoob"		true
+["Runoob","Google"]	NaN		"Runoob,Google"	true
+function(){}		NaN		"function(){}"		true
+{ }			NaN		"[object Object]"	true
+null			0		"null"			false
+undefined		NaN		"undefined"		false

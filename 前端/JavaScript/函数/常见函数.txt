@@ -1,0 +1,68 @@
+
+//事件触发函数
+windows.onload=function(){
+}
+--------------------------
+var 变量=document.getElementById("ID号")；		#获取对象
+var 变量=document.getElementsByName("name")[1]；	#获取第2个name属性为name的元素
+var 变量=document.getElementsByTagName("元素名")[0]；	#获取第1个该标记的元素
+
+document.getElementById(id).属性=值;			#改变 HTML 元素的属性
+document.getElementById(id).style.css属性=值;		#改变css样式
+document.getElementById("myBtn").事件=function(){...};	#分配事件
+
+------添加事件句柄
+你可以向同个元素添加多个同类型的事件句柄，如：两个 "click" 事件。
+事件传递有两种方式：冒泡与捕获。
+在 冒泡 中，内部元素的事件会先被触发，然后再触发外部元素，即： <p> 元素的点击事件先触发，然后会触发 <div> 元素的点击事件。
+在 捕获 中，外部元素的事件会先被触发，然后才会触发内部元素的事件，即： <div> 元素的点击事件先触发 ，然后再触发 <p> 元素的点击事件。
+参数3默认值为 false, 即冒泡传递，当值为 true 时, 事件使用捕获传递。该参数是可选的
+
+element.addEventListener(事件名, 函数名, boolean);		#添加事件句柄(事件名去除on前缀)
+element.removeEventListener(事件名, 函数名);			#去除事件句柄
+例: 
+element.addEventListener("click", function(){ alert("Hello World!"); });
+
+对于不支持的浏览器使用以下方法:
+element.attachEvent(事件名, 函数名);		#事件名有on
+element.detachEvent(事件名, 函数名);
+例:
+var x = document.getElementById("myBtn");
+if (x.addEventListener) {                    // 所有主流浏览器，除了 IE 8 及更早版本
+    x.addEventListener("click", myFunction);
+} else if (x.attachEvent) {                  // IE 8 及更早版本
+    x.attachEvent("onclick", myFunction);
+}
+--------------------------
+alert("信息");		弹框
+console.log("信息");	打印到控制台 
+--------------------------
+DOM元素对象.innerHTML="内容"	设置该对象的另一个文本
+--------------------------
+document.write("html语句");	注：如文档已经载入完毕，它会清空文档内容再输出其内容
+HTML 输出流中使用 document.write，相当于添加在原有html代码中添加一串html代码。而如果在文档加载后使用（如使用函数），会覆盖整个文档。
+--------------------------
+(new Date()).toLocaleString()		本地时间
+--------------------------
+函数中的this指调用函数的对象
+--------------------------
+定时函数
+setInterval(执行函数,n);	每过n毫秒执行一次指定函数
+clearInterval();		取消
+
+变量=setTimeout(执行函数,n)；	过n毫秒后执行指定函数
+变量=clearTimeout();		取消
+可用递归实现setInterval功能，例：
+	function begin(){
+		操作代码；
+		变量=setTimeout(begin,1000);
+	}
+--------------------------
+*parseInt(字符串);
+ parseFloat(字符串);
+--------------------------
+*与 getElementsByTagName 类似的，也可以通过 getElementsByClassName 根据class返回一个节点数组
+--------------------------
+element.src.match("bulbon")	#是否包含bulbon字符串
+	
+

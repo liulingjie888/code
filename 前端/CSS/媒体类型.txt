@@ -1,0 +1,31 @@
+@media 规则
+@media 规则允许在相同样式表为不同媒体设置不同的样式。
+
+在下面的例子告诉我们。但是如果。请注意，font-weight 在屏幕上和纸上设置为粗体：
+@media screen
+{
+    p.test {font-family:verdana,sans-serif;font-size:14px;}	//浏览器屏幕上显示一个 14 像素的 Verdana 字体样式
+}
+@media print
+{
+    p.test {font-family:times,serif;font-size:10px;}		//页面打印，将是 10 个像素的 Times 字体
+}
+@media screen,print
+{
+    p.test {font-weight:bold;}
+}
+
+=========================
+其他媒体类型:
+
+媒体类型	描述
+all		用于所有的媒体设备。
+aural		用于语音和音频合成器。
+braille	用于盲人用点字法触觉回馈设备。
+embossed	用于分页的盲人用点字法打印机。
+handheld	用于小的手持的设备。
+print		用于打印机。
+projection	用于方案展示，比如幻灯片。
+screen		用于电脑显示器。
+tty		#用于使用固定密度字母栅格的媒体，比如电传打字机和终端。
+tv		#用于电视机类型的设备。

@@ -1,0 +1,28 @@
+客户端存储数据的两个对象为：
+localStorage - 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
+sessionStorage - 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+应检查浏览器是否支持 localStorage 和sessionStorage:
+if(typeof(Storage)!=="undefined")
+{
+    // 支持 web 存储
+} else {
+    // 不支持 web 存储
+}
+
+================localStorage
+localStorage.自定义键名="菜鸟教程";							//存储值,相当于localStorage.setItem("自定义键名","菜鸟教程")
+document.getElementById("result").innerHTML="网站名：" + localStorage.自定义键名;	//读取值,相当于localStorage.getItem("自定义键名"),没有值返回null
+
+localStorage和sessionStorage可使用的API都相同：
+保存数据：localStorage.setItem(key,value);
+读取数据：localStorage.getItem(key);
+删除单个数据：localStorage.removeItem(key);
+删除所有数据：localStorage.clear();
+得到某个索引的key：localStorage.key(index);
+获取键值队数量:localStorage.length
+提示: 键/值对通常以字符串存储，你可以按自己的需要转换该格式。
+
+=================sessionStorage
+sessionStorage 方法针对一个 session 进行数据存储。当用户关闭浏览器窗口后，数据会被删除。
+其他同localStorage

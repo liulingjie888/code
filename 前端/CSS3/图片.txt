@@ -1,0 +1,11 @@
+filter: blur(4px);		#图片失去焦点变模糊
+filter: brightness(150%);	#提高亮度
+filter: contrast(180%);	#提高鲜艳度(对比度)
+filter: grayscale(50%);	#变无颜色程度
+filter: hue-rotate(180deg);	#给图像应用色相旋转
+filter: invert(100%);		#反转输入图像
+filter: opacity(50%);		#透明度
+filter: saturate(7);		#转换图像饱和度
+filter: sepia(100%);		#变成昏暗色
+filter: drop-shadow(8px 8px 10px green);	#阴影
+filter: url(svg-url#element-id)	#URL函数接受一个XML文件，该文件设置了 一个SVG滤镜，且可以包含一个锚点来指定一个具体的滤镜元素。

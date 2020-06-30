@@ -1,0 +1,27 @@
+
+=============================HTMLConnection
+var 变量=document.getElementsByName("name")[1]；	#获取第2个name属性为name的元素
+var 变量=document.getElementsByTagName("元素名")[0]；	#获取第1个该标记的元素
+
+
+=============================NodeList
+
+#一些旧版本浏览器中的方法（如：getElementsByClassName()）返回的是 NodeList 对象，而不是 HTMLCollection 对象。
+#所有浏览器的 childNodes 属性返回的是 NodeList 对象。
+#大部分浏览器的 querySelectorAll() 返回 NodeList 对象。
+ 
+
+var myNodeList = document.querySelectorAll("p");:
+var y = myNodeList[1];	//NodeList 中的元素可以通过索引(以 0 为起始位置)来访问。
+
+
+
+
+区别:
+#首先 NodeList 是 DOM 快照，节点数量和类型的快照，就是对节点增删，NodeList 感觉不到，但是对节点内部内容修改，是可以感觉到的，比如修改innerHTML。
+#HtmlCollection 是 live 绑定的，节点的增删是敏感的。
+相同点:
+#length 属性为元素的数量。
+#不是一个数组！
+#你可以像数组一样，使用索引来获取元素。
+#无法使用数组的方法： valueOf(), pop(), push(), 或 join() 

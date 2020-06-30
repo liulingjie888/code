@@ -1,0 +1,35 @@
+
+
+border-image: url(border.png) 30 round;
+border-image-source: url(border.png);	#用于指定要用于绘制边框的图像的位置
+border-image-slice: 50% 50%;		#井字切线向图像中心的偏移(百分参照为图片高宽)
+border-image-width: 30 30;		#图像边界的粗细(百分参照为边框的粗细)
+border-image-outset: 30 30;		#无形边框的粗细,图像边框会被向外挤(百分参照为边框的粗细)
+border-image-repeat: repeat;		#用于设置图像边界是否应重复（repeat）、拉伸（stretch）或铺满（round）。
+
+=====
+border-radius:25px;			#百分比参照为元素宽高
+四个值: 第一个值为左上角，第二个值为右上角，第三个值为右下角，第四个值为左下角。
+三个值: 第一个值为左上角, 第二个值为右上角和左下角，第三个值为右下角
+两个值: 第一个值为左上角与右下角，第二个值为右上角与左下角
+一个值： 四个圆角值相同
+
+border-top-left-radius	定义了左上角的弧度
+border-top-right-radius	定义了右上角的弧度
+border-bottom-right-radius	定义了右下角的弧度
+border-bottom-left-radius	定义了左下角的弧度
+=====
+box-shadow: 10px 10px 5px #888888;
+h-shadow	#必需的。水平阴影的位置。允许负值
+v-shadow	#必需的。垂直阴影的位置。允许负值
+blur		#可选。模糊距离
+spread		#可选。阴影的大小
+color		#可选。阴影的颜色。在CSS颜色值寻找颜色值的完整列表
+inset		#可选。从外层的阴影（开始时）改变阴影内侧阴影
+
+=====
+resize:none;		#用户不能操纵机制调节元素的尺寸；
+both		#用户可以调节元素的宽度和高度；
+horizontal	#用户可以调节元素的宽度；
+vertical	#让用户可以调节元素的高度；
+inherit	#默认继承。

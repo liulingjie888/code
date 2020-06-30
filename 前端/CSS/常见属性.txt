@@ -1,8 +1,0 @@
-font-size:14px;
-color:red;
-line-height:160%;
-text-decoration:none;	文本修饰
-text-indent:2em;		文本缩进2字符
-background-color:#feeaa;
-display:block;		设为块元素
-

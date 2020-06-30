@@ -1,0 +1,76 @@
+
+transform:rotate(30deg);		#顺时针旋转30度
+=====
+translate(20px,20px);			#以原来的位置作原点,移动到指定坐标
+translateX(20px);			#沿着 X 轴移动元素。
+translateY(20px);			#沿着 Y 轴移动元素。
+=====
+transform-origin:20% 40%;		#设置原点
+=====
+transform: scale(2,3);		#宽增2倍,长增3倍
+=====
+transform:skew(20deg,30deg);		#以盒子中心为原点,y轴逆时针转20度,x轴顺时针转30度(一个参数为y轴)
+transform:skewY(20deg);		#以盒子中心为原点,x轴顺时针转20度
+transform:skewX(20deg);		#以盒子中心为原点,y轴逆时针转20度
+=====
+transform: matrix(0.6,0,0,0.5,100,100);	#当第2,3个参数为0时,则表示宽变为原来的0.6倍,高变为原来的0.5倍,坐标x再加100,y加100
+======
+transition:width 2s;			#应用于宽度属性的过渡效果，时长为 2 秒
+transition: width 2s, height 2s, transform 2s;
+transition				#简写属性，用于在一个属性中设置四个过渡属性。
+transition-property			#规定应用过渡的 CSS 属性的名称。
+transition-duration			#定义过渡效果花费的时间。默认是 0。
+transition-timing-function		#规定过渡效果的时间曲线。默认是 "ease"。(linear)
+transition-delay			#规定过渡效果何时开始。默认是 0。
+==========
+当在 @keyframes 创建动画，把它绑定到一个选择器，否则动画不会有任何效果。
+div
+{
+	width:100px;
+	height:100px;
+	background:red;
+	animation:myfirst 5s;		//设置动画的和时长
+}
+
+@keyframes myfirst			//定义动画起名myfirst
+{
+	from {background:red;}
+	to {background:yellow;}
+}
+=====
+请用百分比来规定变化发生的时间，或用关键词 "from" 和 "to"，等同于 0% 和 100%。
+改变背景色和位置：
+
+@keyframes myfirst
+{
+    0%   {background: red; left:0px; top:0px;}
+    25%  {background: yellow; left:200px; top:0px;}
+    50%  {background: blue; left:200px; top:200px;}
+    75%  {background: green; left:0px; top:200px;}
+    100% {background: red; left:0px; top:0px;}
+}
+=====
+animation			#所有动画属性的简写属性，除了 animation-play-state 属性。
+animation-name			#规定 @keyframes 动画的名称。
+animation-duration		#规定动画完成一个周期所花费的秒或毫秒。默认是 0。
+animation-timing-function	#规定动画的速度曲线。默认是 "ease"。
+animation-fill-mode		#规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式。
+animation-delay		#规定动画何时开始。默认是 0。
+animation-iteration-count	#规定动画被播放的次数。默认是 1。(infinite不停止)
+animation-direction		#规定动画是否在下一周期逆向地播放。默认是 "normal"。
+animation-play-state		#规定动画是否正在运行或暂停。默认是 "running"。
+
+例如:
+div
+{
+    animation-name: myfirst;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+}
+
+可写成:
+animation: myfirst 5s linear 2s infinite alternate;

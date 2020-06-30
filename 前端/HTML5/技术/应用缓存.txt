@@ -1,0 +1,56 @@
+
+如需启用应用程序缓存，请在文档的<html> 标签中包含 manifest 属性来指定缓存配置文件：
+
+<!DOCTYPE HTML>
+<html manifest="demo.appcache">
+...
+</html>
+
+每个指定了 manifest 的页面在用户对其访问时都会被缓存。如果未指定 manifest 属性，则页面不会被缓存（除非在 manifest 文件中直接指定了该页面）。
+manifest 文件的建议的文件扩展名是：".appcache"。
+Remark 请注意，manifest 文件需要配置正确的 MIME-type，即 "text/cache-manifest"。必须在 web 服务器上进行配置。
+
+==========================Manifest 文件
+manifest 文件是简单的文本文件，它告知浏览器被缓存的内容（以及不缓存的内容）,分为三个部分：
+
+=========(1)CACHE MANIFEST - 在此标题下列出的文件将在首次下载后进行缓存
+
+CACHE MANIFEST
+/theme.css
+/logo.gif
+/main.js
+
+上面的 manifest 文件列出了三个资源：一个 CSS 文件，一个 GIF 图像，以及一个 JavaScript 文件。当 manifest 文件加载后，浏览器会从网站的根目录下载这三个文件。然后，无论用户何时与因特网断开连接，这些资源依然是可用的。
+
+=========(2)NETWORK - 在此标题下列出的文件需要与服务器的连接，且不会被缓存;*代表所有文件
+
+NETWORK:
+login.php
+
+=========(3)FALLBACK 小节规定如果无法建立因特网连接，则用 "offline.html" 替代 /html5/ 目录中的所有文件：
+
+FALLBACK:
+/html5/ /offline.html
+
+注意: 第一个 URI 是资源，第二个是替补。
+
+
+=========(4)完整的 Manifest 文件:
+CACHE MANIFEST
+# 2012-02-21 v1.0.0
+/theme.css
+/logo.gif
+/main.js
+
+NETWORK:
+login.php
+
+FALLBACK:
+/html/ /offline.html
+
+=====================一旦应用被缓存，它就会保持缓存直到发生下列情况：
+用户清空浏览器缓存
+manifest 文件被修改（参阅下面的提示）
+由程序来更新应用缓存
+
+PS:Remark提示:以 "#" 开头的是注释行，更新注释行中的日期和版本号是一种使浏览器重新缓存文件的办法

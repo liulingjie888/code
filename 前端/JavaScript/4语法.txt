@@ -1,0 +1,52 @@
+==if 语句 - 只有当指定条件为 true 时，使用该语句来执行代码
+==if...else 语句 - 当条件为 true 时执行代码，当条件为 false 时执行其他代码
+==if...else if....else 语句- 使用该语句来选择多个代码块之一来执行
+==switch 语句 - 使用该语句来选择多个代码块之一来执行
+
+==for - 循环代码块一定的次数
+for (var i=0; i<5; i++)
+{
+      x=x + "该数字为 " + i + "<br>";
+}
+
+==for/in - 循环遍历对象的属性
+var person={fname:"John",lname:"Doe",age:25}; 
+
+for (x in person)  // x 为属性名
+{
+    txt=txt + person[x];
+}
+
+==while - 当指定的条件为 true 时循环指定的代码块
+==do/while - 同样当指定的条件为 true 时循环指定的代码块
+
+==通过标签引用，break 语句可用于跳出任何 JavaScript 代码块：
+标签: statement;
+break 标签;		//跳到标签位
+continue 标签;
+
+continue 语句（带有或不带标签引用）只能用在循环中。
+break 语句（不带标签引用），只能用在循环或 switch 中。
+
+==
+typeof "John"                // 返回 string
+typeof 3.14                  // 返回 number
+typeof false                 // 返回 boolean
+typeof [1,2,3,4]             // 返回 object
+typeof {name:'John', age:34} // 返回 object
+typeof function () {}        // 返回 function
+typeof NaN                   // 返回 number
+typeof new Date()            // 返回 object
+typeof myCar                 // 返回 undefined (如果 myCar 没有声明)
+
+var person = null;           // 值为 null(空), 但类型为对象
+var person = undefined;      // 值为 undefined, 类型为 undefined
+
+==
+null 和 undefined 的值相等，但类型不等：
+typeof undefined             // undefined
+typeof null                  // object
+
+null === undefined           // false
+null == undefined            // true
+

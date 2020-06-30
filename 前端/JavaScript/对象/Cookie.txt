@@ -1,0 +1,37 @@
+=========创建 cookie
+document.cookie="username=John Doe";
+
+=========cookie 添加一个过期时间（以 UTC 或 GMT 时间）。默认情况下，cookie 在浏览器关闭时删除
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT";
+//封装设置cookie
+function setCookie(cname,cvalue,exdays)
+{
+  var d = new Date();
+  d.setTime(d.getTime()+(exdays*24*60*60*1000));
+  var expires = "expires="+d.toGMTString();
+  document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+=========您可以使用 path 参数告诉浏览器 cookie 的路径。默认情况下，cookie 属于当前页面。
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/";
+
+=========读取cookie,返回所有的 cookie格式： cookie1=value; cookie2=value; cookie3=value;
+document.cookie
+//封装返回指定name的值
+function getCookie(cname)
+{
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i<ca.length; i++) 
+  {
+    var c = ca[i].trim();
+    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+  }
+  return "";
+}
+
+
+=========修改 cookie 类似于创建 cookie，旧的 cookie 将被覆盖
+document.cookie="username=John Smith; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/";
+
+=========删除 cookie,设置 expires 参数为以前的时间即可
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";

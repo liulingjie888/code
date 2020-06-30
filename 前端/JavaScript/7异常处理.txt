@@ -1,0 +1,54 @@
+
+=========================异常
+try {
+    ...    //异常的抛出
+} catch(e) {
+    ...    //异常的捕获与处理
+} finally {
+    ...    //结束处理
+}
+
+抛出异常
+try { 
+        if(x == "")  throw "值为空";
+        if(isNaN(x)) throw "不是数字";
+        x = Number(x);
+        if(x < 5)    throw "太小";
+        if(x > 10)   throw "太大";
+}catch(err) {
+        message.innerHTML = "错误: " + err;
+}
+
+=========================调试
+debugger;		//断点
+
+
+=========================JavaScript 严格模式(use strict)
+严格模式通过在脚本或函数的头部添加  "use strict";
+"use strict" 的目的是指定代码在严格条件下执行。
+严格模式下的要求:
+不允许删除变量或对象
+不允许删除函数
+不允许变量重名
+不允许使用八进制
+不允许使用转义字符
+不允许对只读属性赋值
+不允许对一个使用getter方法读取的属性进行赋值
+不允许删除一个不允许删除的属性
+变量名不能使用 "eval" 字符串
+变量名不能使用 "arguments" 字符串
+不允许使用以下这种语句	with (Math){x = cos(2)}; // 报错
+由于一些安全原因，在作用域 eval() 创建的变量不能被调用
+
+禁止this关键字指向全局对象。
+function f(){
+    return !this;
+} 
+// 返回false，因为"this"指向全局对象，"!this"就是false
+
+function f(){ 
+    "use strict";
+    return !this;
+} 
+// 返回true，因为严格模式下，this的值为undefined，所以"!this"为true。
+

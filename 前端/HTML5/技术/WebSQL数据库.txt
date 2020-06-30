@@ -1,0 +1,30 @@
+
+
+================创建数据库
+ 1.数据库名称2.版本号3.描述文本4.数据库大小5.创建回调
+ var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+ var msg;
+ 
+================执行SQL语句
+ db.transaction(function (tx) {
+    tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
+    tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "菜鸟教程")');
+    tx.executeSql('INSERT INTO LOGS (id, log) VALUES (?, ?)',[1,"www.runoob.com"]);	//也可以用?
+    msg = '<p>数据表已创建，且插入了两条数据。</p>';
+    document.querySelector('#status').innerHTML =  msg;
+ });
+
+
+================执行查询语句,results.rows.length为记录数量;results.rows.item(i)为指定索引记录
+ db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM LOGS', [], function (tx, results) {
+       var len = results.rows.length, i;
+       msg = "<p>查询记录条数: " + len + "</p>";
+       document.querySelector('#status').innerHTML +=  msg;
+				
+       for (i = 0; i < len; i++){
+          msg = "<p><b>" + results.rows.item(i).log + "</b></p>";
+          document.querySelector('#status').innerHTML +=  msg;
+       }
+    }, null);
+ });

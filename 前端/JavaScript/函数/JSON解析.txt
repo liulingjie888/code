@@ -1,0 +1,16 @@
+// 将对象转换为字符串
+var site = new Object;
+site.keyname = document.getElementById("keyname").value;
+site.sitename = document.getElementById("sitename").value;  
+site.siteurl = document.getElementById("siteurl").value;
+var str = JSON.stringify(site);
+
+// 将字符串转换为对象
+var text = '{ "sites" : [' +
+    '{ "name":"Runoob" , "url":"www.runoob.com" },' +
+    '{ "name":"Google" , "url":"www.google.com" },' +
+    '{ "name":"Taobao" , "url":"www.taobao.com" } ]}';
+    
+obj = JSON.parse(text);		//封装对象
+document.getElementById("demo").innerHTML = obj.sites[1].name + " " + obj.sites[1].url;
+

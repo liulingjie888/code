@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title>
+<style type="text/css">
+#div1, #div2
+{float:left; width:100px; height:35px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
+</style>
+<script>
+function allowDrop(ev)		//拖动中的处理,用来避免浏览器对数据的默认处理
+{
+	ev.preventDefault();
+}
+
+function drag(ev)			//开始拖动的处理,设置被拖数据的数据类型和值(ev.target.id表示被托动元素的id)
+{
+	ev.dataTransfer.setData("Text",ev.target.id);
+}
+
+function drop(ev)			//对释放进行处理
+{
+	ev.preventDefault();
+	var data=ev.dataTransfer.getData("Text");			获取刚刚拖动的元素
+	ev.target.appendChild(document.getElementById(data));	//放入到释放的元素(ev.target)的内部(添加子元素)
+}
+</script>
+</head>
+<body>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<img src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31"></div>
+<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+</body>
+</html>
+
+====================================================
+属性:
+draggable="true"		//允许拖动
+ondragstart="drag(event)"	//拖动开始调用的函数
+ondrop="drop(event)"			//拖动结束调用的函数
+ondragover="allowDrop(event)"			//拖动过程调用的行数
+
+其他说明:
+调用 preventDefault() 来避免浏览器对数据的默认处理（drop 事件的默认行为是以链接形式打开）
+通过 dataTransfer.getData("Text") 方法获得被拖的数据。该方法将返回在 setData() 方法中设置为相同类型的任何数据。
+被拖数据是被拖元素的 id ("drag1")
+把被拖元素追加到放置元素（目标元素）中

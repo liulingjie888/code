@@ -1,0 +1,105 @@
+
+=================================文本属性
+font-size:14px;
+=====
+color:red;			#文本颜色
+十六进制值 - 如: ＃FF0000
+一个RGB值 - 如: RGB(255,0,0)
+颜色的名称 - 如: red
+=====
+line-height:160%;		#行高
+=====
+text-decoration:none;		#设置文本修饰为空
+overline			#文字上方有横线
+line-through			#文字中间穿过横线
+underline			#文字下方有横线
+=====
+text-transform:capitalize;	#设置单词首字符大写
+lowercase			#设置小写
+uppercase			#设置大写
+=====
+text-indent:2em;		#文本缩进2字符
+50px				#文本缩进50px
+=====
+letter-spacing:30px;		#是设置字符与字符之间的间距。
+word-spacing:30px;		#设置英文单词之间的间距
+=====
+direction:rtl;			#设置文本方向从右到左(要配合unicode-bidi:bidi-override;才有效果)
+ltr				#默认。文本方向从左到右。
+inherit			#规定应该从父元素继承 direction 属性的值。
+==
+unicode-bidi:bidi-override;	#创建一个附加的嵌入层面。重新排序取决于 direction 属性。
+normal				#默认。不使用附加的嵌入层面。
+embed				#创建一个附加的嵌入层面。
+initial			#设置该属性为它的默认值。请参阅 initial。
+inherit			#从父元素继承该属性。请参阅 inherit。
+=====
+margin-left:20px;
+=====
+text-align:center;	#文本居中
+right			#右边
+justify		#两端对齐
+=====
+vertical-align:text-top;	#把元素的顶端与父元素字体的顶端对齐
+text-bottom			#把元素的底端与父元素字体的底端对齐。
+top				#把元素的顶端与行中最高元素的顶端对齐
+middle				#把此元素放置在父元素的中部。
+bottom				#把元素的底端与行中最低的元素的低端对齐。
+baseline			#默认。元素放置在父元素的基线上。
+sub				#垂直对齐文本的下标。
+super				#垂直对齐文本的上标
+length	 
+%				#使用 "line-height" 属性的百分比值来排列此元素。允许使用负值。
+inherit			#规定应该从父元素继承 vertical-align 属性的值。
+=====
+white-space:nowrap;		#文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。
+normal				#默认。空白会被浏览器忽略。
+pre				#空白会被浏览器保留。其行为方式类似 HTML 中的 <pre> 标签。
+nowrap				#文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。
+pre-wrap			#保留空白符序列，但是正常地进行换行。
+pre-line			#合并空白符序列，但是保留换行符。
+inherit			规定应该从父元素继承 white-space 属性的值。
+=====
+text-shadow:2px 2px #FF0000;	#文字阴影,前面为阴影的位移,最后一个为阴影的颜色
+=====
+display:block;			#设为块元素
+=====
+background-color:#b0c4de;
+十六进制 - 如："#ff0000"
+RGB - 如："rgb(255,0,0)"
+颜色名称 - 如："red"
+=====
+background-image:url("/images/back40.gif");
+=====
+background-repeat:repeat-x;	#水平重复
+background-repeat:repeat-y;	#垂直重复
+background-repeat:no-repeat;	#不重复
+=====
+background-position:right top; #背景图放置在右上角
+left top
+left center
+left bottom
+right top
+right center
+right bottom
+center top
+center center
+center bottom	#如果仅指定一个关键字，其他值将会是"center"
+x% y%		#第一个值是水平位置，第二个值是垂直。左上角是0％0％。右下角是100％100％。如果仅指定了一个值，其他值将是50％。 。默认值为：0％0％
+xpos ypos	#第一个值是水平位置，第二个值是垂直。左上角是0。单位可以是像素（0px0px）或任何其他 CSS单位。如果仅指定了一个值，其他值将是50％。你可以混合使用％和positions
+inherit	指定background-position属性设置应该从父元素继承
+=====
+background-attachment:fixed;	#固定图片(不随滚动而动)
+scroll		#背景图片随着页面的滚动而滚动，这是默认的。
+fixed		#背景图片不会随着页面的滚动而滚动。
+local		#背景图片会随着元素内容的滚动而滚动。
+initial	#设置该属性的默认值。 
+inherit	#指定 background-attachment 的设置应该从父元素继承。
+=====
+background:#ffffff url('img_tree.png') no-repeat right top;		#简写属性
+当使用简写属性时，属性值的顺序为：:
+background-color
+background-image
+background-repeat
+background-attachment
+background-position

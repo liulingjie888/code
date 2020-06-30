@@ -1,0 +1,142 @@
+======声明的变量为赋值,则值是 undefined
+Undefined 这个值表示变量不含有值。
+可以通过将变量的值设置为 null 来清空变量。
+
+======如果重新声明 JavaScript 变量，该变量的值不会丢失：
+var carname="Volvo";
+var carname;		//变量 carname 的值依然是 "Volvo"
+
+使用var关键字声明的全局作用域变量属于window对象。
+
+使用let关键字声明的全局作用域变量不属于window对象。
+
+使用var关键字声明的变量在任何地方都可以修改。
+
+在相同的作用域或块级作用域中，不能使用let关键字来重置var关键字声明的变量。
+
+在相同的作用域或块级作用域中，不能使用let关键字来重置let关键字声明的变量。
+
+let关键字在不同作用域，或不用块级作用域中是可以重新声明赋值的。
+
+在相同的作用域或块级作用域中，不能使用const关键字来重置var和let关键字声明的变量。
+
+在相同的作用域或块级作用域中，不能使用const关键字来重置const关键字声明的变量
+
+const 关键字在不同作用域，或不同块级作用域中是可以重新声明赋值的:
+
+var关键字定义的变量可以先使用后声明。
+
+let关键字定义的变量需要先声明再使用。
+
+const关键字定义的常量，声明时必须进行初始化，且初始化后不可再修改。
+
+======数据类型
+值类型(基本类型)：字符串（String）、数字(Number)、布尔(Boolean)、对空（Null）、未定义（Undefined）、Symbol。
+引用数据类型：对象(Object)、数组(Array)、函数(Function)。
+
+===字符串
+您可以在字符串中使用引号，只要不匹配包围字符串的引号即可：
+var answer="It's alright";
+var answer="He is called 'Johnny'";
+var answer='He is called "Johnny"';
+
+使用索引位置来访问字符串中的每个字符
+var character = carname[0];
+
+===数字
+极大或极小的数字可以通过科学（指数）计数法来书写：
+var y=123e5;      // 12300000
+var z=123e-5;     // 0.00123
+
+===布尔
+布尔（逻辑）只能有两个值：true 或 false:
+var x=true;
+var y=false;
+
+===数组
+下面的代码创建名为 cars 的数组：
+var cars=new Array();
+cars[0]="Saab";
+cars[1]="Volvo";
+cars[2]="BMW";
+或
+var cars=new Array("Saab","Volvo","BMW");
+或
+var cars=["Saab","Volvo","BMW"];
+
+======对象
+
+声明对象
+var person={firstname:"John", lastname:"Doe", id:5566};
+或
+var person={
+"name":"小明",
+"age":"18",
+"like":function(){
+            return "喜欢打篮球,弹吉他";
+      }
+}
+或
+var person=new Object();
+person.name='小明'；
+person.sex='男'；
+person.method=function(){
+  return this.name+this.sex;
+}
+注意:
+“键”必须有值，不能为 null 和 undefined 。
+
+对象属性有两种寻址方式：
+name=person.lastname;
+name=person["lastname"];
+
+当您声明新变量时，可以使用关键词 "new" 来声明其类型：
+var carname=new String;
+var x=      new Number;
+var y=      new Boolean;
+var cars=   new Array;
+var person= new Object;
+
+当访问对象的方法没有()时，它将返回这个方法的定义字符串function() {...}：
+name = person.fullName;
+
+======未声明变量
+如果您把值赋给尚未声明的变量，该变量将被自动作为 window 的一个属性:
+carname="Volvo";		#定义window超全局变量
+window.carname;		#访问变量
+delete carname;		#删除超全局变量
+
+======this
+#在函数中，在严格模式下，this 是未定义的(undefined)。
+#函数使用中，this 指向函数的所属者。
+#在事件中，this 表示接收事件的元素。
+#在对象方法中， this 指向调用它所在方法的对象。
+#单独使用 this，则它指向全局(Global)对象。
+在浏览器中，window 就是该全局对象为 [object Window]:
+var x = this;
+严格模式下，如果单独使用，this 也是指向全局(Global)对象。
+
+apply 和 call 是函数对象的方法。这两个方法异常强大，他们允许切换函数执行的上下文环境（context），即 this 绑定的对象。
+例:
+var person1 = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+var person2 = {
+  firstName:"John",
+  lastName: "Doe",
+}
+person1.fullName.call(person2);  // 返回 "John Doe"
+
+======void
+表示不返回值
+void func()
+javascript:void func()
+或
+void(func())
+javascript:void(func())
+
+<a href="javascript:void(0)">单击此处什么也不会发生</a>
+<a href="javascript:void(alert('Warning!!!'))">点我!</a>
+

@@ -1,0 +1,62 @@
+text-shadow: 5px 5px 5px #FF0000;	#文本阴影,参数3为模糊度
+box-shadow: 10px 10px 5px #888888;	#盒子阴影
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);	#多个阴影,参数1为阴影内边,参数2为阴影外边
+
+#boxshadow::after {			#通过伪元素添加阴影
+    content: '';
+    position: absolute;
+    z-index: -1; /* hide shadow behind image */
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
+    width: 70%; 
+    left: 15%; /* one half of the remaining 30% */
+    height: 100px;
+    bottom: 0;
+}
+=====
+text-overflow:ellipsis;	#文本超出盒子长度用...表示
+clip				#文本超出盒子长度被裁剪
+'>>'				#文本超出盒子长度用>>表示(只有火狐有用)
+=====
+word-wrap:break-word;		#允许对长的不可分割的单词进行分割并换行到下一行。
+=====
+word-break:break-all;		#允许在单词内换行。
+normal				#使用浏览器默认的换行规则。
+keep-all			#只能在半角空格或连字符处换行。
+=====
+text-wrap:none;		#不换行。元素无法容纳的文本会溢出
+normal				#只在允许的换行点进行换行。
+unrestricted			#在任意两个字符间换行。
+suppress			#压缩元素中的换行。浏览器只在行中没有其他有效换行点时进行换行。
+=====
+ext-justify:inter-word;	#增加/减少单词间的间隔。
+auto				#浏览器决定齐行算法。
+none				#禁用齐行。
+inter-ideograph		#用表意文本来排齐内容。
+inter-cluster			#只对不包含内部单词间隔的内容（比如亚洲语系）进行排齐。
+distribute			#类似报纸版面，除了在东亚语系中最后一行是不齐行的。
+kashida			#通过拉伸字符来排齐内容。
+=====
+text-align-last: right;	#设置文本最后一行位置
+=====
+
+column-rule-style: outset;	#定义 3D outset 规则。该效果取决于宽度和颜色值。
+none				#定义没有规则。
+hidden				#定义隐藏规则。
+dotted				#定义点状规则。
+dashed				#定义虚线规则。
+solid				#定义实线规则。
+double				#定义双线规则。
+groove				#定义 3D grooved 规则。该效果取决于宽度和颜色值。
+ridge				#定义 3D ridged 规则。该效果取决于宽度和颜色值。
+inset				#定义 3D inset 规则。该效果取决于宽度和颜色值。
+
+column-count: 3;		#将文本分成3列
+column-width:100px;		#设置列的宽度
+columns:100px 3;		#设置列的宽度和列数
+column-gap: 40px;		#列和列的间距
+column-rule-width: 4px;	#设置分隔线粗
+column-rule-color:#ff0000;	#设置分隔线颜色
+column-span:all;		#设置文本跨多少列
+column-rule:4px outset #ff00ff;	#简写
+
+

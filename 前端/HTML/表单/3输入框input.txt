@@ -13,21 +13,52 @@ type属性
 、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
 HTML5新增
 
+
 "number"	数字输入框
 <input type="number" min="0" max="100" step="1" value="1998"/>
+属性	描述
+disabled	规定输入字段是禁用的
+max		规定允许的最大值
+maxlength	规定输入字段的最大字符长度
+min		规定允许的最小值
+pattern	规定用于验证输入字段的模式
+readonly	规定输入字段的值无法修改
+required	规定输入字段的值是必需的
+size		规定输入字段中的可见字符数
+step		规定输入字段的合法数字间隔
+value		规定输入字段的默认值
 
 "range"	范围滑动框
 <input type="range" min="0" max="100" value="10"/>
+属性
+max - 规定允许的最大值
+min - 规定允许的最小值
+step - 规定合法的数字间隔
+value - 规定默认值
 
 "search"	搜索输入框
 "url"		网址输入框
 "email"	Email输入框
 "date"		日期选择框
+"tel"		电话号码输入框
 "time"
 "month"
 "week"
 "datetime"
 "datetime-local"
+
+
+<form action="demo_keygen.php" method="get">
+  用户名: <input type="text" name="usr_name">
+  加密: <keygen name="security">
+  <input type="submit">
+</form>
+说明:
+<keygen> 元素的作用是提供一种验证用户的可靠方法。
+<keygen>标签规定用于表单的密钥对生成器字段。
+当提交表单时，会生成两个键，一个是私钥，一个公钥。
+私钥（private key）存储于客户端，公钥（public key）则被发送到服务器。公钥可用于之后验证用户的客户端证书（client certificate）。
+
 
 ============================
 

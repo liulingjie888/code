@@ -1,0 +1,68 @@
+
+总结:
+<mrow>:表示整个式子
+<msup>:表示整体变量
+<mi>:表示变量
+<mn>:表示常量
+<mo>:表示计算符
+<mtable>:<mtr>表示行,<mtd>表示单元格
+
+案例一:
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+    <msup><mi>a</mi><mn>2</mn></msup>		//a的平方
+    <mo>+</mo>
+        
+    <msup><mi>b</mi><mn>2</mn></msup>		//b的平方
+    <mo>=</mo>
+        
+    <msup><mi>c</mi><mn>2</mn></msup>		//c的平方
+ </mrow>
+</math>
+
+案例二:
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>            
+    <mrow>
+        
+       <msup><mi>x</mi><mn>2</mn></msup>		//x的平方
+            
+       <mo>+</mo>
+            
+       <mrow><mn>4</mn> <mo>⁢</mo> <mi>x</mi></mrow>	//4x
+            
+       <mo>+</mo>
+       <mn>4</mn>
+            
+    </mrow>
+    
+    <mo>=</mo>
+    
+    <mn>0</mn>
+         
+ </mrow>
+</math>
+
+案例三:
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+    <mi>A</mi>
+    <mo>=</mo>
+    
+    <mfenced open="[" close="]">		//这是一个矩阵
+    
+       <mtable>
+          <mtr>
+             <mtd><mi>x</mi></mtd>		//行 x y
+             <mtd><mi>y</mi></mtd>
+          </mtr>
+            
+          <mtr>
+             <mtd><mi>z</mi></mtd>		//行 z w
+             <mtd><mi>w</mi></mtd>
+          </mtr>
+       </mtable>
+       
+    </mfenced>
+ </mrow>
+</math>

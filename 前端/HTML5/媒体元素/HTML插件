@@ -1,0 +1,30 @@
+=========<object> 元素
+所有主流浏览器都支持 <object> 标签。
+<object> 元素定义了在 HTML 文档中嵌入的对象。
+
+该标签用于插入对象 (例如在网页中嵌入 Java 小程序, PDF 阅读器, Flash 播放器) 。
+<object width="400" height="50" data="bookmark.swf"></object>
+
+
+<object> 元素同样可用于包含HTML文件：
+<object width="100%" height="500px" data="snippet.html"></object>
+
+
+或者插入一张图片:
+<object data="audi.jpeg"></object>
+
+=========<embed> 元素
+所有主流浏览器都支持 <embed> 元素。
+<embed> 元素表示一个 HTML Embed 对象 。
+
+<embed> 元素已经出现很长一段时间了，但是在 HTML5 前并未被详细说明，该元素在 HTML 5 页面上会被验证，在 HTML 4 上不会。
+<embed width="400" height="50" src="bookmark.swf">
+
+<embed> 元素同样可用于包含 HTML 文件：
+<embed width="100%" height="500px" src="snippet.html">
+
+或者插入一张图片:
+<embed src="audi.jpeg">
+
+注意:
+ <embed> 元素没有关闭标签。 不能使用替代文本。

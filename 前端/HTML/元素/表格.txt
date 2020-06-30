@@ -8,7 +8,7 @@
 <tr>		行
 <td>		单元格
 <th>		单元格（区别td 内容以粗体居中方式显示）
-<caption>		定义表格标题(在table后面)
+<caption>		定义表格标题(在table下面)
 <colgroup>		定义表格列的组
     <col span="2" style="background-color:red">
     <col style="background-color:yellow">

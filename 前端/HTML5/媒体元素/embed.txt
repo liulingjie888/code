@@ -1,0 +1,18 @@
+音视频文件
+<embed ></embed>	（视频支持avi、wmv、mpg、rm、rmvb等）
+
+属性
+src="源文件路径"
+width
+height
+autostart="false|true"	是否自动播放
+hidden			隐藏
+loop="true"		循环播放
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+
+
+、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+
+

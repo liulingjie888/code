@@ -1,0 +1,152 @@
+
+====================函数表达式(函数存放在变量中)
+var x = function (a, b) {return a * b};
+document.getElementById("demo").innerHTML = x(4, 3);
+
+====================函数同样可以通过内置的 JavaScript 函数构造器（Function()）定义
+var myFunction = new Function("a", "b", "return a * b");
+var x = myFunction(4, 3);
+
+====================函数提升（Hoisting）
+函数可以在声明之前调用：
+myFunction(5);
+function myFunction(y) {
+    return y * y;
+}
+注意:使用表达式定义函数时无法提升。
+
+====================函数定义的同时调用
+(function () {
+    var x = "Hello!!";      // 我将调用自己
+})();
+
+
+====================在 JavaScript 中使用 typeof 操作符判断函数类型将返回 "function" 。
+但是JavaScript 函数描述为一个对象更加准确。
+JavaScript 函数有 属性 和 方法。
+arguments.length 属性返回函数调用过程接收到的参数个数.
+function myFunction(a, b) {
+    return a * b;
+}
+var txt = myFunction.toString();		//返回上面的定义字符串
+
+====================箭头函数
+箭头函数表达式的语法比普通函数表达式更简洁。
+
+(参数1, 参数2, …, 参数N) => { 函数声明 }
+(参数1, 参数2, …, 参数N) => 表达式(单一)
+// 相当于：(参数1, 参数2, …, 参数N) =>{ return 表达式; }
+当只有一个参数时，圆括号是可选的：
+(单一参数) => {函数声明}
+单一参数 => {函数声明}
+没有参数的函数应该写成一对圆括号:
+() => {函数声明}
+
+实例
+var x = function(x, y) {
+     return x * y;
+}
+
+const x = (x, y) => x * y;
+
+
+有的箭头函数都没有自己的 this。 不适合定义一个 对象的方法。
+当我们使用箭头函数的时候，箭头函数会默认帮我们绑定外层 this 的值，所以在箭头函数中 this 的值和外层的 this 是一样的。
+箭头函数是不能提升的，所以需要在使用之前定义。
+使用 const 比使用 var 更安全，因为函数表达式始终是一个常量。
+如果函数部分只是一个语句，则可以省略 return 关键字和大括号 {}，这样做是一个比较好的习惯:
+
+====================#ES6 函数可以自带参数
+function myFunction(x, y = 10) {
+    return x + y;
+}
+
+#arguments 对象
+JavaScript 函数有个内置的对象 arguments 对象。
+argument 对象包含了函数调用的参数数组。
+通过这种方式你可以很方便的找到最大的一个参数的值：
+
+x = findMax(1, 123, 500, 115, 44, 88);
+function findMax() {
+    var i, max = arguments[0];
+    
+    if(arguments.length < 2) return max;
+ 
+    for (i = 0; i < arguments.length; i++) {
+        if (arguments[i] > max) {
+            max = arguments[i];
+        }
+    }
+    return max;
+}
+
+===============参数传递
+通过值传递参数
+在函数中调用的参数是函数的隐式参数。
+JavaScript 隐式参数通过值来传递：函数仅仅只是获取值。
+如果函数修改参数的值，不会修改显式参数的初始值（在函数外定义）。
+隐式参数的改变在函数外是不可见的。
+
+通过对象传递参数
+在JavaScript中，可以引用对象的值。
+因此我们在函数内部修改对象的属性就会修改其初始的值。
+修改对象属性可作用于函数外部（全局变量）。
+修改对象属性在函数外是可见的。
+
+====================使用构造函数创建对象
+// 构造函数:
+function myFunction(arg1, arg2) {
+    this.firstName = arg1;
+    this.lastName  = arg2;
+}
+ 
+var x = new myFunction("John","Doe");
+x.firstName;                             // 返回 "John"
+
+====================作为函数方法调用函数
+=====call() :
+function myFunction(a, b) {
+    return a * b;
+}
+myObject = myFunction.call(myObject, 10, 2);     // 返回 20
+=====apply() :
+function myFunction(a, b) {
+    return a * b;
+}
+myArray = [10, 2];
+myObject = myFunction.apply(myObject, myArray);  // 返回 20
+两者的区别： 
+apply传入的是一个参数数组,而call则作为call的参数传入。
+相同:
+在 JavaScript 严格模式(strict mode)下, 在调用函数时第一个参数会成为 this 的值， 即使该参数不是一个对象。
+在 JavaScript 非严格模式(non-strict mode)下, 如果第一个参数的值是 null 或 undefined, 它将使用全局对象替代。
+
+===================闭包
+既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们就可以在f1外部读取它的内部变量了
+function f1(){
+　　n=999;
+　　function f2(){
+　　　　alert(n);
+　　}
+　　return f2;
+}
+var result=f1();
+result(); // 999
+
+例子:
+ar add = (function () {
+    var counter = 0;
+    return function () {return counter += 1;}
+})();
+ 
+add();
+add();
+add();		// 此时计数器为 3
+
+变量 add 指定了函数自我调用的返回字值。
+自我调用函数只执行一次。设置计数器为 0。并返回函数表达式。
+add变量可以作为一个函数使用。非常棒的部分是它可以访问函数上一层作用域的计数器。
+这个叫作 JavaScript 闭包。它使得函数拥有私有变量变成可能。
+计数器受匿名函数的作用域保护，只能通过 add 方法修改。
+
+

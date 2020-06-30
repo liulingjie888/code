@@ -1,0 +1,54 @@
+音频标签:
+<audio controls>
+  <source src="horse.ogg" >
+  <source src="horse.mp3" >
+  您的浏览器不支持 audio 元素。
+</audio>
+
+属性:
+autoplay="false"
+controls="controls"		显示控制条
+loop="true"			循环播放
+preload			媒体文件在页面加载时就加载，有autoplay属性则忽略该属性
+preload	auto		规定当网页加载时，音频是否默认被加载以及如何被加载。
+		metadata
+		none	
+muted		muted		如果出现该属性，则音频输出为静音。
+src		URL		规定音频文件的 URL。
+
+JS:
+//播放(继续播放)
+audio.play();
+ 
+//暂停
+audio.pause();
+ 
+//停止
+audio.pause();
+audio.currentTime = 0;
+ 
+//重新播放
+audio.currentTime = 0;
+audio.play();
+
+<!-- 用户点击播放才开始下载 -->
+<audio src="hangge.mp3" controls preload="none"></audio>
+
+自动播放
+使用autoplay属性可以让浏览器加载完音频文件后立即播放。（如果想用来作为背景音乐的话可以把controls属性去掉）
+<audio src="hangge.mp3" controls autoplay></audio>
+
+
+循环播放
+使用loop属性让音乐播放结束时，在从头开始播放。
+<audio src="hangge.mp3" controls loop></audio>
+
+================最好的 HTML 解决方法
+下面的例子使用了两个不同的音频格式。HTML5 <audio> 元素会尝试以 mp3 或 ogg 来播放音频。如果失败，代码将回退尝试 <embed> 元素。
+
+实例
+<audio controls height="100" width="100">
+  <source src="horse.mp3" type="audio/mpeg">
+  <source src="horse.ogg" type="audio/ogg">
+  <embed height="50" width="100" src="horse.mp3">
+</audio>

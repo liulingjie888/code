@@ -1,0 +1,38 @@
+height		#设置元素的高度。
+line-height	#设置行高。
+max-height	#设置元素的最大高度。
+max-width	#设置元素的最大宽度。
+min-height	#设置元素的最小高度。
+min-width	#设置元素的最小宽度。
+width		#设置元素的宽度。
+=====
+visibility: collapse	#一般的元素的表现与 visibility: hidden 一样，也即其会占用空间。但如果该元素是与 table 相关的元素，例如 table row、table column、table column 			group、table column group 等，其表现却跟 display: none 一样，也即其占用的空间会释放。
+			在不同浏览器下，对 visibility: collapse 的处理方式不同：
+			 1、visibility: collapse 的上述特性仅在 Firefox 下起作用。
+			 2、在 IE 即使设置了 visibility: collapse，还是会显示元素。
+			 3、在 Chrome 下，即使会将元素隐藏，但无论是否是与 table 相关的元素，visibility: collapse 与 visibility: hidden 没有什么区别，即仍会占用空间。
+visibility:hidden;	#隐藏元素,但是元素依然占空间
+=====
+display:none		#隐藏元素,像去除了一样
+display:inline;	#改变成内联元素
+display:block;		#改变成块元素
+display:inline-block	#显示为内联块元素，表现为同行显示并可修改宽高内外边距等属性
+
+==============================
+块级元素主要有：
+address , blockquote , center , dir , div , dl , fieldset , form , h1 , h2 , h3 , h4 , h5 , h6 , hr , isindex , menu , noframes , noscript , ol , p , pre , table , ul , li
+ 
+内联元素主要有：
+a , abbr , acronym , b , bdo , big , br , cite , code , dfn , em , font , i , img , input , kbd , label , q , s , samp , select , small , span , strike , strong , sub , sup ,textarea , tt , u , var
+
+可变元素(根据上下文关系确定该元素是块元素还是内联元素)：
+applet ,button ,del ,iframe , ins ,map ,object , script
+
+主要用的CSS样式有以下三个：
+display:block  -- 显示为块级元素
+display:inline  -- 显示为内联元素
+display:inline-block -- 显示为内联块元素，表现为同行显示并可修改宽高内外边距等属性
+我们常将所有<li>元素加上display:inline-block样式，原本垂直的列表就可以水平显示了。
+
+
+

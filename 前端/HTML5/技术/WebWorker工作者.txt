@@ -1,0 +1,39 @@
+===========运行脚本demo_workers.js:
+var i=0;
+function timedCount()
+{
+    i=i+1;
+    postMessage(i);			//调用主网页的onmessage指定函数
+    setTimeout("timedCount()",500);
+}
+timedCount();
+
+
+============主网页
+var w;
+
+function startWorker() {				//开启worker
+    if(typeof(Worker) !== "undefined") {
+        if(typeof(w) == "undefined") {
+            w = new Worker("demo_workers.js");	//如果没有定义,则给他定义要执行的js文件
+        }
+        w.onmessage = function(event) {		//设置监听器,当worker调用postMessage函数时调用的函数(event为上面的i)
+            document.getElementById("result").innerHTML = event.data;
+        };
+    } else {
+        document.getElementById("result").innerHTML = "抱歉，你的浏览器不支持 Web Workers...";
+    }
+}
+
+function stopWorker() 		//停止worker
+{ 
+    w.terminate();
+    w = undefined;
+}
+
+注意: 
+#web worker 通常不用于如此简单的脚本，而是用于更耗费 CPU 资源的任务。
+#由于 web worker 位于外部文件中，它们无法访问下列 JavaScript 对象：
+	window 对象
+	document 对象
+	parent 对象

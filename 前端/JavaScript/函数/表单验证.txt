@@ -1,0 +1,45 @@
+
+========================整体错误
+checkValidity()	如果 input 元素中的数据是合法的返回 true，否则返回 false。
+setCustomValidity()	设置 input 元素的 validationMessage 属性，用于自定义错误提示信息的方法。
+
+使用 setCustomValidity 设置了自定义提示后，validity.customError 就会变成true，则 checkValidity 总是会返回false。如果要重新判断需要取消自定义提示，方式如下：
+setCustomValidity('') 
+setCustomValidity(null) 
+setCustomValidity(undefined)
+
+例:
+function myFunction() {
+  var x = document.getElementById("nu");
+  x.setCustomValidity("");		//使用前先取消自定义，否则下次点击checkValidity总返false
+  if (x.checkValidity() == false) {
+    x.setCustomValidity("错误");
+    document.getElementById("demo").innerHTML = x.validationMessage;
+  }
+  else {
+    x.setCustomValidity("正确");
+    document.getElementById("demo").innerHTML = x.validationMessage;
+  }
+}
+
+=======================详细错误
+customError		设置为 true, 如果设置了自定义的 validity 信息。
+patternMismatch	设置为 true, 如果元素的值不匹配它的模式属性。
+rangeOverflow		设置为 true, 如果元素的值大于设置的最大值。
+rangeUnderflow		设置为 true, 如果元素的值小于它的最小值。
+stepMismatch		设置为 true, 如果元素的值不是按照规定的 step 属性设置。
+tooLong		设置为 true, 如果元素的值超过了 maxLength 属性设置的长度。
+typeMismatch		设置为 true, 如果元素的值不是预期相匹配的类型。
+valueMissing		设置为 true，如果元素 (required 属性) 没有值。
+valid			设置为 true，如果元素的值是合法的。
+
+例:
+function myFunction() {
+    var txt = "";
+    if (document.getElementById("id1").validity.rangeOverflow) {
+       txt = "输入的值太大了";
+    }
+    document.getElementById("demo").innerHTML = txt;
+}
+
+

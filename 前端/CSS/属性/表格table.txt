@@ -1,0 +1,46 @@
+
+因为表和th/ td元素有独立的边界,所以表格有双边框
+table, td, th {
+    border: 1px solid black;	#设置表格边框为实线,粗1px,黑色
+}
+=====
+table
+{
+    border-collapse:collapse;	#设置表格为单边框
+}
+=====
+table 
+{
+    width:100%;		#框
+}
+th
+{
+    height:50px;		#高
+}
+=====
+table, td, th
+{
+    border:1px solid green;
+}
+th
+{
+    background-color:green;	#行背景色
+    color:white;		#字体颜色
+}
+=====内容
+td
+{
+    text-align:right;		#字右对齐
+}
+=====
+td
+{
+    height:50px;
+    vertical-align:bottom;	
+}
+=====
+td
+{
+    padding:15px;
+}
+

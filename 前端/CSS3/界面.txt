@@ -1,0 +1,15 @@
+appearance:button;		#作为一个按钮，呈现元素
+normal				#正常呈现元素
+icon				#作为一个小图片的呈现元素
+window				#作为一个视口呈现元素
+menu				#作为一个用户选项设定呈现元素选择
+field				#作为一个输入字段呈现元素
+=====
+box-sizing:border-box;	#元素设置的宽高包括了pad和border部分
+content-box			#元素设置的宽高不包括pad和border部分(仅内容部分)
+inherit			#指定 box-sizing 属性的值，应该从父元素继承
+
+nav-index:3;			#tab的顺序
+
+outline:2px solid red;	#轮廓(粗细,样式,颜色)
+outline-offset:15px;		#轮廓内边距

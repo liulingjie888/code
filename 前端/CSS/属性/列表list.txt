@@ -1,0 +1,35 @@
+
+ul.a {list-style-type:circle;}		//圆形(非实心)选项
+ul.b {list-style-type:square;}		//正方形(实心)选项
+ol.c {list-style-type:upper-roman;}		//英文(I II III IV)序号选项
+ol.d {list-style-type:lower-alpha;}		//abc序号选项
+=====
+ul
+{
+    list-style-image: url('sqpurple.gif');	//图像选项
+}
+
+=====
+ul
+{
+    list-style: square url("sqpurple.gif");	//属性简写
+}
+=====
+浏览器兼容解决方案:
+ul
+{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+ul li
+{
+    background-image: url(sqpurple.gif);
+    background-repeat: no-repeat;
+    background-position: 0px 5px; 
+    padding-left: 14px; 
+}
+=====
+list-style-position: inside;	#列表项目标记放置在文本以内，且环绕文本根据标记对齐。
+outside			#默认值。保持标记位于文本的左侧。列表项目标记放置在文本以外，且环绕文本不根据标记对齐。
+inherit			#规定应该从父元素继承 list-style-position 属性的值。

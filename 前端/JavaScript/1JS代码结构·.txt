@@ -1,0 +1,28 @@
+行内式
+<p onclick="alert('Hello,The Web World !');">Click</p>
+
+嵌入式
+<head>
+· · · · · ·
+<script>
+	function msg(){
+		alert("Hello,The Web World!");	
+	}
+</script></head>
+<body>
+	<p onclick="msg()">Click Here </p>
+</body>
+
+链接式
+<body>
+<script type="text/JavaScript" src="JavaScript文件路径"></script>
+</body>
+
+
+不支持JavaScript:
+<noscript>抱歉，你的浏览器不支持 JavaScript!</noscript>
+
+===================
+JavaScript 中，函数及变量的声明都将被提升到函数的最顶部。
+JavaScript 中，变量可以在使用后声明，也就是变量可以先使用再声明
+JavaScript 只有声明的变量会提升，初始化的不会。

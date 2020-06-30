@@ -1,0 +1,95 @@
+元素选择器		元素标记{……}
+类选择器		.名{……}
+ID选择器		#ID{……}
+!important关键字(IE7之后级别最高)：	color:red !important;
+
+ !important > 行内样式 > ID选择器 > 类选择器 > 元素选择器
+	
+
+下列是一份优先级逐级增加的选择器列表：
+通用选择器（*）
+元素(类型)选择器
+类选择器
+属性选择器
+伪类
+ID 选择器
+内联样式
+
+权重:
+ 1. 内联样式表的权值最高 1000；
+ 2. ID 选择器的权值为 100
+ 3. Class 类选择器的权值为 10
+ 4. HTML 标签选择器的权值为 1
+ 
+ CSS 优先级法则：
+ A 选择器都有一个权值，权值越大越优先；
+ B 当权值相等时，后出现的样式表设置要优于先出现的样式表设置；
+ C 创作者的规则高于浏览者：即网页编写者设置的CSS 样式的优先权高于浏览器所设置的样式；
+ D 继承的CSS 样式不如后来指定的CSS 样式；
+ E 在同一组属性设置中标有“!important”规则的优先级最大
+ 
+====================================
+伪类:
+选择器			示例			示例说明
+:checked		input:checked		#选择所有选中的表单元素
+:disabled		input:disabled		#选择所有禁用的表单元素
+:empty			p:empty		#选择所有没有子元素的p元素
+:enabled		input:enabled		#选择所有启用的表单元素
+
+:optional		input:optional		#选择没有"required"的元素属性
+:required		input:required		#选择有"required"属性指定的元素属性
+
+:read-only		input:read-only	#选择只读属性的元素属性
+:read-write		input:read-write	#选择没有只读属性的元素属性
+
+:invalid		input:invalid		#选择所有无效的元素
+:valid			input:valid		#选择所有有效值的属性
+
+:in-range		input:in-range		#选择元素指定范围内的值
+:out-of-range		input:out-of-range	#选择指定范围以外的值的元素属性
+
+:first-of-type		p:first-of-type	#选择的每个 p 元素是其父元素的第一个 p 元素
+:last-of-type		p:last-of-type		#选择每个p元素是其父元素的最后一个p元素
+:first-child		p:first-child		#选择 p元素是其父元素的第一个子元素
+:last-child		p:last-child		#选择 p元素是其父元素的最后一个子元素 
+
+:nth-of-type(n)	p:nth-of-type(2)	#选择所有p元素第二个为p的子元素
+:nth-last-of-type(n)	p:nth-last-of-type(2)	#选择所有p元素倒数的第二个为p的子元素
+:nth-child(n)		p:nth-child(2)		#选择所有 p 元素的父元素的第二个子元素
+:nth-last-child(n)	p:nth-last-child(2)	#选择所有p元素的父元素的倒数的第二个子元素
+
+:only-child		p:only-child		#匹配 属于父元素中唯一子元素的p元素    
+:only-of-type		p:only-of-type		#匹配父元素中只有一个p子元素的p元素
+
+:not(selector)		:not(p)		#选择所有p以外的元素
+
+:root			root			#选择文档的根元素
+:target		#news:target		#选择当前活动#news元素(点击URL包含锚的名字)
+
+:first-letter		p:first-letter		#选择每个<p> 元素的第一个字母
+:first-line		p:first-line		#选择每个<p> 元素的第一行
+
+伪元素/伪类
+:before		p:before		#在每个<p>元素之前插入内容
+:after			p:after		#在每个<p>元素之后插入内容
+:lang(language)	p:lang(it)		#为<p>元素的lang属性选择一个开始值		
+
+:link			a:link			#选择所有未访问链接
+:visited		a:visited		#选择所有访问过的链接
+:active		a:active		#选择正在活动链接
+:hover			a:hover		#把鼠标放在链接上的状态
+:focus			input:focus		#选择元素输入后具有焦点
+
+伪类:
+:first-letter	p:first-letter			#选择每个<p> 元素的第一个字母
+:first-line	p:first-line			#选择每个<p> 元素的第一行
+:first-child	p:first-child			#选择 p元素是其父元素的第一个子元素
+
+=========================表单约束验证 CSS 伪类选择器
+
+:disabled	选取属性为 "disabled" 属性的 input 元素
+:invalid	选取无效的 input 元素
+:optional	选择没有"required"属性的 input 元素
+:required	选择有"required"属性的 input 元素
+:valid		选取有效值的 input 元素
+

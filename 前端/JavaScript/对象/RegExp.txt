@@ -1,0 +1,19 @@
+
+========创建
+var re = new RegExp("\\w+");
+或
+var re = /\w+/;
+
+========test
+当使用构造函数创造正则对象时，需要常规的字符转义规则（在前面加反斜杠 \）。比如，以下是等价的：
+var re = new RegExp("\\w+");
+patt1.test("The best things in life are free");	//true
+
+========exec
+exec() 方法检索字符串中的指定值。返回值是被找到的值。如果没有发现匹配，则返回 null。 ：
+var patt1=new RegExp("e");
+patt1.exec("The best things in life are free");	//e
+
+
+
+

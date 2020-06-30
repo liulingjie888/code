@@ -1,0 +1,59 @@
+			html
+	       |-------------------|------------------|
+	    head			              body
+	       |		        |----------------|----------------|
+	     title		       h1                     p                       ul
+					 |	|------|--------|
+					em	li        li           li
+
+
+交集选择器（有指定类的标记）
+	标记选择器.类选择器{……}
+并集选择器
+	选择器1,选择器2,选择器3{……}
+后代选择器
+	标记1 标记2{……}
+子选择器 
+	标记1>标记2{……}	只有标记1下一层的标记2有效
+相邻(兄弟)选择器
+	标记1+标记2{……}	标记1+*{……}	相邻标记1的标记2有效
+连续相邻(兄弟)选择器
+	标记1~标记2{……}	相邻标记1的连续标记2有效
+	
+属性选择器
+----匹配属性
+a[name]{……}
+img[border][id]~
+[special]~			所有含special属性的元素
+
+-----匹配属性和值
+[title=runoob]~		包含标题title='runoob'元素
+[title~=hello]~		包含指定值的title属性的元素样式			
+a[href=www.baidu.com]~	
+input[type=sumbit]~
+img[alt="Sony Logo"][class=pic]~
+
+
+
+
+====
+1.attribute 属性中包含 value:　
+[attribute~=value] 属性中包含独立的单词为 value，例如：
+[title~=flower]  -->  <img src="/i/eg_tulip.jpg" title="tulip flower" />
+
+[attribute*=value] 属性中做字符串拆分，只要能拆出来 value 这个词就行，例如：
+[title*=flower]   -->  <img src="/i/eg_tulip.jpg" title="ffffflowerrrrrr" />
+
+2.attribute 属性以 value 开头:
+[attribute|=value] 属性中必须是完整且唯一的单词，或者以 - 分隔开：，例如：
+[lang|=en]     -->  <p lang="en">  <p lang="en-us">[
+
+attribute^=value] 属性的前几个字母是 value 就可以，例如：
+[lang^=en]    -->  <p lang="ennn">
+
+3.attribute 属性以 value 结尾:
+[attribute$=value] 属性的后几个字母是 value 就可以，例如：
+a[src$=".pdf"]
+
+复合选择器优先级权值=ID选择器权值（100）+ 类选择器权值（10）+标记选择器权值（1）
+如p.note  em.dark  #main{……}		权值为122=1+10+1+10+100

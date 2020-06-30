@@ -1,0 +1,129 @@
+
+counter-reset		#创建或重置一个或多个计数器
+counter-increment	#递增一个或多个值
+content		#使用 ::before 和 ::after 伪元素来插入自动生成的内容
+
+========================
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<style>
+body {
+  counter-reset: section;		//初始化
+}
+
+h2::before {
+  counter-increment: section;		//计数器增一
+  content: "Section " counter(section) ": ";	//打印计数器(Section 1)
+}
+</style>
+</head>
+<body>
+
+<h1>使用 CSS 计数器:</h1>
+<h2>HTML 教程</h2>
+<h2>CSS 教程</h2>
+<h2>JavaScript 教程</h2>
+
+<p><b>注意:</b> IE8 需要指定 !DOCTYPE 才可以支持该属性。</p>
+
+</body>
+</html>
+
+======================双重主题计数器
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<style>
+body {
+  counter-reset: section;
+}
+
+h1 {
+  counter-reset: subsection;
+}
+
+h1::before {
+  counter-increment: section;
+  content: "Section " counter(section) ". ";			//(Section 1.)
+}
+
+h2::before {
+  counter-increment: subsection;
+  content: counter(section) "." counter(subsection) " ";	//(1.1)
+}
+</style>
+</head>
+<body>
+
+
+<h1>HTML 教程:</h1>
+<h2>HTML 教程</h2>
+<h2>CSS 教程</h2>
+
+<h1>Scripting 教程:</h1>
+<h2>JavaScript</h2>
+<h2>VBScript</h2>
+
+<h1>XML 教程:</h1>
+<h2>XML</h2>
+<h2>XSL</h2>
+
+<p><b>注意:</b> IE8 需要指定 !DOCTYPE 才可以支持该属性。</p>
+
+</body>
+</html>
+
+====================多级显示
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<style>
+ol {
+  counter-reset: section;
+  list-style-type: none;
+}
+
+li::before {
+  counter-increment: section;
+  content: counters(section,".") " ";
+}
+</style>
+</head>
+<body>
+
+<ol>
+  <li>item</li>
+  <li>item   
+  <ol>
+    <li>item</li>
+    <li>item</li>
+    <li>item
+    <ol>
+      <li>item</li>
+      <li>item</li>
+      <li>item</li>
+    </ol>
+    </li>
+    <li>item</li>
+  </ol>
+  </li>
+  <li>item</li>
+  <li>item</li>
+</ol>
+
+<ol>
+  <li>item</li>
+  <li>item</li>
+</ol>
+
+<p><b>注意:</b> IE8 需要指定 !DOCTYPE 才可以支持该属性。</p>
+
+</body>
+</html>
