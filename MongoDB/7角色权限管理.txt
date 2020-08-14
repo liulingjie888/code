@@ -1,0 +1,96 @@
+==========================Mongodb内建角色
+1. 数据库用户角色：
+	read:允许用户读取指定数据库
+	readWrite:允许用户读写指定数据库
+2. 数据库管理角色：
+	dbAdmin:允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile
+	userAdmin:允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户
+	dbOwner:上面两种都有
+3. 集群管理角色：
+	clusterAdmin:只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。
+	clusterManager:
+	clusterMonitor:
+	hostManager:
+4. 备份恢复角色：
+	backup:
+	restore:
+5. 所有数据库角色：
+	readAnyDatabase:只在admin数据库中可用，赋予用户所有数据库的读权限
+	readWriteAnyDatabase:只在admin数据库中可用，赋予用户所有数据库的读写权限
+	userAdminAnyDatabase:只在admin数据库中可用，赋予用户所有数据库的userAdmin权限
+	dbAdminAnyDatabase:只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限。
+6. 超级用户角色：
+	root:只在admin数据库中可用。超级账号，超级权限
+	间接或直接提供了系统超级用户的访问（dbOwner 、userAdmin、userAdminAnyDatabase）
+7. 内部角色：__system
+
+==========================用户管理
+1、创建用户并授权
+语法：db.createUser({user:"UserName",pwd:"Password",roles:[{role:"RoleName",db:"Target_DBName"}]})
+
+首先进入到数据库中创建用户
+创建用户有3项需要提供：用户名，密码，角色列表
+
+例如：我要在test下面创建用testuser，密码为testpwd，角色列表包括test库的readWrite角色和userAdmin角色：
+use test
+db.createUser({user:"testuser",pwd:"testpwd",roles:[{role:"readWrite",db:"test"},{role:"userAdmin",db:"test"}]})
+
+2、修改密码
+use test
+db.changeUserPassword('testuser','testPWD');
+
+3、添加角色
+use test
+db.grantRolesToUser(  "testuser",  [    { role: "read",db:"admin"}  ] )
+
+4、回收角色权限
+use test
+db.revokeRolesFromUser("testuser",[    { role: "read",db:"admin"}  ] )
+
+5、删除用户
+use test
+db.dropUser("testuser")
+
+==========================角色管理
+每一个角色可以通过privileges授予一些系统特权，通过roles来授予一些数据库管理权限。writeConcern参数是保障写操作的可靠性。
+Resource具有 database 或collection 或 cluster 或 anyResource4种类型：
+
+
+==========database 或collection类型
+use admin
+db.createRole(
+  {
+    role: "myClusterwideAdmin",
+    privileges:
+    [
+      { resource: { cluster: true }, actions: [ "addShard" ] },
+      { resource: { db: "config", collection: "" }, actions: [ "find", "update", "insert" ] },
+      { resource: { db: "users", collection: "usersCollection" }, actions: [ "update" ] },
+      { resource: { db: "", collection: "" }, actions: [ "find" ] }		//值为空代表所有
+    ],
+    roles:
+    [
+      { role: "read", db: "admin" }
+    ],
+    writeConcern: { w: "majority" , wtimeout: 5000 }
+  }
+)
+)
+
+==========cluster类型
+即如果要创建 复制集或分片上的角色权限时要指定 {cluter:true}
+
+例：创建一个可以 管理 mongostat的角色
+use admin
+db.createRole({
+    role:"mongostatMangeRole",
+    privileges:[{resource:{cluster:true},actions:["serverStatus"]}]
+})                 
+==========anyResource 类型
+例：mongodb的内部使用类型。慎用（超级权限）
+db.createRole({role:"bigRole",privileges:[{resource:{anyResource:true},actions:["anyAction"]}],roles:[]})
+
+==========其他命令
+db.getRole( "read", { showPrivileges: true } )		//查看角色
+
+

@@ -1,12 +1,12 @@
 Class		用于描述类本身
 Field		用于描述类中的属性
 Method		用于描述类中的方法
-Package		用于描述类所属的包
+Package	用于描述类所属的包
 Constructor	用于描述类中的构造方法
 Annotation	用于描述类中的注释
 
 ---------------------------------获取Class
-（1）Class  class=Class.forName("包类名  ");
+（1）Class  class=Class.forName("包类名");
 （2）Class  class=类名.class;
 （3）Class  class=对象引用.getClass(); 
 
@@ -33,7 +33,7 @@ Class[]  class.getInterfaces();
 //创建对象（相当于调用无参构造）
 类名  对象引用=(类名)class.newInstance();
 
--------------------------------获取类属性
+-------------------------------获取属性
 Field  field=class.getField("属性名");	//属性是公有的
 
 Field[]  fields=class.getFields();	//获取所有公有属性（包括继承的属性）
@@ -51,7 +51,7 @@ field.set(对象引用,值);		//给属性赋值
 私有属性操作：
 Field[]  fields=class.getDeclaredFileds();		//获取所有私有和公有的类，但不能获取父类的属性
 Field  field=class.getDeclaredField("属性名");	//可以获取私有属性，但不能直接进行操作（报错），需
-field.setAccessible(true);			//设置私有属性可以直接操作，之后再进行操作
+field.setAccessible(true);				//设置私有属性可以直接操作，之后再进行操作
 
 
 --------------------------获取方法
@@ -74,7 +74,7 @@ String  result=(String)method.invoke(对象引用 , 参数. . .);	//执行方法
 私有方法操作：
 Method   method=class.getDeclaredMethod("方法名",Class...方法参数类);	 //获取私有方法
 Method[]   method=class.getDeclaredMethods();				//获取所有私有和公有方法
-method.setAccessible(true);						//如果要执行私有方法，设置该属性后执行
+method.setAccessible(true);							//如果要执行私有方法，设置该属性后执行
 
 
 -----------------------获取构造方法

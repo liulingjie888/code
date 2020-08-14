@@ -1,0 +1,64 @@
+
+安装
+sudo apt-get install mongodb
+
+卸载
+sudo apt-get --purge remove mongodb mongodb-clients mongodb-server
+
+==================命令
+-dbpath：	指定mongo的数据库文件在哪个文件夹
+-logpath：	指定mongo的log日志是哪个，这里log一定要指定到具体的文件名
+-logappend：	表示log的写入是采用附加的方式，默认的是覆盖之前的文件
+-replSet:	指定集合
+
+制定配置启动(指定端口,数据库文件,日志文件和集群)
+mongod --port 27017 --dbpath "/data/db" --logpath "/data/log/MongoDB.log" --replSet rs0 –-logappend
+--dbpath没有参数则默认当前目录为参数
+
+启动
+service mongodb start
+
+关闭数据库命令
+use admin
+db.runCommand("shutdown")
+
+
+==================相关文件
+配置文件
+/etc/mongodb.conf
+
+MongoDB默认数据文件路径
+/var/lib/mongodb/
+
+MongoDB默认日志文件路径
+/var/log/mongodb/mongodb.log
+
+MongoDB可执行文件路径
+/usr/bin/mongo
+/usr/bin/mongod
+
+进入
+mongo
+
+
+==================搭建认证环境和认证登录
+
+1、进入admin数据库，创建一个超级权限用户
+use admin
+db.createUser({user:'root',pwd:'root',roles:[{ "role" : "root", "db" : "admin" }]});
+
+2、关闭mongodb
+
+3、启用认证参数
+要保证权限认证生效，需要在mongodb配置文件中加入auth=true，同时取消掉noauth=true
+
+4、启动Mongodb
+
+5、认证登录
+use admin
+db.auth('root','root')
+
+//密码登入
+mongo --port 27017 -u 用户名 -p 密码 --authenticationDatabase admin
+ 
+

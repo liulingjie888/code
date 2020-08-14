@@ -1,0 +1,16 @@
+show dbs			#显示所有数据库
+db				#显示当前数据库对象或集合
+use dbName			#创建或连接数据库
+
+========================连接数据库后的操作(格式:数据库.集合.命令,db代表当前数据库)
+db.stats()			#查看已连接数	据库的信息
+db.dropDatabase()		#删除数据库
+db.getCollectionNames()	#查看所有集合的名称
+show roles			#查看数据库的用户角色权限,密码等
+
+========================数据库的信息
+dbname.system.namespaces	列出所有名字空间。
+dbname.system.indexes		列出所有索引。
+dbname.system.profile		包含数据库概要(profile)信息。
+dbname.system.users		列出所有可访问数据库的用户。
+dbname.local.sources		包含复制对端（slave）的服务器信息和状态。

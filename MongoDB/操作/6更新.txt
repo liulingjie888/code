@@ -1,0 +1,76 @@
+
+语法:
+数据库.集合.update(
+query,		//update的查询条件
+update,	//更新对象文档
+{
+	upsert:false,			//记录不存在是否插入
+	multi:false,			//是否只更新找到的第一条记录
+	writeConcern: document,	//定义写出错级别(可选)
+	collation:document		//制定特定国家语言的更新归类规则(可选),页码107
+}
+
+=================常用语法:
+update(
+{ title:"liu"},
+{ $set:{title:"ling"} }	//设置title为ling,设置没有的字段就是添加字段
+)
+
+update(
+{ title:"liu"},
+{ $inc:{amount:5} }		//amount增加5
+)
+
+update(
+{ title:"liu"},
+{ $mul:{amount:2} }		//amount乘以2
+)
+
+update(
+{_id:10},
+{$rename:{"title1":"title"} }	//修改字段名title1为title
+)
+
+update(
+{ _id:10 },
+{ $unset:{unit:"元"} }		//删除unit字段
+)
+
+update(
+{ _id:10 },
+{ $min:{amount:50} }		//将amount与50作比较,哪个值小amount改成哪个
+)
+
+update(
+{ _id:10 },
+{ $max:{amount:50} }		//将amount与50作比较,哪个值大amount改成哪个
+)
+
+update(
+{ _id:11 },
+{ lasttime:ISODate("2017-07-03 13:58:55") }	//用ISODate更新时间字段的值
+)
+
+update:(
+    { _id:11 },
+    "$push":{checkout:{by:"张三",date:new Date()}}	//往checkout字段追加值，前提是checkout的值是数组
+)
+
+
+=================更改子文档
+update(
+{ _id:12 },
+{ 
+  $set:{
+    "detail.1":{name:"liu",price:40},		//修改detail字段下的文档数组的第二个文档
+    "overview.address":"南昌"			//修改overview字段下的文档的address字段
+  }
+}
+)
+
+================其他语法
+ updateOne()		//修改一条文档,multi选项无用
+ updateMany()		//修改多条文档,multi选项无用
+ replaceOne()		//直接修改不用更新操作符(如$set,$inc等),multi选项无用
+ 
+

@@ -46,7 +46,7 @@ ID 选择器
 :valid			input:valid		#选择所有有效值的属性
 
 :in-range		input:in-range		#选择元素指定范围内的值
-:out-of-range		input:out-of-range	#选择指定范围以外的值的元素属性
+:out-of-range			input:out-of-range	#选择指定范围以外的值的元素属性
 
 :first-of-type		p:first-of-type	#选择的每个 p 元素是其父元素的第一个 p 元素
 :last-of-type		p:last-of-type		#选择每个p元素是其父元素的最后一个p元素

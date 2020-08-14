@@ -1,0 +1,76 @@
+
+（1）创建目标方法的MethodType对象,MethodType.methodType方法的第一个参数是返回值 ,之后是按目标方法接收的参数的顺序填写参数类型。  
+（2）MethodHandles.lookup()对应的findXXX方法，获取目标方法的MethodHandle对象。 
+（3）调用MethodHandle对象的invokeExact方法。该方法参数是目标方法的参数。  
+
+ 
+=============================MethodHandles.Lookup的findXXX方法说明
+MethodHandle方法	字节码			描述
+findStatic		invokestatic		调用静态方法
+findSpecial		invokespecial		调用实例构造方法，私有方法，父类方法。
+findVirtual		invokevirtual		调用所有的虚方法
+findVirtual		invokeinterface	调用接口方法，会在运行时再确定一个实现此接口的对象。
+
+
+==============================虚方法调用
+public class MethodHandleTest {
+
+   void print(String s){
+        System.out.println("方法句柄测试"+s);
+    }
+
+
+    public static void main(String[] args) throws Throwable {
+    	MethodHandleTest m=new MethodHandleTest();				//方法接收者
+    	
+        MethodType type=MethodType.methodType(void.class,String.class);	//方法参数类型对象
+        
+        //参数一为方法接受者的类型，参数二为调用方法的名称，参数三为调用方法参数类型对象，bindTo为绑定接收者
+        MethodHandle handle= MethodHandles.lookup().findVirtual(m.getClass(),"print",type).bindTo(m);
+        handle.invoke("哈哈");
+    }
+}
+
+==============================祖类方法调用
+
+public class MethodHandleTest {
+
+    class GrandFather{
+        void thinking(String s) throws Throwable {
+            System.out.println("I 'm grandFather!"+s);
+        }
+    }
+    
+    class Father extends GrandFather{
+        void thinking(String s) throws Throwable {
+            System.out.println("I 'm father!"+s);
+        }
+    }
+    
+    class Son extends Father{
+        void thinking(String s) throws Throwable {
+        
+            MethodType mt=MethodType.methodType(void.class,String.class);
+            
+            //参数一为要调用方法版本类的类型，参数二为调用方法的名称，参数三为调用方法参数类型对象，参数四为接受者的类型
+            MethodHandle md=MethodHandles.lookup().findSpecial(GrandFather.class, "thinking", mt,this.getClass());
+            md.invoke(this,"哈哈");
+        }
+    }
+    
+    public static void main(String[] args) throws Throwable {
+    	 MethodHandleTest.Son son=new MethodHandleTest().new Son();
+        son.thinking("ha");			//JDK1.7打印"I 'm grandFather!哈哈"，JDK1.8打印"I 'm father!哈哈"
+    }
+}
+
+
+区别：
+虚方法的接受者绑定是用bindTo方法来实现，其他的接收者绑定是通过invoke的第一个参数传递实现。
+注意：
+jdk1.8后加入了方法版本安全访问，所以调用到GrandFather的thinking方法，可以通过反射来打破这种机制，如：
+MethodType mt=MethodType.methodType(void.class,String.class);
+Field lookupImpl=MethodHandles.Lookup.class.getDeclaredField("IMPL_LOOKUP");
+lookupImpl.setAccessible(true);
+MethodHandle md=((MethodHandles.Lookup)lookupImpl.get(null)).findSpecial(GrandFather.class, "thinking", mt,GrandFather.class);	//最后这个参数也可以为Father.class
+md.invoke(this,"哈哈");

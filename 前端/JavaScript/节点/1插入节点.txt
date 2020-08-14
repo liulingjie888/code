@@ -1,5 +1,5 @@
 var 变量=document.createElement("元素名")		创建一个该元素节点
-var 变量=document.createTextNode("内容")		 	4创建文本节点
+var 变量=document.createTextNode("内容")		创建文本节点
 var 变量=document.createAttribute("属性名")		创建属性节点		
 
 appendChild(新节点)		添加新节点到该节点中
@@ -25,8 +25,7 @@ div1.appendChild(hr);
 
 通过createAttribute创建一个属性节点 href 
 同过nodeValue设置href的值
-通过setAttributeNode把该属性设置到元素上 
-元素.setAttributeNode(href);
+通过setAttributeNode把该属性设置到元素上 ,元素.setAttributeNode(href);
 
 var action = document.createAttribute("action");
 action.nodeValue="${pageContext.request.contextPath}/JSP/manager/information/stu_info/stu_rela.jsp?type=sch";

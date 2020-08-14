@@ -21,7 +21,7 @@ function drag(ev)			//开始拖动的处理,设置被拖数据的数据类型和
 function drop(ev)			//对释放进行处理
 {
 	ev.preventDefault();
-	var data=ev.dataTransfer.getData("Text");			获取刚刚拖动的元素
+	var data=ev.dataTransfer.getData("Text");			//获取刚刚拖动的元素的id
 	ev.target.appendChild(document.getElementById(data));	//放入到释放的元素(ev.target)的内部(添加子元素)
 }
 </script>
@@ -39,8 +39,8 @@ function drop(ev)			//对释放进行处理
 属性:
 draggable="true"		//允许拖动
 ondragstart="drag(event)"	//拖动开始调用的函数
-ondrop="drop(event)"			//拖动结束调用的函数
-ondragover="allowDrop(event)"			//拖动过程调用的行数
+ondrop="drop(event)"		//拖动结束调用的函数
+ondragover="allowDrop(event)"	//拖动过程调用的行数
 
 其他说明:
 调用 preventDefault() 来避免浏览器对数据的默认处理（drop 事件的默认行为是以链接形式打开）

@@ -1,0 +1,53 @@
+
+鼠标事件	键盘事件	表单事件	文档/窗口事件
+click		keypress	submit		load
+dblclick	keydown	change		resize
+mouseenter	keyup		focus		scroll
+mouseleave	 		blur		unload
+hover	 	 	 
+
+例如:
+##hover()方法用于模拟光标悬停事件。
+当鼠标移动到元素上时，会触发指定的第一个函数(mouseenter);当鼠标移出这个元素时，会触发指定的第二个函数(mouseleave)。
+
+$("#p1").hover(
+    function(){
+        alert("你进入了 p1!");
+    },
+    function(){
+        alert("拜拜! 现在你离开了 p1!");
+    }
+);
+
+
+##获取按键代码或字符的ASCII码
+$(window).keydown( function(event){
+   // 通过event.which可以拿到按键代码.  如果是keypress事件中,则拿到ASCII码.
+} );
+
+
+##只允许按下的字母键生效, 65~90是所有大写字母的键盘代码范围.
+var validKeys = { start: 65, end: 90  };
+$("#keys").keypress( validKeys, function(event){
+    var keys = event.data;  //拿到validKeys对象.
+    return event.which >= keys.start && event.which <= keys.end;
+} );
+
+
+##keypress事件获取键入字符
+$(window).keypress(function(event){
+    //event.which是获取ASCII码，前面的函数是将ASCII码转换成字符，空格键和Enter键输出均为空白。
+    console.log(String.fromCharCode(event.which));
+    //从event对象中key属性获取字符，但是Enter键的key值为"Enter"，空白键还是空白" "。
+    console.log(event.key);
+});
+
+
+##获取事件对象
+$(document).ready(function(){
+    $(window).keypress(function(event){    
+        //获取事件对象，里面包含各种有用的信息。
+        console.log(event);
+        //console.log(event.which);
+    });
+});

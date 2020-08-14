@@ -1,0 +1,91 @@
+可选的 speed 参数规定隐藏/显示的速度，可以取以下值："slow"、"fast" 或毫秒。
+可选的 callback 参数是隐藏或显示完成后所执行的函数名称。
+$(selector).hide(speed,callback);		//隐藏
+$(selector).show(speed,callback);		//显示
+
+例:
+$("button").click(function(){
+  $("p").hide(1000);
+});
+
+
+
+$(document).ready(function(){
+  $(".hidebtn").click(function(){
+    $("div").hide(1000,"linear",function(){	//linear表示线性隐藏效果,还有swing(矩形隐藏)
+      alert("Hide() 方法已完成!");
+    });
+  });
+});
+
+
+===========================================
+通过 jQuery，您可以使用 toggle() 方法来切换 hide() 和 show() 方法。
+显示被隐藏的元素，并隐藏已显示的元素：
+
+例:
+$("button").click(function(){
+  $("p").toggle();
+});
+
+可选的 speed 参数规定隐藏/显示的速度，可以取以下值："slow"、"fast" 或毫秒。
+可选的 callback 参数是隐藏或显示完成后所执行的函数名称。
+
+
+===========================================
+$(selector).fadeIn(speed,callback);		//淡入(显示)
+$(selector).fadeOut(speed,callback);		//淡出(消失)
+$(selector).fadeToggle(speed,callback);	//淡入和淡出
+$(selector).fadeTo(speed,opacity,callback);	//改变透明度(没有默认参数，必须加上  slow/fast/Time )
+
+例:
+$("button").click(function(){
+  $("#div1").fadeTo("slow",0.15);
+  $("#div2").fadeTo("slow",0.4);
+  $("#div3").fadeTo("slow",0.7);
+});
+
+===========================================
+$(selector).slideDown(speed,callback);	//向下滑动出现
+$(selector).slideUp(speed,callback);		//向上滑动消失
+$(selector).slideToggle(speed,callback);	//向下滑动出现,向上滑动消失
+
+===========================================
+必需的 params 参数定义形成动画的 CSS 属性。
+可选的 speed 参数规定效果的时长。它可以取以下值："slow"、"fast" 或毫秒。
+可选的 callback 参数是动画完成后所执行的函数名称。
+$(selector).animate({params},speed,callback);	//动画
+
+下面的例子演示 animate() 方法的简单应用。它把 <div> 元素往右边移动了 250 像素：
+$("button").click(function(){
+  $("div").animate({left:'250px'});
+});
+
+也可以定义相对值（该值相对于元素的当前值）。需要在值的前面加上 += 或 -=：
+$("button").click(function(){
+  $("div").animate({
+    left:'250px',
+    height:'+=150px',
+    width:'+=150px'
+  });
+});
+
+jQuery 提供针对动画的队列,然后逐一运行这些 animate 调用:
+$("button").click(function(){
+  var div=$("div");
+  div.animate({height:'300px',opacity:'0.4'},"slow");
+  div.animate({width:'300px',opacity:'0.8'},"slow");
+  div.animate({height:'100px',opacity:'0.4'},"slow");
+  div.animate({width:'100px',opacity:'0.8'},"slow");
+});
+
+JavaScript 中不带括号的函数名是传入一个可供调用的函数，带括号会执行该函数并返回其返回值。
+===========================================
+可选的 stopAll 参数规定是否应该清除动画队列。默认是 false，即仅停止活动的动画，允许任何排入队列的动画向后执行。
+可选的 goToEnd 参数规定是否立即完成当前动画。默认是 false。
+$(selector).stop(stopAll,goToEnd);		//停止动画
+
+例:
+$("#stop").click(function(){
+  $("#panel").stop(true);
+});

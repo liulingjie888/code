@@ -6,7 +6,7 @@ docker network inspect 网络名	//查看信息
 docker network create	
 
 
-docker network connect 网络名 容器名	//将容器加入指定网络
+docker network connect 网络名 容器名		//将容器加入指定网络
 docker network disconnect 网络名 容器名	//将容器退出指定网络
 
 

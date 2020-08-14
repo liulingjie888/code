@@ -1,0 +1,35 @@
+
+svn checkout svn://192.168.0.1/runoob01 --username=user01	//获取版本库的项目
+
+svn diff 				//查看项目变动情况
+
+svn commit -m "描述"			//提交修改
+
+svn update				//更新副本集的内容
+ 
+svn status				//查看副本集情况(A表示以提交，?表示为提交，M表示修改未提交)
+
+svn revert [-R] 文件名			//撤销修改,(-R表示目录的修改也撤销)
+
+svn merge -r 22:21 文件名 		//撤销版本库中的版本，从22到21版本
+
+svn log: 				//用来展示svn 的版本作者、日期、路径等等。
+svn log -r 版本号1:版本号2		//查看版本之间的信息
+svn log 文件名			 	//查看某一个文件的版本修改信息
+svn log -l 5 -v 			//显示限定5条记录的目录信息（希望得到目录的信息要加 -v）
+ 
+svn diff: 				//用来显示特定修改的行级详细信息。
+svn diff -r 3 文件名			//比较版本3与当前副本集中文件的变化
+svn diff -r 版本号1:版本号2 文件名	//比较两个版本之间文件的变化
+
+svn cat -r 版本号 文件名		//查看某版本的文件
+
+svn list: 				//可以在不下载文件到本地目录的情况下来察看目录中的文件：
+
+
+svn copy trunk/ branches/my_branch	//svn 下有一个 trunk 版，创建 my_branch 分支
+cd branches/my_branch/		//跳转到分支
+svn add index.html 			//将 index.html 加入版本控制
+svn merge ../branches/my_branch/	//合并分支到trunk
+
+svn copy trunk/ tags/v1.0		//创建一个标签（跟创建分支类似）

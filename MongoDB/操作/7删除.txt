@@ -1,0 +1,14 @@
+语法:
+数据库.集合.remove(
+query,			//删除文档的条件
+{
+justOne:false,		//是否删除一条还是多条
+writeConcern:document, //定义写出错级别
+collatioin:document	//制定特定国家语言的删除归类规则
+}
+)
+
+常用语法:
+remove({})			//删除所有文档
+remove({ price:{$lt:3} })	//条件删除
+

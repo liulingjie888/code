@@ -1,0 +1,40 @@
+=============部署清单:
+主节点: 172.17.0.2:27017
+副节点: 172.17.0.3:27017
+	172.17.0.4:27017
+仲裁节点:172.17.0.5:27017
+	
+=============配置:
+在各个要加入的集群的配置文件加入/etc/mongodb.conf:
+bind_ip=0.0.0.0	#所有ip都可以连接
+replSet=rs0		#设置所在副本集(名称自定义)
+
+=============进入任一一个mongodb,输入下面命令:
+use admin
+
+config={_id:"rs0",members:[ 
+{_id:0,host:"172.17.0.2:27017","priority":3}, 
+{_id:1,host:"172.17.0.3:27017","priority":2}, 
+{_id:2,host:"172.17.0.4:27017","priority":1}
+{_id:2,host:"172.17.0.5:27017",arbiterOnly:true} ]}
+
+rs.initiate(config)
+
+完成!
+=============其他命令(先use admin)
+db.getMongo().setSlaveOk()		//从节点设置可读数据(从节点默认不能读取数据)
+rs.conf()				//查看副本集的配置对象内容
+rs.status()				//查看副本集状态
+rs.isMaster()				//查看是否是主节点等信息
+
+rs.add(host[,{arbiterOnly:true}])	//添加其他节点
+#host可以为: "172.17.0.5:27017" 或 {host:"172.17.0.4:27017",priority:0}
+#参数二为是否是仲裁节点
+
+======节点命令
+添加从节点：rs.add({host: "192.168.255.141:27019", priority: 1 })
+添加仲裁点：rs.addArb("192.168.255.142:27019")
+移除节点：rs.remove({host: "192.168.255.141:27019"})
+
+==========================其他集群搭建方式:
+https://blog.csdn.net/taolong1/article/details/41683617?locationNum=15&fps=1

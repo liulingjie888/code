@@ -89,7 +89,7 @@ HTML5 的 <form> 和 <input>标签添加了几个新属性.
 		novalidate 属性是一个 boolean 属性.
 		novalidate属性描述了 <input> 元素在表单提交时无需被验证。
 		formnovalidate 属性会覆盖 <form> 元素的novalidate属性.
-		注意: formnovalidate 属性与type="submit一起使用
+		注意: formnovalidate 属性与type="submit"一起使用
 	formtarget
 		formtarget 属性指定一个名称或一个关键字来指明表单提交数据接收后的展示。
 		The formtarget 属性覆盖 <form>元素的target属性.

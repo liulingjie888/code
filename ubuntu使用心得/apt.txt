@@ -13,6 +13,9 @@ apt-get install -f
 安装一个新软件包：
 apt-get install packagename
 
+查看以安装的软件：
+dpkg -l *
+
 卸载一个已安装的软件包（保留配置文件）：
 apt-get remove packagename
 

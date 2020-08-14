@@ -1,0 +1,68 @@
+
+========================jps
+#查看正在运行的虚拟机进程
+#格式：
+	jps [-options]
+#参数：
+-q	只输出LVMID，省略主类的名称
+-m	输出虚拟机进程启动时传递给主类main()的参数
+-l	输出住类的全名，如果执行的是jar包，则输出它的路径
+-v	输出虚拟机进程启动时的jvm参数
+
+========================jstat
+#用于监视虚拟机各种运行状态信息
+#格式：
+	jstat 选项 vmid [n] [m]
+#vmid为远程虚拟进程时为 protocol://vmid@hostname:port/servername
+#n，m表示每隔n毫秒查询一次，共查询m次，默认m为1
+
+#选项：
+-class			监视类加载、卸载数量、总空间以及类装载所耗费的时间
+
+-gc			监视java堆情况，包括Eden，survivor区等
+-gccapacity		与gc基本相同，但输出主要关注堆各区最大和最小空间
+-gcutil		与gc基本相同，但输出主要关注堆各区以使用占总空间的百分比
+-gccause		与gcutil一样，但会额外输出导致上一次垃圾收集的原因
+
+-gcnew			监视新生代垃圾的收集情况
+-gcnewcapacity		与gcnew相同，但输出主要关注使用到的最大和最小空间
+
+-gcold			监视老年代垃圾的收集情况
+-gcoldcapacity		与gcold相同，但输出主要关注使用到的最大和最小空间
+
+-gcpermcapacity	输出永久代使用到的最大和最小空间
+
+-compiler		输出即时编译器编译过的方法、耗时等信息
+-printcompilation	输出已经被即时编译的方法
+
+========================jinfo
+#查看和调整虚拟机各项参数
+#格式：
+	jinfo vmid
+
+========================jmap
+#用于生成堆转储快照
+#格式：
+	jmap 选项 vmid
+选项：
+-dump			生成堆转储快照,如 jmap -dump:format=b,file=eclipse.bin 3500
+-finalizerinfo		显示F-Queue等待执行finalize对象的对象
+-heap 			显示Java堆详细信息，如使用哪种回收器，参数配置，分代状况等。
+-histo			显示堆中对象统计信息，包括类、实例数量、合计容量
+-permstat		以ClassLoader为统计口径显示永久带内存状态
+-F			-dump没有响应时，可以强制生成dump快照
+
+========================jhat
+#分析jmap生成的堆转储快照。其内置了一个微型HTTP/Web服务器，分析结果可以在浏览器查看
+如：
+	jhat eclipse.bin
+
+========================jstatk
+#生成虚拟机当前时刻的线程快照（treaddump或javacore文件）,线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合
+#格式：
+	jstack 选项 vmid
+选项：
+-F			当命令不响应时，可以强制生成快照
+-l			除堆栈外，显示关于锁的附加信息
+-m			如果调用到本地方法的话，可以显示C/C++的堆栈
+

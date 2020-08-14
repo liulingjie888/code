@@ -9,7 +9,7 @@ docker attach 容器ID			//进入后台运行的容器（exit推出后容器会�
 docker exec 容器ID			//进入后台运行的容器（exit推出后容器不会停止）
 docker exec -it 容器 /bin/sh		//在运行的容器中执行命令
 docker rm -f 容器ID			//强制删除容器
-docker container prune			//清理掉所有处于终止状态的容器 
+docker container prune		//清理掉所有处于终止状态的容器 
 docker kill -s KILL 容器		//杀掉运行中的容器
 docker pause 容器			//暂停数据库容器db01提供服务
 docker unpause 容器			//恢复数据库容器db01提供服务
@@ -47,11 +47,33 @@ docker 命令 --help 			//更深入的了解指定的 Docker 命令使用方法�
 #/bin/echo "Hello world": 在启动的容器里执行的命令
 docker run ubuntu:15.10 /bin/echo "Hello world"
 
-
 ===============进入容器操作
-
 docker run -it ubuntu:15.10 /bin/bash
 
+=============docker run
+#-p 外部端口号:容器端口号	#设置指定映射的端口
+ -p 127.0.0.1:5001:5000 	#绑定网络地址
+ -p 127.0.0.1:5000:5000/udp	#绑定UDP端口(默认绑定tcp端口)
+#-d:后台运行容器，并返回容器ID
+#-P:将容器内部使用的网络端口映射到我们使用的主机上。
+#-t: 在新容器内指定一个伪终端或终端。
+#-i: 允许你对容器内的标准输入 (STDIN) 进行交互
+#--name 名字：给容器取名字
+#--network 网络名：运行时连接到网络
+#--ip 172.17.0.2：指定ip
+#--dns=114.114.114.114：制定DNS的地址
+#--dns-search=test.com：指定容器DNS搜索域名，默认和宿主一致。当设定搜索域为 .example.com 时，在搜索一个名为host的主机时，DNS 不仅搜索 host，还会搜索 host.example.com。
+#-h 主机名 | --hostname=主机名：设定容器的主机名，它会被写到容器内的 /etc/hostname 和 /etc/hosts
+#-v ：修改挂载点
+#-a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；
+#-e username="ritchie": 设置环境变量；
+#--env-file=[]: 从指定文件读入环境变量；
+#--cpuset="0-2" or --cpuset="0,1,2": 绑定容器到指定CPU运行；
+#-m :设置容器使用内存最大值；
+#--net="bridge": 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；
+#--link=[]: 添加链接到另一个容器；
+#--expose=[]: 开放一个端口或一组端口；
+#--volume , -v: 绑定一个卷
 
 ==============启动容器（后台模式）
 #使用以下命令创建一个以进程方式运行的容器，执行后会输出它的ID
@@ -85,30 +107,6 @@ docker rm -v nginx01
 删除所有已经停止的容器：
 docker rm $(docker ps -a -q)
 
-=============docker run
-#-p 外部端口号:容器端口号	#设置指定映射的端口
- -p 127.0.0.1:5001:5000 	#绑定网络地址
- -p 127.0.0.1:5000:5000/udp	#绑定UDP端口(默认绑定tcp端口)
-#-d:后台运行容器，并返回容器ID
-#-P:将容器内部使用的网络端口映射到我们使用的主机上。
-#-t: 在新容器内指定一个伪终端或终端。
-#-i: 允许你对容器内的标准输入 (STDIN) 进行交互
-#--name 名字：给容器取名字
-#--network 网络名：运行时连接到网络
-#--ip 172.17.0.2：指定ip
-#--dns=114.114.114.114：制定DNS的地址
-#--dns-search=test.com：指定容器DNS搜索域名，默认和宿主一致。当设定搜索域为 .example.com 时，在搜索一个名为host的主机时，DNS 不仅搜索 host，还会搜索 host.example.com。
-#-h 主机名 | --hostname=主机名：设定容器的主机名，它会被写到容器内的 /etc/hostname 和 /etc/hosts
-#-v ：修改挂载点
-#-a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；
-#-e username="ritchie": 设置环境变量；
-#--env-file=[]: 从指定文件读入环境变量；
-#--cpuset="0-2" or --cpuset="0,1,2": 绑定容器到指定CPU运行；
-#-m :设置容器使用内存最大值；
-#--net="bridge": 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；
-#--link=[]: 添加链接到另一个容器；
-#--expose=[]: 开放一个端口或一组端口；
-#--volume , -v: 绑定一个卷
 
 ==================docker ps
 -a :显示所有的容器，包括未运行的。

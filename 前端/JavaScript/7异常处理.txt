@@ -41,14 +41,13 @@ debugger;		//断点
 由于一些安全原因，在作用域 eval() 创建的变量不能被调用
 
 禁止this关键字指向全局对象。
-function f(){
+function f(){		// 返回false，因为"this"指向全局对象，"!this"就是false
     return !this;
 } 
-// 返回false，因为"this"指向全局对象，"!this"就是false
 
-function f(){ 
+function f(){ 		// 返回true，因为严格模式下，this的值为undefined，所以"!this"为true。
     "use strict";
     return !this;
 } 
-// 返回true，因为严格模式下，this的值为undefined，所以"!this"为true。
+
 

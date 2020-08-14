@@ -1,0 +1,63 @@
+===================================load
+$(selector).load(URL,data,callback);
+必需的 URL 参数规定您希望加载的 URL。
+可选的 data 参数规定与请求一同发送的查询字符串键/值对集合。
+可选的 callback 参数是 load() 方法完成后所执行的函数名称。
+
+=============案例1:
+responseTxt	包含调用成功时的结果内容
+statusTXT	包含调用的状态
+xhr		包含 XMLHttpRequest 对象
+
+$("button").click(function(){
+  $("#div1").load("demo_test.txt",function(responseTxt,statusTxt,xhr){
+    if(statusTxt=="success")
+      alert("外部内容加载成功!");
+    if(statusTxt=="error")
+      alert("Error: "+xhr.status+": "+xhr.statusText);
+  });
+});
+=============案例2:
+将重复的部分（例如导航栏）放入单独的文件，使用下列方法进行导入：
+//1.当前文件中要插入的地方使用此结构：
+<div class="include" file="***.html"></div>
+//2.***.html中放入内容，用html格式仅仅因为会有编辑器的书写辅助。。
+//3.代码：
+$(".include").each(function() {
+    if (!!$(this).attr("file")) {
+        var $includeObj = $(this);
+        $(this).load($(this).attr("file"), function(html) {
+            $includeObj.after(html).remove(); //加载的文件内容写入到当前标签后面并移除当前标签
+        })
+    }
+});
+
+===================================get请求
+$.get(URL,callback);
+必需的 URL 参数规定您希望请求的 URL。
+可选的 callback 参数是请求成功后所执行的函数名。
+=============案例1:
+第一个参数存有被请求页面的内容，第二个参数存有请求的状态。
+$("button").click(function(){
+  $.get("demo_test.php",function(data,status){
+    alert("数据: " + data + "\n状态: " + status);
+  });
+});
+
+===================================post请求
+$.post(URL,data,callback);
+必需的 URL 参数规定您希望请求的 URL。
+可选的 data 参数规定连同请求发送的数据。
+可选的 callback 参数是请求成功后所执行的函数名。
+
+=============案例1:
+$("button").click(function(){
+    $.post("/try/ajax/demo_test_post.php",
+    {
+        name:"菜鸟教程",
+        url:"http://www.runoob.com"
+    },
+    function(data,status){
+        alert("数据: \n" + data + "\n状态: " + status);
+    });
+});

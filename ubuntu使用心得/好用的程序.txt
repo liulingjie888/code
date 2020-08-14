@@ -21,6 +21,7 @@ flatpak run org.gimp.GIMP//stable
 gedit		文本工具
 
 net-tools  	netstat网络工具
+apt-get install iputils-ping
 
 budgie		好用的主题界面
 

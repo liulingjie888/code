@@ -9,7 +9,7 @@ table
     border-collapse:collapse;	#设置表格为单边框
 }
 =====
-table 
+table
 {
     width:100%;		#框
 }

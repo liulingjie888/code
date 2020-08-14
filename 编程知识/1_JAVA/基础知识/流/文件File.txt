@@ -22,8 +22,10 @@ f.mkdirs();			// 如果父文件夹不存在，就会创建父文件夹
 结果：D:\TEST
 
 (3)得到包类文件同一目录下文件的字节流
-InputStream in=new 类().getClass().getClassLoader().getResourceAsStream("文件名");
+InputStream in=类.getClass().getClassLoader().getResourceAsStream("文件名");
 
+(4)文件名前加了“/”，则表示从类路径下也就是从classes文件夹下查找资源
+InputStream in=类.getClass().getResourceAsStream("/11.properties")
 -------------------------------------------------------------------
 构造方法：
 // 绝对路径

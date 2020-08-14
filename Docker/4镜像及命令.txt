@@ -1,7 +1,7 @@
 ================命令
 docker pull 镜像名[:版本号（默认latest）]	//拉取镜像
 docker push 镜像名				//上传到镜像仓库,要先登陆到镜像仓库
-sudo docker images				//查看下载的镜像
+docker images					//查看下载的镜像
 docker search  镜像名				//查找镜像
 docker rmi 镜像名				//删除镜像
 docker tag 镜像ID 镜像名:版本号			//为镜像添加一个新的标签
@@ -12,7 +12,7 @@ docker commit -m="描述" -a="作者名" 容器ID 镜像名:版本号	//将容�
 docker save -o tar文件 镜像名			//将镜像保存到tar文件
 docker load < tar文件
 docker load --input tar文件 			//导入使用 docker save 命令导出的镜像。
-docker import  tar文件 runoob/ubuntu:v4		//从镜像归档文件创建镜像，命名为runoob/ubuntu:v4
+docker import  tar文件 runoob/ubuntu:v4	//从镜像归档文件创建镜像，命名为runoob/ubuntu:v4
 
 ===============构建镜像
 1创建文件Dockerfile：

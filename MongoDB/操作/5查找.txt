@@ -1,0 +1,39 @@
+
+数据库.集合.find(
+qurey,
+projection		#可选字段
+)
+
+常用查询:
+find().pretty() 				#可以让输出格式更美观
+find({name:"刘凌杰"}) 				#条件查询
+find({name:"刘凌杰"},{name:1,age:1,_id:0}) 	#指定显示字段信息,1为显示,0为不显示
+find({_id:2222,toy:null})			#查找toy为null值字段
+find({_id:1112,toy:{$exists:false} })		#查找无toy字段的文档
+find().limit(1)				#返回一条文档
+find().skip(2)					#从第三条文档开始
+find({_id:{$in:[12,ObjectId("59322B605...")] } })	#查找_id为12或ObjectId("...")的文档
+find({$or:[{name:"english"},{price:20}] })		#name为english或price为20
+
+条件查询:
+find({ price:{$lt:15} })			#price<15
+find({ price:{$lte:15} })			#price<=15
+find({ price:{$gt:15} })			#price>15
+find({ price:{$gte:15} })			#price>=15
+find({ price:{$ne:15} })			#price!=5
+find({ price:15 })				#price=5
+find({ price:{$lt:15,$gt:4} })		#4<price<15
+
+正则表达式:
+find({ name:{$regex:/语文$/} })		#where name like "%语文"
+find({ name:{$regex:/^C语言/} })		#where name like "语文%"
+find({ name:{$regex:/语文/i} })		#where name like "%语文%"(有i代表不区分大小写)
+
+find({ name:{$regex:/语文$/,$options:"m"} })		#name中存在多个值(\n或$分隔)
+find({ name:{$regex:/语文$/,$options:"x"} })		#忽略有空格,hash值或带#的文档
+find({ name:{$regex:/语文*$/,$options:"si"} })	#多行字符串下也会对\n进行匹配
+
+
+
+var showCursor=db.goodsbaseinf.find()
+showCursor.forEach(printjson);		打印显示游标获取的集合	

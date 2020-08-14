@@ -1,0 +1,59 @@
+数据:
+db.Sale_detail.insert(
+  [ {goodsid:"1001",amount:2,price:10.2,ok:false},
+    {goodsid:"1001",amount:2,price:14.8,ok:false},
+    {goodsid:"1002",amount:10,price:50,ok:false},
+    {goodsid:"1002",amount:2,price:10,ok:true} ]
+)
+==========================聚合管道方法
+db.Sale_detail.aggregate(
+[
+  { $match:{ok:false} },				//条件,文档字段ok为false的
+  { $group:{_id:"$goodsid",total:{$sum:"$amount"} } } //根据文档的goodsid分组,设置total字段值为分组后各组所有文档的amount的和
+] )
+
+结果:
+{ "_id" : "1002", "total" : 10 }
+{ "_id" : "1001", "total" : 4 }
+
+==========================map-reduce方法
+var mrr=db.Sale_detail.mapReduce(
+  function(){ emit(this.goodsid,this.amount) },	//以文档的goodsid为键,amount为值进行map
+  function()(key,values){ return Array.sum(values) }, //对值的操作,这里是求相同键的值和
+  {query:{ok:false},out:{replace:"result"} }		//条件,文档字段ok为false的;将结果放入result中
+)
+db[mrr.result].find()					//打印出来
+
+结果:
+{ "_id" : "1001", "value" : 4 }
+{ "_id" : "1002", "value" : 10 }
+
+==========================单一目标聚合方法
+语法:db.connection.count(query,options)
+
+#query:查询条件
+#options:
+名称		 类型		  作用
+limit		integer	  限制要计数的文档的最大数量
+skip		integer	  计数前要跳过的文档数
+hint		string或document 对需要查询的索引进行提示或详细说明
+maxTimeMS	integer	  设置运行查询运行的最长时间
+readConcern	string		  指定读取关注,默认级别为local;
+				  指定majority级别时,有 必须先启动Mongod实例,多用于副本集数据库的读关注,使用该级别时,必须指定非空的条件查询条件
+				  
+例如:
+db.Sale_detail.count({ok:false})		//ok为false的文档数量,结果为3
+db.Sale_detail.count({ok:false},{skip:1})	//从第2行开始算ok为false的文档数量,结果为2
+也可以
+db.Sale_detail.find({ok:false}).count()
+db.Sale_detail.find({ok:false}).count().skip(1)
+
+===============
+语法:
+db.connection.distinct(key,[query][,options])	//打印键值(去除重复)
+
+例如:
+db.Sale_detail.distinct("goodsid")
+结果:
+[ "1001", "1002" ]
+

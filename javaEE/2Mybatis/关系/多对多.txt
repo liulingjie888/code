@@ -7,7 +7,7 @@ OrderItem为它们的关系表（多对多）：
 	  id int(11) NOT NULL AUTO_INCREMENT, 
 	  oid int ,		//订单id
 	  pid int ,		//产品id
-	  number int ,
+	  number int ,		//金额
 	  PRIMARY KEY(id)
 	)AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

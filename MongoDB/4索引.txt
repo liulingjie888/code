@@ -1,0 +1,134 @@
+
+#自动为_id建立唯一索引
+#建立一个索引至少需要8kB的开销
+#索引在具体使用时是驻内存中持续运行的
+#集合中的索引不能超过64个，一个多字段索引最多有31个字段
+#索引不能被以下的查询使用：
+1.正则表达式及非操作符，如$nin、$not等
+2.算术运算符，如$mod等
+3.$where子句
+
+#不应该使用索引的场景
+1.查询的返回结果超过集合文档的1/3，慎重考虑是否创建
+2.以写为主的集合，慎重考虑
+==================单一字段索引
+语法:
+数据库.集合.createIndex({ 键名:1 })	//1为升序,-1为降序
+
+例:
+createIndex({ name:1 })
+createIndex({ "tags.press":1 })	//用子文档字段作索引
+
+==================字段值唯一索引
+语法:
+数据库.集合.createIndex({键名1:1,键名2:-1,...},{unique:true})	//1为升序,-1为降序
+
+例:
+createIndex({price:1},{unique:true})		//不允许插入相应值
+
+==================多字段索引
+语法:
+数据库.集合.createIndex({键名1:1,键名2:-1,...})
+
+例:
+createIndex({ price:1,color:-1 })
+
+//可以根据该索引的排序查询
+find({},{_id:0}) . sort({price:1,color:-1})
+
+==================文本索引
+语法:
+数据库.集合.createIndex({键名1:"text",键名2:"text",...})
+
+例:
+createIndex(
+{ name:"text",price:"text"},
+{ weights: {name:10}, name:"TextIndex" }		//为name设置索引权重为10,默认权重为1
+)
+
+==================哈希索引
+语法:
+数据库.集合.createIndex({键名:"hashed " })
+
+注意:
+不支持唯一和多字段索引
+会把浮点数的小数部分自动去掉
+
+==================数组索引
+例如：
+db.books.insert(
+  [ {name:"《故事》",price 30,tags:[{no:1,press:"x出版社"},{no:2,press:"y出版社"}] },
+  ...]
+)
+db.books.createIndex(
+  { "tags.no":1,"tags.press":-1}
+)
+
+==================2dsphere索引（地理空间索引）
+语法：
+数据库.集合.createIndex({<location field>:"2dsphere"})
+
+例：
+db.places.insert(
+{
+  location:{type:"Point",coordinates:[-29.32,50.11]},	//左边是经度，右边是维度
+  name:"北海公园",
+  category:"公园"
+} )
+db.places.createIndex( {location,"2dsphere"} )
+
+注意：
+不能将2dsphere索引用作分片键
+
+查询指定点周围的点：
+db.runCommand({
+    geoNear:"places",
+    near:{type:"Point",coordinates:[105.794621276855,41.869574065014]},
+    spherical:true,
+    minDistance:25000,
+    maxDistance:40000,
+})
+
+（1）geoNear:我们要查询的集合名称
+（2）near:就是基于那个点进行搜索，这里是我们的搜索点A
+（3）spherical:是个布尔值，如果为true，表示将计算实际的物理距离比如两点之间有多少km,若为false,则会基于点的单位进行计算
+（4）minDistance:搜索的最小距离，这里的单位是米
+（5）maxDistance:搜索的最大距离
+
+
+
+==================ensureIndex()索引
+
+早期的创建索引方式
+数据库.集合.ensureIndex({key1:1},{key2:-1},...},option)
+
+例:
+ensureIndex({ _id:"hashed" })
+
+==================其他方法
+getIndexes()			//获取集合所有索引名称
+dropIndex(index)		//移除集合指定的索引
+dropIndexes()			//删除集合的所有索引
+reIndex()			//删除集合所有索引并重新构建所以现有索引
+totalIndexSize()		//获取集合索引大小的报告信息
+
+
+========================explain()分析
+语法db.collection.command().explain(modes)
+
+modes:
+queryPlanner：默认运行模式，通过运行查询优化器选择一个最佳的查询计划，并返回查询评估相关信息
+executionStats：通过运行查询优化器选择一个最佳的查询计划执行，并返回查询相关统计信息，但该模式不会为被拒绝的计划提供查询执行统计信息。
+allPlansExecution：结合前两种模式的特点，返回统计数据，描述获胜计划的执行情况以及在计划选择期间捕获的其他候选计划的统计数据
+
+例：
+db.log.find().explain("executionStats")
+
+更多内容：P163
+
+========================hint()分析
+db.collection.find().hint("age_a")		//强制使用一个索引key
+db.collection.find().hint({_id:1})		//1为强制执行正向扫描，-1为强制执行反向扫描
+
+可以和explain()结合使用查看分析性能
+

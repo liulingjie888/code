@@ -1,0 +1,39 @@
+-Xms128m				//设置堆最小大小
+-Xmx750m				//设置堆最大大小
+-Xoss					//设置本地方法栈大小
+-Xss					//设置栈容量
+-XX:+/-UseTLAB				//使用本地线程分配缓存
+-XX:MaxPermSize			//设置永久代大小上限
+-XX:FieldsAllocationStyle		//设置字段的储存顺序分配策略
+-XX:+HeapDumpOnOutOfMemoryError	//让虚拟机在出现内存溢出异常的时候跳出当前内存堆转储快照以便事后分析
+-XX:MaxMetaspaceSize		 	//设置元空间大小，默认为-1不受限制
+-XX:MetaspaceSize			//设置元空间初始大小，达到该值会触发垃圾收集器进行类型卸载
+-XX:MinMetaspaceFreeRatio		//在垃圾收集后控制最小元空间剩余容量的百分比，可减少元空间不足导致的垃圾收集的频率
+-XX:MinMetaspaceFreeRatio		//在垃圾收集后控制最大元空间剩余容量的百分比
+-XX:MaxDirectMemorySize		//设置直接内存的最大容量
+
+-Xmn10M				//设置新生代大小
+-XX:SurvivorRatio=8			//设置Eden与survivor区大小比例8:1
+
+-XX:+PrintGC				//查看GC基本信息，jdk9前
+-Xlog:gc				//同上，jdk9后
+
+-XX:+PrintGCDetails			//查看GC详细信息，jdk9前
+-Xlog:gc*				//同上，jdk9后
+
+-XX:PrintHeapAtGC			//查看GC前后的堆、方法区可用容量变化，jdk9前
+-Xlog:gc+heap=debug			//同上，jdk9后
+
+-XX:+PrintGCApplicationConcurrentTime	//查看GC过程中用户线程并发时间，jdk9前
+-XX:PrintGCApplicationStoppedTime	//查看GC过程中用户线程停顿时间，jdk9前
+-Xlog:safepoint			//同上两个，jdk9后
+
+-XX:+PrintAdaptiveSizePolicy		//查看收集器Ergonomics机制，jdk9前
+-Xlog:gc+ergo*=trace			//同上，jdk9后
+
+-XX:PrintTenuringDistribution		//查看收集后剩余对象的年龄分布信息，jdk9后
+-Xlog:gc+age=trace			//同上，jdk9后
+
+-XX:MaxTenuringThreshold		//设置进入老年代的年龄
+
+

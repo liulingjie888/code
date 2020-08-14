@@ -1,0 +1,58 @@
+=============了解
+分片Shard
+路由Mongos
+配置服务Config Servers
+分片键Shard Key:分片键存在于集合中每个文档的索引字段或索引复合字段
+块Chunk:每个块带有唯一性的分片键,通过分片集群平衡器实现不同服务器上的数据均衡块存储
+
+命令:
+use config
+db.settings.save({_id:"chunksize",value:<sizeInMB>})	//修改块的大小
+
+=============部署清单:
+#分片服务器:
+172.17.0.5:27017
+172.17.0.6:27017
+172.17.0.7:27017
+172.17.0.8:27017
+
+#配置服务器:
+主节点: 172.17.0.2:27017
+副节点: 172.17.0.3:27017
+	172.17.0.4:27017
+
+#路由(和配置服务在同一服务器): 
+172.17.0.2:40000
+
+=============操作
+#启动各个分片服务:
+mongod --port 27017
+
+#启动各个配置服务:
+mongod --port 27017 --configsvr
+进入设置副本集,具体查看副本集
+
+#启动路由(172.17.0.2):
+mongos --port 40000 --configdb
+
+#添加分片服务器:
+在172.17.0.2中输入:
+mongo admin --port 40000
+进入后:
+db.runCommand({addShard:"172.17.0.5:27017"})
+db.runCommand({addShard:"172.17.0.6:27017"})
+db.runCommand({addShard:"172.17.0.7:27017"})
+db.runCommand({addShard:"172.17.0.8:27017"})
+完成!
+其他命令:
+db.runCommand({listshards:1})					//查看分片服务器的配置
+db.runCommand({enablesharding:"数据库名"})			//设置数据库为分片存储
+db.runCommand({shardcollection:"数据库.集合",key:{id:1}})	//对集合的id设置片键索引并分片
+
+
+===============其他命令:
+use admin
+sh.status()					//显示数据库分片信息
+sh.addShard("172.17.0.7:27017")		//添加分片服务
+sh.enableSharding("数据库名")			//设置数据库为分片存储
+sh.shardCollection("数据库.集合",{"id":1})	//对集合的id设置片键索引并分片

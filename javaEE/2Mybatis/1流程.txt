@@ -56,7 +56,7 @@ public class TestMybatis {
     public static void main(String[] args) throws IOException {
         
 	//根据配置文件mybatis-config.xml得到sqlSessionFactory 。
-        InputStream inputStream = Resources.getResourceAsStream(mybatis-config.xml);
+        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 	
 	//得到session
@@ -66,7 +66,7 @@ public class TestMybatis {
         List<Category> cs=session.selectList("listCategory");
         
         if(sessioni!=null){
-        	session.close()p
+        	session.close();
         }
     }
     

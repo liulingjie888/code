@@ -20,7 +20,7 @@ onopen		当通往服务器的连接被打开
 onmessage	当接收到消息
 onerror	当发生错误
 ====================服务端:
-把 "Content-Type" 报头设置为 "text/event-stream",在发送流就行了.
+把 "Content-Type" 响应报头设置为 "text/event-stream",在发送流就行了.
 例:
 <?php
 	header('Content-Type: text/event-stream');

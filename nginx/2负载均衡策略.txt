@@ -50,7 +50,7 @@ ip_hash可以和weight结合使用。
 
  
 
-5、url_hash（第三方）
+6、url_hash（第三方）
 按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。
 
     upstream backserver {

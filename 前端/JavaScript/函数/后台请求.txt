@@ -18,3 +18,16 @@ function checkResult(){
     document.getElementById('checkResult').innerHTML=xmlhttp.responseText;
   
 }
+
+===============================POST
+POST 请求
+一个简单 POST 请求：
+xmlhttp.open("POST","/try/ajax/demo_post.php",true);
+xmlhttp.send();
+
+
+如果需要像 HTML 表单那样 POST 数据，请使用 setRequestHeader() 来添加 HTTP 头。然后在 send() 方法中规定您希望发送的数据：
+xmlhttp.open("POST","/try/ajax/demo_post2.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("fname=Henry&lname=Ford");
+

@@ -1,0 +1,27 @@
+==========我们可以使用第三方资源库引入这两个文件：
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+==========使用方法
+创建 cookie：
+$.cookie('name', 'value');
+如果未指定过期时间，则会在关闭浏览器或过期。
+
+创建 cookie，并设置 7 天后过期：
+$.cookie('name', 'value', { expires: 7 });
+
+创建 cookie，并设置 cookie 的有效路径，路径为网站的根目录：
+$.cookie('name', 'value', { expires: 7, path: '/' });
+
+==========读取 cookie
+$.cookie('name'); 	//"value"
+
+$.cookie('nothing'); 	// undefined
+
+读取所有的 cookie 信息：
+$.cookie(); 		//  { "name": "value" }
+
+
+==========删除cookie
+$.removeCookie('name');
+$.removeCookie('name', { path: '/' });

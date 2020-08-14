@@ -1,0 +1,30 @@
+==============单个文档中的多字段原子更新
+
+db.collection.findAndModify(
+query:<document>,		//查询条件
+sort:<document>,		//排序，{field>:1}为升序，0为降序
+remove:<boolean>,		//true为删除制定文档
+update:<document>,		//指定需要删除或更新的字段
+new:<boolean>,			//true返回修改后的文档，false返回原始文档
+fields:<document>,		//确定需要返回的字段
+upsert:<boolean>,		//true没有文档则建立文档
+bypassDocumentValidation:<boolean>,	//true绕过默认的对所操作文档的基本规则的验证
+writeConcern:<document>,	//详见写出错机制
+collation:<document>		//对特定国家的语言更新归类规则
+)
+
+例如：
+db.connection.findAndModify(
+{
+  query:{_id:100100001},
+  update:{
+    "$set":{"flag":1},
+    "$push":{checkout:{by:"张三",date:new Date()}}
+} )
+
+==============多个文档的原子更新
+db.shoppingcart.update(
+	{unit: "元",$isolated: 1},		//表示满足条件的文档具有隔离性，其他用户无法操作这些文档直到更新结束（不支持分片处理）
+	{$set: {unit:"美元"} },
+	{multi: true}
+)

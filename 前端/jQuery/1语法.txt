@@ -1,0 +1,68 @@
+=========================安装
+百度 CDN:
+<head>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+</script>
+</head>
+
+=========================基础语法： $(selector).action()
+
+实例:
+$(this).hide() - 隐藏当前元素
+$("p").hide() - 隐藏所有 <p> 元素
+$("p.test").hide() - 隐藏所有 class="test" 的 <p> 元素
+$("#test").hide() - 隐藏 id="test" 的元素
+
+可以用方法链:
+$("#p1").css("color","red").slideUp(2000).slideDown(2000);
+
+=========================jQuery 入口函数:
+
+$(document).ready(function(){
+    // 执行代码
+});
+
+$(function(){
+    // 执行代码
+});
+
+=======JavaScript 入口函数:
+
+window.onload = function () {
+    // 执行代码
+}
+
+=======jQuery 入口函数与 JavaScript 入口函数的区别：
+jQuery 的入口函数是在 html 所有标签(DOM)都加载之后，就会去执行。
+JavaScript 的 window.onload 事件是等到所有内容，包括外部图片之类的文件加载完后，才会执行。
+
+==========================noConflict() 方法
+noConflict() 方法会释放对 $ 标识符的控制，这样其他脚本就可以使用它了。
+
+=======案例1:
+//您可以通过全名替代简写的方式来使用 jQuery：
+$.noConflict();
+jQuery(document).ready(function(){
+  jQuery("button").click(function(){
+    jQuery("p").text("jQuery 仍然在工作!");
+  });
+});
+
+=======案例2:
+//可以创建自己的简写。noConflict() 可返回对 jQuery 的引用，您可以把它存入变量，以供后面使用
+var jq = $.noConflict();
+jq(document).ready(function(){
+  jq("button").click(function(){
+    jq("p").text("jQuery 仍然在工作!");
+  });
+});
+
+=======案例3:
+//以在函数内使用 $ 符号了 - 而在函数外，依旧不得不使用 "jQuery"：
+$.noConflict();
+jQuery(document).ready(function($){
+  $("button").click(function(){
+    $("p").text("jQuery 仍然在工作!");
+  });
+});
+
