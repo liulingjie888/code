@@ -1,0 +1,20 @@
+
+第一步
+在项目的 src 下创建一个名为 c3p0-db.properties 的配置文件，这里使用 C3P0 数据源，需要在该文件中添加如下配置：
+jdbc.driverClass = com.mysql.jdbc.Driver
+jdbc.jdbcUrl = jdbc:mysql://localhost:3306/spring
+jdbc.user = root
+jdbc.password = root
+
+第二步
+<!-- 加载properties文件 -->
+<context:property-placeholder location="classpath:c3p0-db.properties" />
+
+第三步
+<!-- 配置数据源，使用properties文件信息 -->
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+<property name="driverClass" value="${jdbc.driverClass}" />
+<property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+<property name="user" value="${jdbc.user}" />
+<property name="password" value="${jdbc.password}" />
+</bean>

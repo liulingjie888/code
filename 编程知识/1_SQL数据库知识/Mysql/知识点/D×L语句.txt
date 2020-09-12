@@ -1,0 +1,43 @@
+
+==================================================DDL语句
+create database 数据库名;		//创建数据库
+drop database 数据库名;		//删除数据库
+
+create table 表名(
+列名 类型 约束，
+...
+[约束]
+[index(字段,...)]			//创建索引
+)[engine=innodb default charset=utf8 collate=utf8_unicode_ci]
+
+drop table 表名;			//删除表
+
+constraint fk_city_country Foreign Key(country_id) References country(country_id) on DELETE restrict ON update cascade ON Delete cascade
+外键约束：
+on set null
+on cascade
+on noaction
+on restrict
+========alter talbe 表名
+
+modify 列名 类型 约束;			//修改表字段的类型
+add column 列名 类型 约束;		//添加表的字段
+drop column 列名;			//删除列
+change 列名1 列名2 [类型];		//更改列名（也可以更改类型）
+上面非删除操作可以在语句后面添加"first"或"after 列名"来设置列表顺序。
+
+rename [to] 新表名			//修改表名
+
+engine=innodb				//存储引擎
+==================================================DML语句
+insert into 表名(列名1,...) values(值1,...);			//插入一条,replace则是冲突删除原有后插入
+insert into 表名(列名1,...) values(值1,...),(值1,...)...;	//插入多条
+insert语句 on duplicate key update col1 = 'update_unique';	//冲突则执行后面的更新语句，冲突会触发插入前，更新前后操作
+
+update 表名 set 字段名=值,... [where 条件]					//更新
+update 表1,表2... set 表1.字段名=值,表2.字段名=值... [where 条件]		//更新多个表的记录
+
+delete from 表名  [where 条件];			//删除记录
+
+select * from 表名  [where 条件];			//查询
+

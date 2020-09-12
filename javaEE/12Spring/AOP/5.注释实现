@@ -6,7 +6,7 @@
 
 ================================
 
-@Aspect									//表示这是一个切面通知类
+@Aspect								//表示这是一个切面通知类
 public class AnnoAdviceHello {
 	@Before("execution(* proxy.IHello.*(..))")			//前置通知
 	public void advice(){

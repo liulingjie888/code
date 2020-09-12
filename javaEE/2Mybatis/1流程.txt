@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="com.how2java.pojo">			//设置命名空间
+<mapper namespace="com.how2java.pojo">		//设置命名空间
 <select id="listCategory" resultType="Category">	//resultType="Category" 表示返回的数据和Category关联起来
     select * from   category_     			//SQL语句
 </select>

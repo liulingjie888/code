@@ -4,7 +4,7 @@
 声明消息队列时，会将其自动绑定到默认交换机""，并设置routekey为队列的name。
 
 生产者将消息给交换器，交换器会根据消息的routekey将其转交给绑定了该交换机且对应routekey的队列。
-消费者根据队列的name来去出队列的消息。
+消费者根据队列的name来取出队列的消息。
 
 ===========所有模式相同过程：
 ====生产者：
@@ -17,7 +17,6 @@ channel.basicConsume("队列name", false,Consumer对象);
 ====注意：
 声明队列时，会自动绑定到默认交换机""，且绑定的routekey为默认为队列name；
 在生产者和消费者工作前，声明好交换机及消息队列；如果交换机不存在，则会报错；如果没有匹配的消息队列或消息队列不存在，则交换机会将其消息丢弃；
-
 
 ===========简单模式：
 生产者声明一个队列（routekey默认为队列名），该队列会默认绑定到默认交换机。发送消息时指定处理的交换机（""）和routekey （队列名）。
@@ -72,7 +71,7 @@ channel.basicPublish("交换机name", "routing key", null, message.getBytes());
 // 保证一次只分发一条消息给消费者
 channel.basicQos(1);
 
-//设置Customer对消息进行消费
+//设置Customer对消息的消费行为
 Consumer consumer = new DefaultConsumer(channel) {
             // 获取消息
             @Override

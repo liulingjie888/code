@@ -1,0 +1,124 @@
+
+
+Callable和Future，一个产生结果，一个拿到结果。 Callable接口类似于Runnable，从名字就可以看出来了，但是Runnable不会返回结果，并且无法抛出返回结果的异常，大一而Callable功能更强些，被线程执行后，可以返回值，这个返回值可以被Future拿到，也就是说，Future可以拿到异步执行任务的返回值。
+
+==============Callable
+Callable位于java.util.concurrent包下，它也是一个接口，在它里面也只声明了一个方法call()，这是一个泛型接口，call()函数返回的类型就是传递进来的V类型。
+public interface Callable<V> {
+
+    V call() throws Exception;
+}
+
+Callable要采用ExecutorSevice的submit方法提交，而不是execute方法，因为execute方法没有返回值，在ExecutorService接口中有若干个submit方法的重载版本。
+<T> Future<T> submit(Callable<T> task);
+<T> Future<T> submit(Runnable task, T result);
+Future<?> submit(Runnable task);
+
+==============Future
+Future是一个接口，它可以对Callable任务的执行结果进行操作。可以说Future提供了三种功能：判断任务是否完成；能够中断任务；能够获取任务执行结果。
+
+    boolean cancel(boolean mayInterruptIfRunning);
+    boolean isCancelled();
+    boolean isDone();
+    V get() throws InterruptedException, ExecutionException;
+    V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException;
+        
+        
+cancel（）方法用来取消任务，如果取消任务成功则返回true。参数true表示允许取消正在执行却没有执行完毕的任务。如果任务已经完成，此方法肯定返回false；如果任务还没有执行，肯定返回true；如果任务正在执行，若设置为true，则返回true，若设置为false，则返回false。
+
+isCancelled()方法表示任务是否被取消成功，如果在任务正常完成前被取消成功，则返回 true。
+
+isDone()方法表示任务是否已经完成，若任务完成，则返回true；
+
+get()方法用来获取执行结果，这个方法会产生阻塞，会一直等到任务执行完毕才返回；
+
+get(long timeout, TimeUnit unit)用来获取执行结果，如果在指定时间内，还没获取到结果，就直接返回null。
+
+==============使用方法
+public class AtomicIntegerFieldUpdaterTest {
+ 
+	public static <T> void main(String[] args) {
+ 
+		ExecutorService newFixedThreadPool = Executors.newSingleThreadExecutor();		//创建ExecutorService
+		
+		Future<String> submit = newFixedThre adPool.submit(new Callable<String>() {		//提交callable实现的线程，返回用于接收结果的Future
+			@Override
+			public String call() throws Exception {
+				// TODO Auto-generated method stub
+				return "我是生产的结果";
+			}
+		});
+		try {
+			System.out.println("我来拿结果了："+submit.get());			//堵塞知道接受到结果
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 
+	}
+ 
+}
+ 
+ 
+================FutureTask
+FutureTask实现了两个接口，Runnable和Future，所以它既可以作为Runnable被线程执行，又可以作为Future得到。
+
+
+public class AtomicIntegerFieldUpdaterTest {
+ 
+	public static <T> void main(String[] args) throws InterruptedException {
+		ExecutorService es = Executors.newSingleThreadExecutor();			//创建ExecutorService，也可以创建线程池，但后面是用submit提交
+		System.out.println("主线程do something");
+		FutureTask<Integer> futuretask = new FutureTask<>(new Callable<Integer>() {	//创建以callalble实现线程为参数的FutureTask类
+			public Integer call  () throws Exception {
+			
+				Thread.sleep(2000);
+				System.out.println("子线程执行耗时操作");
+				return 100;
+			}
+		});
+		es.execute(futuretask);							//执行
+		System.out.println("我不管子线程，我需要干点其他事，主线程继续do something");
+		try {
+			System.out.println("执行结果为" + futuretask.get());			//获取接收结果
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 
+	}
+
+=============CompletionService
+CompletionService接口用于提交一组Callable任务，其take方法返回已完成的一个Callable任务对应的Future对象。
+
+public class CallableAndFuture {
+	public static void main(String[] args) {		
+		ExecutorService threadPool2 = Executors.newFixedThreadPool(10);		//创建线程池	
+		//以线程池为参数创建CompletionService
+		CompletionService<Integer> completionService = new ExecutorCompletionService<Integer>(threadPool2);
+	
+		for(int i=1;i<=10;i++){				//向CompletionService中提交10个任务
+			final int sequence = i;
+			completionService.submit(			//提交callable实现的线程
+				new Callable<Integer>(){
+					public Integer call() throws Exception {
+						Thread.sleep(new Random().nextInt(5000));
+						return sequence;
+					}
+				});
+		}
+		for (int i = 0; i < 10; i++) {
+			try {
+				System.out.println(completionService.take().get());	//获取结果
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+ 

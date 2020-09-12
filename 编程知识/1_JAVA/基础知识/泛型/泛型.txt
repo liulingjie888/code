@@ -1,0 +1,153 @@
+
+===========泛型是什么？
+用来规定一个类、接口或方法所能接受的数据的类型. 就像在声明方法时指定参数一样, 我们在声明一个类, 接口或方法时, 也可以指定其"类型参数", 也就是泛型.
+
+===========泛型的好处
+提高安全性: 将运行期的错误转换到编译期. 如果我们在对一个对象所赋的值不符合其泛型的规定, 就会编译报错.
+避免强转: 比如我们在使用List时, 如果我们不使用泛型, 当从List中取出元素时, 其类型会是默认的Object, 我们必须将其向下转型为String才能使用。
+比如:
+List l = new ArrayList();
+l.add("abc");
+String s = (String) l.get(0);
+
+而使用泛型，就可以保证存入和取出的都是String类型, 不必在进行cast了。比如:
+List<String> l = new ArrayList<>();
+l.add("abc");
+String s = l.get(0);
+
+===========泛型的使用
+定义类/接口：
+public class Test<T> {
+
+   private T obj;
+
+   public T getObj() {
+     return obj;
+   }
+
+    public void setObj(T obj) {
+       this.obj = obj;
+   }
+}
+使用方式：
+List<String> l = new ArrayList<>( );
+
+重点说明：
+变量类型中的泛型，和实例类型中的泛型，必须保证相同（不支持继承关系）。
+既然有了这个规定, 因此在JDK1.7时就推出了一个新特性叫菱形泛型(The Diamond), 就是说后面的泛型可以省略直接写成<>, 反正前后一致。
+
+========
+定义泛型方法:
+情况1):泛型类中的泛型只能适用于非静态方法,如果需要给静态方法设置泛型,此时使用泛型方法:
+情况2):泛型类中的泛型应该适用于整个类中多个方法,有时候只对某一个方法设置泛型即可.
+
+public <Q extends Object,T> void print(Q q) {		//<Qextends Object,T>为声明泛型
+        System.out.println(q);
+}
+
+说明：
+泛型的声明，必须在方法的修饰符（public,static,final,abstract等）之后，返回值声明之前。
+方法参数列表，以及方法体中用到的所有泛型变量，都必须声明。
+
+===========泛型中的通配符
+
+（1）无边界通配符:
+public static void printList(List<?> list) {
+	for (Object o : list) {
+	      System.out.println(o);
+	}
+}
+public static void main(String[] args) {
+	   List<String> l1 = new ArrayList<>();
+	   l1.add("aa");
+	    l1.add("bb");
+	   l1.add("cc");
+	   printList(l1);
+	   List<Integer> l2 = new ArrayList<>();
+	   l2.add(11);
+	    l2.add(22);
+	   l2.add(33);
+	   printList(l2);
+}
+   
+重点说明：我们不能对List<?>使用add，get以及List拥有的其他方法。
+原因是，我们不确定该List的类型, 也就不知道add，或者get方法的参数类型。
+
+但是也有特例。
+public static void addTest(List<?> list) {
+    Object o = new Object();
+// list.add(o); // 编译报错
+// list.add(1); // 编译报错
+// list.add("ABC"); // 编译报错 
+   list.add(null); // 特例
+// String s = list.get(0); // 编译报错
+// Integer i = list.get(1); // 编译报错 
+   Object o = list.get(2); // 特例
+}
+
+（2）固定上边界通配符:
+public static double sumOfList(List<? extends Number> list) {
+    double s = 0.0;
+    for (Number n : list) {
+      // 注意这里得到的n是其上边界类型的, 也就是Number,需要将其转换为double.  
+      s += n.doubleValue();
+    }
+    return s;
+ }
+ public static void main(String[] args) {
+    List<Integer> list1 = Arrays.asList(1, 2, 3, 4);
+    System.out.println(sumOfList(list1));
+    List<Double> list2 = Arrays.asList(1.1, 2.2, 3.3, 4.4);
+    System.out.println(sumOfList(list2));
+}
+重点说明：我们不能对List<? extends E>使用add方法。
+原因是，我们不确定该List的类型, 也就不知道add方法的参数类型。但是，我们可以保证不管参数是什么泛型，里面的元素肯定是Number或者其子类，所以，从List中获取一个Number元素的get()方法是允许的。
+
+但是也有特例。
+public static void addTest2(List<? extends Number> l) {
+// l.add(1); 	// 编译报错
+// l.add(1.1); // 编译报错 
+   l.add(null);
+   Number number = l.get(1); // 正常 
+}
+
+（3） 固定下边界通配符:
+
+public static void addNumbers(List<? super Integer> list) {
+     for (int i = 1; i <= 10; i++) {
+         list.add(i);
+     }
+ }
+ public static void main(String[] args) {
+     List<Object> list1 = new ArrayList<>();
+     addNumbers(list1);
+     System.out.println(list1);
+     List<Number> list2 = new ArrayList<>();
+     addNumbers(list2);
+     System.out.println(list2);
+     List<Double> list3 = new ArrayList<>();
+  // addNumbers(list3); // 编译报错 
+ }
+ 
+重点说明：我们不能对List<? super E>使用get方法。
+原因是，我们不确定该List的类型, 也就不知道get方法的参数类型。但是，我们可以保证不管参数是什么泛型，里面的元素肯定是Integer，所以，从List中add一个Integer元素的add()方法是允许的。
+
+但是也有特例。
+public static void getTest2(List<? super Integer> list) {
+ // Integer i = list.get(0); //编译报错 
+    Object o = list.get(1);
+}
+
+=============继承泛型类和实现泛型接口
+定义为泛型的类和接口也可以被继承和实现。例如下面的示例代码演示了如何继承泛型类。
+public class FatherClass<T1>{}
+public class SonClass<T1,T2,T3> extents FatherClass<T1>{}
+
+如果要在 SonClass 类继承 FatherClass 类时保留父类的泛型类型，需要在继承时指定，否则直接使用 extends FatherClass 语句进行继承操作，此时 T1、T2 和 T3 都会自动变为 Object，所以一般情况下都将父类的泛型类型保留。
+
+下面的示例代码演示了如何在泛型中实现接口。
+纯文本复制
+interface interface1<T1>{}
+interface SubClass<T1,T2,T3> implements
+Interface1<T2>{}
+

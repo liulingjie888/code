@@ -1,0 +1,78 @@
+增删改
+
+======================查询单个值
+(1)单个值 qureyForObject(sql, Class class, Objec... args)
+
+public static void demo01() {
+    //模板
+  JdbcTemplate jt = new JdbcTemplate(DataSourceUtils.getDataSource());
+    String s = jt.queryForObject("select uname from user2 where id=?", String.class, 3);
+    Integer s2 = jt.queryForObject("select upass from user2 where id=?", Integer.class, 4);
+    System.out.println(s);
+    System.out.println(s2);
+}
+
+
+(2)使用queryForObject方法和BeanPropertyRowMapper做映射还可以查询一个具体类对象
+
+public static void demo06() {
+    //模板
+    JdbcTemplate jt = new JdbcTemplate(DataSourceUtils.getDataSource());
+    User user = jt.queryForObject("select * from user2 where id=?", new BeanPropertyRowMapper<User>(User.class),3);
+    System.out.println(user);
+}
+
+(2)数据库中列名对应Map中的key 具体的字段值对应Map中的value
+
+public static void demo02() {
+    //模板
+    JdbcTemplate jt = new JdbcTemplate(DataSourceUtils.getDataSource());
+    Map<String, Object> map = jt.queryForMap("SELECT * FROM user2 WHERE id=?", 3);
+    System.out.println(map);
+}
+
+========================查询多条记录
+（1）List<Map<String, Object> > queryForList(sql, Object... args);
+数据库中列名对应Map中的key 具体的字段对应Map中的value
+
+public static void demo03() {
+    //模板
+    JdbcTemplate jt = new JdbcTemplate(DataSourceUtils.getDataSource());
+    List<Map<String, Object>> maps = jt.queryForList("SELECT * FROM user2");
+    System.out.println(maps);
+}
+
+（2）查询多条记录后使用RowMapper做映射*********常用
+List<T> query(sql, RowMapper<T> rowMapper, Object... args);
+
+public static void demo04() {
+    //模板
+    JdbcTemplate jt = new JdbcTemplate(DataSourceUtils.getDataSource());
+    List<User> query = jt.query("select * from user2 where id in(?,?,?)", new RowMapper<User>() {
+        @Override
+        public User mapRow(ResultSet resultSet, int i) throws SQLException {
+            int id = resultSet.getInt("id");
+            String uname = resultSet.getString("uname");
+            String upass = resultSet.getString("upass");
+            User user = new User(id, uname, upass);
+            return user;
+        }
+    },  3, 4,5);
+    System.out.println(query);
+}
+
+（3）里面的ResultSet就是查询后的结果集然后映射到具体类
+List<T> query(sql ,new BeanPropertyRowMapper<T>(T.class), Object... args);
+
+public static void demo05() {
+    //模板
+    JdbcTemplate jt = new JdbcTemplate(DataSourceUtils.getDataSource());
+    List<User> query = jt.query("select * from user2 where id in(?,?,?)", new BeanPropertyRowMapper<User>(User.class), 3, 4, 5);
+    System.out.println(query);
+}
+
+============================其他方法
+jdbcTemplate.getDataSource().getConnection();		//返回Connection
+int rs = jdbcTemplate.update(sql);				//执行一条sql
+int[] rs=jdbcTemplate.batchUpdate(new String[]{sql1, sql2});	//执行多条sql
+

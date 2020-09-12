@@ -1,0 +1,33 @@
+聚合函数:
+sum
+count
+avg
+max
+min
+
+窗口函数：
+row_number()			//分组后各组起序号
+rank()				//分组后各组起序号，排序字段值相同序号不变，序号可能不连续
+dense_rank()			//分组后各组起序号，排序字段值相同序号不变，序号可能连续
+percent_rank()			//rank序号-1/rows-1
+cume_dist()			//rank值相同的行数/rows
+nfile(N)			//为各组分成N个组，每个组有（1-N）的编号
+nth_value(expr,N)		//每个组在窗口第N行及后取值为第N行的指定字段值，其他用NULL赋值
+lag(expr,N)			//每个组将指定字段下移N行后放入窗口，其他用NULL赋值
+lead(expr,N)			//每个组将指定字段上移N行后放入窗口
+first_value(expr)		//分组后取滑动窗口的指定字段第一个值赋值给窗口对应行
+last_value(expr)		//分组后取滑动窗口到制定字段最后一个值赋值给窗口对应行
+
+select
+~ over w as name
+from table
+window w as (partition by user_no order by order_id);
+
+其他常用函数：
+database()			//返回当前数据库名
+version()			//返回数据库版本
+user()				//发挥当前登录用户名
+inet_aotn('IP')		//发挥ip地址的数字代表
+inet_ntoa(num)			//返回数字代表的ip
+password('str')		//返回字符串加密版本
+md5('str')			//发挥字符串的MD5值

@@ -1,4 +1,71 @@
-使用Lock对象实现同步效果
+
+==========================常见方法
+public interface Lock {
+ 
+    /**
+     * 获取锁，如果获取不到就一直等待，与synchronized一样
+      */
+ 
+    void lock();
+ 
+ 
+    /**
+    * 该方法比较特殊，当通过这个方法去获取锁时，如果线程正在等待获取锁，
+    * 则这个线程能够响应中断，
+    * 即中断线程的等待状态。也就是说，
+    * 当两个线程同时通过lock.lockInterruptibly()想获取某个锁时，
+    * 假若此时线程A获取到了锁，而线程B只有在等待，
+    * 那么对线程B调用threadB.interrupt()方法能够中断线程B的等待过程。
+    */
+ 
+    void lockInterruptibly() throws InterruptedException;
+ 
+    /**
+     * 该方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回true，
+     * 如果获取失败（即锁已被其他线程获取），则返回false，
+     * 也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。     
+    */
+ 
+    boolean tryLock();
+ 
+ 
+ 
+    /**
+     * 该方法和tryLock()方法是类似的，只不过区别在于这个方法在拿不到锁时会等待一定的时间，
+     * 在时间期限之内如果还拿不到锁，就返回false。
+     * 如果如果一开始拿到锁或者在等待期间内拿到了锁，则返回true  
+    */
+ 
+    boolean tryLock(long time, TimeUnit unit) throws InterruptedException;
+ 
+ 
+ 
+    /**
+     * 释放锁
+     */
+ 
+    void unlock();
+ 
+ 
+ 
+    /**
+     *
+     * Condition是Java提供了来实现等待/通知的类，
+     * Condition类还提供比wait/notify更丰富的功能，
+     * Condition对象是由lock对象所创建的。但是同一个锁可以创建多个Condition的对象，
+     * 即创建多个对象监视器。这样的好处就是可以指定唤醒线程。
+     * notify唤醒的线程是随机唤醒一个 ，具体得会在后面线程间得通信讲    */
+ 
+    Condition newCondition();
+ 
+}
+==============================Condition同步
+Lock lock = new ReentrantLock();
+Condition full = lock.newCondition();
+Condition empty = lock.newCondition();
+
+在线程中使用full.await()会进入堵塞，full.signal()唤醒full中堵塞的一个队列，full.signalAll()唤醒full中堵塞的所有队列。
+===============================使用Lock对象实现同步效果
 
 Lock是一个接口，为了使用一个Lock对象，需要用到
 Lock lock = new ReentrantLock();
@@ -30,7 +97,6 @@ Thread t1 = new Thread() {
 synchronized 是不占用到手不罢休的，会一直试图占用下去。
 与 synchronized 的钻牛角尖不一样，Lock接口还提供了一个trylock方法。
 trylock会在指定时间范围内试图占用，占成功了，就啪啪啪。 如果时间到了，还占用不成功，扭头就走~
-
 注意： 因为使用trylock有可能成功，有可能失败，所以后面unlock释放锁的时候，需要判断是否占用成功了，如果没占用成功也unlock,就会抛出异常
 	
             Lock lock = new ReentrantLock();
@@ -60,7 +126,5 @@ trylock会在指定时间范围内试图占用，占成功了，就啪啪啪。 
 、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
 
 使用synchronized方式进行线程交互，用到的是同步对象的wait,notify和notifyAll方法
-
 Lock也提供了类似的解决办法，首先通过lock对象得到一个Condition对象，然后分别调用这个Condition对象的：await, signal,signalAll 方法
-
 注意： 不是Condition对象的wait,nofity,notifyAll方法,是await,signal,signalAll

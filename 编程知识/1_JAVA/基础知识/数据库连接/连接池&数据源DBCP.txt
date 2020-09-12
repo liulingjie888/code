@@ -1,3 +1,12 @@
+依赖：
+<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
+<dependency>
+    <groupId>commons-dbcp</groupId>
+    <artifactId>commons-dbcp</artifactId>
+    <version>1.4</version>
+</dependency>
+
+
 javax.sql.DataSource;
 org.apache.commons.dbcp.BasicDataSource;
 
@@ -7,8 +16,8 @@ bds.setDriverClassName("");		//设置数据库驱动
 bds.setUrl("");			//设置数据流URL
 bds.setUsername("用户名");		
 bds.setPassword("密码");		
-bds.setInitialSize(5);			//设置数据库连接池初始的连接数目
-bds.setMaxActive(5);		//设置最大活跃的连接数目
+bds.setInitialSize(5);		//设置数据库连接池初始的连接数目
+bds.setMaxActive(5);			//设置最大活跃的连接数目
 bds.setMinldle(2);			//设置最小闲置的连接数目
 Connection conn=bds.getConnection();	//获取连接对象
 

@@ -1,0 +1,84 @@
+观模式（Facade Pattern）隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口。这种类型的设计模式属于结构型模式，它向现有的系统添加一个接口，来隐藏系统的复杂性。
+
+优点： 1、减少系统相互依赖。 2、提高灵活性。 3、提高了安全性。
+缺点：不符合开闭原则，如果要改东西很麻烦，继承重写都不合适。
+
+=====步骤 1
+
+Shape.java
+public interface Shape {
+   void draw();
+}
+
+=====步骤 2
+创建实现接口的实体类。
+
+
+public class Rectangle implements Shape {		//画矩形
+ 
+   @Override
+   public void draw() {
+      System.out.println("Rectangle::draw()");
+   }
+}
+
+public class Square implements Shape {		//画正方形
+ 
+   @Override
+   public void draw() {
+      System.out.println("Square::draw()");
+   }
+}
+Circle.java
+public class Circle implements Shape {		//画圆
+ 
+   @Override
+   public void draw() {
+      System.out.println("Circle::draw()");
+   }
+}
+
+=====步骤 3
+
+public class ShapeMaker {				//创建一个外观类，也就是工具类
+   private Shape circle;
+   private Shape rectangle;
+   private Shape square;
+ 
+   public ShapeMaker() {
+      circle = new Circle();
+      rectangle = new Rectangle();
+      square = new Square();
+   }
+ 
+   public void drawCircle(){
+      circle.draw();
+   }
+   public void drawRectangle(){
+      rectangle.draw();
+   }
+   public void drawSquare(){
+      square.draw();
+   }
+}
+
+=====步骤 4
+使用该外观类画出各种类型的形状。
+
+FacadePatternDemo.java
+public class FacadePatternDemo {
+   public static void main(String[] args) {
+      ShapeMaker shapeMaker = new ShapeMaker();
+ 
+      shapeMaker.drawCircle();
+      shapeMaker.drawRectangle();
+      shapeMaker.drawSquare();      
+   }
+}
+
+=====步骤 5
+执行程序，输出结果：
+
+Circle::draw()
+Rectangle::draw()
+Square::draw()

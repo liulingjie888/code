@@ -1,0 +1,30 @@
+
+@Configuration
+[@ComponentScan(basePackages = "configration")]		//添加自动扫描注解，configration为注释Bean所在包
+[@ImportResource("classpath:applicationContext.xml")]	//引入其它spring配置文件
+[@Import(TestConfiguration1.class)]				//引入其他配置类
+[@PropertySource("classpath:1.properties")]			//读取外部配置文件中的k/v保存到运行的环境变量中;加载完外部的配置文件以后使用${}取出
+public class TestConfiguration {
+
+    public TestConfiguration(){
+            System.out.println("TestConfiguration 容器启动初始化...");
+    }
+
+    //@Bean注解注册bean,同时可以指定初始化和销毁方法
+    @Bean(name="user",initMethod="start",destroyMethod="cleanUp")
+    @Scope("prototype")
+    public User user(){
+        return new User();
+    }
+
+}
+
+
+==================使用
+ApplicationContext context = new AnnotationConfigApplicationContext(TestConfiguration.class);
+
+Person person = (Person)context.getBean("person");
+person.sayHello();
+
+User user = (User)context.getBean("user");
+user.sayHello();

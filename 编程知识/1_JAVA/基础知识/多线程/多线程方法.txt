@@ -1,41 +1,70 @@
-通过继承Thread类实现多线程
-方法
 
-.setName("线程名字");	//设置线程名
-.getName()		//获取线程名
-.start()	//创建一个线程
-.run()	//运行的内容
-.sleep(1000）	//休眠1秒
-.isAlive()	//是否在运行
-Tread.currentThread().getName()   获取当前线程名称
-Thread.yield();	//临时暂停，使得其他线程可以占用CPU资源
-this.wait();	 //进入等待，减少CPU占用	
-this.notify();	//唤醒等待的线程
+===============Thread方法
 
+====Thread对象方法：
+.setName("线程名字");			//设置线程名
+.getName()				//获取线程名
+.start()				//开始一个线程
+.run()					//运行的内容
+.sleep(1000）				//休眠1秒
+.isAlive()				//是否在运行
+.setPriority(Thread.MAX_PRIORITY);	//设置优先级
+.getPriority()				//获取优先级
+.setDaemon(true)			//设置守护线程
+.isDaeMon()				//判断是否是守护现场
+.join()				//将该线程加入当前线程，当前线程会被堵塞等待该线程完成后才运行
+.interrupt()				//设置中断信号
+.isInterrupted()			//判断线程是否中断
 
-守护线程：
-Thread.setDaemon(true);	//设为守护线程，要在激活线程之前
-当JVM中只剩下守护线程时，JVM会自动退出
+====类方法：
+Thread.currentThread()		  //获取当前线程对象
+Thread.yield();			//临时暂停，使得其他线程可以占用CPU资源
+Thread.activeCount();			//获取活跃的现场数
+Thread.setDaemon(true);		//设为守护线程，要在激活线程之前
+Thread.join();				//先激活，后加入（会出现InterruptedException异常）
+Thread.interrupted()			//判断线程是否是中断状态，并会清除线程的中断标志位（信号)，即重新设置为false
+Thread.activeCount()			//获取虚拟机正在运行的线程数
 
-
-线程的联合（加入）：
-Thread.join()	//先激活，后加入（会出现InterruptedException异常）
-
-
-线程优先级：
-当线程处于竞争关系的时候，优先级高的线程会有更大的几率获得CPU资源 
-为了演示该效果，要把暂停时间去掉，多条线程各自会尽力去占有CPU资源 
-同时把英雄的血量增加100倍，攻击减低到1，才有足够的时间观察到优先级的演示 
-如图可见，线程1的优先级是MAX_PRIORITY，所以它争取到了更多的CPU资源执行代码
-
-t1.setPriority(Thread.MAX_PRIORITY);
-t2.setPriority(Thread.MIN_PRIORITY);
-
+====对象锁的方法：	
+.wait();	 			//进入等待，减少CPU占用
+.notify();				//唤醒一个等待的线程
+.notifyAll();			//唤醒所有等待的线程
 
 
-Thread类其实也是继承了Runnable接口的一个类
-通过继承Runnable接口实现多线程
+实现线程的方法：
+（1）通过获取继承Thread类
+（2）通过继承Runnable接口实现多线程
 new Thread(继承Runnable接口的类,[线程名称]).start()	//线程启动
+（3）Callable继承
 
+
+======================================中断问题
+interrupt()给受阻塞的线程（Object.wait, Thread.join、Thread.sleep、1.5中的condition.await和以及可中断的通道上的 I/O 操作方法后）发出一个中断信号，这样受阻线程就得以退出阻塞的状态,该线程将抛出一个 InterruptedException中断异常（该线程必须事先预备好处理此异常），如果线程没有被阻塞，这时调用 interrupt()将不起作用，直到执行到wait(),sleep(),join()等时,才马上会抛出 InterruptedException。
+
+synchronized在获锁的过程中是不能被中断的，意思是说如果产生了死锁，则不可能被中断。与synchronized功能相似的reentrantLock.lock()方法也是一样，它也不可中断的，即如果发生死锁，那么reentrantLock.lock()方法无法终止，如果调用时被阻塞，则它一直阻塞到它获取到锁为止。
+但是如果调用带超时的tryLock方法reentrantLock.tryLock(long timeout, TimeUnit unit)，那么如果线程在等待时被中断，将抛出一个InterruptedException异常，这是一个非常有用的特性，因为它允许程序打破死锁。你也可以调用reentrantLock.lockInterruptibly()方法，它就相当于一个超时设为无限的tryLock方法。
+
+一般情况我们会将中断信号来中断线程，所以一般写法如下：
+没有任何语言方面的需求一个被中断的线程应该终止。中断一个线程只是为了引起该线程的注意，被中断线程可以决定如何应对中断。某些线程非常重要，以至于它们应该不理会中断，而是在处理完抛出的异常之后继续执行，但是更普遍的情况是，一个线程将把中断看作一个终止请求。
+
+所以我们线程的run方法一般要求下面这么写
+
+public void run() {
+    try {
+        ...
+        /*
+         * 不管循环里是否调用过线程阻塞的方法如sleep、join、wait，这里还是需要加上
+         * !Thread.currentThread().isInterrupted()条件，虽然抛出异常后退出了循环，显
+         * 得用阻塞的情况下是多余的，但如果调用了阻塞方法但没有阻塞时，这样会更安全、更及时。
+         */
+        while (!Thread.currentThread().isInterrupted()&& more work to do) {
+            do more work 
+        }
+    } catch (InterruptedException e) {
+        //线程在wait或sleep期间被中断了
+    } finally {
+        //线程结束前做一些清理工作
+    }
+}
 
 

@@ -4,6 +4,11 @@ javax.sql.DataSource;
 依赖包
 c3p0
 mchange-commons
+<dependency>
+  <groupId>com.mchange</groupId>
+  <artifactId>c3p0</artifactId>
+  <version>0.9.5.5</version>
+</dependency>
 
 第一种方法：
 DataSource  cpds=new ComboPooledDataSource();

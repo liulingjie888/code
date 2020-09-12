@@ -1,0 +1,75 @@
+对已有的业务逻辑进一步的封装，使其增加额外的功能，如Java中的IO流就使用了装饰者模式，用户在使用的时候，可以任意组装，达到自己想要的效果。
+
+优点：装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。
+缺点：多层装饰比较复杂。
+
+（1）写一个Food类，让其他所有食物都来继承这个类，看代码：
+public class Food {
+
+   private String food_name;
+
+   public Food() {
+   }
+
+   public Food(String food_name) {
+       this.food_name = food_name;
+   }
+
+   public String make() {
+       return food_name;
+   };
+}
+
+（2）其他食物类
+//面包类
+public class Bread extends Food {
+
+   private Food basic_food;
+
+   public Bread(Food basic_food) {
+       this.basic_food = basic_food;
+   }
+
+   public String make() {
+       return basic_food.make()+"+面包";
+   }
+}
+
+//奶油类
+public class Cream extends Food {
+
+   private Food basic_food;
+
+   public Cream(Food basic_food) {
+       this.basic_food = basic_food;
+   }
+
+   public String make() {
+       return basic_food.make()+"+奶油";
+   }
+}
+
+//蔬菜类
+public class Vegetable extends Food {
+
+   private Food basic_food;
+
+   public Vegetable(Food basic_food) {
+       this.basic_food = basic_food;
+   }
+
+   public String make() {
+       return basic_food.make()+"+蔬菜";
+   }
+}
+
+//实现灵活装饰
+public class Test {
+   public static void main(String[] args) {
+       Food food = new Bread(new Vegetable(new Cream(new Food("香肠"))));
+       System.out.println(food.make());		//打印“香肠+奶油+蔬菜+面包”
+   }
+}
+
+理解：
+有点类似与链表，上一层指向下一层，并且方法会调用下一层的相同方法。

@@ -1,0 +1,152 @@
+
+
+优点： 1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。
+缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。
+
+=======简单工厂模式：一个抽象的接口，多个抽象接口的实现类，一个工厂类，用来实例化抽象的接口
+
+// 抽象产品类
+abstract class Car {
+   public void run();
+
+   public void stop();
+}
+
+// 具体实现类
+class Benz implements Car {
+   public void run() {
+       System.out.println("Benz开始启动了。。。。。");
+   }
+
+   public void stop() {
+       System.out.println("Benz停车了。。。。。");
+   }
+}
+
+class Ford implements Car {
+   public void run() {
+       System.out.println("Ford开始启动了。。。");
+   }
+
+   public void stop() {
+       System.out.println("Ford停车了。。。。");
+   }
+}
+
+// 工厂类
+class Factory {
+   public static Car getCarInstance(String type) {
+       Car c = null;
+       if ("Benz".equals(type)) {
+           c = new Benz();
+       }
+       if ("Ford".equals(type)) {
+           c = new Ford();
+       }
+       return c;
+   }
+}
+
+public class Test {
+
+   public static void main(String[] args) {
+       Car c = Factory.getCarInstance("Benz");
+       if (c != null) {
+           c.run();
+           c.stop();
+       } else {
+           System.out.println("造不了这种汽车。。。");
+       }
+
+   }
+
+}
+
+=======工厂方法模式：有四个角色，抽象工厂模式，具体工厂模式，抽象产品模式，具体产品模式。
+不再是由一个工厂类去实例化具体的产品，而是由抽象工厂的子类去实例化产品
+
+// 抽象产品角色
+public interface Moveable {
+   void run();
+}
+
+// 具体产品角色
+public class Plane implements Moveable {
+   @Override
+   public void run() {
+       System.out.println("plane....");
+   }
+}
+
+public class Broom implements Moveable {
+   @Override
+   public void run() {
+       System.out.println("broom.....");
+   }
+}
+
+// 抽象工厂
+public abstract class VehicleFactory {
+   abstract Moveable create();
+}
+
+// 具体工厂
+public class PlaneFactory extends VehicleFactory {
+   public Moveable create() {
+       return new Plane();
+   }
+}
+
+public class BroomFactory extends VehicleFactory {
+   public Moveable create() {
+       return new Broom();
+   }
+}
+
+// 测试类
+public class Test {
+   public static void main(String[] args) {
+       VehicleFactory factory = new BroomFactory();
+       Moveable m = factory.create();
+       m.run();
+   }
+}
+
+理解：
+利用不同的工厂创建不同的产品，不同产品的行为不同
+
+=======抽象工厂模式：与工厂方法模式不同的是，工厂方法模式中的工厂只生产单一的产品，而抽象工厂模式中的工厂生产多个产品
+
+//抽象工厂类
+public abstract class AbstractFactory {
+   public abstract Vehicle createVehicle();
+   public abstract Weapon createWeapon();
+   public abstract Food createFood();
+}
+//具体工厂类，其中Food,Vehicle，Weapon是抽象类，
+public class DefaultFactory extends AbstractFactory{
+   @Override
+   public Food createFood() {
+       return new Apple();
+   }
+   @Override
+   public Vehicle createVehicle() {
+       return new Car();
+   } 
+   @Override
+   public Weapon createWeapon() {
+       return new AK47();
+   }
+}
+//测试类
+public class Test {
+   public static void main(String[] args) {
+       AbstractFactory f = new DefaultFactory();
+       Vehicle v = f.createVehicle();
+       v.run();
+       Weapon w = f.createWeapon();
+       w.shoot();
+       Food a = f.createFood();
+       a.printName();
+   }
+}

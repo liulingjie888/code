@@ -1,5 +1,0 @@
-修改表的类型为INNODB的SQL：
-alter table product_ ENGINE  = innodb;
-
-查看表的类型的SQL
-show table status from test; 

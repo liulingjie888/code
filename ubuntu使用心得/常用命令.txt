@@ -40,7 +40,7 @@ shutdown -h 10			//10分钟后关机
 gedit --encoding=GBK 文件名	//用指定编码打开文件
 enca -L zh_CN -x utf-8 文本文件//将其他文本编码自动转换成utf-8编码(结合find实现批量操作)
 iconv -f GBK -t UTF-8 file1 -o file2
-convmv -f GBK -t UTF-8 --notest 文件名		//文件名转码
+convmv -f GBK -t UTF-8 --notest 文件名			//文件名转码
 convmv -f GBK -t UTF-8 -r --nosmart --notest <目标目录>	//递归目录文件名转码
 
 chown -R 用户/组名 文件名	//改变文件的主人
@@ -58,7 +58,6 @@ scp [-r] 本地文件[夹]路径 用户名@主机名:远程主机目录路径
 如:scp /home/lin3615/test.txt 用户名@IP:/usr/www
 scp [-r] 用户名@主机名:文件[夹]名路径 本地路径
 如：scp -r root@1.11.1.1:/usr/www /home/lin3615/
-
 
 ping -c 次数 ip地址		//ping服务器次数
 traceroute  ip地址		//查看到目的ip经过的ip

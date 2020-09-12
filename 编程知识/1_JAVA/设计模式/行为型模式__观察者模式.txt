@@ -1,0 +1,172 @@
+对象间一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。
+
+优点： 1、观察者和被观察者是抽象耦合的。 2、建立一套触发机制。
+缺点： 1、如果一个被观察者对象有很多的直接和间接的观察者的话，将所有的观察者都通知到会花费很多时间。 2、如果在观察者和观察目标之间有循环依赖的话，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。 3、观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。
+
+//小王和小李通过这个接口可以接收到小美发过来的消息（小王和小李观察小美）
+public interface Person {
+   void getMessage(String s);
+}
+
+
+//小王类
+public class LaoWang implements Person {
+   private String name = "小王";
+   public LaoWang() {
+   }
+
+   @Override
+   public void getMessage(String s) {
+       System.out.println(name + "接到了小美打过来的电话，电话内容是：" + s);
+   }
+
+}
+
+//小李类
+public class LaoLi implements Person {
+   private String name = "小李";
+   public LaoLi() {
+   }
+
+   @Override
+   public void getMessage(String s) {
+       System.out.println(name + "接到了小美打过来的电话，电话内容是：->" + s);
+   }
+
+}
+
+//小美类
+public class XiaoMei {
+   List<Person> list = new ArrayList<Person>();
+    public XiaoMei(){
+    }
+
+    public void addPerson(Person person){		//添加观察者
+        list.add(person);
+    }
+
+    //遍历list，把自己的通知发送给所有暗恋自己的人
+    public void notifyPerson() {
+        for(Person person:list){
+            person.getMessage("你们过来吧，谁先过来谁就能陪我一起玩儿游戏!");
+        }
+    }
+}
+
+==========================================
+=====步骤 1
+创建 Subject 类。
+
+Subject.java
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class Subject {
+   
+   private List<Observer> observers 
+      = new ArrayList<Observer>();
+   private int state;
+ 
+   public int getState() {
+      return state;
+   }
+ 
+   public void setState(int state) {
+      this.state = state;
+      notifyAllObservers();
+   }
+ 
+   public void attach(Observer observer){
+      observers.add(observer);      
+   }
+ 
+   public void notifyAllObservers(){
+      for (Observer observer : observers) {
+         observer.update();
+      }
+   }  
+}
+
+=====步骤 2
+创建 Observer 类。
+
+Observer.java
+public abstract class Observer {
+   protected Subject subject;
+   public abstract void update();
+}
+
+=====步骤 3
+创建实体观察者类。
+
+public class BinaryObserver extends Observer{
+ 
+   public BinaryObserver(Subject subject){
+      this.subject = subject;
+      this.subject.attach(this);
+   }
+ 
+   @Override
+   public void update() {
+      System.out.println( "Binary String: " 
+      + Integer.toBinaryString( subject.getState() ) ); 
+   }
+}
+
+public class OctalObserver extends Observer{
+ 
+   public OctalObserver(Subject subject){
+      this.subject = subject;
+      this.subject.attach(this);
+   }
+ 
+   @Override
+   public void update() {
+     System.out.println( "Octal String: " 
+     + Integer.toOctalString( subject.getState() ) ); 
+   }
+}
+
+public class HexaObserver extends Observer{
+ 
+   public HexaObserver(Subject subject){
+      this.subject = subject;
+      this.subject.attach(this);
+   }
+ 
+   @Override
+   public void update() {
+      System.out.println( "Hex String: " 
+      + Integer.toHexString( subject.getState() ).toUpperCase() ); 
+   }
+}
+
+=====步骤 4
+使用 Subject 和实体观察者对象。
+
+public class ObserverPatternDemo {
+   public static void main(String[] args) {
+      Subject subject = new Subject();
+ 
+      new HexaObserver(subject);
+      new OctalObserver(subject);
+      new BinaryObserver(subject);
+ 
+      System.out.println("First state change: 15");   
+      subject.setState(15);
+      System.out.println("Second state change: 10");  
+      subject.setState(10);
+   }
+}
+
+=====步骤 5
+执行程序，输出结果：
+
+First state change: 15
+Hex String: F
+Octal String: 17
+Binary String: 1111
+Second state change: 10
+Hex String: A
+Octal String: 12
+Binary String: 1010

@@ -52,7 +52,7 @@ public synchronized void recover(){
 
 	线程安全的类		非线程安全的类
 	StringBuffer		StringBuilder
-	Hashtable			LinkedList
+	Hashtable		LinkedList
 	Vector			ArrayList
 				HashSet
 				HashMap

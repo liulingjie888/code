@@ -6,7 +6,7 @@
  
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/page/" />	//其作用是把视图约定在 /WEB-INF/page/*.jsp 这个位置
+        <property name="prefix" value="/WEB-INF/page/" />		//其作用是把视图约定在 /WEB-INF/page/*.jsp 这个位置
         <property name="suffix" value=".jsp" />			//视图后缀
     </bean>
  
@@ -14,7 +14,7 @@
         class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
-                <prop key="/index">indexController</prop>	//将该路径交给该控制器处理
+                <prop key="/index">indexController</prop>		//将该路径交给该控制器处理
             </props>
         </property>
     </bean>

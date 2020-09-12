@@ -1,0 +1,64 @@
+配置Web应用程序(web.xml中配置AnnotationConfigApplicationContext)
+
+过去，您通常要利用 XmlWebApplicationContext 上下文来配置 Spring Web 应用程序，即在 Web 部署描述符文件 web.xml 中指定外部 XML 上下文文件的路径。XMLWebApplicationContext 是 Web 应用程序使用的默认上下文类。以下代码描述了 web.xml 中指向将由 ContextLoaderListener 监听器类载入的外部 XML 上下文文件的元素。
+
+ 1<web-app>
+ 2    <context-param>
+ 3        <param-name>contextConfigLocation</param-name>
+ 4        <param-value>/WEB-INF/applicationContext.xml</param-value>
+ 5    </context-param>
+ 
+ 6    <listener>
+ 7        <listener-class>
+ 8            org.springframework.web.context.ContextLoaderListener
+ 9        </listener-class>
+10    </listener>
+11    <servlet>
+12        <servlet-name>sampleServlet</servlet-name>
+13        <servlet-class>
+14           org.springframework.web.servlet.DispatcherServlet
+15        </servlet-class>
+16    </servlet>
+17
+18...
+19</web-app>
+
+现在，您要将 web.xml 中的上述代码更改为使用 AnnotationConfigApplicationContext 类。切记，XmlWebApplicationContext 是 Spring 为 Web 应用程序使用的默认上下文实现，因此您永远不必在您的web.xml 文件中显式指定这个上下文类。现在，您将使用基于 Java 的配置，因此在配置 Web 应用程序时，需要在web.xml 文件中指定 AnnotationConfigApplicationContext 类。上述代码将修改如下：
+
+ 1<web-app>
+ 2    <context-param>
+ 3        <param-name>contextClass</param-name>
+ 4        <param-value>
+ 5            org.springframework.web.context.
+ 6            support.AnnotationConfigWebApplicationContext
+ 7        </param-value>
+ 8    </context-param>
+ 9    <context-param>
+10        <param-name>contextConfigLocation</param-name>
+11        <param-value>
+12            demo.AppContext		//configuration的注释类
+13        </param-value>
+14    </context-param>
+
+15    <listener>
+16        <listener-class>
+17            org.springframework.web.context.ContextLoaderListener
+18        </listener-class>
+19    </listener>
+20    <servlet>
+21        <servlet-name>sampleServlet</servlet-name>
+22        <servlet-class>
+23            org.springframework.web.servlet.DispatcherServlet
+24        </servlet-class>
+25        <init-param>
+26            <param-name>contextClass</param-name>
+27            <param-value>
+28                org.springframework.web.context.
+29                support.AnnotationConfigWebApplicationContext
+30            </param-value>
+31        </init-param>
+32    </servlet>
+33
+34...
+35</web-app>
+以上修改后的 web.xml 现在定义了 AnnotationConfigWebApplicationContext 上下文类，并将其作为上下文参数和 servlet 元素的一部分。上下文配置位置现在指向 AppContext 配置类。这非常简单。下一节将演示 bean 的生命周期回调和范围的实现。

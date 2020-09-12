@@ -1,0 +1,121 @@
+适配器模式（Adapter Pattern）是作为两个不兼容的接口之间的桥梁。这种类型的设计模式属于结构型模式，它结合了两个独立接口的功能。
+适配器类会继承使用者的接口，并在其实现函数中调用被使用者的接口函数，从而达到两者的之间的关联。
+
+优点： 1、抽象和实现的分离。 2、优秀的扩展能力。 3、实现细节对客户透明。
+缺点：桥接模式的引入会增加系统的理解与设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进行设计与编程。
+
+使用者和适配器实现了同一接口
+======步骤 1
+为媒体播放器和更高级的媒体播放器创建接口。
+
+
+public interface MediaPlayer {
+   public void play(String audioType, String fileName);
+}
+
+public interface AdvancedMediaPlayer { 			//媒体播放
+   public void playVlc(String fileName);
+   public void playMp4(String fileName);
+}
+
+======步骤 2
+创建实现了 AdvancedMediaPlayer 接口的实体类。
+
+
+public class VlcPlayer implements AdvancedMediaPlayer{	//Vlc播放
+   @Override
+   public void playVlc(String fileName) {
+      System.out.println("Playing vlc file. Name: "+ fileName);      
+   }
+ 
+   @Override
+   public void playMp4(String fileName) {
+      //什么也不做
+   }
+}
+
+public class Mp4Player implements AdvancedMediaPlayer{	//mp4播放
+ 
+   @Override
+   public void playVlc(String fileName) {
+      //什么也不做
+   }
+ 
+   @Override
+   public void playMp4(String fileName) {
+      System.out.println("Playing mp4 file. Name: "+ fileName);      
+   }
+}
+
+======步骤 3
+创建实现了 MediaPlayer 接口的适配器类。
+
+public class MediaAdapter implements MediaPlayer {
+ 
+   AdvancedMediaPlayer advancedMusicPlayer;			//媒体播放
+ 
+   public MediaAdapter(String audioType){
+      if(audioType.equalsIgnoreCase("vlc") ){
+         advancedMusicPlayer = new VlcPlayer();       
+      } else if (audioType.equalsIgnoreCase("mp4")){
+         advancedMusicPlayer = new Mp4Player();
+      }  
+   }
+ 
+   @Override
+   public void play(String audioType, String fileName) {
+      if(audioType.equalsIgnoreCase("vlc")){
+         advancedMusicPlayer.playVlc(fileName);
+      }else if(audioType.equalsIgnoreCase("mp4")){
+         advancedMusicPlayer.playMp4(fileName);
+      }
+   }
+}
+
+======步骤 4
+创建实现了 MediaPlayer 接口的实体类。
+
+public class AudioPlayer implements MediaPlayer {
+   MediaAdapter mediaAdapter; 				//适配器
+ 
+   @Override
+   public void play(String audioType, String fileName) {    
+ 
+      //播放 mp3 音乐文件的内置支持
+      if(audioType.equalsIgnoreCase("mp3")){
+         System.out.println("Playing mp3 file. Name: "+ fileName);         
+      } 
+      //mediaAdapter 提供了播放其他文件格式的支持
+      else if(audioType.equalsIgnoreCase("vlc") 
+         || audioType.equalsIgnoreCase("mp4")){
+         mediaAdapter = new MediaAdapter(audioType);
+         mediaAdapter.play(audioType, fileName);
+      }
+      else{
+         System.out.println("Invalid media. "+
+            audioType + " format not supported");
+      }
+   }   
+}
+
+======步骤 5
+使用 AudioPlayer 来播放不同类型的音频格式。
+
+public class AdapterPatternDemo {
+   public static void main(String[] args) {
+      AudioPlayer audioPlayer = new AudioPlayer();
+ 
+      audioPlayer.play("mp3", "beyond the horizon.mp3");
+      audioPlayer.play("mp4", "alone.mp4");
+      audioPlayer.play("vlc", "far far away.vlc");
+      audioPlayer.play("avi", "mind me.avi");
+   }
+}
+
+======步骤 6
+执行程序，输出结果：
+
+Playing mp3 file. Name: beyond the horizon.mp3
+Playing mp4 file. Name: alone.mp4
+Playing vlc file. Name: far far away.vlc
+Invalid media. avi format not supported

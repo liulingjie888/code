@@ -1,6 +1,6 @@
 
 
-git init [目录]			初始化一个 Git 仓库,该命令执行完后会在当前目录生成一个 .git 目录。[指定目录初始化]
+git init [目录]		初始化一个 Git 仓库,该命令执行完后会在当前目录生成一个 .git 目录。[指定目录初始化]
 git add *.c			提交文件到缓存区
 git reset HEAD 文件		仓库中的文件替换工作区和缓存区文件
 git commit -m '注释'		将缓存区的内容提交到仓库
@@ -34,7 +34,7 @@ git diff 命令显示已写入缓存与已修改但尚未写入缓存的改动�
 ==============git rm
 git rm <file>			删除缓存区的文件，提交后工作区也删除
 git rm -f <file>		工作区和git和缓存区都删除
-git rm --cached <file>		文件从暂存区域移除，但仍然保留在当前工作目录中，提交后版本库也删除
+git rm --cached <file>	文件从暂存区域移除，但仍然保留在当前工作目录中，提交后版本库也删除
 git rm –r <file>		递归删除
 
 ============git mv
@@ -55,11 +55,12 @@ git log --oneline --before={3.weeks.ago} --after={2010-04-18} --no-merges
 ======================================分支
 当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。
 git branch			查看分支
-git branch (branchname)		创建分支
+git branch (branchname)	创建分支
 git branch -d (branchname)	删除分支
 git checkout -b (branchname)	创建并进入分支
 git checkout (branchname)	切换分支
-git merge (branchname)		合并分支到主分支,之后要commit
+git merge (branchname)	合并分支到主分支,之后要commit
+git branch --set-upstream-to=origin/master master	分支 'master' 设置为跟踪来自 'origin' 的远程分支 'master'
 
 同文件内容不同合并后，如：
 <?php

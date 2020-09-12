@@ -95,6 +95,15 @@ scope属性:
 	</property>
 </bean>
 
+----------------------------------------------------自动装配
+bean的autowire 的属性和作用
+名称		说明
+byName		根据 Property 的 name 自动装配，如果一个 Bean 的 name 和另一个 Bean 中的 Property 的 name 相同，则自动装配这个 Bean 到 Property 中。
+byType		根据 Property 的数据类型（Type）自动装配，如果一个 Bean 的数据类型兼容另一个 Bean 中 Property 的数据类型，则自动装配。
+constructor	根据构造方法的参数的数据类型，进行 byType 模式的自动装配。
+autodetect	如果发现默认的构造方法，则用 constructor 模式，否则用 byType 模式。
+no		默认情况下，不使用自动装配，Bean 依赖必须通过 ref 元素定义。
+
 -----------------------------------------------------------
 //使容器ApplicationContext只存在一个，! ! !需要导入web包
 import javax.servlet.ServletContext;
@@ -145,6 +154,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 Resource resource = new ClassPathResource("applicationContext.xml");
+
 DefaultListableBeanFactory beanFactory=new DefaultListableBeanFactory();
 BeanDefinitionReader reader=new XmlBeanDefinitionReader(beanFactory);
 reader.loadBeanDefinitions(resource);		//加载bean配置并注册到DefaultListableBean

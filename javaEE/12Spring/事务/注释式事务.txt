@@ -1,0 +1,49 @@
+
+（1）首先在Spring配置文件中设置事务管理器,定义通知tx:annotation-driven
+<!-- 配置数据源，读取properties文件信息 -->
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="${jdbc.driverClass}" />
+    <property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+    <property name="user" value="${jdbc.user}" />
+    <property name="password" value="${jdbc.password}" />
+</bean>
+
+<!-- 定义事务管理器 -->
+<bean id="transactionManager"
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSource" />
+</bean>
+
+<!--使用事务注解, 注解方式配置事务-->
+<tx:annotation-driven  transaction-manager="transactionManager" />
+
+（2）的具体的注解以及事务的传播性、隔离级别一般在service 层中配置下面
+
+@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class,timeout=1,isolation=Isolation.DEFAULT)
+public void saveUser(Map<String, String> map) throws Exception {
+ 	System.out.println("方法开始");
+	for (int i = 0; i < 500000; i++) {
+            System.out.println("*");
+        }
+	 System.out.println("进入保存");
+	 userDao.saveUser(map);
+	 System.out.println("退出保存");
+}
+
+=================
+@Transactional 一般是放在public方法上面,也可以放在类上面,方法和类同时有@Transactional 注解时,方法上面的注解优先级高。
+在项目中，@Transactional(rollbackFor=Exception.class)，如果类加了这个注解，那么这个类里面的方法抛出异常，就会回滚，数据库里面的数据也会回滚。
+在@Transactional注解中如果不配置rollbackFor属性,那么事物只会在遇到RuntimeException的时候才会回滚,加上rollbackFor=Exception.class,可以让事物在遇到非运行时异常时也回滚
+
+==================@Transactional注解的全部属性详解
+
+属性				类型		描述
+value				String		可选的限定描述符，指定使用的事务管理器
+propagation			enum: 		Propagation	可选的事务传播行为设置
+isolation			enum: 		Isolation	可选的事务隔离级别设置
+readOnly			boolean	读写或只读事务，默认读写
+timeout			int		事务超时时间（秒）设置
+rollbackFor			Class对象数组，必须继承Throwable	导致事务回滚的异常类数组
+rollbackForClassName		类名数组，必须继承自Throwable		导致事务回滚的异常类名字数组
+noRollbackFor			Class对象数组，必须继承自Throwable	不会导致事务回滚的异常类数组
+noRollbackForClassName	类名数组，必须继承自Throwable		不会导致事务回滚的异常类名字数组

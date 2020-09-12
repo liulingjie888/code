@@ -1,7 +1,7 @@
 ============类实现（两种效果一样）
 第一种
 @Controller				//@Controller 表示该类是一个控制器
-public class IndexController {		//不用实现Controller接口
+public class IndexController {	//不用实现Controller接口
     @RequestMapping("/index")		//表示访问路径/index会映射到该方法上
     public ModelAndView handleRequest(HttpServletRequest request,  HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView("index");
@@ -13,9 +13,9 @@ public class IndexController {		//不用实现Controller接口
 
 第二种
 @Controller				//@Controller 表示该类是一个控制器
-public class IndexController {		//不用实现Controller接口
+public class IndexController {	//不用实现Controller接口
     @RequestMapping("/index")		//表示访问路径/index会映射到该方法上
-    public ModelAndView handleRequest(HttpServletRequest request,  HttpServletResponse response .Model model) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request,  HttpServletResponse response ,Model model) throws Exception {
         model.addAttribute("message", "Hello Spring MVC");
         return "index";
     }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

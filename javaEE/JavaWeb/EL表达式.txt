@@ -15,7 +15,7 @@ empty运算符：${empty var},判断var是否为空，空返回true
 
 （5）EL隐式对象：
 
-pageContext：jsp页面的pageContext对象
++：jsp页面的pageContext对象
 ${pageContext.response.characterEncoding}	
 ${pageContext.servletConfig.serverInfo}
 ${pageContext.request.contextPath}表示web应用目录，可以直接写在jsp文件的HTML代码中

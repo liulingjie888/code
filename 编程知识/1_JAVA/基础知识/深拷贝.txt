@@ -1,0 +1,72 @@
+
+==============重写clone()
+//对象引用重新使用clone，每一层都是。
+public class Person implements Cloneable{
+ 
+	private int age;
+	private String name;
+	private Car car;
+	
+	public Person(int age, String name,Car car) {
+		this.age = age;
+		this.name = name;
+		this.car=car;
+	}
+ 
+ 
+	//所有下级的引用类型对象都重新clone方法来实现深拷贝
+	@Override
+	protected Person clone() throws CloneNotSupportedException {
+		Person p= (Person) super.clone();
+		p.car=this.car.clone();
+		return p;
+	}
+ 
+}
+
+==============序列化方式
+public class Person implements  Serializable {
+ 
+	private int age;
+	private String name;
+	private Car car;
+ 
+	public Person(int age, String name, Car car) {
+		this.age = age;
+		this.name = name;
+		this.car = car;
+	}
+ 
+	//通过序列化反序列化实现深度克隆
+	public Person copy() {
+		ByteArrayOutputStream bos = null;
+		ObjectOutputStream oos = null;
+		ByteArrayInputStream bis = null;
+		ObjectInputStream ois = null;
+		try {
+			// 序列化
+			bos = new ByteArrayOutputStream();
+			oos = new ObjectOutputStream(bos);
+			oos.writeObject(this);
+ 
+			// 反序列化
+			bis = new ByteArrayInputStream(bos.toByteArray());
+			ois = new ObjectInputStream(bis);
+			Person copy = (Person) ois.readObject();
+ 
+			return copy;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				bos.close();
+				oos.close();
+				bis.close();
+				ois.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

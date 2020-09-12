@@ -1,0 +1,42 @@
+
+
+alter table 表名 ENGINE  = innodb;		//修改表的类型为INNODB
+show table status from 数据库名; 		//查看数据库表的状态
+show table status like '表名或视图名';	//查看表的状态
+select * from views where table_name='视图名';//查看试图信息
+
+show databases;				//查看所有的数据库
+show tables;					//查看所有的表
+
+desc 表名;					//查看表结构
+show create table 表名;			//查看创建表的SQL语句
+
+? content;					//层次查询帮助
+? show;					//查询帮助
+? create table;				//查询创建表语句
+
+show warnings;					//查看警告信息
+show engines;                                //显示Mysql支持的全部数据库引擎
+show plugins;                                //显示Mysql中加载的插件
+show variables like 'default storage_engine';	//查看默认存储引擎
+
+show engines;					//查询当前数据库支持的存储引擎
+
+show index from 表名;				//查看表索引信息
+
+optimize table 表名;				//优化表存储（如删除BLOB和Text留下碎片）
+
+show variables like 'character_set_server';	//查看服务器字符集
+
+show variables like 'collation_server';	//查看服务器排序规则
+
+delimiter $$					//设置结束语句
+
+show processlist;				//查看进程
+
+truncate table 表名;				//清空表
+
+select @@sql_mode;				//查看SQL Mode的类型
+set session | global sql_mode='mode类型';	//设置SQL Mode
+
+show variables like '%lower_case%';		//查看表库是否区分大小写（off敏感）

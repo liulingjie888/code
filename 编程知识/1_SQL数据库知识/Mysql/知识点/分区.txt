@@ -1,0 +1,109 @@
+select * from information_schema.plugins where plugin_name='partition';		//查看分区信息
+
+alter table 表名 drop partition p0;		//删除分区
+alter table 表名 remove partitioning;		//将分区表改为非分区表
+
+===============语法
+创建表语句
+engin=innodb
+partition by hash(表达式)		//表示根据表达式的哈希值作为分区键
+partitions 6;				//创建6个HASH分区的表
+ /
+===============分区类型：
+RANGE、LIST、HASH分区的分区键必须为int类型
+COLUMN、KEY分区可以为BLOB或TEXT
+
+如果有主键，则主键之外的字段不能设为分区键
+===============RANGE分区
+
+partition by range(字段)(
+	[partition p3 values less than maxvalue);]	//不再范围内放入p3区
+	partition p0 values less than (10);
+	partition p1 values less than (20);
+	partition p2 values less than (30);
+)
+
+5.5后提供了range columns分区：
+partition by range columns(字段)(
+	[partition p3 values less than maxvalue;]	//不再范围内放入p3区
+	partition p0 values less than ('2017-12-01');
+	partition p1 values less than ('2018-12-01');
+	partition p2 values less than ('2019-12-01');
+)
+
+alter table 表名 add partition (partition p3 value less than maxvalue);		//添加分区，只能从最大端添加分区
+
+alter table 表名 reorganize partition p3 
+into (partition p2 values less than (2005),partition p3 values less than (2015) );	//拆分分区
+
+alter table 表名 reorganize partition p1,p2,p3 into (partition p1 values less than (2015));	//合并连续分区（必须连续）
+===============LIST分区
+
+partition by range(字段)(
+	partition p0 values in (3,5);
+	partition p1 values in (1,10);
+	partition p2 values in (6);
+)
+
+list columns分区：
+partition by list columns(字段)(
+	partition p0 values in ('lodgin','food');
+	partition p1 values in ('ground','flight');
+)
+
+alter table 表名 add partition (partition p3 value in(7,8));		//添加分区，不能包含已有的值
+
+alter table 表名 reorganize partition p1,p2,p3 
+into (partition p1 values in(6,11),partition p2 values in(7,8)  );	//合并连续分区（必须连续）,然后拆分
+===============COLUMNS分区
+
+支持了类型：
+整数类型：tinyint,smallint,mediumint,int和bigint;
+日期时间类型：date和datetime;
+字符类型： char,varchar,binary,varbinary;不支持text和blob类型。
+注意：在5.7中，仅支持一个或多个字段名作为分区键，不支持表达式作为分区键
+
+partition by range columns(字段a,字段b)(
+	partition p0 values less than (0,10);		//字段a小于0 或 字段a等于0且字段b小于10
+	partition p1 values less than (10,10);
+	partition p2 values less than (10,20);
+)
+
+===============HASH分区(常规和线性)
+partition by [linear] hash(表达式)	//表示根据表达式的哈希值作为分区键
+partitions 6;				//创建6个HASH分区的表
+
+explain partitions 查询SQL;		//显示查询记录的分区信息
+
+alter table 表名 coalesce partition 2;//设置分区变为2个，只能减少分区
+alter table 表名 add partition 8;	//添加8个分区
+===============KEY分区
+
+partition by key(字段)
+partitions 4;				//用主键或非空hash字段计算哈希
+
+===============子分区
+create table ts(id int,purchased date)
+partition by range(year(purchased)
+subpartitioin by hash(to_days(purchased))
+subpartitions 2			//每个分区隐式分成两个子分区
+(
+	partition p0 values less than (1990);
+	partition p1 values less than (2000);
+	partition p3 values less than maxvalue;
+)
+
+
+显示指定子分区必须每个区域都要制定，且分区名不能重复
+create table ts(id int,purchased date)
+partition by range(year(purchased)
+subpartitioin by hash(to_days(purchased))
+(
+	partition p0 values less than (1990)(subpartition s0,subpartition s1);
+	partition p1 values less than (2000)(subpartition s2,subpartition s3);
+	partition p3 values less than maxvalue((subpartition s4,subpartition s5));
+)
+
+分区拷贝：
+alter table e exchange partition p1 with table e2;	//将分区p1的数据交换到e2表，e2表除了分区其他必须和e表一样
+
