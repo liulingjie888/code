@@ -1,6 +1,6 @@
 nodeName	节点名称
 nodeValue	节点值
-nodeType		节点类型（通常是数字）
+nodeType	节点类型（通常是数字）
 
 
 innerHTML	元素的文本内容

@@ -26,6 +26,14 @@
 	</dependencies>
 </project>
 
+==================================使用properties
+<properties>
+	<java_source_version>1.8</java_source_version>
+	<java_target_version>1.8</java_target_version>
+	<file_encoding>UTF-8</file_encoding>
+</properties>
+
+使用{file_encoding}
 =====================================父（Super）POM
 父（Super）POM是 Maven 默认的 POM，所有的 POM 都继承自一个父 POM（无论是否显式定义了这个父 POM）。父 POM 包含了一些可以被继承的默认设置。因此，当 Maven 发现需要下载 POM 中的 依赖时，它会到 Super POM 中配置的默认仓库 http://repo1.maven.org/maven2 去下载。
 Maven 使用 effective pom（Super pom 加上工程自己的配置）来执行相关的目标，它帮助开发者在 pom.xml 中做尽可能少的配置，当然这些配置可以被重写。

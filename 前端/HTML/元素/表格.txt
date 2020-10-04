@@ -29,7 +29,7 @@ nowrap		不换行
 bordercolor	
 background
 colspan="2"	合并两列
-rowspan="3" 合并两行
+rowspan="3" 	合并两行
 
 ====共有属性:
 border="1"

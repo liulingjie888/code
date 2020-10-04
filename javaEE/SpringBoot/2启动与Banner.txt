@@ -1,0 +1,57 @@
+package com.liulingjie.demo;
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+
+}
+
+====================启动方式
+第一种：
+SpringApplication.run(DemoApplication.class, args);	//默认方式
+	
+第二种：		
+SpringApplicationBuilder application =new SpringApplicationBuilder(DemoApplication.class);
+//application.bannerMode(Banner.Mode.OFF);		//关闭打印，Mode.LOG日志打印，Mode.CONSOLE控制台打印
+application.run(args);
+
+第三种：
+SpringApplication context=new SpringApplication(DemoApplication.class);
+//context.setBannerMode(Mode.OFF);
+context.run(args);
+
+//设置打印图片
+Banner banner = new ImageBanner(new ClassPathResource("banner1.png"));		
+application .setBanner(banner);
+application.setBannerMode(Banner.Mode.CONSOLE);
+
+//根据文本文件设置Banner
+application.setBanner(new ResourceBanner(new ClassPathResource("banner.txt")));
+
+//手动设置打印字符串
+application.setBanner(new Banner() {
+    @Override
+    public void printBanner(Environment environment, Class<?> aClass, PrintStream printStream) {
+        // 比如打印一个我们喜欢的ASCII Arts字符画
+    }
+});
+application.setBannerMode(Banner.Mode.CONSOLE);
+====================设置banner
+设置图案：在resources下创建banner.txt:
+
+${AnsiColor.BRIGHT_RED}：设置控制台中输出内容的颜色
+${application.version}：用来获取MANIFEST.MF文件中的版本号
+${application.formatted-version}：格式化后的application.version版本信息
+${spring-boot.version}：Spring Boot的版本号
+${spring-boot.formatted-version}：格式化后的spring-boot.version版本信息
+图案
+
+===================配置文件
+在resources文件夹下的application.properteis中添加如下配置即可。spring.main.banner-mode 配置项可配置的值有三个：OFF,CONSOLE,LOG 从字面意思就可以知道，只有在设置为OFF的时候控制台才不会打印banner图案。
+
+spring.main.banner-mode=OFF
+
+

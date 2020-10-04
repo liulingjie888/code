@@ -1,0 +1,9 @@
+
+
+@Configuration
+@AutoConfigureAfter(JmxAutoConfiguration.class)		//在JmxAutoConfiguration组件装配之后再装载这个
+public class AfterMBeanServerReadyConfiguration {
+    @AutoWired
+    MBeanServer mBeanServer;
+    //通过 @Bean 添加必要的 bean 定义
+}

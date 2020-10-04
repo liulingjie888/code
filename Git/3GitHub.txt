@@ -23,7 +23,7 @@ git push [别名] [分支名]		#推送你的分支到某个远端仓库
 git remote rm [别名]			#删除远程仓库别名
 git remote				#查看远程仓库别名
 git remote -v				#查看远程仓库详细内容
-git remote rename 旧别名 新别名		#修改别名
+git remote rename 旧别名 新别名	#修改别名
 git remote set-url 别名 仓库地址	#修改仓库地址
 git reset --hard 别名/分支名		#回退到和远程版本一样
 

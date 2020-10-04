@@ -3,7 +3,7 @@
 alter table 表名 ENGINE  = innodb;		//修改表的类型为INNODB
 show table status from 数据库名; 		//查看数据库表的状态
 show table status like '表名或视图名';	//查看表的状态
-select * from views where table_name='视图名';//查看试图信息
+select * from views where table_name='视图名';//查看视图信息
 
 show databases;				//查看所有的数据库
 show tables;					//查看所有的表
@@ -24,19 +24,29 @@ show engines;					//查询当前数据库支持的存储引擎
 
 show index from 表名;				//查看表索引信息
 
-optimize table 表名;				//优化表存储（如删除BLOB和Text留下碎片）
-
 show variables like 'character_set_server';	//查看服务器字符集
 
 show variables like 'collation_server';	//查看服务器排序规则
 
-delimiter $$					//设置结束语句
-
 show processlist;				//查看进程
 
-truncate table 表名;				//清空表
+delimiter $$					//设置结束语句
 
 select @@sql_mode;				//查看SQL Mode的类型
 set session | global sql_mode='mode类型';	//设置SQL Mode
 
 show variables like '%lower_case%';		//查看表库是否区分大小写（off敏感）
+
+===========================优化
+
+show [global] status like 'Com_%';		//查看执行统计,或mysqladmin extended-status
+
+show innodb status;				//可以查看最后一次死锁产生的原因
+
+optimize table 表名;				//优化表存储（如删除BLOB和Text留下碎片）
+
+
+show status like 'table%';			//MyISAM查看锁状态
+show status like 'innodb_row_lock%';		//InnoDB查看所状态
+show engine innodb status;        		//InnoDB查看最新的状态信息
+

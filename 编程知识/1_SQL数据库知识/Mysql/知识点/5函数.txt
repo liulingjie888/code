@@ -4,8 +4,10 @@ count
 avg
 max
 min
+bit_or		//int类型或运算
+bit_and	//int类型且运算
 
-窗口函数：
+窗口函数：                                                                                             
 row_number()			//分组后各组起序号
 rank()				//分组后各组起序号，排序字段值相同序号不变，序号可能不连续
 dense_rank()			//分组后各组起序号，排序字段值相同序号不变，序号可能连续

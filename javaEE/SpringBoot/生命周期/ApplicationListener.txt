@@ -1,0 +1,56 @@
+
+//实现事件
+public class DemoEvent extends ApplicationEvent{
+
+    private static final long serialVersionUID = 1L;
+
+    private String msg;		//消息
+
+    public void sysLog() {		//系统日志
+        System.out.println(msg);
+    }
+
+    public DemoEvent(Object source,String msg) {
+        super(source);
+        this.setMsg(msg);
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+}
+
+//实现监听类
+@Component
+public class demoListener implements ApplicationListener<DemoEvent>{
+
+    /***
+     * 对消息进行接受处理
+     */
+    @Override
+    public void onApplicationEvent(DemoEvent event) {
+        String msg = event.getMsg();
+        System.out.println("demoListener接受到了demoPublisher发布的消息："+msg);
+    }
+
+
+}
+
+============注册方式
+1 在application.yml或者在application.properties配置文件中通过context.listener.classes配置
+
+2 在resources目录下新建META-INF文件夹并新建spring.factories文件通过org.springframework.context.ApplicationListener配置
+
+3 在启动main函数中通过SpringApplication配置
+SpringApplication springApplication = new SpringApplication(null);
+springApplication.addListeners(你的监听器);
+
+4 使用@Configuration 注解配置,同时可以配合@Order(-100)设置优先级
+
+5 @Configuration类中使用@EventListener 注解配置在bean中定义任意方法并使用该注解, 注解属性class中可以指定具体监控的事件类,通过方法参数指定事件类型,如果不指定则表示监控所有的事件
+
+6 通过实现接口org.springframework.context.ApplicationContextInitializer,得到context后通过编程式,设置监听器

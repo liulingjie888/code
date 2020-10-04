@@ -28,7 +28,7 @@ normal				#只在允许的换行点进行换行。
 unrestricted			#在任意两个字符间换行。
 suppress			#压缩元素中的换行。浏览器只在行中没有其他有效换行点时进行换行。
 =====
-ext-justify:inter-word;	#增加/减少单词间的间隔。
+text-justify:inter-word;	#增加/减少单词间的间隔。
 auto				#浏览器决定齐行算法。
 none				#禁用齐行。
 inter-ideograph		#用表意文本来排齐内容。

@@ -29,7 +29,7 @@ QueryRunner( javax.sql.DataSource接口 );
 方法：
 //将结果封装在Javabean（Object）中返回
 query("SQL语句",ResultSetHandler  rsh, Object... params);
-
+ 
 
 QueryRunner runner=new QuerRunner(DataSource数据源);
 sql="select * from user";

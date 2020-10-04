@@ -1,0 +1,13 @@
+这个类的主要目的就是在 ConfigurableApplicationContext 类型（或者子类型）的 ApplicationContext 做 refresh 之前(string之后)，允许我们对 ConfigurableApplicationContext 的实例做进一步的设置或者处理。
+
+第一步：实现类
+public class DemoApplicationContextInitializer implements ApplicationContextInitializer {
+
+    @Override
+    public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+        System.out.println("哈哈哈");
+    }
+}
+
+第二步：在META-INF/springfactories配置
+org.springframework.context.ApplicationContextInitializer=\com.liulingjie.demo.listener.DemoApplicationContextInitializer

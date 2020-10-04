@@ -1,0 +1,22 @@
+
+=================================SpringApplicationRunListener
+public interface SpringApplicationRunListener {
+    void started();
+    void environmentPrepared(ConfigurableEnvironment environment);
+    void contextPrepared(ConfigurableApplicationContext context);
+    void contextLoaded(ConfigurableApplicationContext context);
+    void finished(ConfigurableApplicationContext context, Throwable exception);
+}
+
+(1)注意SpringApplicationRunListener 实现类的构造方法（Constructor）需要有两个构造参数，一个构造参数的类型就是我们的，org.springframework.boot.SpringApplication，另外一个就是 args 参数列表的 String[]。如：
+
+public class SpringBootListener implements SpringApplicationRunListener {
+
+    public SpringBootListener(SpringApplication application,String[] args){
+
+    }
+	...
+} 
+
+(2)在当前 SpringBoot 应用的 classpath 下的 META-INF/spring.factories 文件中进行类似如下的配置：
+org.springframework.boot.SpringApplicationRunListener=\com.keevol.springboot.demo.DemoSpringApplicationRunListener

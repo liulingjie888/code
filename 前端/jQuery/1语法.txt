@@ -39,8 +39,7 @@ JavaScript 的 window.onload 事件是等到所有内容，包括外部图片之
 ==========================noConflict() 方法
 noConflict() 方法会释放对 $ 标识符的控制，这样其他脚本就可以使用它了。
 
-=======案例1:
-//您可以通过全名替代简写的方式来使用 jQuery：
+=======案例1://您可以通过全名替代简写的方式来使用 jQuery：
 $.noConflict();
 jQuery(document).ready(function(){
   jQuery("button").click(function(){

@@ -1,0 +1,94 @@
+
+
+//实现两个条件类
+public class MyConditional1 implements Condition{
+    @Override
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        //只有当返回值为true才执行
+        return true;
+    }
+}
+
+ 
+public class MyConditional2 implements Condition {
+ 
+    @Override
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        return false;
+    }
+}
+
+
+//Bean的配置类
+@Configuration
+public class MyConfiguration {
+ 
+    @Bean
+    @Conditional(MyConditional1.class)	//添加条件判断来是否注入
+    public String test01(){
+        System.out.println("hello");
+        return "";
+    }
+    @Bean
+    @Conditional(MyConditional2.class)
+    public String  test02(){
+        System.out.println("world");
+     return "";
+    }
+}
+
+启动springboot可见控制台如下输出：说明只加载了test01没有加载test02
+
+===================springboot提供了其他条件注释
+@ConditionalOnBean：当容器里有指定的 Bean 的条件下。
+@ConditionalOnClass：当类路径下有指定的类的条件下。
+@ConditionalOnExpression：基于 SpEL 表达式作为判断条件。
+@ConditionalOnJava：基于 JVM 版本作为判断条件。
+@ConditionalOnJndi：在 JNDI 存在的条件下查找指定的位置。
+@ConditionalOnMissingBean：当容器里没有指定 Bean 的情况下。
+@ConditionalOnMissingClass：当类路径下没有指定的类的条件下。
+@ConditionalOnNotWebApplication：当前项目不是 Web 项目的条件下。
+@ConditionalOnProperty：指定的属性是否有指定的值。
+@ConditionalOnResource：类路径是否有指定的值。
+@ConditionalOnSingleCandidate：当指定 Bean 在容器中只有一个，或者虽然有多个但是指定首选的 Bean。
+@ConditionalOnWebApplication：当前项目是 Web 项目的条件下。
+
+
+===================自定义Condition注释
+（1）实现条件类
+public class OnMyCondition extends SpringBootCondition {
+
+    @Override
+    public ConditionOutcome getMatchOutcome(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        //获取注解上属性
+        Object value = annotatedTypeMetadata.getAnnotationAttributes(ConditionOnMyProperties.class.getName()).get("value");
+        if (value != null) {
+            int i = Integer.parseInt((String) value);
+            if (i > 0 ) {
+                return new ConditionOutcome(true, "OK");
+            }
+        }
+        return new ConditionOutcome(false, "OK");
+    }
+}
+
+（2）实现注释
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(OnMyCondition.class)		//自己定义的条件类
+public @interface ConditionOnMyProperties {
+    String value();
+}
+
+（3）使用
+@Configuration
+public class MyConfiguration {
+    @Bean
+    @ConditionOnMyProperties(value="3")
+    public  String test03(){
+        System.out.println("hello world");
+        return "";
+    }
+ 
+}

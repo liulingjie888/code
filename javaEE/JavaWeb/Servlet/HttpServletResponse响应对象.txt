@@ -46,7 +46,7 @@ PrintWriter getWriter();
 .setHeader("Refresh","3");
 //告诉浏览器请求指定文件（重定向）,该方法会生成302响应码和Location响应头，浏览器会通过获取响应头的Location获取URL
 //路径可以用相对路径，其中“/”表示根目录webapps
-.sendRedirect("/myWebProject/login.html");
+.sendRedirect(request.getContextPath()+"/login.html");
 
 //服务端跳转
 request.getRequestDispatcher("相对路径").forward(request, response);

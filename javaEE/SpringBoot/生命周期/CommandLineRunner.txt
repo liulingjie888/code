@@ -1,0 +1,24 @@
+CommandLineRunner 是很好的扩展接口，不是 Spring 框架原有的“宝贝”，它属于 SpringBoot 应用特定的回调扩展接口。源码如下所示：
+
+
+public interface CommandLineRunner {
+    void run(String... args) throws Exception;
+}
+
+
+=============实现：
+@Component
+@Order(1)		//加载顺序
+public class CommandLineRunnerDemo implements CommandLineRunner {
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("Test CommandLineRunner");
+    }
+}
+
+
+===============CommandLineRunner 需要大家关注的其实就两点
+1）所有 CommandLineRunner 的执行时点在 SpringBoot 应用的 Application-Context 完全初始化开始工作之后（可以认为是 main 方法执行完成之前最后一步）。
+2）只要存在于当前 SpringBoot 应用的 ApplicationContext 中的任何 Command-LineRunner，都会被加载执行（不管你是手动注册这个 CommandLineRunner 到 IoC 容器，还是自动扫描进去的）。
+3）建议对它们的执行顺序进行调整，这其实十分重要，我们不希望顺序不当的 CommandLineRunner 实现类阻塞了后面其他 CommandLineRunner 的执行。
+

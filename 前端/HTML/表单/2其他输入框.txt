@@ -26,7 +26,7 @@
 name
 cols	文本域宽度（当行字符数）
 rows	文本域高度（行数）
-wrap	"off"	不让换行
+wrap	"off"		不让换行
 	"virtual"	自动换行，但换行符不会添加到数据中
 	"physical"	自动换行，换行符<br/>会添加到数据中
 	

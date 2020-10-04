@@ -1,0 +1,73 @@
+pring事件（application event）为Bean与Bean之间的消息通信添加了支持，当一个Bean处理完一个任务之后，希望另一个Bean知道并能做相应的处理，这时我们就需要另外一个Bean监听当前Bean所发送的事件。
+
+spring的事件需要遵循以下流程：
+（1）自定义事件：继承ApplicationEvent
+（2）定义事件监听器：实现ApplicationListener
+（3）使用容器发布事件
+
+//实现事件
+public class DemoEvent extends ApplicationEvent{
+
+    private static final long serialVersionUID = 1L;
+
+    private String msg;		//消息
+
+    public void sysLog() {		//系统日志
+        System.out.println(msg);
+    }
+
+    public DemoEvent(Object source,String msg) {
+        super(source);
+        this.setMsg(msg);
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+}在
+
+//实现监听类
+@Component
+public class demoListener implements ApplicationListener<DemoEvent>{
+
+    /***
+     * 对消息进行接受处理
+     */
+    @Override
+    public void onApplicationEvent(DemoEvent event) {
+        String msg = event.getMsg();
+        System.out.println("demoListener接受到了demoPublisher发布的消息："+msg);
+    }
+
+
+}
+
+//实现发布类
+@Component
+public class DemoPublisher {
+
+    @Autowired
+    ApplicationContext context;
+
+    public void published() {
+        DemoEvent event = new DemoEvent(this, "发布成功！");
+        System.out.println("发部event："+event);
+        context.publishEvent(event);
+    }
+}
+
+//测试
+@Configuration
+@ComponentScan({"com.wugz.app"})
+public class EventConfig {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(EventConfig.class);
+        DemoPublisher publisher = context.getBean(DemoPublisher.class);	//获取发布类
+        publisher.published();		//发布事件
+        context.close();
+    }
+}

@@ -1,0 +1,44 @@
+===========首先创建一个类：
+package envutils;
+
+public class EnvUtils {
+    private String env = "test";
+
+    public String printEnv() {
+        System.out.println(env);
+        return env;
+    }
+
+    public String getEnv() {
+        return env;
+    }
+
+    public void setEnv(String env) {
+        this.env = env;
+    }
+
+}
+
+===========在META-INF/spring.factories写入：
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+envutils.EnvUtils
+
+===========测试类
+@Controller
+@EnableAutoConfiguration		//自动注入
+public class AutoTest {
+
+    @Autowired
+    private EnvUtils envUtils;	//自动注入上面自定义的类
+
+    @RequestMapping("/env")
+    @ResponseBody
+    public String env() {
+        String env = envUtils.printEnv();
+        return env;
+    }
+
+    public  static void main(String args[]) {
+        SpringApplication.run(AutoTest.class,args);
+    }
+}

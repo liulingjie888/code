@@ -34,15 +34,15 @@ form1.setAttributeNode(action);
 ==========================有时候，需要在指定位置插入节点，而不是只是追加在后面。 
 
 这个时候就需要用到insertBefore 
-1. 创建新节点 
-2. 获取父节点 
+1. 创建新节点
+2. 获取父节点
 3. 获取需要加入的子节点 
 4. 通过insertBefore插入 
 注: insertBefore的第一个参数是新元素，第二个参数是插入位置
 父节点.insertBefore(子节点1,子节点2)	将子节点1插入到子节点2前面
 
 例：
-div id="parentDiv">
+<div id="parentDiv">
  <div id="d1">第一个div</div>
  <div id="d2">第二个div</div>
  <div id="d3">第三个div</div>

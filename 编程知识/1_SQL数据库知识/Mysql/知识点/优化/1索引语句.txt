@@ -1,0 +1,32 @@
+
+		MyISAM		InnoDB
+b-tree		支持		支持
+hash		不支持		不支持		//不支持范围查找
+r-tree		支持		不支持
+full-text	支持		支持
+
+=========================虚拟列索引：
+create table user(uid int auto_increment,data json,primary key(uid));		//建表
+
+alter table user add user_name varchar(20) generated always as (data->'$.name');	//创建虚拟列，data->'$.name'可以是对已有字段的函数操作
+alter table user add index idx_name(user_name);					//用虚拟列创建索引
+
+insert into user(uid,data) values (NULL,'{"name":"pan","address":"sichuan"}');	//插入数据，虚拟列不能插入数据
+
+========================语句
+create index idx_title on film(title(10));		//创建前缀索引，但在order by和group by操作无法使用
+
+create index 索引名 on 表名(字段名,...);		//创建索引
+
+alter table 表名 add index 索引名(字段名,...);	//添加索引
+
+alter table 表名 rename index 旧索引名 to 新索引名;	//重命名
+
+=======创建
+
+=======查看语句
+show status like 'Handler_read%';		//Handler_read_key表示一个行被索引值读的次数，Handler_read_rnd_next的值高说明查询运行低效
+
+
+
+

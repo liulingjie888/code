@@ -3,7 +3,13 @@
 lock tables read [local] | [low_priority] write;		//获取表的读锁
 unlock talbes;					//释放所有的表锁，如果客户端会断开隐式释放锁
 
+MYSQL5.7：
+select语句 lock in share mode;   	 	//添加共享锁
+select语句 for udate;           	  	//添加排他锁
 
+MYSQL8.0：
+select语句 for share;      	       	//添加共享锁
+select语句 for update [nowait | skip locked]    //nowait表示有锁等待一定时间后会返回错误，skip locked跳过被锁定的行直接更新其他行
 ===============事务
 start transaction | begin [work]			//开启事务
 commit	[work]  [and {[no] chain | [no] release} ]	//提交事务,chain表示执行之后立马开启一个同级事务
@@ -13,6 +19,8 @@ set autocommit = 0|1					//是否开启自动提交
 savepoint 保存点名;		//设置保存点名 
 rollback to savepoint 保持点	//回滚到保存点
 
+set autocommit;		//关闭自动提交事务
+set session transaction isolation level read committed;	//设置session事物级别
 ===============分布式事务
 
 

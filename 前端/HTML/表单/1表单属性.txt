@@ -25,7 +25,7 @@
 "_blank"	在新窗口打开
 "_self"	在当前窗口打开（默认值）
 "_parent"	在当前窗口的父窗口打开
-"_top"	在整个浏览器窗口打开链接
+"_top"		在整个浏览器窗口打开链接
 
 =====onsubmit
 onsubmit="return false|true"	是否提交
